@@ -11,6 +11,9 @@ struct Point {
     T y;
 };
 
+typedef Point<float> FloatPoint;
+typedef Point<unsigned int> UIntPoint;
+
 struct Color {
     Color();
     explicit Color(const std::string& hex);

@@ -21,7 +21,7 @@ void Level::loadFromFile(const std::string& filepath) {
     m_background_color = Color(j["bgColor"].get<std::string>());
 }
 
-auto Level::getDefaultPivot() const -> Point<float> {
+auto Level::getDefaultPivot() const -> FloatPoint {
     return {m_default_pivot_x, m_default_pivot_y};
 }
 
