@@ -1,8 +1,9 @@
 // Created by Modar Nasser on 11/11/2020.
 
-#include "LDtkLoader/Level.hpp"
 #include <fstream>
 #include <iostream>
+
+#include "LDtkLoader/Level.hpp"
 
 using namespace ldtk;
 using json = nlohmann::json;
@@ -19,6 +20,14 @@ void Level::loadFromFile(const std::string& filepath) {
     m_default_grid_size = j["defaultGridSize"].get<unsigned int>();
 
     m_background_color = Color(j["bgColor"].get<std::string>());
+
+    const auto& defs = j["defs"];
+
+    // parsing tilesets
+    for (const auto& tileset : defs["tilesets"]) {
+        Tileset new_tileset{tileset};
+        m_tilesets.push_back(new_tileset);
+    }
 }
 
 auto Level::getDefaultPivot() const -> FloatPoint {

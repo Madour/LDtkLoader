@@ -6,6 +6,7 @@
 
 #include "LDtkLoader/thirdparty/json.hpp"
 #include "LDtkLoader/DataTypes.hpp"
+#include "LDtkLoader/Tileset.hpp"
 
 namespace ldtk {
 
@@ -22,11 +23,12 @@ namespace ldtk {
         auto getBgColor() const -> const Color&;
 
     private:
-
         float m_default_pivot_x = 0.f;
         float m_default_pivot_y = 0.f;
         unsigned int m_default_grid_size = 0;
         Color m_background_color;
+
+        std::vector<Tileset> m_tilesets;
     };
 
 }
