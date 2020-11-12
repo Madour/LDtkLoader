@@ -75,8 +75,8 @@
 				"autoRuleGroups": [],
 				"autoSourceLayerDefUid": null,
 				"tilesetDefUid": 9,
-				"tilePivotX": 0,
-				"tilePivotY": 0
+				"tilePivotX": 0.5,
+				"tilePivotY": 0.5
 			},
 			{
 				"__type": "IntGrid",

@@ -40,3 +40,10 @@ struct Tile {
     unsigned int coordId;
     unsigned int tileId;
 };
+
+enum class LayerType {
+    IntGrid,
+    Entities,
+    Tiles,
+    AutoLayer
+};

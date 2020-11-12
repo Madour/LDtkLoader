@@ -17,7 +17,7 @@ namespace ldtk {
         const unsigned int uid;
         const std::string path;
         const UIntPoint image_size;
-        const unsigned int grid_size;
+        const unsigned int tile_size;
         const unsigned int spacing;
         const unsigned int padding;
 

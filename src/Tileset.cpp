@@ -9,7 +9,7 @@ name(j["identifier"].get<std::string>()),
 uid(j["uid"].get<unsigned int>()),
 path(j["relPath"].get<std::string>()),
 image_size({j["pxWid"].get<unsigned int>(), j["pxHei"].get<unsigned int>()}),
-grid_size(j["tileGridSize"].get<unsigned int>()),
+tile_size(j["tileGridSize"].get<unsigned int>()),
 spacing(j["spacing"].get<unsigned int>()),
 padding(j["padding"].get<unsigned int>())
 {}

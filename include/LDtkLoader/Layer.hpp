@@ -6,22 +6,17 @@
 
 #include "LDtkLoader/thirdparty/json.hpp"
 #include "LDtkLoader/DataTypes.hpp"
+#include "LDtkLoader/LayerDef.hpp"
+#include "LDtkLoader/Tileset.hpp"
 
 namespace ldtk {
+
     class Level;
 
     class Layer {
-    public:
-        enum class Type {
-            IntGrid,
-            Entities,
-            Tiles,
-            AutoLayer
-        };
-
         friend Level;
-
-        const Type type;
+    public:
+        const LayerType type;
         const std::string name;
         const UIntPoint grid_size;
         const unsigned int cell_size;
@@ -32,13 +27,18 @@ namespace ldtk {
         auto getOpacity() const -> float;
         void setOpacity(float opacity);
 
+        auto hasTileset() const -> bool;
+        auto getTileset() const -> const Tileset&;
+
     private:
         explicit Layer(const nlohmann::json& j);
+        void setLayerDef(const LayerDef& layer_def);
+        void setTileset(const Tileset& tileset);
 
+        const LayerDef* m_layer_def = nullptr;
+        const Tileset* m_tileset = nullptr;
         IntPoint m_total_offset;
         float m_opacity;
-
-        static Type getTypeFromString(const std::string& type_name);
     };
 
 }
