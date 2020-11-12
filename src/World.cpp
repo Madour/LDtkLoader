@@ -17,7 +17,7 @@ void World::loadFromFile(const std::string& filepath) {
 
     m_default_pivot_x = j["defaultPivotX"].get<float>();
     m_default_pivot_y = j["defaultPivotY"].get<float>();
-    m_default_grid_size = j["defaultGridSize"].get<unsigned int>();
+    m_default_cell_size = j["defaultGridSize"].get<unsigned int>();
 
     m_background_color = Color(j["bgColor"].get<std::string>());
 
@@ -35,7 +35,7 @@ auto World::getDefaultPivot() const -> FloatPoint {
 }
 
 auto World::getDefaultGridSize() const -> unsigned int {
-    return m_default_grid_size;
+    return m_default_cell_size;
 }
 
 auto World::getBgColor() const -> const Color& {

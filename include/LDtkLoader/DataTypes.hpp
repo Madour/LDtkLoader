@@ -12,6 +12,7 @@ struct Point {
 };
 
 typedef Point<float> FloatPoint;
+typedef Point<int> IntPoint;
 typedef Point<unsigned int> UIntPoint;
 
 struct Color {
@@ -23,4 +24,19 @@ struct Color {
     std::uint8_t g = 0;
     std::uint8_t b = 0;
 
+};
+
+struct Vertex {
+    FloatPoint pos = {0.f, 0.f};
+    UIntPoint tex = {0, 0};
+    Color col = Color(255, 255, 255);
+};
+
+struct Tile {
+    UIntPoint position;
+    UIntPoint texture_position;
+    bool flipX;
+    bool flipY;
+    unsigned int coordId;
+    unsigned int tileId;
 };

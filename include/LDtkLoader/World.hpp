@@ -25,7 +25,7 @@ namespace ldtk {
     private:
         float m_default_pivot_x = 0.f;
         float m_default_pivot_y = 0.f;
-        unsigned int m_default_grid_size = 0;
+        unsigned int m_default_cell_size = 0;
         Color m_background_color;
 
         std::vector<Tileset> m_tilesets;
