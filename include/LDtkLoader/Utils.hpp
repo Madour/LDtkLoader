@@ -6,4 +6,6 @@
 
 #include "LDtkLoader/DataTypes.hpp"
 
-LayerType getLayerTypeFromString(const std::string& type_name);
+namespace ldtk {
+    LayerType getLayerTypeFromString(const std::string& type_name);
+}

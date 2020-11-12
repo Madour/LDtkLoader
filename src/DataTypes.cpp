@@ -2,6 +2,8 @@
 
 #include "LDtkLoader/DataTypes.hpp"
 
+using namespace ldtk;
+
 Color::Color() = default;
 
 Color::Color(unsigned int red, unsigned int green, unsigned int blue) :

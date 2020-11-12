@@ -2,7 +2,8 @@
 
 #include "LDtkLoader/Utils.hpp"
 
-LayerType getLayerTypeFromString(const std::string& type_name) {
+
+ldtk::LayerType ldtk::getLayerTypeFromString(const std::string& type_name) {
     if (type_name == "IntGrid")
         return LayerType::IntGrid;
     if (type_name == "Entities")
