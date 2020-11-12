@@ -10,10 +10,10 @@ set(CMAKE_RUNTIME_OUTPUT_DIRECTORY .)
 file(GLOB_RECURSE Src src/*.cpp)
 file(COPY level.ldtk DESTINATION ${CMAKE_RUNTIME_OUTPUT_DIRECTORY})
 
-
 add_library(LDtkLoader-s STATIC ${Src})
 target_include_directories(LDtkLoader-s PRIVATE include)
 
+add_subdirectory(examples/SFML)
 
 add_executable(test main.cpp)
 target_include_directories(test PRIVATE include)

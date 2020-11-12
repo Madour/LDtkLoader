@@ -3,6 +3,7 @@
 #pragma once
 
 #include <string>
+#include <vector>
 
 #include "LDtkLoader/thirdparty/json.hpp"
 #include "LDtkLoader/DataTypes.hpp"
@@ -15,6 +16,7 @@ namespace ldtk {
     class Level {
         friend World;
     public:
+        Level(Level&& other) noexcept ;
         ~Level();
 
         const std::string name;
@@ -26,6 +28,7 @@ namespace ldtk {
     private:
         explicit Level(const nlohmann::json& j, World* w);
 
+        bool no_delete=false;
         std::vector<Layer*> m_layers;
     };
 

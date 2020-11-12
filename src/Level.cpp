@@ -28,9 +28,20 @@ size({j["pxWid"].get<unsigned int>(), j["pxHei"].get<unsigned int>()})
     }
 }
 
+Level::Level(Level&& other) noexcept :
+name(other.name),
+uid(other.uid),
+size(other.size),
+m_layers(std::move(other.m_layers))
+{
+    other.no_delete = true;
+}
+
 Level::~Level() {
-    for (auto layer : m_layers)
-        delete layer;
+    if (!no_delete) {
+        for (auto layer : m_layers)
+            delete layer;
+    }
 }
 
 auto Level::allLayers() const -> const std::vector<Layer*>& {

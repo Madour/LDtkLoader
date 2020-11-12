@@ -39,7 +39,7 @@ void World::loadFromFile(const std::string& filepath) {
     // parsing levels
     for (const auto& level : j["levels"]) {
         Level new_level{level, this};
-        m_levels.push_back(new_level);
+        m_levels.push_back(std::move(new_level));
     }
 }
 

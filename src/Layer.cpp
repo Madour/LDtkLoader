@@ -106,8 +106,9 @@ void Layer::updateTileVertices(Tile& tile) const {
         modif[0].y =  cell_size; modif[1].y =  cell_size;
         modif[3].y = -cell_size; modif[2].y = -cell_size;
     }
+    std::array<UIntPoint, 4> tex_coo = {UIntPoint{0, 0}, UIntPoint{16, 0}, UIntPoint{16, 16}, UIntPoint{0, 16}};
     for (int i = 0; i < 4; ++i) {
-        verts[i].tex.x = tile.texture_position.x+modif[i].x;
-        verts[i].tex.y = tile.texture_position.y+modif[i].y;
+        verts[i].tex.x = tile.texture_position.x+tex_coo[i].x+modif[i].x;
+        verts[i].tex.y = tile.texture_position.y+tex_coo[i].y+modif[i].y;
     }
 }
