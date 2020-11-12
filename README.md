@@ -6,5 +6,16 @@
 
 WIP, API is not definitive.
 
+```c++
+ldtk::World world;
+world.loadFromFile("my_levels.ldtk");
+```
+
 #### Not yet supported
-- Entities 
+
+- Entities Layers
+
+#### To Do 
+
+- SDL example
+- Helper classes for rendering
