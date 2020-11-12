@@ -4,7 +4,6 @@
 
 #include <cinttypes>
 #include <string>
-#include <array>
 
 namespace ldtk {
 
@@ -44,7 +43,7 @@ namespace ldtk {
         UIntPoint texture_position;
         bool flipX=false;
         bool flipY=false;
-        std::array<Vertex, 4> vertices;
+        Vertex vertices[4];
     };
 
     enum class LayerType {

@@ -43,6 +43,19 @@ m_opacity(j["__opacity"].get<float>())
     }
 }
 
+Layer::Layer(Layer&& other) noexcept :
+type(other.type),
+name(other.name),
+grid_size(other.grid_size),
+cell_size(other.cell_size),
+m_layer_def(other.m_layer_def),
+m_tileset(other.m_tileset),
+m_total_offset(other.m_total_offset),
+m_opacity(other.m_opacity),
+m_tiles(std::move(other.m_tiles)),
+m_tiles_map(std::move(other.m_tiles_map))
+{}
+
 auto Layer::getOffset() const -> const IntPoint& {
     return m_total_offset;
 }
@@ -97,7 +110,7 @@ void Layer::updateTileVertices(Tile& tile) const {
     verts[2].pos.x = tile.position.x+cell_size; verts[2].pos.y = tile.position.y+cell_size;
     verts[3].pos.x = tile.position.x;           verts[3].pos.y = tile.position.y+cell_size;
 
-    std::array<UIntPoint, 4> modif;
+    UIntPoint modif[4];
     if (tile.flipX) {
         modif[0].x = cell_size; modif[1].x = -cell_size;
         modif[3].x = cell_size; modif[2].x = -cell_size;
@@ -106,7 +119,7 @@ void Layer::updateTileVertices(Tile& tile) const {
         modif[0].y =  cell_size; modif[1].y =  cell_size;
         modif[3].y = -cell_size; modif[2].y = -cell_size;
     }
-    std::array<UIntPoint, 4> tex_coo = {UIntPoint{0, 0}, UIntPoint{16, 0}, UIntPoint{16, 16}, UIntPoint{0, 16}};
+    UIntPoint tex_coo[4] = { {0, 0},  {16, 0},  {16, 16},  {0, 16}};
     for (int i = 0; i < 4; ++i) {
         verts[i].tex.x = tile.texture_position.x+tex_coo[i].x+modif[i].x;
         verts[i].tex.y = tile.texture_position.y+tex_coo[i].y+modif[i].y;

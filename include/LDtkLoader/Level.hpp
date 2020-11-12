@@ -17,20 +17,18 @@ namespace ldtk {
         friend World;
     public:
         Level(Level&& other) noexcept ;
-        ~Level();
 
         const std::string name;
         const unsigned int uid;
         const UIntPoint size;
 
-        auto allLayers() const -> const std::vector<Layer*>&;
+        auto allLayers() const -> const std::vector<Layer>&;
         auto getLayer(const std::string& layer_name) const -> const Layer&;
 
     private:
         explicit Level(const nlohmann::json& j, World* w);
 
-        bool no_delete=false;
-        std::vector<Layer*> m_layers;
+        std::vector<Layer> m_layers;
     };
 
 }

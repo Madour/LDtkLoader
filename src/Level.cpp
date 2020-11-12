@@ -11,8 +11,7 @@ uid(j["uid"].get<unsigned int>()),
 size({j["pxWid"].get<unsigned int>(), j["pxHei"].get<unsigned int>()})
 {
     for (const auto& level : j["layerInstances"]) {
-        auto* l = new Layer(level);
-        auto& new_layer = *l;
+        Layer new_layer{level};
 
         const auto& layer_def = w->getLayerDef(new_layer.name);
         new_layer.setLayerDef(layer_def);
@@ -24,7 +23,7 @@ size({j["pxWid"].get<unsigned int>(), j["pxHei"].get<unsigned int>()})
             if (layer_def.tileset_id >= 0)
                 new_layer.setTileset(w->getTileset(layer_def.tileset_id));
 
-        m_layers.push_back(l);
+        m_layers.push_back(std::move(new_layer));
     }
 }
 
@@ -33,24 +32,15 @@ name(other.name),
 uid(other.uid),
 size(other.size),
 m_layers(std::move(other.m_layers))
-{
-    other.no_delete = true;
-}
+{}
 
-Level::~Level() {
-    if (!no_delete) {
-        for (auto layer : m_layers)
-            delete layer;
-    }
-}
-
-auto Level::allLayers() const -> const std::vector<Layer*>& {
+auto Level::allLayers() const -> const std::vector<Layer>& {
     return m_layers;
 }
 
 auto Level::getLayer(const std::string& layer_name) const -> const Layer& {
-    for (const auto layer : m_layers)
-        if (layer->name == layer_name)
-            return *layer;
+    for (const auto& layer : m_layers)
+        if (layer.name == layer_name)
+            return layer;
     throw std::invalid_argument("Layer name "+layer_name+" not found in Level "+layer_name);
 }

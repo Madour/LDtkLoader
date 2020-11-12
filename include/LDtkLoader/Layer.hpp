@@ -16,6 +16,8 @@ namespace ldtk {
     class Layer {
         friend Level;
     public:
+        Layer(Layer&& other) noexcept;
+
         const LayerType type;
         const std::string name;
         const UIntPoint grid_size;

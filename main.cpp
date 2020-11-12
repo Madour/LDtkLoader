@@ -9,8 +9,7 @@ int main() {
 
     for (const auto& level : world.allLevels()) {
         std::cout << "Level : " << level.name << " " << level.size.x << "px x" << level.size.y << "px" << std::endl;
-        for (auto* l : level.allLayers()) {
-            const auto& layer = *l;
+        for (const auto& layer : level.allLayers()) {
             if (layer.hasTileset()) {
                 std::cout << "Layer" << layer.name << " :" << std::endl;
                 if (layer.allTiles().empty())
@@ -30,7 +29,6 @@ int main() {
                         std::cout << std::endl;
                     }
                 }
-
                 std::cout << std::endl;
             }
         }
