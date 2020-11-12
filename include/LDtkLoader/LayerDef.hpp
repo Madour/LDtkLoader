@@ -26,9 +26,6 @@ namespace ldtk {
 
     private:
         explicit LayerDef(const nlohmann::json& j);
-
-
     };
 
 }
-

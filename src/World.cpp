@@ -1,7 +1,6 @@
 // Created by Modar Nasser on 11/11/2020.
 
 #include <fstream>
-#include <iostream>
 
 #include "LDtkLoader/World.hpp"
 
@@ -27,13 +26,13 @@ void World::loadFromFile(const std::string& filepath) {
     // parsing layers defs
     for (const auto& layer_def : defs["layers"]) {
         LayerDef new_layer_def{layer_def};
-        m_layers_defs.push_back(new_layer_def);
+        m_layers_defs.push_back(std::move(new_layer_def));
     }
 
     // parsing tilesets
     for (const auto& tileset : defs["tilesets"]) {
         Tileset new_tileset{tileset};
-        m_tilesets.push_back(new_tileset);
+        m_tilesets.push_back(std::move(new_tileset));
     }
 
     // parsing levels

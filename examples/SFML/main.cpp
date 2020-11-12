@@ -24,10 +24,10 @@ int main() {
     for (const auto& tile : tiles_vector) {
         for (int j = 0; j < 4 ; ++j) {
             // set the position and texture coordinate of each vertex
-            tilemap[i*4+j].position.x = tile->vertices[j].pos.x;
-            tilemap[i*4+j].position.y = tile->vertices[j].pos.y;
-            tilemap[i*4+j].texCoords.x = tile->vertices[j].tex.x;
-            tilemap[i*4+j].texCoords.y = tile->vertices[j].tex.y;
+            tilemap[i*4+j].position.x = tile.vertices[j].pos.x;
+            tilemap[i*4+j].position.y = tile.vertices[j].pos.y;
+            tilemap[i*4+j].texCoords.x = tile.vertices[j].tex.x;
+            tilemap[i*4+j].texCoords.y = tile.vertices[j].tex.y;
         }
         i++;
     }

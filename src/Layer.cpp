@@ -1,7 +1,6 @@
 // Created by Modar Nasser on 12/11/2020.
 
 #include <iostream>
-#include <memory>
 
 #include "LDtkLoader/Layer.hpp"
 #include "LDtkLoader/Utils.hpp"
@@ -23,23 +22,24 @@ m_opacity(j["__opacity"].get<float>())
         d_offset = 1;
     }
     for (const auto& tile : j[key]) {
-        auto new_tile = std::unique_ptr<Tile>(new Tile());
-        new_tile->coordId = tile["d"].get<std::vector<unsigned int>>()[d_offset];
-        new_tile->position.x = tile["px"].get<std::vector<unsigned int>>()[0];
-        new_tile->position.y = tile["px"].get<std::vector<unsigned int>>()[1];
+        Tile new_tile;
+        new_tile.coordId = tile["d"].get<std::vector<unsigned int>>()[d_offset];
+        new_tile.position.x = tile["px"].get<std::vector<unsigned int>>()[0];
+        new_tile.position.y = tile["px"].get<std::vector<unsigned int>>()[1];
 
-        new_tile->tileId = tile["d"].get<std::vector<unsigned int>>()[d_offset+1];
-        new_tile->texture_position.x = tile["src"].get<std::vector<unsigned int>>()[0];
-        new_tile->texture_position.y = tile["src"].get<std::vector<unsigned int>>()[1];
+        new_tile.tileId = tile["d"].get<std::vector<unsigned int>>()[d_offset+1];
+        new_tile.texture_position.x = tile["src"].get<std::vector<unsigned int>>()[0];
+        new_tile.texture_position.y = tile["src"].get<std::vector<unsigned int>>()[1];
 
         auto flip = tile["f"].get<unsigned int>();
-        new_tile->flipX = flip & 1u;
-        new_tile->flipY = (flip>>1u) & 1u;
+        new_tile.flipX = flip & 1u;
+        new_tile.flipY = (flip>>1u) & 1u;
 
-        updateTileVertices(*new_tile);
+        updateTileVertices(new_tile);
 
-        m_tiles.push_back(new_tile.get());
-        m_tiles_map[new_tile->coordId] = std::move(new_tile);
+        m_tiles.push_back(new_tile);
+        auto& last_tile = m_tiles[m_tiles.size()-1];
+        m_tiles_map[last_tile.coordId] = &(last_tile);
     }
 }
 
@@ -52,9 +52,11 @@ m_layer_def(other.m_layer_def),
 m_tileset(other.m_tileset),
 m_total_offset(other.m_total_offset),
 m_opacity(other.m_opacity),
-m_tiles(std::move(other.m_tiles)),
-m_tiles_map(std::move(other.m_tiles_map))
-{}
+m_tiles(std::move(other.m_tiles))
+{
+  for (auto& tile : m_tiles)
+      m_tiles_map[tile.coordId] = &tile;
+}
 
 auto Layer::getOffset() const -> const IntPoint& {
     return m_total_offset;
@@ -84,14 +86,15 @@ auto Layer::getTileset() const -> const Tileset& {
     return *m_tileset;
 }
 
-auto Layer::allTiles() const -> const std::vector<Tile*>& {
+auto Layer::allTiles() const -> const std::vector<Tile>& {
     return m_tiles;
 }
 
 auto Layer::getTile(unsigned int grid_x, unsigned int grid_y) const -> const Tile& {
     auto id = grid_x + grid_size.x*grid_y;
     if (m_tiles_map.count(id) > 0)
-        return *m_tiles_map.at(id);
+        return *(m_tiles_map.at(id));
+
     throw std::invalid_argument("Layer "+name+" does not have a tile at position ("+std::to_string(grid_x)+", "+std::to_string(grid_y)+")");
 }
 
