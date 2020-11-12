@@ -10,9 +10,9 @@
 namespace ldtk {
     class World;
 
-    class Tileset {
+    struct Tileset {
         friend World;
-    public:
+
         const std::string name;
         const unsigned int uid;
         const std::string path;
