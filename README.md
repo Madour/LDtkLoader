@@ -1,5 +1,10 @@
 # LDtkLoader
 
-### Load a LDtk file into your C++ game !
+### Load LDtk levels in your C++ game
 
-WIP
+**LDtkLoader** is a loader for [LDtk](https://github.com/deepnight/ldtk) tile maps.
+
+WIP, API is not definitive.
+
+#### Not yet supported
+- Entities 
