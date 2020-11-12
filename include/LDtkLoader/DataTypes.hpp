@@ -4,9 +4,12 @@
 
 #include <cinttypes>
 #include <string>
+#include <array>
 
 template <typename T>
 struct Point {
+    Point() {x = 0; y = 0;}
+    Point(T x, T y) : x(x), y(y) {}
     T x;
     T y;
 };
@@ -33,12 +36,13 @@ struct Vertex {
 };
 
 struct Tile {
+    unsigned int coordId=0;
     UIntPoint position;
+    unsigned int tileId=0;
     UIntPoint texture_position;
-    bool flipX;
-    bool flipY;
-    unsigned int coordId;
-    unsigned int tileId;
+    bool flipX=false;
+    bool flipY=false;
+    std::array<Vertex, 4> vertices;
 };
 
 enum class LayerType {

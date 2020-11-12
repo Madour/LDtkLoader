@@ -11,7 +11,8 @@ uid(j["uid"].get<unsigned int>()),
 size({j["pxWid"].get<unsigned int>(), j["pxHei"].get<unsigned int>()})
 {
     for (const auto& level : j["layerInstances"]) {
-        Layer new_layer{level};
+        auto* l = new Layer(level);
+        auto& new_layer = *l;
 
         const auto& layer_def = w->getLayerDef(new_layer.name);
         new_layer.setLayerDef(layer_def);
@@ -23,10 +24,15 @@ size({j["pxWid"].get<unsigned int>(), j["pxHei"].get<unsigned int>()})
             if (layer_def.tileset_id >= 0)
                 new_layer.setTileset(w->getTileset(layer_def.tileset_id));
 
-        m_layers.push_back(new_layer);
+        m_layers.push_back(l);
     }
 }
 
-auto Level::allLayers() const -> const std::vector<Layer>& {
+Level::~Level() {
+    for (auto layer : m_layers)
+        delete layer;
+}
+
+auto Level::allLayers() const -> const std::vector<Layer*>& {
     return m_layers;
 }

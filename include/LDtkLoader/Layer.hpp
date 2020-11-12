@@ -30,15 +30,23 @@ namespace ldtk {
         auto hasTileset() const -> bool;
         auto getTileset() const -> const Tileset&;
 
+        auto allTiles() const -> const std::vector<Tile*>&;
+        auto getTile(unsigned int grid_x, unsigned int grid_y) const -> const Tile&;
+
     private:
         explicit Layer(const nlohmann::json& j);
         void setLayerDef(const LayerDef& layer_def);
         void setTileset(const Tileset& tileset);
+        void updateTileVertices(Tile& tile) const;
 
         const LayerDef* m_layer_def = nullptr;
         const Tileset* m_tileset = nullptr;
+
         IntPoint m_total_offset;
         float m_opacity;
+
+        std::vector<Tile*> m_tiles;
+        std::map<unsigned int, std::unique_ptr<Tile>> m_tiles_map;
     };
 
 }

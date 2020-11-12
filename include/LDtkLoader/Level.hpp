@@ -15,16 +15,18 @@ namespace ldtk {
     class Level {
         friend World;
     public:
+        ~Level();
+
         const std::string name;
         const unsigned int uid;
         const UIntPoint size;
 
-        auto allLayers() const -> const std::vector<Layer>&;
+        auto allLayers() const -> const std::vector<Layer*>&;
 
     private:
         explicit Level(const nlohmann::json& j, World* w);
 
-        std::vector<Layer> m_layers;
+        std::vector<Layer*> m_layers;
     };
 
 }
