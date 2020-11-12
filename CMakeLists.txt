@@ -5,16 +5,24 @@ project(LDtkLoader)
 set(CMAKE_CXX_STANDARD 11)
 
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY .)
+set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY lib)
 
 # temporary
 file(GLOB_RECURSE Src src/*.cpp)
-file(COPY level.ldtk DESTINATION ${CMAKE_RUNTIME_OUTPUT_DIRECTORY})
 
 add_library(LDtkLoader-s STATIC ${Src})
 target_include_directories(LDtkLoader-s PRIVATE include)
 
-add_subdirectory(examples/SFML)
+add_subdirectory(examples/console)
 
-add_executable(test main.cpp)
-target_include_directories(test PRIVATE include)
-target_link_libraries(test PRIVATE LDtkLoader-s)
+option(BUILD_SFML_EXAMPLE "Build an example using LDtkLoader with SFML." OFF)
+option(BUILD_SDL_EXAMPLE "Build an example using LDtkLoader with SDL." OFF)
+
+if (BUILD_SFML_EXAMPLE)
+    message("\n-- [INFO] Will build SFML example")
+    add_subdirectory(examples/SFML)
+endif()
+
+if (BUILD_SDL_EXAMPLE)
+    message("\n-- [INFO] SDL example does not exist yet.")
+endif()

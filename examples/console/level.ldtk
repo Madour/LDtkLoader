@@ -373,9 +373,9 @@
 		],
 		"tilesets": [
 			{
-				"identifier": "Cavernas_by_Adam_Saltsman",
+				"identifier": "someTileset",
 				"uid": 9,
-				"relPath": "../ldtk-0.5.2-beta/app/samples/Cavernas_by_Adam_Saltsman.png",
+				"relPath": "someTileset.png",
 				"pxWid": 96,
 				"pxHei": 256,
 				"tileGridSize": 8,
@@ -2461,20 +2461,7 @@
 						{ "coordId": 6, "v": 0 },
 						{ "coordId": 7, "v": 0 }
 					],
-					"autoLayerTiles": [
-						{ "px": [0,0], "src": [32,48], "f": 0, "d": [84,0,76] },
-						{ "px": [8,0], "src": [32,48], "f": 0, "d": [84,1,76] },
-						{ "px": [16,0], "src": [32,48], "f": 0, "d": [84,2,76] },
-						{ "px": [48,0], "src": [32,48], "f": 0, "d": [84,6,76] },
-						{ "px": [24,0], "src": [24,48], "f": 1, "d": [83,3,75] },
-						{ "px": [40,0], "src": [24,48], "f": 0, "d": [83,5,75] },
-						{ "px": [56,0], "src": [24,48], "f": 1, "d": [83,7,75] },
-						{ "px": [8,8], "src": [56,80], "f": 0, "d": [99,33,127] },
-						{ "px": [16,8], "src": [56,80], "f": 0, "d": [99,34,127] },
-						{ "px": [24,8], "src": [24,96], "f": 0, "d": [99,35,147] },
-						{ "px": [40,8], "src": [56,80], "f": 0, "d": [99,37,127] },
-						{ "px": [48,8], "src": [24,96], "f": 0, "d": [99,38,147] }
-					],
+					"autoLayerTiles": [],
 					"seed": 1986405,
 					"gridTiles": [],
 					"entityInstances": []
