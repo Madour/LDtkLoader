@@ -18,9 +18,11 @@ namespace ldtk {
         World();
         void loadFromFile(const std::string& filepath);
 
+        auto getName() const -> const std::string&;
+
         auto getDefaultPivot() const -> Point<float>;
 
-        auto getDefaultGridSize() const -> unsigned int;
+        auto getDefaultCellSize() const -> unsigned int;
 
         auto getBgColor() const -> const Color&;
 
@@ -31,6 +33,7 @@ namespace ldtk {
         auto getTileset(const std::string& name) const -> const Tileset&;
 
         auto allLevels() const -> const std::vector<Level>&;
+        auto getLevel(const std::string& name) const -> const Level&;
 
     private:
         std::string m_name;

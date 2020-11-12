@@ -43,11 +43,15 @@ void World::loadFromFile(const std::string& filepath) {
     }
 }
 
+auto World::getName() const -> const std::string& {
+    return m_name;
+}
+
 auto World::getDefaultPivot() const -> FloatPoint {
     return {m_default_pivot_x, m_default_pivot_y};
 }
 
-auto World::getDefaultGridSize() const -> unsigned int {
+auto World::getDefaultCellSize() const -> unsigned int {
     return m_default_cell_size;
 }
 
@@ -85,4 +89,11 @@ auto World::getTileset(const std::string& name) const -> const Tileset& {
 
 auto World::allLevels() const -> const std::vector<Level>& {
     return m_levels;
+}
+
+auto World::getLevel(const std::string& name) const -> const Level& {
+    for (const auto& level : m_levels)
+        if (level.name == name)
+            return level;
+    throw std::invalid_argument("Level name "+name+" not found in World "+m_name+".");
 }

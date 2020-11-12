@@ -24,6 +24,7 @@ namespace ldtk {
         const UIntPoint size;
 
         auto allLayers() const -> const std::vector<Layer*>&;
+        auto getLayer(const std::string& layer_name) const -> const Layer&;
 
     private:
         explicit Level(const nlohmann::json& j, World* w);
@@ -33,4 +34,3 @@ namespace ldtk {
     };
 
 }
-
