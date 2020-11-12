@@ -11,9 +11,9 @@
 namespace ldtk {
 
 
-    class Level {
+    class World {
     public:
-        Level();
+        World();
         void loadFromFile(const std::string& filepath);
 
         auto getDefaultPivot() const -> Point<float>;

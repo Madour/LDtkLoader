@@ -3,14 +3,14 @@
 #include <fstream>
 #include <iostream>
 
-#include "LDtkLoader/Level.hpp"
+#include "LDtkLoader/World.hpp"
 
 using namespace ldtk;
 using json = nlohmann::json;
 
-Level::Level() = default;
+World::World() = default;
 
-void Level::loadFromFile(const std::string& filepath) {
+void World::loadFromFile(const std::string& filepath) {
     std::ifstream in(filepath);
     json j;
     in >> j;
@@ -30,14 +30,14 @@ void Level::loadFromFile(const std::string& filepath) {
     }
 }
 
-auto Level::getDefaultPivot() const -> FloatPoint {
+auto World::getDefaultPivot() const -> FloatPoint {
     return {m_default_pivot_x, m_default_pivot_y};
 }
 
-auto Level::getDefaultGridSize() const -> unsigned int {
+auto World::getDefaultGridSize() const -> unsigned int {
     return m_default_grid_size;
 }
 
-auto Level::getBgColor() const -> const Color& {
+auto World::getBgColor() const -> const Color& {
     return m_background_color;
 }

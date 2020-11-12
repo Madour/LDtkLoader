@@ -8,10 +8,10 @@
 #include "LDtkLoader/DataTypes.hpp"
 
 namespace ldtk {
-    class Level;
+    class World;
 
     class Tileset {
-        friend Level;
+        friend World;
     public:
         const std::string name;
         const unsigned int uid;
