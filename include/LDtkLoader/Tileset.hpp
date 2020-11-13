@@ -21,6 +21,8 @@ namespace ldtk {
         const unsigned int spacing;
         const unsigned int padding;
 
+        auto getTileTexturePos(unsigned int tile_id) const -> UIntPoint;
+
     private:
         explicit Tileset(const nlohmann::json& j);
     };

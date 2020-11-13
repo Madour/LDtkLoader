@@ -13,3 +13,11 @@ tile_size(j["tileGridSize"].get<unsigned int>()),
 spacing(j["spacing"].get<unsigned int>()),
 padding(j["padding"].get<unsigned int>())
 {}
+
+auto Tileset::getTileTexturePos(unsigned int tile_id) const -> UIntPoint {
+    auto grid_width = image_size.x / tile_size;
+    return {
+        (tile_id % grid_width)*tile_size,
+        (tile_id / grid_width)*tile_size
+    };
+}
