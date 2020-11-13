@@ -19,10 +19,11 @@ option(BUILD_SFML_EXAMPLE "Build an example using LDtkLoader with SFML." OFF)
 option(BUILD_SDL_EXAMPLE "Build an example using LDtkLoader with SDL." OFF)
 
 if (BUILD_SFML_EXAMPLE)
-    message("\n-- [INFO] Will build SFML example")
+    message("-- [INFO] Will build SFML example")
     add_subdirectory(examples/SFML)
 endif()
 
 if (BUILD_SDL_EXAMPLE)
-    message("\n-- [INFO] SDL example does not exist yet.")
+    message("-- [INFO] Will build SDL example")
+    add_subdirectory(examples/SDL)
 endif()
