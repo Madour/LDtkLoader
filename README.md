@@ -34,7 +34,7 @@ cmake --build .
 
 Additional CMake options you can pass :
  - `-DBUILD_SFML_EXAMPLE=ON` : to build the SFML example (requires SFML installed)
- - `-DBUILD_SDL_EXAMPLE=ON` : to build the SDL example (comming soon™) 
+ - `-DBUILD_SDL_EXAMPLE=ON` : to build the SDL example (requires SDL2 and SDL2_image installed) 
 
 ### Features
 
@@ -49,5 +49,5 @@ header metadata etc are not loaded.
 
 ### To Do 
 
-- SDL example
 - Helper classes for rendering
+- API documentation
