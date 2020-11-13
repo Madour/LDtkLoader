@@ -41,8 +41,8 @@ Additional CMake options you can pass :
  - [x] IntGrid layers
  - [x] Tiles layers
  - [x] AutoLayer layers
+ - [x] Enums
  - [ ] Entities layers
- - [ ] Enums
 
 Note that LDtkLoader loads only the data needed to render the levels. Things like rules,
 header metadata etc are not loaded.
