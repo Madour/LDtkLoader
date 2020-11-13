@@ -17,7 +17,7 @@ padding(j["padding"].get<unsigned int>())
 auto Tileset::getTileTexturePos(unsigned int tile_id) const -> UIntPoint {
     auto grid_width = image_size.x / tile_size;
     return {
-        (tile_id % grid_width)*tile_size,
-        (tile_id / grid_width)*tile_size
+        padding + (tile_id % grid_width) * (tile_size + spacing),
+        padding + (tile_id / grid_width) * (tile_size + spacing)
     };
 }
