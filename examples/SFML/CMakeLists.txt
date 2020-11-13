@@ -5,7 +5,7 @@ project(LDtkLoader-SFML)
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY bin)
 
 # find SFML
-find_package(SFML COMPONENTS graphics audio)
+find_package(SFML REQUIRED COMPONENTS graphics audio)
 
 file(COPY tileset.png DESTINATION ${CMAKE_RUNTIME_OUTPUT_DIRECTORY})
 file(COPY level.ldtk DESTINATION ${CMAKE_RUNTIME_OUTPUT_DIRECTORY})

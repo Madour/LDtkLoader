@@ -9,12 +9,17 @@ int main() {
     ldtk::World world;
     world.loadFromFile("level.ldtk");
 
+    // get the level and the layer we want to render
+    // get all the tiles in the Ground layer of the level Level
+    const auto& level = world.getLevel("Level");
+    const auto& layer = level.getLayer("Ground");
+    // get all the tiles in the Ground layer
+    const auto& tiles_vector = layer.allTiles();
+
     // load the tileset texture
     sf::Texture tileset_texture;
-    tileset_texture.loadFromFile(world.getTileset("Tileset").path);
+    tileset_texture.loadFromFile(layer.getTileset().path);
 
-    // get all the tiles in the Ground layer of the level Level
-    const auto& tiles_vector = world.getLevel("Level").getLayer("Ground").allTiles();
 
     // create the VertexArray that will store all the tiles
     sf::VertexArray tilemap;
@@ -24,6 +29,7 @@ int main() {
     for (const auto& tile : tiles_vector) {
         for (int j = 0; j < 4 ; ++j) {
             // set the position and texture coordinate of each vertex
+            // flips are already done, you don't need to do it manually
             tilemap[i*4+j].position.x = tile.vertices[j].pos.x;
             tilemap[i*4+j].position.y = tile.vertices[j].pos.y;
             tilemap[i*4+j].texCoords.x = tile.vertices[j].tex.x;
@@ -34,7 +40,7 @@ int main() {
 
     // create the window and start the game loop
     sf::RenderWindow window;
-    window.create(sf::VideoMode(world.getLevel("Level").size.x*4, world.getLevel("Level").size.y*4), "LDtkLoader - SFML");
+    window.create(sf::VideoMode(level.size.x*4, level.size.y*4), "LDtkLoader - SFML");
     window.setFramerateLimit(60);
 
     sf::Event event{};
