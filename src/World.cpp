@@ -21,6 +21,12 @@ void World::loadFromFile(const std::string& filepath) {
 
     m_background_color = Color(j["bgColor"].get<std::string>());
 
+    // reset all containers
+    m_layers_defs.clear();
+    m_tilesets.clear();
+    m_enums.clear();
+    m_levels.clear();
+
     const auto& defs = j["defs"];
 
     // parsing layers defs
@@ -33,6 +39,11 @@ void World::loadFromFile(const std::string& filepath) {
     for (const auto& tileset : defs["tilesets"]) {
         Tileset new_tileset{tileset};
         m_tilesets.push_back(std::move(new_tileset));
+    }
+
+    // parsing eums
+    for (const auto& en : defs["enums"]) {
+        m_enums.insert({en["identifier"].get<std::string>(), std::move(Enum(en, this))});
     }
 
     // parsing levels
@@ -84,6 +95,12 @@ auto World::getTileset(const std::string& name) const -> const Tileset& {
         if (tileset.name == name)
             return tileset;
     throw std::invalid_argument("Tileset name "+name+" not found in World "+m_name+".");
+}
+
+auto World::getEnum(const std::string& enum_name) -> const Enum& {
+    if (m_enums.count(enum_name) > 0)
+        return m_enums.at(enum_name);
+    throw std::invalid_argument("Enum "+enum_name+" not found in World "+m_name+".");
 }
 
 auto World::allLevels() const -> const std::vector<Level>& {

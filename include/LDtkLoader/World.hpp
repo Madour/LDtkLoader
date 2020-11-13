@@ -9,6 +9,7 @@
 #include "LDtkLoader/Tileset.hpp"
 #include "LDtkLoader/LayerDef.hpp"
 #include "LDtkLoader/Level.hpp"
+#include "LDtkLoader/Enum.hpp"
 
 namespace ldtk {
 
@@ -32,6 +33,8 @@ namespace ldtk {
         auto getTileset(unsigned int id) const -> const Tileset&;
         auto getTileset(const std::string& name) const -> const Tileset&;
 
+        auto getEnum(const std::string& enum_name) -> const Enum&;
+
         auto allLevels() const -> const std::vector<Level>&;
         auto getLevel(const std::string& name) const -> const Level&;
 
@@ -44,6 +47,7 @@ namespace ldtk {
 
         std::vector<Tileset> m_tilesets;
         std::vector<LayerDef> m_layers_defs;
+        std::map<std::string, Enum> m_enums;
 
         std::vector<Level> m_levels;
     };
