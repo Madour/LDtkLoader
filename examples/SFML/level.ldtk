@@ -3,7 +3,7 @@
 		"fileType": "LDtk Project JSON",
 		"app": "LDtk",
 		"appAuthor": "Sebastien Benard",
-		"appVersion": "0.5.2-beta-debug",
+		"appVersion": "0.5.2-beta",
 		"url": "https://deepnight.net/tools/ldtk-2d-level-editor/"
 	},
 	"jsonVersion": "0.5.2",
@@ -11,11 +11,28 @@
 	"defaultPivotY": 0,
 	"defaultGridSize": 16,
 	"bgColor": "#7F8093",
-	"nextUid": 40,
+	"nextUid": 45,
 	"minifyJson": false,
 	"exportTiled": false,
 	"defs": {
 		"layers": [
+			{
+				"__type": "Entities",
+				"identifier": "EntitiesLayer",
+				"type": "Entities",
+				"uid": 40,
+				"gridSize": 16,
+				"displayOpacity": 1,
+				"pxOffsetX": 0,
+				"pxOffsetY": 0,
+				"intGridValues": [{ "identifier": null, "color": "#000000" }],
+				"autoTilesetDefUid": null,
+				"autoRuleGroups": [],
+				"autoSourceLayerDefUid": null,
+				"tilesetDefUid": null,
+				"tilePivotX": 0,
+				"tilePivotY": 0
+			},
 			{
 				"__type": "AutoLayer",
 				"identifier": "Ground",
@@ -299,7 +316,58 @@
 				"tilePivotY": 0
 			}
 		],
-		"entities": [],
+		"entities": [
+			{
+				"identifier": "Player",
+				"uid": 41,
+				"width": 16,
+				"height": 16,
+				"color": "#94D9B3",
+				"renderMode": "Tile",
+				"showName": true,
+				"tilesetId": 1,
+				"tileId": 115,
+				"tileRenderMode": "Stretch",
+				"maxPerLevel": 1,
+				"limitBehavior": "PreventAdding",
+				"pivotX": 0,
+				"pivotY": 0,
+				"fieldDefs": [
+					{
+						"identifier": "enumField",
+						"__type": "LocalEnum.Items",
+						"uid": 43,
+						"type": { "id": "F_Enum", "params": [42] },
+						"isArray": false,
+						"canBeNull": false,
+						"arrayMinLength": null,
+						"arrayMaxLength": null,
+						"editorDisplayMode": "NameAndValue",
+						"editorDisplayPos": "Above",
+						"editorAlwaysShow": false,
+						"min": null,
+						"max": null,
+						"defaultOverride": null
+					},
+					{
+						"identifier": "TextArray",
+						"__type": "Array<String>",
+						"uid": 44,
+						"type": "F_String",
+						"isArray": true,
+						"canBeNull": true,
+						"arrayMinLength": 1,
+						"arrayMaxLength": null,
+						"editorDisplayMode": "Hidden",
+						"editorDisplayPos": "Above",
+						"editorAlwaysShow": false,
+						"min": null,
+						"max": null,
+						"defaultOverride": null
+					}
+				]
+			}
+		],
 		"tilesets": [
 			{
 				"identifier": "Tileset",
@@ -408,7 +476,11 @@
 				"savedSelections": []
 			}
 		],
-		"enums": [],
+		"enums": [{ "identifier": "Items", "uid": 42, "values": [
+			{ "id": "Bush", "tileId": 49, "__tileSrcRect": [16,48,16,16] },
+			{ "id": "FlowerPot", "tileId": 51, "__tileSrcRect": [48,48,16,16] },
+			{ "id": "Pot", "tileId": 54, "__tileSrcRect": [96,48,16,16] }
+		], "iconTilesetUid": 1, "externalRelPath": null, "externalFileChecksum": null }],
 		"externalEnums": []
 	},
 	"levels": [
@@ -418,6 +490,49 @@
 			"pxWid": 288,
 			"pxHei": 192,
 			"layerInstances": [
+				{
+					"__identifier": "EntitiesLayer",
+					"__type": "Entities",
+					"__cWid": 18,
+					"__cHei": 12,
+					"__gridSize": 16,
+					"__opacity": 1,
+					"__pxTotalOffsetX": 0,
+					"__pxTotalOffsetY": 0,
+					"levelId": 0,
+					"layerDefUid": 40,
+					"pxOffsetX": 0,
+					"pxOffsetY": 0,
+					"intGrid": [],
+					"autoLayerTiles": [],
+					"seed": 4119234,
+					"gridTiles": [],
+					"entityInstances": [{ "__identifier": "Player", "__grid": [7,5], "__tile": { "tilesetUid": 1, "srcRect": [48,112,16,16] }, "defUid": 41, "px": [112,80], "fieldInstances": [
+						{
+							"__identifier": "enumField",
+							"__value": "Bush",
+							"__type": "LocalEnum.Items",
+							"defUid": 43,
+							"realEditorValues": [{
+								"id": "V_String",
+								"params": ["Bush"]
+							}]
+						},
+						{
+							"__identifier": "TextArray",
+							"__value": [ "toto", "coco" ],
+							"__type": "Array<String>",
+							"defUid": 44,
+							"realEditorValues": [ {
+								"id": "V_String",
+								"params": ["toto"]
+							}, {
+								"id": "V_String",
+								"params": ["coco"]
+							} ]
+						}
+					] }]
+				},
 				{
 					"__identifier": "Ground",
 					"__type": "AutoLayer",
@@ -898,6 +1013,25 @@
 			"pxWid": 256,
 			"pxHei": 256,
 			"layerInstances": [
+				{
+					"__identifier": "EntitiesLayer",
+					"__type": "Entities",
+					"__cWid": 16,
+					"__cHei": 16,
+					"__gridSize": 16,
+					"__opacity": 1,
+					"__pxTotalOffsetX": 0,
+					"__pxTotalOffsetY": 0,
+					"levelId": 39,
+					"layerDefUid": 40,
+					"pxOffsetX": 0,
+					"pxOffsetY": 0,
+					"intGrid": [],
+					"autoLayerTiles": [],
+					"seed": 133142,
+					"gridTiles": [],
+					"entityInstances": []
+				},
 				{
 					"__identifier": "Ground",
 					"__type": "AutoLayer",

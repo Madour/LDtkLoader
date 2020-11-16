@@ -10,7 +10,6 @@ int main() {
     world.loadFromFile("level.ldtk");
 
     // get the level and the layer we want to render
-    // get all the tiles in the Ground layer of the level Level
     const auto& level = world.getLevel("Level");
     const auto& layer = level.getLayer("Ground");
     // get all the tiles in the Ground layer

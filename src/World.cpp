@@ -46,6 +46,12 @@ void World::loadFromFile(const std::string& filepath) {
         m_enums.insert({en["identifier"].get<std::string>(), std::move(Enum(en, this))});
     }
 
+    //parsing entities def
+    for (const auto& ent_def : defs["entities"]) {
+        EntityDef new_entity_def{ent_def, this};
+        m_entities_defs.push_back(std::move(new_entity_def));
+    }
+
     // parsing levels
     for (const auto& level : j["levels"]) {
         Level new_level{level, this};

@@ -8,6 +8,7 @@
 #include "LDtkLoader/DataTypes.hpp"
 #include "LDtkLoader/Tileset.hpp"
 #include "LDtkLoader/LayerDef.hpp"
+#include "LDtkLoader/EntityDef.hpp"
 #include "LDtkLoader/Level.hpp"
 #include "LDtkLoader/Enum.hpp"
 
@@ -48,6 +49,7 @@ namespace ldtk {
 
         std::vector<Tileset> m_tilesets;
         std::vector<LayerDef> m_layers_defs;
+        std::vector<EntityDef> m_entities_defs;
         std::map<std::string, Enum> m_enums;
 
         std::vector<Level> m_levels;
