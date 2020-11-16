@@ -16,6 +16,7 @@ namespace ldtk {
         const std::string name;
         const unsigned int id;
         const unsigned int tile_id;
+        const unsigned int type_id;
     };
 
     class Enum {

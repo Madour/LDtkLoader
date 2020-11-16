@@ -14,7 +14,7 @@ m_tileset( j["iconTilesetUid"].is_null() ? nullptr : &w->getTileset(j["iconTiles
     for (const auto& value : j["values"]) {
         const auto& val_name = value["id"].get<std::string>();
         const auto& tile_id = value["tileId"].is_null() ? 0u : value["tileId"].get<unsigned int>();
-        m_values.insert({val_name, {val_name, id++, tile_id}});
+        m_values.insert({val_name, {val_name, id++, tile_id, uid}});
     }
 }
 
