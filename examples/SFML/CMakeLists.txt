@@ -4,6 +4,10 @@ project(LDtkLoader-SFML)
 
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY bin)
 
+# Specify SFML install location
+# set(SFML_DIR C:/SFML/lib/cmake/SFML)
+# set(SFML_STATIC_LIBRARIES TRUE)
+
 # find SFML
 find_package(SFML REQUIRED COMPONENTS graphics audio)
 

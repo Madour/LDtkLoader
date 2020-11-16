@@ -108,19 +108,20 @@ void Layer::setTileset(const Tileset& tileset) {
 
 void Layer::updateTileVertices(Tile& tile) const {
     auto& verts = tile.vertices;
-    verts[0].pos.x = tile.position.x;           verts[0].pos.y = tile.position.y;
-    verts[1].pos.x = tile.position.x+cell_size; verts[1].pos.y = tile.position.y;
-    verts[2].pos.x = tile.position.x+cell_size; verts[2].pos.y = tile.position.y+cell_size;
-    verts[3].pos.x = tile.position.x;           verts[3].pos.y = tile.position.y+cell_size;
+    verts[0].pos.x = static_cast<float>(tile.position.x);           verts[0].pos.y = static_cast<float>(tile.position.y);
+    verts[1].pos.x = static_cast<float>(tile.position.x+cell_size); verts[1].pos.y = static_cast<float>(tile.position.y);
+    verts[2].pos.x = static_cast<float>(tile.position.x+cell_size); verts[2].pos.y = static_cast<float>(tile.position.y+cell_size);
+    verts[3].pos.x = static_cast<float>(tile.position.x);           verts[3].pos.y = static_cast<float>(tile.position.y+cell_size);
 
-    UIntPoint modif[4];
+    IntPoint modif[4];
+    auto cell_size_i = static_cast<int>(cell_size);
     if (tile.flipX) {
-        modif[0].x = cell_size; modif[1].x = -cell_size;
-        modif[3].x = cell_size; modif[2].x = -cell_size;
+        modif[0].x = cell_size_i; modif[1].x = -cell_size_i;
+        modif[3].x = cell_size_i; modif[2].x = -cell_size_i;
     }
     if (tile.flipY) {
-        modif[0].y =  cell_size; modif[1].y =  cell_size;
-        modif[3].y = -cell_size; modif[2].y = -cell_size;
+        modif[0].y =  cell_size_i; modif[1].y =  cell_size_i;
+        modif[3].y = -cell_size_i; modif[2].y = -cell_size_i;
     }
     UIntPoint tex_coo[4] = { {0, 0},  {16, 0},  {16, 16},  {0, 16}};
     for (int i = 0; i < 4; ++i) {
