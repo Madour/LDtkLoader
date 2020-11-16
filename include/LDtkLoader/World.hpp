@@ -33,7 +33,8 @@ namespace ldtk {
         auto getTileset(unsigned int id) const -> const Tileset&;
         auto getTileset(const std::string& name) const -> const Tileset&;
 
-        auto getEnum(const std::string& enum_name) -> const Enum&;
+        auto getEnum(unsigned int id) const -> const Enum&;
+        auto getEnum(const std::string& name) -> const Enum&;
 
         auto allLevels() const -> const std::vector<Level>&;
         auto getLevel(const std::string& name) const -> const Level&;

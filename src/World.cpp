@@ -73,7 +73,7 @@ auto World::getLayerDef(unsigned int id) const -> const LayerDef& {
     for (const auto& layer_def : m_layers_defs)
         if (layer_def.uid == id)
             return layer_def;
-    throw std::invalid_argument("LayerDef id "+std::to_string(id)+" not found in World "+m_name+".");
+    throw std::invalid_argument("LayerDef ID "+std::to_string(id)+" not found in World "+m_name+".");
 }
 
 auto World::getLayerDef(const std::string& name) const -> const LayerDef& {
@@ -87,7 +87,7 @@ auto World::getTileset(unsigned int id) const -> const Tileset& {
     for (const auto& tileset : m_tilesets)
         if (tileset.uid == id)
             return tileset;
-    throw std::invalid_argument("Tileset id "+std::to_string(id)+" not found in World "+m_name+".");
+    throw std::invalid_argument("Tileset ID "+std::to_string(id)+" not found in World "+m_name+".");
 }
 
 auto World::getTileset(const std::string& name) const -> const Tileset& {
@@ -97,10 +97,17 @@ auto World::getTileset(const std::string& name) const -> const Tileset& {
     throw std::invalid_argument("Tileset name "+name+" not found in World "+m_name+".");
 }
 
-auto World::getEnum(const std::string& enum_name) -> const Enum& {
-    if (m_enums.count(enum_name) > 0)
-        return m_enums.at(enum_name);
-    throw std::invalid_argument("Enum "+enum_name+" not found in World "+m_name+".");
+auto World::getEnum(unsigned int id) const -> const Enum& {
+    for (const auto& item : m_enums)
+        if (item.second.uid == id)
+            return item.second;
+    throw std::invalid_argument("Enum ID "+std::to_string(id)+" not found in World "+m_name+".");
+}
+
+auto World::getEnum(const std::string& name) -> const Enum& {
+    if (m_enums.count(name) > 0)
+        return m_enums.at(name);
+    throw std::invalid_argument("Enum "+name+" not found in World "+m_name+".");
 }
 
 auto World::allLevels() const -> const std::vector<Level>& {
