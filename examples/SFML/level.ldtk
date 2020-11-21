@@ -11,7 +11,7 @@
 	"defaultPivotY": 0,
 	"defaultGridSize": 16,
 	"bgColor": "#7F8093",
-	"nextUid": 45,
+	"nextUid": 46,
 	"minifyJson": false,
 	"exportTiled": false,
 	"defs": {
@@ -364,6 +364,22 @@
 						"min": null,
 						"max": null,
 						"defaultOverride": null
+					},
+					{
+						"identifier": "multilinefield",
+						"__type": "String",
+						"uid": 45,
+						"type": "F_Text",
+						"isArray": false,
+						"canBeNull": true,
+						"arrayMinLength": null,
+						"arrayMaxLength": null,
+						"editorDisplayMode": "Hidden",
+						"editorDisplayPos": "Above",
+						"editorAlwaysShow": false,
+						"min": null,
+						"max": null,
+						"defaultOverride": null
 					}
 				]
 			}
@@ -530,7 +546,8 @@
 								"id": "V_String",
 								"params": ["coco"]
 							} ]
-						}
+						},
+						{ "__identifier": "multilinefield", "__value": null, "__type": "String", "defUid": 45, "realEditorValues": [] }
 					] }]
 				},
 				{

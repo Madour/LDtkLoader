@@ -29,16 +29,16 @@ void World::loadFromFile(const std::string& filepath) {
 
     const auto& defs = j["defs"];
 
-    // parsing layers defs
-    for (const auto& layer_def : defs["layers"]) {
-        LayerDef new_layer_def{layer_def};
-        m_layers_defs.push_back(std::move(new_layer_def));
-    }
-
     // parsing tilesets
     for (const auto& tileset : defs["tilesets"]) {
         Tileset new_tileset{tileset};
         m_tilesets.push_back(std::move(new_tileset));
+    }
+
+    // parsing layers defs
+    for (const auto& layer_def : defs["layers"]) {
+        LayerDef new_layer_def{layer_def, this};
+        m_layers_defs.push_back(std::move(new_layer_def));
     }
 
     // parsing eums

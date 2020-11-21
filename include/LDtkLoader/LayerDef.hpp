@@ -6,13 +6,16 @@
 
 #include "LDtkLoader/thirdparty/json.hpp"
 #include "LDtkLoader/DataTypes.hpp"
+#include "LDtkLoader/Tileset.hpp"
 
 namespace ldtk {
 
     class World;
+    class Layer;
 
     class LayerDef {
         friend World;
+        friend Layer;
     public:
         const LayerType type;
         const std::string name;
@@ -21,11 +24,13 @@ namespace ldtk {
         const float opacity;
         const IntPoint offset;
         const FloatPoint pivot;
-        const int tileset_id;
-        const int autotileset_id;
+
+        auto getTileset() const -> const Tileset&;
 
     private:
-        explicit LayerDef(const nlohmann::json& j);
+        explicit LayerDef(const nlohmann::json& j, World* w);
+
+        const Tileset* m_tileset = nullptr;
     };
 
 }

@@ -38,11 +38,9 @@ namespace ldtk {
     private:
         explicit Layer(const nlohmann::json& j);
         void setLayerDef(const LayerDef& layer_def);
-        void setTileset(const Tileset& tileset);
         void updateTileVertices(Tile& tile) const;
 
         const LayerDef* m_layer_def = nullptr;
-        const Tileset* m_tileset = nullptr;
 
         IntPoint m_total_offset;
         float m_opacity;

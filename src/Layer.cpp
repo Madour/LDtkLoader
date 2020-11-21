@@ -49,7 +49,6 @@ name(other.name),
 grid_size(other.grid_size),
 cell_size(other.cell_size),
 m_layer_def(other.m_layer_def),
-m_tileset(other.m_tileset),
 m_total_offset(other.m_total_offset),
 m_opacity(other.m_opacity),
 m_tiles(std::move(other.m_tiles))
@@ -75,15 +74,11 @@ void Layer::setOpacity(float opacity) {
 }
 
 auto Layer::hasTileset() const -> bool {
-    return m_tileset != nullptr;
+    return m_layer_def->m_tileset != nullptr;
 }
 
 auto Layer::getTileset() const -> const Tileset& {
-    if (m_tileset == nullptr) {
-        std::cerr << "ERROR in Layer::getTileset : Layer " << name << " doesn't have a tileset." << std::endl;
-        exit(-1);
-    }
-    return *m_tileset;
+    return m_layer_def->getTileset();
 }
 
 auto Layer::allTiles() const -> const std::vector<Tile>& {
@@ -100,10 +95,6 @@ auto Layer::getTile(unsigned int grid_x, unsigned int grid_y) const -> const Til
 
 void Layer::setLayerDef(const LayerDef& layer_def) {
     m_layer_def = &layer_def;
-}
-
-void Layer::setTileset(const Tileset& tileset) {
-    m_tileset = &tileset;
 }
 
 void Layer::updateTileVertices(Tile& tile) const {
