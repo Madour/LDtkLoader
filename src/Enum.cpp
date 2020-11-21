@@ -5,6 +5,13 @@
 
 using namespace ldtk;
 
+bool ldtk::operator==(const EnumValue& l, const EnumValue& r) {
+    return (l.id == r.id);
+}
+bool ldtk::operator!=(const EnumValue& l, const EnumValue& r) {
+    return (l.id != r.id);
+}
+
 Enum::Enum(const nlohmann::json& j, World* w) :
 name(j["identifier"].get<std::string>()),
 uid(j["uid"].get<unsigned int>()),

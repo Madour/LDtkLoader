@@ -18,6 +18,8 @@ namespace ldtk {
         const unsigned int tile_id;
         const unsigned int type_id;
     };
+    bool operator==(const EnumValue& l, const EnumValue& r);
+    bool operator!=(const EnumValue& l, const EnumValue& r);
 
     class Enum {
         friend World;

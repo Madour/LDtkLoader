@@ -3,6 +3,8 @@
 #include <SFML/Graphics.hpp>
 #include <LDtkLoader/World.hpp>
 
+#include <iostream>
+
 int main() {
 
     // load the LDtk file
