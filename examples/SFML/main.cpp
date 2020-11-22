@@ -33,8 +33,8 @@ int main() {
             // flips are already done, you don't need to do it manually
             tilemap[i*4+j].position.x = tile.vertices[j].pos.x;
             tilemap[i*4+j].position.y = tile.vertices[j].pos.y;
-            tilemap[i*4+j].texCoords.x = tile.vertices[j].tex.x;
-            tilemap[i*4+j].texCoords.y = tile.vertices[j].tex.y;
+            tilemap[i*4+j].texCoords.x = static_cast<float>(tile.vertices[j].tex.x);
+            tilemap[i*4+j].texCoords.y = static_cast<float>(tile.vertices[j].tex.y);
         }
         i++;
     }

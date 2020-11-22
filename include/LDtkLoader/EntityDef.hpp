@@ -26,7 +26,6 @@ namespace ldtk {
 
         const Tileset* m_tileset;
         int m_tile_id;
-        // TODO: Entity fields here
     };
 
 }

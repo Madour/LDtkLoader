@@ -8,6 +8,7 @@
 #include "LDtkLoader/DataTypes.hpp"
 #include "LDtkLoader/LayerDef.hpp"
 #include "LDtkLoader/Tileset.hpp"
+#include "LDtkLoader/Entity.hpp"
 
 namespace ldtk {
 
@@ -46,6 +47,7 @@ namespace ldtk {
         float m_opacity;
 
         std::vector<Tile> m_tiles;
+        std::vector<Entity> m_entities;
         std::map<unsigned int, Tile*> m_tiles_map;
     };
 

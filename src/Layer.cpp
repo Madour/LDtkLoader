@@ -41,6 +41,11 @@ m_opacity(j["__opacity"].get<float>())
         auto& last_tile = m_tiles[m_tiles.size()-1];
         m_tiles_map[last_tile.coordId] = &(last_tile);
     }
+
+    for (const auto& ent : j["entityInstances"]) {
+        Entity new_ent{ent};
+        m_entities.push_back(std::move(new_ent));
+    }
 }
 
 Layer::Layer(Layer&& other) noexcept :
@@ -51,7 +56,8 @@ cell_size(other.cell_size),
 m_layer_def(other.m_layer_def),
 m_total_offset(other.m_total_offset),
 m_opacity(other.m_opacity),
-m_tiles(std::move(other.m_tiles))
+m_tiles(std::move(other.m_tiles)),
+m_entities(std::move(other.m_entities))
 {
   for (auto& tile : m_tiles)
       m_tiles_map[tile.coordId] = &tile;
