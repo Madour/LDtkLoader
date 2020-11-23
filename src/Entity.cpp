@@ -113,6 +113,14 @@ auto Entity::getSize() const -> const UIntPoint& {
     return m_definition->size;
 }
 
+auto Entity::getPosition() const -> const UIntPoint& {
+    return m_position;
+}
+
+auto Entity::getGridPosition() const -> const UIntPoint& {
+    return m_grid_pos;
+}
+
 auto Entity::getColor() const -> const Color& {
     return m_definition->color;
 }

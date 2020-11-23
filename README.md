@@ -2,10 +2,13 @@
 
 ### Load LDtk levels in your C++ game
 
-**LDtkLoader** is a loader for [LDtk](https://github.com/deepnight/ldtk) tile maps.
+**LDtkLoader** is a loader for **[LDtk](https://github.com/deepnight/ldtk)** tile maps.
 
+You can use it to load LDtk levels in your game and access any data you need via the API.
 
 ### Sample code
+
+A taste of simplicity :
 
 ```c++
 // load the file
@@ -21,6 +24,15 @@ const auto& bg_layer = level1.getLayer("BgLayer");
 // iterate on the tiles of the layer
 for (const auto& tile : bg_layer.allTiles()) {
     // do something with the tile (storing, rendering ...)
+}
+
+// iterate on Enemy entities
+for (const auto& enemy : level1.getLayer("Entities").getEntities("Enemy")) {
+    // access a field
+    const auto& enemy_weapon = enemy.getField<ldtk::EnumValue>("ActiveWeapon");
+    if (enemy_weapon == world.getEnum("Weapon")["Sword"]) {
+        // the enemy has a Sword !
+    }
 }
 ```
 
@@ -42,12 +54,14 @@ Additional CMake options you can pass :
  - [x] Tiles layers
  - [x] AutoLayer layers
  - [x] Enums
- - [ ] Entities layers
+ - [x] Entities layers
 
 Note that LDtkLoader loads only the data needed to render the levels. Things like rules,
 header metadata etc are not loaded.
 
-### To Do 
-
-- Helper classes for rendering
-- API documentation
+### To Do :
+ - [ ] Extended IntGrid data (store values)
+ - [ ] Improve error handling
+ - [ ] Make API more consistent
+ - [ ] Helper classes/methods for rendering
+ - [ ] API documentation

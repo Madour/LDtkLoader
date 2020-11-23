@@ -55,12 +55,12 @@ namespace ldtk {
             if (typeid(T).raw_name() == m_fields.at(field_name).type_name)
                 return *static_cast<T*>(m_fields.at(field_name).value.get());
             else {
-                std::cerr << "Field " << field_name << " of entity " << name
+                std::cerr << "Field " << field_name << " of entity " << getName()
                           << " is not of type " << typeid(T).name() << std::endl;
-                throw std::invalid_argument("Field "+field_name+" of entity "+name+" is not of type "+typeid(T).name());
+                throw std::invalid_argument("Field "+field_name+" of entity "+getName()+" is not of type "+typeid(T).name());
             }
         }
-        throw std::invalid_argument("Entity "+name+" does not have a field name "+field_name);
+        throw std::invalid_argument("Entity "+getName()+" does not have a field name "+field_name);
     }
 
 }
