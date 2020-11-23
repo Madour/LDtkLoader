@@ -51,15 +51,15 @@ m_definition(&w->getLayerDef(name))
 }
 
 Layer::Layer(Layer&& other) noexcept :
-        type(other.type),
-        name(other.name),
-        grid_size(other.grid_size),
-        cell_size(other.cell_size),
-        m_definition(other.m_definition),
-        m_total_offset(other.m_total_offset),
-        m_opacity(other.m_opacity),
-        m_tiles(std::move(other.m_tiles)),
-        m_entities(std::move(other.m_entities))
+type(other.type),
+name(other.name),
+grid_size(other.grid_size),
+cell_size(other.cell_size),
+m_definition(other.m_definition),
+m_total_offset(other.m_total_offset),
+m_opacity(other.m_opacity),
+m_tiles(std::move(other.m_tiles)),
+m_entities(std::move(other.m_entities))
 {
   for (auto& tile : m_tiles)
       m_tiles_map[tile.coordId] = &tile;
