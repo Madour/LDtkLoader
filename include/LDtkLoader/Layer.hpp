@@ -12,6 +12,7 @@
 
 namespace ldtk {
 
+    class World;
     class Level;
 
     class Layer {
@@ -37,7 +38,7 @@ namespace ldtk {
         auto getTile(unsigned int grid_x, unsigned int grid_y) const -> const Tile&;
 
     private:
-        explicit Layer(const nlohmann::json& j);
+        explicit Layer(const nlohmann::json& j, const World* w);
         void setLayerDef(const LayerDef& layer_def);
         void updateTileVertices(Tile& tile) const;
 

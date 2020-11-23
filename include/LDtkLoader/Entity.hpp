@@ -12,6 +12,7 @@
 
 namespace ldtk {
 
+    class World;
     class Layer;
     class Entity;
 
@@ -32,7 +33,7 @@ namespace ldtk {
         auto getField(const std::string& field_name) const -> const T&;
 
     private:
-        explicit Entity(const nlohmann::json& j);
+        explicit Entity(const nlohmann::json& j, const World* w);
         std::unordered_map<std::string, EntityField> m_fields;
         std::unordered_map<std::string, std::vector<EntityField>> m_array_fields;
     };

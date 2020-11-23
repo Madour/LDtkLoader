@@ -11,7 +11,7 @@ uid(j["uid"].get<unsigned int>()),
 size({j["pxWid"].get<unsigned int>(), j["pxHei"].get<unsigned int>()})
 {
     for (const auto& level : j["layerInstances"]) {
-        Layer new_layer{level};
+        Layer new_layer{level, w};
 
         const auto& layer_def = w->getLayerDef(new_layer.name);
         new_layer.setLayerDef(layer_def);

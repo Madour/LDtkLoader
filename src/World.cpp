@@ -110,7 +110,7 @@ auto World::getEnum(unsigned int id) const -> const Enum& {
     throw std::invalid_argument("Enum ID "+std::to_string(id)+" not found in World "+m_name+".");
 }
 
-auto World::getEnum(const std::string& name) -> const Enum& {
+auto World::getEnum(const std::string& name) const -> const Enum& {
     if (m_enums.count(name) > 0)
         return m_enums.at(name);
     throw std::invalid_argument("Enum "+name+" not found in World "+m_name+".");

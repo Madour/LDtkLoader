@@ -7,7 +7,7 @@
 
 using namespace ldtk;
 
-Layer::Layer(const nlohmann::json& j) :
+Layer::Layer(const nlohmann::json& j, const World* w) :
 type(getLayerTypeFromString(j["__type"].get<std::string>())),
 name(j["__identifier"].get<std::string>()),
 grid_size({j["__cWid"].get<unsigned int>(), j["__cHei"].get<unsigned int>()}),
@@ -43,7 +43,11 @@ m_opacity(j["__opacity"].get<float>())
     }
 
     for (const auto& ent : j["entityInstances"]) {
-        Entity new_ent{ent};
+        Entity new_ent{ent, w};
+        if (new_ent.name == "Player") {
+            auto r = new_ent.getField<EnumValue>("enumField");
+            std::cout << r.name << std::endl;
+        }
         m_entities.push_back(std::move(new_ent));
     }
 }
