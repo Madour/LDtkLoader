@@ -8,9 +8,11 @@
 #include "LDtkLoader/DataTypes.hpp"
 #include "LDtkLoader/LayerDef.hpp"
 #include "LDtkLoader/Tileset.hpp"
+#include "LDtkLoader/Entity.hpp"
 
 namespace ldtk {
 
+    class World;
     class Level;
 
     class Layer {
@@ -35,19 +37,20 @@ namespace ldtk {
         auto allTiles() const -> const std::vector<Tile>&;
         auto getTile(unsigned int grid_x, unsigned int grid_y) const -> const Tile&;
 
+        auto hasEntity(const std::string& entity_name) const -> bool;
+        auto getEntities(const std::string& entity_name) const -> const std::vector<Entity>&;
+
     private:
-        explicit Layer(const nlohmann::json& j);
-        void setLayerDef(const LayerDef& layer_def);
-        void setTileset(const Tileset& tileset);
+        explicit Layer(const nlohmann::json& j, const World* w);
         void updateTileVertices(Tile& tile) const;
 
-        const LayerDef* m_layer_def = nullptr;
-        const Tileset* m_tileset = nullptr;
+        const LayerDef* m_definition = nullptr;
 
         IntPoint m_total_offset;
         float m_opacity;
 
         std::vector<Tile> m_tiles;
+        std::unordered_map<std::string, std::vector<Entity>> m_entities;
         std::map<unsigned int, Tile*> m_tiles_map;
     };
 

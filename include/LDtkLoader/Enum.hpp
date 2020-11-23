@@ -18,6 +18,8 @@ namespace ldtk {
         const unsigned int tile_id;
         const unsigned int type_id;
     };
+    bool operator==(const EnumValue& l, const EnumValue& r);
+    bool operator!=(const EnumValue& l, const EnumValue& r);
 
     class Enum {
         friend World;
@@ -32,7 +34,7 @@ namespace ldtk {
         auto getIconTexturePos(const std::string& val_name) const -> UIntPoint;
 
     private:
-        Enum(const nlohmann::json& j, World* w);
+        Enum(const nlohmann::json& j, const World* w);
 
         const Tileset* m_tileset = nullptr;
         std::unordered_map<std::string, EnumValue> m_values;

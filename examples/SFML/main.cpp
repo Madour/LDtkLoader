@@ -3,6 +3,8 @@
 #include <SFML/Graphics.hpp>
 #include <LDtkLoader/World.hpp>
 
+#include <iostream>
+
 int main() {
 
     // load the LDtk file
@@ -10,7 +12,6 @@ int main() {
     world.loadFromFile("level.ldtk");
 
     // get the level and the layer we want to render
-    // get all the tiles in the Ground layer of the level Level
     const auto& level = world.getLevel("Level");
     const auto& layer = level.getLayer("Ground");
     // get all the tiles in the Ground layer
@@ -32,8 +33,8 @@ int main() {
             // flips are already done, you don't need to do it manually
             tilemap[i*4+j].position.x = tile.vertices[j].pos.x;
             tilemap[i*4+j].position.y = tile.vertices[j].pos.y;
-            tilemap[i*4+j].texCoords.x = tile.vertices[j].tex.x;
-            tilemap[i*4+j].texCoords.y = tile.vertices[j].tex.y;
+            tilemap[i*4+j].texCoords.x = static_cast<float>(tile.vertices[j].tex.x);
+            tilemap[i*4+j].texCoords.y = static_cast<float>(tile.vertices[j].tex.y);
         }
         i++;
     }

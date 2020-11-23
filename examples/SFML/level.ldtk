@@ -3,7 +3,7 @@
 		"fileType": "LDtk Project JSON",
 		"app": "LDtk",
 		"appAuthor": "Sebastien Benard",
-		"appVersion": "0.5.2-beta-debug",
+		"appVersion": "0.5.2-beta",
 		"url": "https://deepnight.net/tools/ldtk-2d-level-editor/"
 	},
 	"jsonVersion": "0.5.2",
@@ -11,11 +11,28 @@
 	"defaultPivotY": 0,
 	"defaultGridSize": 16,
 	"bgColor": "#7F8093",
-	"nextUid": 40,
+	"nextUid": 55,
 	"minifyJson": false,
 	"exportTiled": false,
 	"defs": {
 		"layers": [
+			{
+				"__type": "Entities",
+				"identifier": "EntitiesLayer",
+				"type": "Entities",
+				"uid": 40,
+				"gridSize": 16,
+				"displayOpacity": 1,
+				"pxOffsetX": 0,
+				"pxOffsetY": 0,
+				"intGridValues": [{ "identifier": null, "color": "#000000" }],
+				"autoTilesetDefUid": null,
+				"autoRuleGroups": [],
+				"autoSourceLayerDefUid": null,
+				"tilesetDefUid": null,
+				"tilePivotX": 0,
+				"tilePivotY": 0
+			},
 			{
 				"__type": "AutoLayer",
 				"identifier": "Ground",
@@ -299,7 +316,223 @@
 				"tilePivotY": 0
 			}
 		],
-		"entities": [],
+		"entities": [
+			{
+				"identifier": "Player",
+				"uid": 41,
+				"width": 16,
+				"height": 16,
+				"color": "#94D9B3",
+				"renderMode": "Tile",
+				"showName": true,
+				"tilesetId": 1,
+				"tileId": 115,
+				"tileRenderMode": "Stretch",
+				"maxPerLevel": 0,
+				"limitBehavior": "PreventAdding",
+				"pivotX": 0,
+				"pivotY": 0,
+				"fieldDefs": [
+					{
+						"identifier": "enumField",
+						"__type": "LocalEnum.Items",
+						"uid": 43,
+						"type": { "id": "F_Enum", "params": [42] },
+						"isArray": false,
+						"canBeNull": false,
+						"arrayMinLength": null,
+						"arrayMaxLength": null,
+						"editorDisplayMode": "NameAndValue",
+						"editorDisplayPos": "Above",
+						"editorAlwaysShow": false,
+						"min": null,
+						"max": null,
+						"defaultOverride": null
+					},
+					{
+						"identifier": "TextArray",
+						"__type": "Array<String>",
+						"uid": 44,
+						"type": "F_String",
+						"isArray": true,
+						"canBeNull": true,
+						"arrayMinLength": 1,
+						"arrayMaxLength": null,
+						"editorDisplayMode": "Hidden",
+						"editorDisplayPos": "Above",
+						"editorAlwaysShow": false,
+						"min": null,
+						"max": null,
+						"defaultOverride": null
+					},
+					{
+						"identifier": "multilinefield",
+						"__type": "String",
+						"uid": 45,
+						"type": "F_Text",
+						"isArray": false,
+						"canBeNull": true,
+						"arrayMinLength": null,
+						"arrayMaxLength": null,
+						"editorDisplayMode": "Hidden",
+						"editorDisplayPos": "Above",
+						"editorAlwaysShow": false,
+						"min": null,
+						"max": null,
+						"defaultOverride": null
+					},
+					{
+						"identifier": "intfield",
+						"__type": "Int",
+						"uid": 49,
+						"type": "F_Int",
+						"isArray": false,
+						"canBeNull": false,
+						"arrayMinLength": null,
+						"arrayMaxLength": null,
+						"editorDisplayMode": "Hidden",
+						"editorDisplayPos": "Above",
+						"editorAlwaysShow": false,
+						"min": null,
+						"max": null,
+						"defaultOverride": { "id": "V_Int", "params": [5] }
+					},
+					{
+						"identifier": "floatfield",
+						"__type": "Float",
+						"uid": 50,
+						"type": "F_Float",
+						"isArray": false,
+						"canBeNull": false,
+						"arrayMinLength": null,
+						"arrayMaxLength": null,
+						"editorDisplayMode": "Hidden",
+						"editorDisplayPos": "Above",
+						"editorAlwaysShow": false,
+						"min": null,
+						"max": null,
+						"defaultOverride": { "id": "V_Float", "params": [5.5] }
+					},
+					{
+						"identifier": "boolfield",
+						"__type": "Bool",
+						"uid": 51,
+						"type": "F_Bool",
+						"isArray": false,
+						"canBeNull": false,
+						"arrayMinLength": null,
+						"arrayMaxLength": null,
+						"editorDisplayMode": "Hidden",
+						"editorDisplayPos": "Above",
+						"editorAlwaysShow": false,
+						"min": null,
+						"max": null,
+						"defaultOverride": {
+							"id": "V_Bool",
+							"params": [ true ]
+						}
+					},
+					{
+						"identifier": "colorfield",
+						"__type": "Color",
+						"uid": 52,
+						"type": "F_Color",
+						"isArray": false,
+						"canBeNull": false,
+						"arrayMinLength": null,
+						"arrayMaxLength": null,
+						"editorDisplayMode": "Hidden",
+						"editorDisplayPos": "Above",
+						"editorAlwaysShow": false,
+						"min": null,
+						"max": null,
+						"defaultOverride": { "id": "V_Int", "params": [16777215] }
+					},
+					{
+						"identifier": "pointfield",
+						"__type": "Point",
+						"uid": 53,
+						"type": "F_Point",
+						"isArray": false,
+						"canBeNull": false,
+						"arrayMinLength": null,
+						"arrayMaxLength": null,
+						"editorDisplayMode": "Hidden",
+						"editorDisplayPos": "Above",
+						"editorAlwaysShow": false,
+						"min": null,
+						"max": null,
+						"defaultOverride": null
+					},
+					{
+						"identifier": "pointarrayfield",
+						"__type": "Array<Point>",
+						"uid": 54,
+						"type": "F_Point",
+						"isArray": true,
+						"canBeNull": false,
+						"arrayMinLength": null,
+						"arrayMaxLength": null,
+						"editorDisplayMode": "Hidden",
+						"editorDisplayPos": "Above",
+						"editorAlwaysShow": false,
+						"min": null,
+						"max": null,
+						"defaultOverride": null
+					}
+				]
+			},
+			{
+				"identifier": "Enemy",
+				"uid": 46,
+				"width": 16,
+				"height": 16,
+				"color": "#94D9B3",
+				"renderMode": "Ellipse",
+				"showName": true,
+				"tilesetId": null,
+				"tileId": null,
+				"tileRenderMode": "Stretch",
+				"maxPerLevel": 0,
+				"limitBehavior": "DiscardOldOnes",
+				"pivotX": 0,
+				"pivotY": 0,
+				"fieldDefs": [
+					{
+						"identifier": "TemsFieldCustom",
+						"__type": "LocalEnum.Items",
+						"uid": 47,
+						"type": { "id": "F_Enum", "params": [42] },
+						"isArray": false,
+						"canBeNull": false,
+						"arrayMinLength": null,
+						"arrayMaxLength": null,
+						"editorDisplayMode": "ValueOnly",
+						"editorDisplayPos": "Above",
+						"editorAlwaysShow": false,
+						"min": null,
+						"max": null,
+						"defaultOverride": null
+					},
+					{
+						"identifier": "TemsFikd",
+						"__type": "Int",
+						"uid": 48,
+						"type": "F_Int",
+						"isArray": false,
+						"canBeNull": false,
+						"arrayMinLength": null,
+						"arrayMaxLength": null,
+						"editorDisplayMode": "Hidden",
+						"editorDisplayPos": "Above",
+						"editorAlwaysShow": false,
+						"min": null,
+						"max": null,
+						"defaultOverride": null
+					}
+				]
+			}
+		],
 		"tilesets": [
 			{
 				"identifier": "Tileset",
@@ -408,7 +641,11 @@
 				"savedSelections": []
 			}
 		],
-		"enums": [],
+		"enums": [{ "identifier": "Items", "uid": 42, "values": [
+			{ "id": "Bush", "tileId": 49, "__tileSrcRect": [16,48,16,16] },
+			{ "id": "FlowerPot", "tileId": 51, "__tileSrcRect": [48,48,16,16] },
+			{ "id": "Pot", "tileId": 54, "__tileSrcRect": [96,48,16,16] }
+		], "iconTilesetUid": 1, "externalRelPath": null, "externalFileChecksum": null }],
 		"externalEnums": []
 	},
 	"levels": [
@@ -418,6 +655,169 @@
 			"pxWid": 288,
 			"pxHei": 192,
 			"layerInstances": [
+				{
+					"__identifier": "EntitiesLayer",
+					"__type": "Entities",
+					"__cWid": 18,
+					"__cHei": 12,
+					"__gridSize": 16,
+					"__opacity": 1,
+					"__pxTotalOffsetX": 0,
+					"__pxTotalOffsetY": 0,
+					"levelId": 0,
+					"layerDefUid": 40,
+					"pxOffsetX": 0,
+					"pxOffsetY": 0,
+					"intGrid": [],
+					"autoLayerTiles": [],
+					"seed": 4119234,
+					"gridTiles": [],
+					"entityInstances": [
+						{ "__identifier": "Player", "__grid": [7,5], "__tile": { "tilesetUid": 1, "srcRect": [48,112,16,16] }, "defUid": 41, "px": [112,80], "fieldInstances": [
+							{
+								"__identifier": "enumField",
+								"__value": "Bush",
+								"__type": "LocalEnum.Items",
+								"defUid": 43,
+								"realEditorValues": [{
+									"id": "V_String",
+									"params": ["Bush"]
+								}]
+							},
+							{
+								"__identifier": "TextArray",
+								"__value": [ "toto", "coco" ],
+								"__type": "Array<String>",
+								"defUid": 44,
+								"realEditorValues": [ {
+									"id": "V_String",
+									"params": ["toto"]
+								}, {
+									"id": "V_String",
+									"params": ["coco"]
+								} ]
+							},
+							{
+								"__identifier": "multilinefield",
+								"__value": "test\\\\nstr",
+								"__type": "String",
+								"defUid": 45,
+								"realEditorValues": [{
+									"id": "V_String",
+									"params": ["test\\\\nstr"]
+								}]
+							},
+							{ "__identifier": "intfield", "__value": 5, "__type": "Int", "defUid": 49, "realEditorValues": [] },
+							{ "__identifier": "floatfield", "__value": 5.5, "__type": "Float", "defUid": 50, "realEditorValues": [] },
+							{ "__identifier": "boolfield", "__value": true, "__type": "Bool", "defUid": 51, "realEditorValues": [] },
+							{ "__identifier": "colorfield", "__value": "#FFFFFF", "__type": "Color", "defUid": 52, "realEditorValues": [] },
+							{
+								"__identifier": "pointfield",
+								"__value": { "cx": 6, "cy": 6 },
+								"__type": "Point",
+								"defUid": 53,
+								"realEditorValues": [{
+									"id": "V_String",
+									"params": ["6,6"]
+								}]
+							},
+							{
+								"__identifier": "pointarrayfield",
+								"__value": [
+									{ "cx": 7, "cy": 6 },
+									{ "cx": 7, "cy": 7 },
+									{ "cx": 8, "cy": 7 },
+									{ "cx": 9, "cy": 7 },
+									{ "cx": 10, "cy": 7 }
+								],
+								"__type": "Array<Point>",
+								"defUid": 54,
+								"realEditorValues": [
+									{
+										"id": "V_String",
+										"params": ["7,6"]
+									},
+									{
+										"id": "V_String",
+										"params": ["7,7"]
+									},
+									{
+										"id": "V_String",
+										"params": ["8,7"]
+									},
+									{
+										"id": "V_String",
+										"params": ["9,7"]
+									},
+									{
+										"id": "V_String",
+										"params": ["10,7"]
+									}
+								]
+							}
+						] },
+						{ "__identifier": "Player", "__grid": [12,6], "__tile": { "tilesetUid": 1, "srcRect": [48,112,16,16] }, "defUid": 41, "px": [192,96], "fieldInstances": [
+							{
+								"__identifier": "enumField",
+								"__value": "FlowerPot",
+								"__type": "LocalEnum.Items",
+								"defUid": 43,
+								"realEditorValues": [{
+									"id": "V_String",
+									"params": ["FlowerPot"]
+								}]
+							},
+							{
+								"__identifier": "TextArray",
+								"__value": ["toto"],
+								"__type": "Array<String>",
+								"defUid": 44,
+								"realEditorValues": [{
+									"id": "V_String",
+									"params": ["toto"]
+								}]
+							},
+							{
+								"__identifier": "multilinefield",
+								"__value": "test\\\\ntest",
+								"__type": "String",
+								"defUid": 45,
+								"realEditorValues": [{
+									"id": "V_String",
+									"params": ["test\\\\ntest"]
+								}]
+							},
+							{ "__identifier": "intfield", "__value": 5, "__type": "Int", "defUid": 49, "realEditorValues": [] },
+							{ "__identifier": "floatfield", "__value": 5.5, "__type": "Float", "defUid": 50, "realEditorValues": [] },
+							{ "__identifier": "boolfield", "__value": true, "__type": "Bool", "defUid": 51, "realEditorValues": [] },
+							{ "__identifier": "colorfield", "__value": "#FFFFFF", "__type": "Color", "defUid": 52, "realEditorValues": [] },
+							{
+								"__identifier": "pointfield",
+								"__value": { "cx": 0, "cy": 4 },
+								"__type": "Point",
+								"defUid": 53,
+								"realEditorValues": [{
+									"id": "V_String",
+									"params": ["0,4"]
+								}]
+							},
+							{ "__identifier": "pointarrayfield", "__value": [], "__type": "Array<Point>", "defUid": 54, "realEditorValues": [] }
+						] },
+						{ "__identifier": "Enemy", "__grid": [9,9], "__tile": null, "defUid": 46, "px": [144,144], "fieldInstances": [
+							{
+								"__identifier": "TemsFieldCustom",
+								"__value": "Bush",
+								"__type": "LocalEnum.Items",
+								"defUid": 47,
+								"realEditorValues": [{
+									"id": "V_String",
+									"params": ["Bush"]
+								}]
+							},
+							{ "__identifier": "TemsFikd", "__value": 0, "__type": "Int", "defUid": 48, "realEditorValues": [] }
+						] }
+					]
+				},
 				{
 					"__identifier": "Ground",
 					"__type": "AutoLayer",
@@ -898,6 +1298,25 @@
 			"pxWid": 256,
 			"pxHei": 256,
 			"layerInstances": [
+				{
+					"__identifier": "EntitiesLayer",
+					"__type": "Entities",
+					"__cWid": 16,
+					"__cHei": 16,
+					"__gridSize": 16,
+					"__opacity": 1,
+					"__pxTotalOffsetX": 0,
+					"__pxTotalOffsetY": 0,
+					"levelId": 39,
+					"layerDefUid": 40,
+					"pxOffsetX": 0,
+					"pxOffsetY": 0,
+					"intGrid": [],
+					"autoLayerTiles": [],
+					"seed": 133142,
+					"gridTiles": [],
+					"entityInstances": []
+				},
 				{
 					"__identifier": "Ground",
 					"__type": "AutoLayer",
