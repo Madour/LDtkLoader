@@ -1,6 +1,5 @@
 // Created by Modar Nasser on 22/11/2020.
 
-#include <utility>
 #include <memory>
 
 #include "LDtkLoader/Entity.hpp"
@@ -9,9 +8,9 @@
 using namespace ldtk;
 
 Entity::Entity(const nlohmann::json& j, const World* w) :
-name(j["__identifier"].get<std::string>()),
-position( j["px"][0].get<unsigned int>(), j["px"][1].get<unsigned int>() ),
-grid_pos( j["__grid"][0].get<unsigned int>(), j["__grid"][1].get<unsigned int>() ),
+m_position( j["px"][0].get<unsigned int>(), j["px"][1].get<unsigned int>() ),
+m_grid_pos( j["__grid"][0].get<unsigned int>(), j["__grid"][1].get<unsigned int>() ),
+m_definition( &w->getEntityDef(j["defUid"].get<unsigned int>()) )
 {
     for (const auto& field : j["fieldInstances"]) {
         EntityField f;
@@ -104,4 +103,20 @@ grid_pos( j["__grid"][0].get<unsigned int>(), j["__grid"][1].get<unsigned int>()
             m_array_fields[field["__identifier"]].push_back(f);
         }
     }
+}
+
+auto Entity::getName() const -> const std::string& {
+    return m_definition->name;
+}
+
+auto Entity::getSize() const -> const UIntPoint& {
+    return m_definition->size;
+}
+
+auto Entity::getColor() const -> const Color& {
+    return m_definition->color;
+}
+
+auto Entity::getPivot() const -> const FloatPoint& {
+    return m_definition->pivot;
 }

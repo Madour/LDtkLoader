@@ -12,10 +12,6 @@ size({j["pxWid"].get<unsigned int>(), j["pxHei"].get<unsigned int>()})
 {
     for (const auto& level : j["layerInstances"]) {
         Layer new_layer{level, w};
-
-        const auto& layer_def = w->getLayerDef(new_layer.name);
-        new_layer.setLayerDef(layer_def);
-
         m_layers.push_back(std::move(new_layer));
     }
 }

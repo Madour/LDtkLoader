@@ -89,6 +89,20 @@ auto World::getLayerDef(const std::string& name) const -> const LayerDef& {
     throw std::invalid_argument("LayerDef name "+name+" not found in World "+m_name+".");
 }
 
+auto World::getEntityDef(unsigned int id) const -> const EntityDef& {
+    for (const auto& entity_def : m_entities_defs)
+        if (entity_def.uid == id)
+            return entity_def;
+    throw std::invalid_argument("EntityDef ID "+std::to_string(id)+" not found in World "+m_name+".");
+}
+
+auto World::getEntityDef(const std::string& name) const -> const EntityDef& {
+    for (const auto& entity_def : m_entities_defs)
+        if (entity_def.name == name)
+            return entity_def;
+    throw std::invalid_argument("EntityDef name "+name+" not found in World "+m_name+".");
+}
+
 auto World::getTileset(unsigned int id) const -> const Tileset& {
     for (const auto& tileset : m_tilesets)
         if (tileset.uid == id)

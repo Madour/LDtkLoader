@@ -31,6 +31,9 @@ namespace ldtk {
         auto getLayerDef(unsigned int id) const -> const LayerDef&;
         auto getLayerDef(const std::string& name) const -> const LayerDef&;
 
+        auto getEntityDef(unsigned int id) const -> const EntityDef&;
+        auto getEntityDef(const std::string& name) const -> const EntityDef&;
+
         auto getTileset(unsigned int id) const -> const Tileset&;
         auto getTileset(const std::string& name) const -> const Tileset&;
 

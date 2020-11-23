@@ -4,6 +4,7 @@
 
 #include "LDtkLoader/Layer.hpp"
 #include "LDtkLoader/Utils.hpp"
+#include "LDtkLoader/World.hpp"
 
 using namespace ldtk;
 
@@ -13,7 +14,8 @@ name(j["__identifier"].get<std::string>()),
 grid_size({j["__cWid"].get<unsigned int>(), j["__cHei"].get<unsigned int>()}),
 cell_size(j["__gridSize"].get<unsigned int>()),
 m_total_offset({j["__pxTotalOffsetX"].get<int>(), j["__pxTotalOffsetY"].get<int>()}),
-m_opacity(j["__opacity"].get<float>())
+m_opacity(j["__opacity"].get<float>()),
+m_definition(&w->getLayerDef(name))
 {
     std::string key = "gridTiles";
     int d_offset = 0;
@@ -44,24 +46,20 @@ m_opacity(j["__opacity"].get<float>())
 
     for (const auto& ent : j["entityInstances"]) {
         Entity new_ent{ent, w};
-        if (new_ent.name == "Player") {
-            auto r = new_ent.getField<EnumValue>("enumField");
-            std::cout << r.name << std::endl;
-        }
-        m_entities.push_back(std::move(new_ent));
+        m_entities[new_ent.getName()].push_back(std::move(new_ent));
     }
 }
 
 Layer::Layer(Layer&& other) noexcept :
-type(other.type),
-name(other.name),
-grid_size(other.grid_size),
-cell_size(other.cell_size),
-m_layer_def(other.m_layer_def),
-m_total_offset(other.m_total_offset),
-m_opacity(other.m_opacity),
-m_tiles(std::move(other.m_tiles)),
-m_entities(std::move(other.m_entities))
+        type(other.type),
+        name(other.name),
+        grid_size(other.grid_size),
+        cell_size(other.cell_size),
+        m_definition(other.m_definition),
+        m_total_offset(other.m_total_offset),
+        m_opacity(other.m_opacity),
+        m_tiles(std::move(other.m_tiles)),
+        m_entities(std::move(other.m_entities))
 {
   for (auto& tile : m_tiles)
       m_tiles_map[tile.coordId] = &tile;
@@ -84,11 +82,11 @@ void Layer::setOpacity(float opacity) {
 }
 
 auto Layer::hasTileset() const -> bool {
-    return m_layer_def->m_tileset != nullptr;
+    return m_definition->m_tileset != nullptr;
 }
 
 auto Layer::getTileset() const -> const Tileset& {
-    return m_layer_def->getTileset();
+    return m_definition->getTileset();
 }
 
 auto Layer::allTiles() const -> const std::vector<Tile>& {
@@ -103,8 +101,14 @@ auto Layer::getTile(unsigned int grid_x, unsigned int grid_y) const -> const Til
     throw std::invalid_argument("Layer "+name+" does not have a tile at position ("+std::to_string(grid_x)+", "+std::to_string(grid_y)+")");
 }
 
-void Layer::setLayerDef(const LayerDef& layer_def) {
-    m_layer_def = &layer_def;
+auto Layer::hasEntity(const std::string& entity_name) const -> bool {
+    return m_entities.count(entity_name) > 0;
+}
+
+auto Layer::getEntities(const std::string& entity_name) const -> const std::vector<Entity>& {
+    if (m_entities.count(entity_name) > 0)
+        return m_entities.at(entity_name);
+    throw std::invalid_argument("Layer "+name+" does not have Entity named "+entity_name);
 }
 
 void Layer::updateTileVertices(Tile& tile) const {

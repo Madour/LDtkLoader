@@ -9,6 +9,7 @@
 #include "LDtkLoader/thirdparty/json.hpp"
 #include "LDtkLoader/DataTypes.hpp"
 #include "LDtkLoader/Enum.hpp"
+#include "LDtkLoader/EntityDef.hpp"
 
 namespace ldtk {
 
@@ -25,15 +26,25 @@ namespace ldtk {
     class Entity {
         friend Layer;
     public:
-        const std::string name;
-        const UIntPoint position;
-        const UIntPoint grid_pos;
+
+        auto getName() const -> const std::string&;
+        auto getSize() const -> const UIntPoint&;
+        auto getPosition() const -> const UIntPoint&;
+        auto getGridPosition() const -> const UIntPoint&;
+        auto getColor() const -> const Color&;
+        auto getPivot() const -> const FloatPoint&;
 
         template<typename T>
         auto getField(const std::string& field_name) const -> const T&;
 
     private:
         explicit Entity(const nlohmann::json& j, const World* w);
+
+        const EntityDef* m_definition = nullptr;
+
+        const UIntPoint m_position;
+        const UIntPoint m_grid_pos;
+
         std::unordered_map<std::string, EntityField> m_fields;
         std::unordered_map<std::string, std::vector<EntityField>> m_array_fields;
     };
