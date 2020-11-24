@@ -52,7 +52,11 @@ Additional CMake options you can pass :
 
  - `-DBUILD_SDL_EXAMPLE=ON` : to build the SDL example (requires SDL2 and SDL2_image installed) 
 
-### Features
+### Documentation
+
+Documentation is under construction and can be found on the [**wiki**](https://github.com/Madour/LDtkLoader/wiki).
+
+### Supported features
 
  - [x] IntGrid layers
  - [x] Tiles layers
