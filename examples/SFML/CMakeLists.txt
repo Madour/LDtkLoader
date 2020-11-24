@@ -1,15 +1,16 @@
 cmake_minimum_required(VERSION 3.10)
+if (POLICY CMP0074)
+    cmake_policy(SET CMP0074 NEW)
+endif()
 
 project(LDtkLoader-SFML)
 
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY bin)
 
-# Specify SFML install location
-# set(SFML_DIR C:/SFML/lib/cmake/SFML)
-# set(SFML_STATIC_LIBRARIES TRUE)
 
 # find SFML
-find_package(SFML REQUIRED COMPONENTS graphics audio)
+find_package(SFML REQUIRED COMPONENTS graphics)
+
 
 file(COPY tileset.png DESTINATION ${CMAKE_RUNTIME_OUTPUT_DIRECTORY})
 file(COPY level.ldtk DESTINATION ${CMAKE_RUNTIME_OUTPUT_DIRECTORY})

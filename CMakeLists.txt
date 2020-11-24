@@ -4,7 +4,6 @@ project(LDtkLoader)
 
 set(CMAKE_CXX_STANDARD 11)
 
-set(CMAKE_RUNTIME_OUTPUT_DIRECTORY .)
 set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY lib)
 
 # temporary
@@ -16,7 +15,7 @@ target_include_directories(LDtkLoader-s PRIVATE include)
 add_subdirectory(examples/console)
 
 option(BUILD_SFML_EXAMPLE "Build an example using LDtkLoader with SFML." OFF)
-option(BUILD_SDL_EXAMPLE "Build an example using LDtkLoader with SDL." OFF)
+option(BUILD_SDL_EXAMPLE  "Build an example using LDtkLoader with SDL."  OFF)
 
 if (BUILD_SFML_EXAMPLE)
     message("-- [INFO] Will build SFML example")

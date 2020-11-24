@@ -1,4 +1,4 @@
-# LDtkLoader
+# LDtk Loader
 
 ### Load LDtk levels in your C++ game
 
@@ -46,6 +46,9 @@ cmake --build .
 
 Additional CMake options you can pass :
  - `-DBUILD_SFML_EXAMPLE=ON` : to build the SFML example (requires SFML installed)
+    - set `-DSFML_ROOT=/path/to/SFML/` if CMake is unable to find it
+    - set `-DSFML_STATIC_LIBRARIES=TRUE` if you want to link the static libraries
+
  - `-DBUILD_SDL_EXAMPLE=ON` : to build the SDL example (requires SDL2 and SDL2_image installed) 
 
 ### Features
