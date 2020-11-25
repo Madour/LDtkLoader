@@ -52,7 +52,7 @@ namespace ldtk {
     template <typename T>
     auto Entity::getField(const std::string& field_name) const -> const T& {
         if (m_fields.count(field_name) > 0) {
-            if (typeid(T).raw_name() == m_fields.at(field_name).type_name)
+            if (typeid(T).name() == m_fields.at(field_name).type_name)
                 return *static_cast<T*>(m_fields.at(field_name).value.get());
             else {
                 std::cerr << "Field " << field_name << " of entity " << getName()
