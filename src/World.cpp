@@ -41,7 +41,7 @@ void World::loadFromFile(const std::string& filepath) {
         m_layers_defs.push_back(std::move(new_layer_def));
     }
 
-    // parsing eums
+    // parsing enums
     for (const auto& en : defs["enums"]) {
         m_enums.insert({en["identifier"].get<std::string>(), std::move(Enum(en, this))});
     }
