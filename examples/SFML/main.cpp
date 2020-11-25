@@ -30,7 +30,7 @@ int main() {
     for (const auto& tile : tiles_vector) {
         for (int j = 0; j < 4 ; ++j) {
             // set the position and texture coordinate of each vertex
-            // flips are already done, you don't need to do it manually
+            // flips are already done, you don't have to do it manually
             tilemap[i*4+j].position.x = tile.vertices[j].pos.x;
             tilemap[i*4+j].position.y = tile.vertices[j].pos.y;
             tilemap[i*4+j].texCoords.x = static_cast<float>(tile.vertices[j].tex.x);

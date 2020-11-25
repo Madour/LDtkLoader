@@ -60,12 +60,13 @@ int main() {
     // finished drawing on tilemap_texture
     SDL_SetRenderTarget(renderer, nullptr);
 
-    int quit = 0;
+    // start the game loop
+    bool quit = false;
     SDL_Event event;
     while(!quit) {
         while (SDL_PollEvent(&event)) {
             if (event.type == SDL_QUIT) {
-                quit = 1;
+                quit = true;
             }
         }
 
@@ -81,15 +82,17 @@ int main() {
 
         // cap FPS at 60
         unsigned int end = SDL_GetPerformanceCounter();
-        float elapsed_ms = float(end - start) / (float)SDL_GetPerformanceFrequency();
-        SDL_Delay(floor(16.666 - elapsed_ms));
+        float elapsed_ms = float(end - start)*1000.f / (float)SDL_GetPerformanceFrequency();
+        if (elapsed_ms < 16.666)
+            SDL_Delay(16.666 - elapsed_ms);
     }
+
+    SDL_DestroyTexture(tileset_texture);
+    SDL_DestroyTexture(tilemap_texture);
 
     SDL_DestroyRenderer(renderer);
     SDL_DestroyWindow(window);
 
-    SDL_DestroyTexture(tileset_texture);
-    SDL_DestroyTexture(tilemap_texture);
     SDL_Quit();
 
     return 0;
