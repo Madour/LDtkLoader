@@ -20,16 +20,17 @@ namespace ldtk {
     public:
         Layer(Layer&& other) noexcept;
 
-        const LayerType type;
-        const std::string name;
-        const UIntPoint grid_size;
-        const unsigned int cell_size;
+        auto getType() const -> const LayerType&;
+        auto getName() const -> const std::string&;
+
+        auto getCellSize() const -> unsigned int;
+        auto getGridSize() const -> const UIntPoint&;
 
         auto getOffset() const -> const IntPoint&;
-        void setOffset(const IntPoint& offset);
+        void setOffset(const IntPoint& offset) const;
 
         auto getOpacity() const -> float;
-        void setOpacity(float opacity);
+        void setOpacity(float opacity) const;
 
         auto hasTileset() const -> bool;
         auto getTileset() const -> const Tileset&;
@@ -42,12 +43,13 @@ namespace ldtk {
 
     private:
         explicit Layer(const nlohmann::json& j, const World* w);
-        void updateTileVertices(Tile& tile) const;
+        void updateTileVertices(const Tile& tile) const;
 
         const LayerDef* m_definition = nullptr;
 
-        IntPoint m_total_offset;
-        float m_opacity;
+        mutable IntPoint m_total_offset;
+        mutable float m_opacity;
+        const UIntPoint m_grid_size;
 
         std::vector<Tile> m_tiles;
         std::unordered_map<std::string, std::vector<Entity>> m_entities;

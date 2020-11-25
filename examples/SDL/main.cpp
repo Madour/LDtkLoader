@@ -41,13 +41,13 @@ int main() {
     for (const auto& tile : tiles_vector) {
         // destination rect on the window
         SDL_Rect dest = {
-                int(tile.position.x), int(tile.position.y),
-                int(layer.cell_size), int(layer.cell_size)
+            int(tile.position.x), int(tile.position.y),
+            int(layer.getCellSize()), int(layer.getCellSize())
         };
         // source rect from the tileset
         SDL_Rect src = {
-                int(tile.texture_position.x), int(tile.texture_position.y),
-                int(layer.getTileset().tile_size), int(layer.getTileset().tile_size)
+            int(tile.texture_position.x), int(tile.texture_position.y),
+            int(layer.getTileset().tile_size), int(layer.getTileset().tile_size)
         };
         // get tile flips
         int flip = (tile.flipX ? SDL_FLIP_HORIZONTAL : SDL_FLIP_NONE)

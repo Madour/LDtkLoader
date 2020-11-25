@@ -29,7 +29,7 @@ auto Level::allLayers() const -> const std::vector<Layer>& {
 
 auto Level::getLayer(const std::string& layer_name) const -> const Layer& {
     for (const auto& layer : m_layers)
-        if (layer.name == layer_name)
+        if (layer.getName() == layer_name)
             return layer;
     throw std::invalid_argument("Layer name "+layer_name+" not found in Level "+layer_name);
 }

@@ -44,7 +44,7 @@ namespace ldtk {
         UIntPoint texture_position;
         bool flipX=false;
         bool flipY=false;
-        std::array<Vertex, 4> vertices;
+        mutable std::array<Vertex, 4> vertices;
     };
 
     enum class LayerType {
