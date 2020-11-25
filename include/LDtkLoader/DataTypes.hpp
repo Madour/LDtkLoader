@@ -10,7 +10,7 @@ namespace ldtk {
 
     template <typename T>
     struct Point {
-        Point() {x = 0; y = 0;}
+        Point() : x(0), y(0) {}
         Point(T x, T y) : x(x), y(y) {}
         T x;
         T y;
@@ -23,18 +23,18 @@ namespace ldtk {
     struct Color {
         Color();
         explicit Color(const std::string& hex);
-        Color(unsigned int red, unsigned int green, unsigned int bblue);
+        Color(unsigned int red, unsigned int green, unsigned int blue, unsigned int alpha=0xffu);
 
         std::uint8_t r = 0;
         std::uint8_t g = 0;
         std::uint8_t b = 0;
-
+        std::uint8_t a = 0xffu;
     };
 
     struct Vertex {
         FloatPoint pos = {0.f, 0.f};
         UIntPoint tex = {0, 0};
-        Color col = Color(255, 255, 255);
+        Color col = {255, 255, 255};
     };
 
     struct Tile {

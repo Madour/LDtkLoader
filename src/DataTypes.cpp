@@ -6,8 +6,8 @@ using namespace ldtk;
 
 Color::Color() = default;
 
-Color::Color(unsigned int red, unsigned int green, unsigned int blue) :
-r(red&0xffu), g(green&0xffu), b(blue&0xffu)
+Color::Color(unsigned int red, unsigned int green, unsigned int blue, unsigned int alpha) :
+r(red&0xffu), g(green&0xffu), b(blue&0xffu), a(alpha&0xffu)
 {}
 
 Color::Color(const std::string& hex) :
