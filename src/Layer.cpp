@@ -59,12 +59,12 @@ m_entities(std::move(other.m_entities))
       m_tiles_map[tile.coordId] = &tile;
 }
 
-auto Layer::getName() const -> const std::string& {
-    return m_definition->name;
-}
-
 auto Layer::getType() const -> const LayerType& {
     return m_definition->type;
+}
+
+auto Layer::getName() const -> const std::string& {
+    return m_definition->name;
 }
 
 auto Layer::getCellSize() const -> unsigned int {
@@ -82,7 +82,7 @@ auto Layer::getOffset() const -> const IntPoint& {
 void Layer::setOffset(const IntPoint& offset) const {
     m_total_offset = offset;
     for (const auto& tile : m_tiles)
-        updateTileVertices(tile);
+        updateTileVerticesPos(tile);
 }
 
 auto Layer::getOpacity() const -> float {
@@ -91,6 +91,8 @@ auto Layer::getOpacity() const -> float {
 
 void Layer::setOpacity(float opacity) const {
     m_opacity = std::min(1.f, std::max(0.f, opacity));
+    for (const auto& tile : m_tiles)
+        updateTileVerticesCol(tile);
 }
 
 auto Layer::hasTileset() const -> bool {
@@ -124,6 +126,12 @@ auto Layer::getEntities(const std::string& entity_name) const -> const std::vect
 }
 
 void Layer::updateTileVertices(const Tile& tile) const {
+    updateTileVerticesPos(tile);
+    updateTileVerticesTex(tile);
+    updateTileVerticesCol(tile);
+}
+
+void Layer::updateTileVerticesPos(const Tile& tile) const {
     auto& verts = tile.vertices;
     auto& offset = m_total_offset;
     auto cell_size = getCellSize();
@@ -131,12 +139,14 @@ void Layer::updateTileVertices(const Tile& tile) const {
     verts[1].pos.x = static_cast<float>(tile.position.x+cell_size+offset.x); verts[1].pos.y = static_cast<float>(tile.position.y+offset.y);
     verts[2].pos.x = static_cast<float>(tile.position.x+cell_size+offset.x); verts[2].pos.y = static_cast<float>(tile.position.y+cell_size+offset.y);
     verts[3].pos.x = static_cast<float>(tile.position.x+offset.x);           verts[3].pos.y = static_cast<float>(tile.position.y+cell_size+offset.y);
+}
 
+void Layer::updateTileVerticesTex(const Tile& tile) const {
     IntPoint modif[4];
-    auto cell_size_i = static_cast<int>(cell_size);
+    auto cell_size_i = static_cast<int>(getCellSize());
     if (tile.flipX) {
-        modif[0].x = cell_size_i; modif[1].x = -cell_size_i;
-        modif[3].x = cell_size_i; modif[2].x = -cell_size_i;
+        modif[0].x =  cell_size_i; modif[1].x = -cell_size_i;
+        modif[3].x =  cell_size_i; modif[2].x = -cell_size_i;
     }
     if (tile.flipY) {
         modif[0].y =  cell_size_i; modif[1].y =  cell_size_i;
@@ -144,7 +154,13 @@ void Layer::updateTileVertices(const Tile& tile) const {
     }
     UIntPoint tex_coo[4] = { {0, 0},  {16, 0},  {16, 16},  {0, 16}};
     for (int i = 0; i < 4; ++i) {
-        verts[i].tex.x = tile.texture_position.x+tex_coo[i].x+modif[i].x;
-        verts[i].tex.y = tile.texture_position.y+tex_coo[i].y+modif[i].y;
+        tile.vertices[i].tex.x = tile.texture_position.x+tex_coo[i].x+modif[i].x;
+        tile.vertices[i].tex.y = tile.texture_position.y+tex_coo[i].y+modif[i].y;
+    }
+}
+
+void Layer::updateTileVerticesCol(const Tile& tile) const {
+    for (int i = 0; i < 4; ++i) {
+        tile.vertices[i].col.a = unsigned(m_opacity*255);
     }
 }

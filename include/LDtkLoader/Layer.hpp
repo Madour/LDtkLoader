@@ -43,7 +43,11 @@ namespace ldtk {
 
     private:
         explicit Layer(const nlohmann::json& j, const World* w);
+
         void updateTileVertices(const Tile& tile) const;
+        void updateTileVerticesPos(const Tile& tile) const;
+        void updateTileVerticesTex(const Tile& tile) const;
+        void updateTileVerticesCol(const Tile& tile) const;
 
         const LayerDef* m_definition = nullptr;
 
