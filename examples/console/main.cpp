@@ -15,11 +15,11 @@ int main() {
         for (const auto& layer : level.allLayers()) {
             if (layer.hasTileset()) {
                 if (!layer.allTiles().empty())  {
-                    std::cout << "    Layer " << layer.name << " (tileset used : " << layer.getTileset().name << ") :" << std::endl;
+                    std::cout << "    Layer " << layer.getName() << " (tileset used : " << layer.getTileset().name << ") :" << std::endl;
 
                     // print layer tiles Ids
-                    for (int y = 0; y < layer.grid_size.y; ++y) {
-                        for (int x = 0; x < layer.grid_size.x; ++x) {
+                    for (unsigned int y = 0; y < layer.getGridSize().y; ++y) {
+                        for (unsigned int x = 0; x < layer.getGridSize().x; ++x) {
                             try {
                                 const auto& tile = layer.getTile(x, y);
                                 printf("%3d ", tile.tileId);
