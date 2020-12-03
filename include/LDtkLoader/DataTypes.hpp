@@ -48,6 +48,13 @@ namespace ldtk {
         mutable std::array<Vertex, 4> vertices;
     };
 
+    enum class WorldLayout {
+        Free,
+        GridVania,
+        LinearHorizontal,
+        LinearVertical
+    };
+
     enum class LayerType {
         IntGrid,
         Entities,
