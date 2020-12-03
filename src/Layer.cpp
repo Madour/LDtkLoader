@@ -15,18 +15,18 @@ m_opacity(j["__opacity"].get<float>()),
 m_definition(&w->getLayerDef(j["layerDefUid"].get<unsigned int>()))
 {
     std::string key = "gridTiles";
-    int d_offset = 0;
+    int coo_id_index = 0;
     if (getType() == LayerType::IntGrid || getType() == LayerType::AutoLayer) {
         key = "autoLayerTiles";
-        d_offset = 1;
+        coo_id_index = 1;
     }
     for (const auto& tile : j[key]) {
         Tile new_tile;
-        new_tile.coordId = tile["d"].get<std::vector<unsigned int>>()[d_offset];
+        new_tile.coordId = tile["d"].get<std::vector<unsigned int>>()[coo_id_index];
         new_tile.position.x = tile["px"].get<std::vector<unsigned int>>()[0];
         new_tile.position.y = tile["px"].get<std::vector<unsigned int>>()[1];
 
-        new_tile.tileId = tile["d"].get<std::vector<unsigned int>>()[d_offset+1];
+        new_tile.tileId = tile["t"].get<unsigned int>();
         new_tile.texture_position.x = tile["src"].get<std::vector<unsigned int>>()[0];
         new_tile.texture_position.y = tile["src"].get<std::vector<unsigned int>>()[1];
 
