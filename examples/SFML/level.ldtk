@@ -594,7 +594,7 @@
 		{
 			"identifier": "Level",
 			"uid": 0,
-			"worldX": -64,
+			"worldX": 256,
 			"worldY": 16,
 			"pxWid": 288,
 			"pxHei": 192,
@@ -1251,13 +1251,13 @@
 					"entityInstances": []
 				}
 			],
-			"__neighbours": [{ "levelUid": 55, "dir": "e" }]
+			"__neighbours": [ { "levelUid": 39, "dir": "w" }, { "levelUid": 55, "dir": "s" } ]
 		},
 		{
 			"identifier": "Level2",
 			"uid": 39,
-			"worldX": -32,
-			"worldY": 240,
+			"worldX": 0,
+			"worldY": 0,
 			"pxWid": 256,
 			"pxHei": 256,
 			"__bgColor": "#4348A4",
@@ -1841,13 +1841,13 @@
 					"entityInstances": []
 				}
 			],
-			"__neighbours": [{ "levelUid": 55, "dir": "e" }]
+			"__neighbours": [ { "levelUid": 0, "dir": "e" }, { "levelUid": 55, "dir": "e" } ]
 		},
 		{
 			"identifier": "Level3",
 			"uid": 55,
-			"worldX": 224,
-			"worldY": -16,
+			"worldX": 256,
+			"worldY": 208,
 			"pxWid": 300,
 			"pxHei": 512,
 			"__bgColor": "#4348A4",
@@ -3135,7 +3135,7 @@
 					"entityInstances": []
 				}
 			],
-			"__neighbours": [ { "levelUid": 0, "dir": "w" }, { "levelUid": 39, "dir": "w" } ]
+			"__neighbours": [ { "levelUid": 0, "dir": "n" }, { "levelUid": 39, "dir": "w" } ]
 		}
 	]
 }

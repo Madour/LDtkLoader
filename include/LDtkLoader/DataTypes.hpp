@@ -41,6 +41,7 @@ namespace ldtk {
         unsigned int coordId=0;
         unsigned int tileId=0;
         UIntPoint position;
+        IntPoint world_position;
         UIntPoint texture_position;
         bool flipX=false;
         bool flipY=false;

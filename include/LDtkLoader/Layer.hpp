@@ -20,6 +20,8 @@ namespace ldtk {
     public:
         Layer(Layer&& other) noexcept;
 
+        const Level* level = nullptr;
+
         auto getType() const -> const LayerType&;
         auto getName() const -> const std::string&;
 
@@ -42,7 +44,7 @@ namespace ldtk {
         auto getEntities(const std::string& entity_name) const -> const std::vector<Entity>&;
 
     private:
-        explicit Layer(const nlohmann::json& j, const World* w);
+        Layer(const nlohmann::json& j, const World* w, const Level* l);
 
         void updateTileVertices(const Tile& tile) const;
         void updateTileVerticesPos(const Tile& tile) const;

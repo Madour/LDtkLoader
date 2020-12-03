@@ -12,7 +12,7 @@ size(j["pxWid"].get<unsigned int>(), j["pxHei"].get<unsigned int>()),
 position(j["worldX"].get<int>(), j["worldY"].get<int>())
 {
     for (const auto& level : j["layerInstances"]) {
-        Layer new_layer{level, w};
+        Layer new_layer{level, w, this};
         m_layers.push_back(std::move(new_layer));
     }
 }
