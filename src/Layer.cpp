@@ -5,28 +5,33 @@
 #include "LDtkLoader/Layer.hpp"
 #include "LDtkLoader/Utils.hpp"
 #include "LDtkLoader/World.hpp"
+#include "LDtkLoader/Level.hpp"
 
 using namespace ldtk;
 
-Layer::Layer(const nlohmann::json& j, const World* w) :
+Layer::Layer(const nlohmann::json& j, const World* w, const Level* l) :
 m_grid_size({j["__cWid"].get<unsigned int>(), j["__cHei"].get<unsigned int>()}),
-m_total_offset({j["__pxTotalOffsetX"].get<int>(), j["__pxTotalOffsetY"].get<int>()}),
+m_total_offset(j["__pxTotalOffsetX"].get<int>(), j["__pxTotalOffsetY"].get<int>()),
 m_opacity(j["__opacity"].get<float>()),
-m_definition(&w->getLayerDef(j["layerDefUid"].get<unsigned int>()))
+m_definition(&w->getLayerDef(j["layerDefUid"].get<unsigned int>())),
+level(l)
 {
     std::string key = "gridTiles";
-    int d_offset = 0;
+    int coo_id_index = 0;
     if (getType() == LayerType::IntGrid || getType() == LayerType::AutoLayer) {
         key = "autoLayerTiles";
-        d_offset = 1;
+        coo_id_index = 1;
     }
     for (const auto& tile : j[key]) {
         Tile new_tile;
-        new_tile.coordId = tile["d"].get<std::vector<unsigned int>>()[d_offset];
+        new_tile.coordId = tile["d"].get<std::vector<unsigned int>>()[coo_id_index];
         new_tile.position.x = tile["px"].get<std::vector<unsigned int>>()[0];
         new_tile.position.y = tile["px"].get<std::vector<unsigned int>>()[1];
 
-        new_tile.tileId = tile["d"].get<std::vector<unsigned int>>()[d_offset+1];
+        new_tile.world_position.x = static_cast<int>(new_tile.position.x) + l->position.x;
+        new_tile.world_position.y = static_cast<int>(new_tile.position.y) + l->position.y;
+
+        new_tile.tileId = tile["t"].get<unsigned int>();
         new_tile.texture_position.x = tile["src"].get<std::vector<unsigned int>>()[0];
         new_tile.texture_position.y = tile["src"].get<std::vector<unsigned int>>()[1];
 

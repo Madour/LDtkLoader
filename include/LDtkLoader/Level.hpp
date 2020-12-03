@@ -21,6 +21,7 @@ namespace ldtk {
         const std::string name;
         const unsigned int uid;
         const UIntPoint size;
+        const IntPoint position;
 
         auto allLayers() const -> const std::vector<Layer>&;
         auto getLayer(const std::string& layer_name) const -> const Layer&;

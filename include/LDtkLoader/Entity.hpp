@@ -37,6 +37,9 @@ namespace ldtk {
         template<typename T>
         auto getField(const std::string& field_name) const -> const T&;
 
+        template<typename T>
+        auto getArrayField(const std::string& field_name) const -> std::vector<T>;
+
     private:
         explicit Entity(const nlohmann::json& j, const World* w);
 
@@ -54,6 +57,28 @@ namespace ldtk {
         if (m_fields.count(field_name) > 0) {
             if (typeid(T).name() == m_fields.at(field_name).type_name)
                 return *static_cast<T*>(m_fields.at(field_name).value.get());
+            else {
+                std::cerr << "Field " << field_name << " of entity " << getName()
+                          << " is not of type " << typeid(T).name() << std::endl;
+                throw std::invalid_argument("Field "+field_name+" of entity "+getName()+" is not of type "+typeid(T).name());
+            }
+        }
+        throw std::invalid_argument("Entity "+getName()+" does not have a field name "+field_name);
+    }
+
+    template <typename T>
+    auto Entity::getArrayField(const std::string& field_name) const -> std::vector<T> {
+        if (m_array_fields.count(field_name) > 0) {
+            const auto& array_field = m_array_fields.at(field_name);
+            if (array_field.empty())
+                return {};
+            if (typeid(T).name() == array_field.at(0).type_name) {
+                std::vector<T> res;
+                for (const auto& e : array_field) {
+                    res.push_back(*static_cast<T*>(e.value.get()));
+                }
+                return res;
+            }
             else {
                 std::cerr << "Field " << field_name << " of entity " << getName()
                           << " is not of type " << typeid(T).name() << std::endl;

@@ -28,6 +28,8 @@ namespace ldtk {
 
         auto getBgColor() const -> const Color&;
 
+        auto getLayout() const -> const WorldLayout&;
+
         auto getLayerDef(unsigned int id) const -> const LayerDef&;
         auto getLayerDef(const std::string& name) const -> const LayerDef&;
 
@@ -49,6 +51,8 @@ namespace ldtk {
         float m_default_pivot_y = 0.f;
         unsigned int m_default_cell_size = 0;
         Color m_background_color;
+
+        WorldLayout m_layout;
 
         std::vector<Tileset> m_tilesets;
         std::vector<LayerDef> m_layers_defs;

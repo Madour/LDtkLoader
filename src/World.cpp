@@ -21,6 +21,16 @@ void World::loadFromFile(const std::string& filepath) {
 
     m_background_color = Color(j["bgColor"].get<std::string>());
 
+    auto layout = j["worldLayout"].get<std::string>();
+    if (layout == "Free")
+        m_layout = WorldLayout::Free;
+    else if (layout == "GridVania")
+        m_layout = WorldLayout::GridVania;
+    else if (layout == "LinearHorizontal")
+        m_layout = WorldLayout::LinearHorizontal;
+    else if (layout == "LinearVertical")
+        m_layout = WorldLayout::LinearVertical;
+
     // reset all containers
     m_layers_defs.clear();
     m_tilesets.clear();
@@ -73,6 +83,10 @@ auto World::getDefaultCellSize() const -> unsigned int {
 
 auto World::getBgColor() const -> const Color& {
     return m_background_color;
+}
+
+auto World::getLayout() const -> const WorldLayout& {
+    return m_layout;
 }
 
 auto World::getLayerDef(unsigned int id) const -> const LayerDef& {

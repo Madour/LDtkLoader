@@ -41,10 +41,18 @@ namespace ldtk {
         unsigned int coordId=0;
         unsigned int tileId=0;
         UIntPoint position;
+        IntPoint world_position;
         UIntPoint texture_position;
         bool flipX=false;
         bool flipY=false;
         mutable std::array<Vertex, 4> vertices;
+    };
+
+    enum class WorldLayout {
+        Free,
+        GridVania,
+        LinearHorizontal,
+        LinearVertical
     };
 
     enum class LayerType {
