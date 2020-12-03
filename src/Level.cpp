@@ -8,7 +8,8 @@ using namespace ldtk;
 Level::Level(const nlohmann::json& j, World* w) :
 name(j["identifier"].get<std::string>()),
 uid(j["uid"].get<unsigned int>()),
-size({j["pxWid"].get<unsigned int>(), j["pxHei"].get<unsigned int>()})
+size(j["pxWid"].get<unsigned int>(), j["pxHei"].get<unsigned int>()),
+position(j["worldX"].get<int>(), j["worldY"].get<int>())
 {
     for (const auto& level : j["layerInstances"]) {
         Layer new_layer{level, w};
@@ -20,6 +21,7 @@ Level::Level(Level&& other) noexcept :
 name(other.name),
 uid(other.uid),
 size(other.size),
+position(other.position),
 m_layers(std::move(other.m_layers))
 {}
 
