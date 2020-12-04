@@ -53,7 +53,7 @@ namespace ldtk {
         unsigned int m_default_cell_size = 0;
         Color m_background_color;
 
-        WorldLayout m_layout;
+        WorldLayout m_layout = WorldLayout::Free;
 
         std::vector<Tileset> m_tilesets;
         std::vector<LayerDef> m_layers_defs;
