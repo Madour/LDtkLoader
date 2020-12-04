@@ -61,4 +61,12 @@ namespace ldtk {
         Tiles,
         AutoLayer
     };
+
+    enum class Dir {
+        None,
+        North,
+        East,
+        South,
+        West
+    };
 }
