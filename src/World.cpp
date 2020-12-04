@@ -148,6 +148,13 @@ auto World::allLevels() const -> const std::vector<Level>& {
     return m_levels;
 }
 
+auto World::getLevel(unsigned int id) const -> const Level& {
+    for (const auto& level : m_levels)
+        if (level.uid == id)
+            return level;
+    throw std::invalid_argument("Level ID "+std::to_string(id)+" not found in World "+m_name+".");
+}
+
 auto World::getLevel(const std::string& name) const -> const Level& {
     for (const auto& level : m_levels)
         if (level.name == name)

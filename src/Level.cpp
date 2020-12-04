@@ -6,6 +6,7 @@
 using namespace ldtk;
 
 Level::Level(const nlohmann::json& j, World* w) :
+world(w),
 name(j["identifier"].get<std::string>()),
 uid(j["uid"].get<unsigned int>()),
 size(j["pxWid"].get<unsigned int>(), j["pxHei"].get<unsigned int>()),
@@ -15,14 +16,31 @@ position(j["worldX"].get<int>(), j["worldY"].get<int>())
         Layer new_layer{level, w, this};
         m_layers.push_back(std::move(new_layer));
     }
+
+    m_neighbours[Dir::North]; m_neighbours[Dir::East];
+    m_neighbours[Dir::South]; m_neighbours[Dir::West];
+    for (const auto& neighbour : j["__neighbours"]) {
+        const auto& dir = neighbour["dir"].get<std::string>();
+        const auto& level_uid = neighbour["levelUid"].get<unsigned int>();
+        if (dir == "n")
+            m_neighbours[Dir::North].push_back(level_uid);
+        else if (dir == "e")
+            m_neighbours[Dir::East].push_back(level_uid);
+        else if (dir == "s")
+            m_neighbours[Dir::South].push_back(level_uid);
+        else
+            m_neighbours[Dir::West].push_back(level_uid);
+    }
 }
 
 Level::Level(Level&& other) noexcept :
+world(other.world),
 name(other.name),
 uid(other.uid),
 size(other.size),
 position(other.position),
-m_layers(std::move(other.m_layers))
+m_layers(std::move(other.m_layers)),
+m_neighbours(std::move(other.m_neighbours))
 {}
 
 auto Level::allLayers() const -> const std::vector<Layer>& {
@@ -34,4 +52,22 @@ auto Level::getLayer(const std::string& layer_name) const -> const Layer& {
         if (layer.getName() == layer_name)
             return layer;
     throw std::invalid_argument("Layer name "+layer_name+" not found in Level "+layer_name);
+}
+
+auto Level::getNeighbours(const Dir& direction) const -> std::vector<const Level*> {
+    std::vector<const Level*> res;
+    if (direction != Dir::None)
+        for (auto id : m_neighbours.at(direction))
+            res.emplace_back(&world->getLevel(id));
+    return res;
+}
+
+auto Level::getNeighbourDirection(const Level& level) const -> Dir {
+    for (const auto& item : m_neighbours) {
+        for (auto id : item.second) {
+            if (id == level.uid)
+                return item.first;
+        }
+    }
+    return Dir::None;
 }

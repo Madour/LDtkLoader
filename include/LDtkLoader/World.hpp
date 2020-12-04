@@ -43,6 +43,7 @@ namespace ldtk {
         auto getEnum(const std::string& name) const -> const Enum&;
 
         auto allLevels() const -> const std::vector<Level>&;
+        auto getLevel(unsigned int id) const -> const Level&;
         auto getLevel(const std::string& name) const -> const Level&;
 
     private:
