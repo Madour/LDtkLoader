@@ -32,6 +32,7 @@ namespace ldtk {
         auto hasIcons() -> bool;
         auto getIconsTileset() -> const Tileset&;
         auto getIconTexturePos(const std::string& val_name) const -> UIntPoint;
+        auto getIconTexturePos(const EnumValue& val) const -> UIntPoint;
 
     private:
         Enum(const nlohmann::json& j, const World* w);

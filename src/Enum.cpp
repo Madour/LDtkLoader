@@ -48,3 +48,11 @@ auto Enum::getIconTexturePos(const std::string& val_name) const -> UIntPoint {
         return m_tileset->getTileTexturePos(m_values.at(val_name).tile_id);
     throw std::invalid_argument("Enum "+name+" does not have value "+val_name);
 }
+
+auto Enum::getIconTexturePos(const EnumValue& val) const -> UIntPoint {
+    if (m_tileset == nullptr)
+        throw std::invalid_argument("Enum "+name+" values don't have icons.");
+    if (val.type_id == uid)
+        return m_tileset->getTileTexturePos(val.tile_id);
+    throw std::invalid_argument("Enum "+name+" does not have value "+val.name);
+}
