@@ -46,6 +46,12 @@ level(l)
         m_tiles_map[last_tile.coordId] = &(last_tile);
     }
 
+    std::sort(
+        m_tiles.begin(),
+        m_tiles.end(),
+        [](const auto& lhs, const auto& rhs) {return lhs.coordId < rhs.coordId;}
+    );
+
     for (const auto& ent : j["entityInstances"]) {
         Entity new_ent{ent, w};
         m_entities[new_ent.getName()].push_back(std::move(new_ent));
