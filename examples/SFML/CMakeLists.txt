@@ -5,16 +5,14 @@ endif()
 
 project(LDtkLoader-SFML)
 
-set(CMAKE_RUNTIME_OUTPUT_DIRECTORY bin)
-
-
 # find SFML
 find_package(SFML REQUIRED COMPONENTS graphics)
 
-
-file(COPY tileset.png DESTINATION ${CMAKE_RUNTIME_OUTPUT_DIRECTORY})
-file(COPY level.ldtk DESTINATION ${CMAKE_RUNTIME_OUTPUT_DIRECTORY})
-
 add_executable(LDtkSFML main.cpp)
 target_include_directories(LDtkSFML PRIVATE ../../include)
-target_link_libraries(LDtkSFML PRIVATE LDtkLoader-s sfml-graphics)
+target_link_libraries(LDtkSFML PRIVATE LDtkLoader sfml-graphics)
+set_target_properties(LDtkSFML PROPERTIES RUNTIME_OUTPUT_DIRECTORY bin)
+
+get_target_property(BIN_DIR LDtkSFML RUNTIME_OUTPUT_DIRECTORY)
+file(COPY tileset.png DESTINATION ${BIN_DIR})
+file(COPY level.ldtk DESTINATION ${BIN_DIR})
