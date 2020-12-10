@@ -49,7 +49,7 @@ level(l)
     std::sort(
         m_tiles.begin(),
         m_tiles.end(),
-        [](const auto& lhs, const auto& rhs) {return lhs.coordId < rhs.coordId;}
+        [](const Tile& lhs, const Tile& rhs) {return lhs.coordId < rhs.coordId;}
     );
 
     for (const auto& ent : j["entityInstances"]) {
