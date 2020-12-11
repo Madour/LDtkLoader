@@ -3,6 +3,7 @@
 #include <fstream>
 
 #include "LDtkLoader/World.hpp"
+#include "LDtkLoader/Utils.hpp"
 
 using namespace ldtk;
 using json = nlohmann::json;
@@ -93,55 +94,55 @@ auto World::getLayerDef(int id) const -> const LayerDef& {
     for (const auto& layer_def : m_layers_defs)
         if (layer_def.uid == id)
             return layer_def;
-    throw std::invalid_argument("LayerDef ID "+std::to_string(id)+" not found in World "+m_name+".");
+    ldtk_error("LayerDef ID \""+std::to_string(id)+"\" not found in World \""+m_name+"\".");
 }
 
 auto World::getLayerDef(const std::string& name) const -> const LayerDef& {
     for (const auto& layer_def : m_layers_defs)
         if (layer_def.name == name)
             return layer_def;
-    throw std::invalid_argument("LayerDef name "+name+" not found in World "+m_name+".");
+    ldtk_error("LayerDef name \""+name+"\" not found in World \""+m_name+"\".");
 }
 
 auto World::getEntityDef(int id) const -> const EntityDef& {
     for (const auto& entity_def : m_entities_defs)
         if (entity_def.uid == id)
             return entity_def;
-    throw std::invalid_argument("EntityDef ID "+std::to_string(id)+" not found in World "+m_name+".");
+    ldtk_error("EntityDef ID \""+std::to_string(id)+"\" not found in World \""+m_name+"\".");
 }
 
 auto World::getEntityDef(const std::string& name) const -> const EntityDef& {
     for (const auto& entity_def : m_entities_defs)
         if (entity_def.name == name)
             return entity_def;
-    throw std::invalid_argument("EntityDef name "+name+" not found in World "+m_name+".");
+    ldtk_error("EntityDef name \""+name+"\" not found in World \""+m_name+"\".");
 }
 
 auto World::getTileset(int id) const -> const Tileset& {
     for (const auto& tileset : m_tilesets)
         if (tileset.uid == id)
             return tileset;
-    throw std::invalid_argument("Tileset ID "+std::to_string(id)+" not found in World "+m_name+".");
+    ldtk_error("Tileset ID \""+std::to_string(id)+"\" not found in World \""+m_name+"\".");
 }
 
 auto World::getTileset(const std::string& name) const -> const Tileset& {
     for (const auto& tileset : m_tilesets)
         if (tileset.name == name)
             return tileset;
-    throw std::invalid_argument("Tileset name "+name+" not found in World "+m_name+".");
+    ldtk_error("Tileset name \""+name+"\" not found in World \""+m_name+"\".");
 }
 
 auto World::getEnum(int id) const -> const Enum& {
     for (const auto& item : m_enums)
         if (item.second.uid == id)
             return item.second;
-    throw std::invalid_argument("Enum ID "+std::to_string(id)+" not found in World "+m_name+".");
+    ldtk_error("Enum ID \""+std::to_string(id)+"\" not found in World \""+m_name+"\".");
 }
 
 auto World::getEnum(const std::string& name) const -> const Enum& {
     if (m_enums.count(name) > 0)
         return m_enums.at(name);
-    throw std::invalid_argument("Enum "+name+" not found in World "+m_name+".");
+    ldtk_error("Enum \""+name+"\" not found in World \'"+m_name+"\'.");
 }
 
 auto World::allLevels() const -> const std::vector<Level>& {
@@ -152,12 +153,12 @@ auto World::getLevel(int id) const -> const Level& {
     for (const auto& level : m_levels)
         if (level.uid == id)
             return level;
-    throw std::invalid_argument("Level ID "+std::to_string(id)+" not found in World "+m_name+".");
+    ldtk_error("Level ID \""+std::to_string(id)+"\" not found in World \""+m_name+"\".");
 }
 
 auto World::getLevel(const std::string& name) const -> const Level& {
     for (const auto& level : m_levels)
         if (level.name == name)
             return level;
-    throw std::invalid_argument("Level name "+name+" not found in World "+m_name+".");
+    ldtk_error("Level name \""+name+"\" not found in World \""+m_name+"\".");
 }
