@@ -38,6 +38,7 @@ namespace ldtk {
     };
 
     struct Tile {
+        Tile() = default;
         unsigned int coordId=0;
         unsigned int tileId=0;
         UIntPoint position;
@@ -46,7 +47,13 @@ namespace ldtk {
         bool flipX=false;
         bool flipY=false;
         mutable std::array<Vertex, 4> vertices;
+        static const Tile None;
+    private:
+        Tile(int coordid, int tileid);
     };
+
+    bool operator==(const Tile& l, const Tile& r);
+    bool operator!=(const Tile& l, const Tile& r);
 
     enum class WorldLayout {
         Free,

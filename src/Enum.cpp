@@ -5,11 +5,13 @@
 
 using namespace ldtk;
 
+EnumValue EnumValue::None{"", -1u, -1u, -1u};
+
 bool ldtk::operator==(const EnumValue& l, const EnumValue& r) {
-    return (l.id == r.id);
+    return (l.id == r.id) && (l.type_id == r.type_id);
 }
 bool ldtk::operator!=(const EnumValue& l, const EnumValue& r) {
-    return (l.id != r.id);
+    return !(ldtk::operator==(l, r));
 }
 
 Enum::Enum(const nlohmann::json& j, const World* w) :

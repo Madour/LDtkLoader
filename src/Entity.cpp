@@ -15,45 +15,9 @@ m_definition( &w->getEntityDef(j["defUid"].get<unsigned int>()) )
     for (const auto& field : j["fieldInstances"]) {
         EntityField f;
         auto&& field_type = field["__type"].get<std::string>();
-        // simple fields
-        if (field_type == "Int") {
-            f.type_name = typeid(int).name();
-            f.value = std::make_shared<int>(field["__value"].get<int>());
-            m_fields[field["__identifier"]] = f;
-        }
-        else if (field_type == "Float") {
-            f.type_name = typeid(float).name();
-            f.value = std::make_shared<float>(field["__value"].get<float>());
-            m_fields[field["__identifier"]] = f;
-        }
-        else if (field_type == "Bool") {
-            f.type_name = typeid(bool).name();
-            f.value = std::make_shared<bool>(field["__value"].get<bool>());
-            m_fields[field["__identifier"]] = f;
-        }
-        else if (field_type == "String") {
-            f.type_name = typeid(std::string).name();
-            f.value = std::make_shared<std::string>(field["__value"].get<std::string>());
-            m_fields[field["__identifier"]] = f;
-        }
-        else if (field_type == "Color") {
-            f.type_name = typeid(Color).name();
-            f.value = std::make_shared<std::string>(field["__value"].get<std::string>());
-            m_fields[field["__identifier"]] = f;
-        }
-        else if (field_type == "Point") {
-            f.type_name = typeid(UIntPoint).name();
-            f.value = std::make_shared<UIntPoint>(field["__value"]["cx"].get<unsigned int>(), field["__value"]["cy"].get<unsigned int>());
-            m_fields[field["__identifier"]] = f;
-        }
-        else if (field_type.find("LocalEnum") != std::string::npos) {
-            auto&& enum_type = field_type.substr(field_type.find('.')+1, field_type.size());
-            f.type_name = typeid(EnumValue).name();
-            f.value = std::make_shared<EnumValue>(w->getEnum(enum_type)[field["__value"].get<std::string>()]);
-            m_fields[field["__identifier"]] = f;
-        }
+
         // array fields
-        else {
+        if (field_type.find("Array") != std::string::npos) {
             m_array_fields[field["__identifier"]] = {};
             if (field_type == "Array<Int>") {
                 f.type_name = typeid(int).name();
@@ -98,11 +62,56 @@ m_definition( &w->getEntityDef(j["defUid"].get<unsigned int>()) )
                 }
             }
             else if (field_type.find("LocalEnum") != std::string::npos) {
-                auto&& enum_type = field_type.substr(field_type.find('.')+1, field_type.size());
+                auto&& enum_type = field_type.substr(field_type.find('.')+1, field_type.size()-field_type.find('.')-2);
                 f.type_name = typeid(EnumValue).name();
-                f.value = std::make_shared<EnumValue>(w->getEnum(enum_type)[field["__value"].get<std::string>()]);
-                m_array_fields[field["__identifier"]].push_back(f);
+                for (const auto& v : field["__value"]) {
+                    if (v.is_null())
+                        f.value = std::make_shared<EnumValue>(EnumValue::None);
+                    else
+                        f.value = std::make_shared<EnumValue>(w->getEnum(enum_type)[v.get<std::string>()]);
+                    m_array_fields[field["__identifier"]].push_back(f);
+                }
             }
+        }
+        // simple fields
+        else if (field_type == "Int") {
+            f.type_name = typeid(int).name();
+            f.value = std::make_shared<int>(field["__value"].get<int>());
+            m_fields[field["__identifier"]] = f;
+        }
+        else if (field_type == "Float") {
+            f.type_name = typeid(float).name();
+            f.value = std::make_shared<float>(field["__value"].get<float>());
+            m_fields[field["__identifier"]] = f;
+        }
+        else if (field_type == "Bool") {
+            f.type_name = typeid(bool).name();
+            f.value = std::make_shared<bool>(field["__value"].get<bool>());
+            m_fields[field["__identifier"]] = f;
+        }
+        else if (field_type == "String") {
+            f.type_name = typeid(std::string).name();
+            f.value = std::make_shared<std::string>(field["__value"].get<std::string>());
+            m_fields[field["__identifier"]] = f;
+        }
+        else if (field_type == "Color") {
+            f.type_name = typeid(Color).name();
+            f.value = std::make_shared<std::string>(field["__value"].get<std::string>());
+            m_fields[field["__identifier"]] = f;
+        }
+        else if (field_type == "Point") {
+            f.type_name = typeid(UIntPoint).name();
+            f.value = std::make_shared<UIntPoint>(field["__value"]["cx"].get<unsigned int>(), field["__value"]["cy"].get<unsigned int>());
+            m_fields[field["__identifier"]] = f;
+        }
+        else if (field_type.find("LocalEnum") != std::string::npos) {
+            auto&& enum_type = field_type.substr(field_type.find('.')+1, field_type.size());
+            f.type_name = typeid(EnumValue).name();
+            if (field["__value"].is_null())
+                f.value = std::make_shared<EnumValue>(EnumValue::None);
+            else
+                f.value = std::make_shared<EnumValue>(w->getEnum(enum_type)[field["__value"].get<std::string>()]);
+            m_fields[field["__identifier"]] = f;
         }
     }
 }

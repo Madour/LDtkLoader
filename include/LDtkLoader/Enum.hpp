@@ -17,7 +17,9 @@ namespace ldtk {
         const unsigned int id;
         const unsigned int tile_id;
         const unsigned int type_id;
+        static EnumValue None;
     };
+
     bool operator==(const EnumValue& l, const EnumValue& r);
     bool operator!=(const EnumValue& l, const EnumValue& r);
 

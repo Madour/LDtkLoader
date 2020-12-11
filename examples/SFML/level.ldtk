@@ -331,7 +331,7 @@
 				"renderMode": "Tile",
 				"showName": true,
 				"tilesetId": 1,
-				"tileId": 115,
+				"tileId": 132,
 				"tileRenderMode": "Stretch",
 				"maxPerLevel": 0,
 				"limitBehavior": "PreventAdding",
@@ -344,7 +344,7 @@
 						"uid": 43,
 						"type": { "id": "F_Enum", "params": [42] },
 						"isArray": false,
-						"canBeNull": false,
+						"canBeNull": true,
 						"arrayMinLength": null,
 						"arrayMaxLength": null,
 						"editorDisplayMode": "NameAndValue",
@@ -531,10 +531,10 @@
 				"fieldDefs": [
 					{
 						"identifier": "TemsFieldCustom",
-						"__type": "LocalEnum.Items",
+						"__type": "Array<LocalEnum.Items>",
 						"uid": 47,
 						"type": { "id": "F_Enum", "params": [42] },
-						"isArray": false,
+						"isArray": true,
 						"canBeNull": false,
 						"arrayMinLength": null,
 						"arrayMaxLength": null,
@@ -586,7 +586,8 @@
 		"enums": [{ "identifier": "Items", "uid": 42, "values": [
 			{ "id": "Bush", "tileId": 49, "__tileSrcRect": [16,48,16,16] },
 			{ "id": "FlowerPot", "tileId": 51, "__tileSrcRect": [48,48,16,16] },
-			{ "id": "Pot", "tileId": 54, "__tileSrcRect": [96,48,16,16] }
+			{ "id": "Pot", "tileId": 54, "__tileSrcRect": [96,48,16,16] },
+			{ "id": "NoIcon", "tileId": null, "__tileSrcRect": null }
 		], "iconTilesetUid": 1, "externalRelPath": null, "externalFileChecksum": null }],
 		"externalEnums": []
 	},
@@ -621,16 +622,13 @@
 					"seed": 4119234,
 					"gridTiles": [],
 					"entityInstances": [
-						{ "__identifier": "Player", "__grid": [7,5], "__tile": { "tilesetUid": 1, "srcRect": [48,112,16,16] }, "defUid": 41, "px": [112,80], "fieldInstances": [
+						{ "__identifier": "Player", "__grid": [7,5], "__tile": { "tilesetUid": 1, "srcRect": [64,128,16,16] }, "defUid": 41, "px": [112,80], "fieldInstances": [
 							{
 								"__identifier": "enumField",
-								"__value": "Bush",
+								"__value": null,
 								"__type": "LocalEnum.Items",
 								"defUid": 43,
-								"realEditorValues": [{
-									"id": "V_String",
-									"params": ["Bush"]
-								}]
+								"realEditorValues": [null]
 							},
 							{
 								"__identifier": "TextArray",
@@ -711,7 +709,7 @@
 								"realEditorValues": [ { "id": "V_Int", "params": [54] }, { "id": "V_Int", "params": [2] } ]
 							}
 						] },
-						{ "__identifier": "Player", "__grid": [12,6], "__tile": { "tilesetUid": 1, "srcRect": [48,112,16,16] }, "defUid": 41, "px": [192,96], "fieldInstances": [
+						{ "__identifier": "Player", "__grid": [12,6], "__tile": { "tilesetUid": 1, "srcRect": [64,128,16,16] }, "defUid": 41, "px": [192,96], "fieldInstances": [
 							{
 								"__identifier": "enumField",
 								"__value": "FlowerPot",
@@ -762,13 +760,16 @@
 						{ "__identifier": "Enemy", "__grid": [9,9], "__tile": null, "defUid": 46, "px": [144,144], "fieldInstances": [
 							{
 								"__identifier": "TemsFieldCustom",
-								"__value": "Bush",
-								"__type": "LocalEnum.Items",
+								"__value": [ "Bush", "Pot" ],
+								"__type": "Array<LocalEnum.Items>",
 								"defUid": 47,
-								"realEditorValues": [{
+								"realEditorValues": [ {
 									"id": "V_String",
 									"params": ["Bush"]
-								}]
+								}, {
+									"id": "V_String",
+									"params": ["Pot"]
+								} ]
 							},
 							{ "__identifier": "TemsFikd", "__value": 0, "__type": "Int", "defUid": 48, "realEditorValues": [] }
 						] }

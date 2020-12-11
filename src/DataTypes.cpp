@@ -15,3 +15,16 @@ Color(std::stoul(hex.substr(1, 2), nullptr, 16),
       std::stoul(hex.substr(3, 2), nullptr, 16),
       std::stoul(hex.substr(5, 2), nullptr, 16))
 {}
+
+Tile::Tile(int coordid, int tileid) : coordId(coordid), tileId(tileid)
+{}
+
+const Tile Tile::None{-1, -1};
+
+bool ldtk::operator==(const Tile& l, const Tile& r) {
+    return (l.coordId == r.coordId) && (l.tileId == r.tileId);
+}
+
+bool ldtk::operator!=(const Tile& l, const Tile& r) {
+    return !(ldtk::operator==(l, r));
+}

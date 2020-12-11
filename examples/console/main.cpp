@@ -20,13 +20,11 @@ int main() {
                     // print layer tiles Ids
                     for (unsigned int y = 0; y < layer.getGridSize().y; ++y) {
                         for (unsigned int x = 0; x < layer.getGridSize().x; ++x) {
-                            try {
-                                const auto& tile = layer.getTile(x, y);
+                            auto& tile = layer.getTile(x, y);
+                            if (tile == ldtk::Tile::None)
+                                printf("    ");
+                            else
                                 printf("%3d ", tile.tileId);
-                            }
-                            catch (const std::exception& e) {
-                                std::cout << "    ";
-                            }
                         }
                         std::cout << std::endl;
                     }

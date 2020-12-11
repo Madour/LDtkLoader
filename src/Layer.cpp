@@ -122,8 +122,7 @@ auto Layer::getTile(unsigned int grid_x, unsigned int grid_y) const -> const Til
     auto id = grid_x + m_grid_size.x*grid_y;
     if (m_tiles_map.count(id) > 0)
         return *(m_tiles_map.at(id));
-
-    throw std::invalid_argument("Layer "+getName()+" does not have a tile at position ("+std::to_string(grid_x)+", "+std::to_string(grid_y)+")");
+    return Tile::None;
 }
 
 auto Layer::hasEntity(const std::string& entity_name) const -> bool {
