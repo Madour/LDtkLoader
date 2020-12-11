@@ -5,7 +5,7 @@
 
 using namespace ldtk;
 
-EnumValue EnumValue::None{"", -1u, -1u, -1u};
+EnumValue EnumValue::None{"", -1, -1, -1};
 
 bool ldtk::operator==(const EnumValue& l, const EnumValue& r) {
     return (l.id == r.id) && (l.type_id == r.type_id);
@@ -16,13 +16,13 @@ bool ldtk::operator!=(const EnumValue& l, const EnumValue& r) {
 
 Enum::Enum(const nlohmann::json& j, const World* w) :
 name(j["identifier"].get<std::string>()),
-uid(j["uid"].get<unsigned int>()),
-m_tileset( j["iconTilesetUid"].is_null() ? nullptr : &w->getTileset(j["iconTilesetUid"].get<unsigned int>()) )
+uid(j["uid"].get<int>()),
+m_tileset( j["iconTilesetUid"].is_null() ? nullptr : &w->getTileset(j["iconTilesetUid"].get<int>()) )
 {
-    unsigned int id = 0;
+    int id = 0;
     for (const auto& value : j["values"]) {
         const auto& val_name = value["id"].get<std::string>();
-        const auto& tile_id = value["tileId"].is_null() ? 0u : value["tileId"].get<unsigned int>();
+        const auto& tile_id = value["tileId"].is_null() ? 0 : value["tileId"].get<int>();
         m_values.insert({val_name, {val_name, id++, tile_id, uid}});
     }
 }
@@ -43,7 +43,7 @@ auto Enum::getIconsTileset() -> const Tileset& {
     throw std::invalid_argument("Enum "+name+" values don't have icons.");
 }
 
-auto Enum::getIconTexturePos(const std::string& val_name) const -> UIntPoint {
+auto Enum::getIconTexturePos(const std::string& val_name) const -> IntPoint {
     if (m_tileset == nullptr)
         throw std::invalid_argument("Enum "+name+" values don't have icons.");
     if (m_values.count(val_name) > 0)
@@ -51,7 +51,7 @@ auto Enum::getIconTexturePos(const std::string& val_name) const -> UIntPoint {
     throw std::invalid_argument("Enum "+name+" does not have value "+val_name);
 }
 
-auto Enum::getIconTexturePos(const EnumValue& val) const -> UIntPoint {
+auto Enum::getIconTexturePos(const EnumValue& val) const -> IntPoint {
     if (m_tileset == nullptr)
         throw std::invalid_argument("Enum "+name+" values don't have icons.");
     if (val.type_id == uid)

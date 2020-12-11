@@ -11,16 +11,16 @@ using namespace ldtk;
 LayerDef::LayerDef(const nlohmann::json& j, World* w) :
 type(getLayerTypeFromString(j["type"].get<std::string>())),
 name(j["identifier"].get<std::string>()),
-uid(j["uid"].get<unsigned int>()),
-cell_size(j["gridSize"].get<unsigned int>()),
+uid(j["uid"].get<int>()),
+cell_size(j["gridSize"].get<int>()),
 opacity(j["displayOpacity"].get<float>()),
 offset({j["pxOffsetX"].get<int>(), j["pxOffsetY"].get<int>()}),
 pivot({j["tilePivotX"].get<float>(), j["tilePivotY"].get<float>()})
 {
     if ( !j["tilesetDefUid"].is_null() )
-        m_tileset = &w->getTileset(j["tilesetDefUid"].get<unsigned int>());
+        m_tileset = &w->getTileset(j["tilesetDefUid"].get<int>());
     if ( !j["autoTilesetDefUid"].is_null() )
-        m_tileset = &w->getTileset(j["autoTilesetDefUid"].get<unsigned int>());
+        m_tileset = &w->getTileset(j["autoTilesetDefUid"].get<int>());
 }
 
 auto LayerDef::getTileset() const -> const Tileset& {

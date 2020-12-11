@@ -14,14 +14,14 @@ namespace ldtk {
         friend World;
 
         const std::string name;
-        const unsigned int uid;
+        const int uid;
         const std::string path;
-        const UIntPoint texture_size;
-        const unsigned int tile_size;
-        const unsigned int spacing;
-        const unsigned int padding;
+        const IntPoint texture_size;
+        const int tile_size;
+        const int spacing;
+        const int padding;
 
-        auto getTileTexturePos(unsigned int tile_id) const -> UIntPoint;
+        auto getTileTexturePos(int tile_id) const -> IntPoint;
 
     private:
         explicit Tileset(const nlohmann::json& j);

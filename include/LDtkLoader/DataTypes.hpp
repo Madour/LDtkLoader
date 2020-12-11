@@ -33,17 +33,17 @@ namespace ldtk {
 
     struct Vertex {
         FloatPoint pos = {0.f, 0.f};
-        UIntPoint tex = {0, 0};
+        IntPoint tex = {0, 0};
         Color col = {255, 255, 255};
     };
 
     struct Tile {
         Tile() = default;
-        unsigned int coordId=0;
-        unsigned int tileId=0;
-        UIntPoint position;
+        int coordId=0;
+        int tileId=0;
+        IntPoint position;
         IntPoint world_position;
-        UIntPoint texture_position;
+        IntPoint texture_position;
         bool flipX=false;
         bool flipY=false;
         mutable std::array<Vertex, 4> vertices;

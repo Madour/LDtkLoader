@@ -77,7 +77,7 @@ auto World::getDefaultPivot() const -> FloatPoint {
     return {m_default_pivot_x, m_default_pivot_y};
 }
 
-auto World::getDefaultCellSize() const -> unsigned int {
+auto World::getDefaultCellSize() const -> int {
     return m_default_cell_size;
 }
 
@@ -117,7 +117,7 @@ auto World::getEntityDef(const std::string& name) const -> const EntityDef& {
     throw std::invalid_argument("EntityDef name "+name+" not found in World "+m_name+".");
 }
 
-auto World::getTileset(unsigned int id) const -> const Tileset& {
+auto World::getTileset(int id) const -> const Tileset& {
     for (const auto& tileset : m_tilesets)
         if (tileset.uid == id)
             return tileset;

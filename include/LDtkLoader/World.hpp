@@ -24,7 +24,7 @@ namespace ldtk {
 
         auto getDefaultPivot() const -> Point<float>;
 
-        auto getDefaultCellSize() const -> unsigned int;
+        auto getDefaultCellSize() const -> int;
 
         auto getBgColor() const -> const Color&;
 
@@ -36,7 +36,7 @@ namespace ldtk {
         auto getEntityDef(unsigned int id) const -> const EntityDef&;
         auto getEntityDef(const std::string& name) const -> const EntityDef&;
 
-        auto getTileset(unsigned int id) const -> const Tileset&;
+        auto getTileset(int id) const -> const Tileset&;
         auto getTileset(const std::string& name) const -> const Tileset&;
 
         auto getEnum(unsigned int id) const -> const Enum&;

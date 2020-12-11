@@ -5,16 +5,16 @@
 using namespace ldtk;
 
 Tileset::Tileset(const nlohmann::json& j) :
-        name(j["identifier"].get<std::string>()),
-        uid(j["uid"].get<unsigned int>()),
-        path(j["relPath"].get<std::string>()),
-        texture_size({j["pxWid"].get<unsigned int>(), j["pxHei"].get<unsigned int>()}),
-        tile_size(j["tileGridSize"].get<unsigned int>()),
-        spacing(j["spacing"].get<unsigned int>()),
-        padding(j["padding"].get<unsigned int>())
+name(j["identifier"].get<std::string>()),
+uid(j["uid"].get<int>()),
+path(j["relPath"].get<std::string>()),
+texture_size({j["pxWid"].get<int>(), j["pxHei"].get<int>()}),
+tile_size(j["tileGridSize"].get<int>()),
+spacing(j["spacing"].get<int>()),
+padding(j["padding"].get<int>())
 {}
 
-auto Tileset::getTileTexturePos(unsigned int tile_id) const -> UIntPoint {
+auto Tileset::getTileTexturePos(int tile_id) const -> IntPoint {
     auto grid_width = texture_size.x / tile_size;
     return {
         padding + (tile_id % grid_width) * (tile_size + spacing),

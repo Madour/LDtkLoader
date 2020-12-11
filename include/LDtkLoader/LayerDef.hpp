@@ -19,8 +19,8 @@ namespace ldtk {
     public:
         const LayerType type;
         const std::string name;
-        const unsigned int uid;
-        const unsigned int cell_size;
+        const int uid;
+        const int cell_size;
         const float opacity;
         const IntPoint offset;
         const FloatPoint pivot;

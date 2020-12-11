@@ -14,9 +14,9 @@ namespace ldtk {
 
     struct EnumValue {
         const std::string name;
-        const unsigned int id;
-        const unsigned int tile_id;
-        const unsigned int type_id;
+        const int id;
+        const int tile_id;
+        const int type_id;
         static EnumValue None;
     };
 
@@ -27,14 +27,14 @@ namespace ldtk {
         friend World;
     public:
         const std::string name;
-        unsigned int uid;
+        int uid;
 
         auto operator[](const std::string& val_name) const -> const EnumValue&;
 
         auto hasIcons() -> bool;
         auto getIconsTileset() -> const Tileset&;
-        auto getIconTexturePos(const std::string& val_name) const -> UIntPoint;
-        auto getIconTexturePos(const EnumValue& val) const -> UIntPoint;
+        auto getIconTexturePos(const std::string& val_name) const -> IntPoint;
+        auto getIconTexturePos(const EnumValue& val) const -> IntPoint;
 
     private:
         Enum(const nlohmann::json& j, const World* w);
