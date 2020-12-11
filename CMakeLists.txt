@@ -2,10 +2,6 @@ cmake_minimum_required(VERSION 3.10)
 
 project(LDtkLoader)
 
-set(CMAKE_CXX_STANDARD 11)
-
-set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY lib)
-
 # temporary
 file(GLOB_RECURSE Src src/*.cpp)
 
