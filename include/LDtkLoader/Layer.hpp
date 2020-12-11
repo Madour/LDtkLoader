@@ -25,8 +25,8 @@ namespace ldtk {
         auto getType() const -> const LayerType&;
         auto getName() const -> const std::string&;
 
-        auto getCellSize() const -> unsigned int;
-        auto getGridSize() const -> const UIntPoint&;
+        auto getCellSize() const -> int;
+        auto getGridSize() const -> const IntPoint&;
 
         auto getOffset() const -> const IntPoint&;
         void setOffset(const IntPoint& offset) const;
@@ -38,7 +38,7 @@ namespace ldtk {
         auto getTileset() const -> const Tileset&;
 
         auto allTiles() const -> const std::vector<Tile>&;
-        auto getTile(unsigned int grid_x, unsigned int grid_y) const -> const Tile&;
+        auto getTile(int grid_x, int grid_y) const -> const Tile&;
 
         auto hasEntity(const std::string& entity_name) const -> bool;
         auto getEntities(const std::string& entity_name) const -> const std::vector<Entity>&;
@@ -55,11 +55,11 @@ namespace ldtk {
 
         mutable IntPoint m_total_offset;
         mutable float m_opacity;
-        const UIntPoint m_grid_size;
+        const IntPoint m_grid_size;
 
         std::vector<Tile> m_tiles;
         std::unordered_map<std::string, std::vector<Entity>> m_entities;
-        std::map<unsigned int, Tile*> m_tiles_map;
+        std::map<int, Tile*> m_tiles_map;
     };
 
 }

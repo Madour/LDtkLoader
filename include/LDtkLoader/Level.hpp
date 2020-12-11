@@ -22,8 +22,8 @@ namespace ldtk {
         const World* world;
 
         const std::string name;
-        const unsigned int uid;
-        const UIntPoint size;
+        const int uid;
+        const IntPoint size;
         const IntPoint position;
 
         auto allLayers() const -> const std::vector<Layer>&;

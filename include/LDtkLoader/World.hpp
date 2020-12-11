@@ -30,27 +30,27 @@ namespace ldtk {
 
         auto getLayout() const -> const WorldLayout&;
 
-        auto getLayerDef(unsigned int id) const -> const LayerDef&;
+        auto getLayerDef(int id) const -> const LayerDef&;
         auto getLayerDef(const std::string& name) const -> const LayerDef&;
 
-        auto getEntityDef(unsigned int id) const -> const EntityDef&;
+        auto getEntityDef(int id) const -> const EntityDef&;
         auto getEntityDef(const std::string& name) const -> const EntityDef&;
 
         auto getTileset(int id) const -> const Tileset&;
         auto getTileset(const std::string& name) const -> const Tileset&;
 
-        auto getEnum(unsigned int id) const -> const Enum&;
+        auto getEnum(int id) const -> const Enum&;
         auto getEnum(const std::string& name) const -> const Enum&;
 
         auto allLevels() const -> const std::vector<Level>&;
-        auto getLevel(unsigned int id) const -> const Level&;
+        auto getLevel(int id) const -> const Level&;
         auto getLevel(const std::string& name) const -> const Level&;
 
     private:
         std::string m_name;
         float m_default_pivot_x = 0.f;
         float m_default_pivot_y = 0.f;
-        unsigned int m_default_cell_size = 0;
+        int m_default_cell_size = 0;
         Color m_background_color;
 
         WorldLayout m_layout = WorldLayout::Free;

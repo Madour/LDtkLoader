@@ -10,10 +10,10 @@
 using namespace ldtk;
 
 Layer::Layer(const nlohmann::json& j, const World* w, const Level* l) :
-m_grid_size({j["__cWid"].get<unsigned int>(), j["__cHei"].get<unsigned int>()}),
+m_grid_size({j["__cWid"].get<int>(), j["__cHei"].get<int>()}),
 m_total_offset(j["__pxTotalOffsetX"].get<int>(), j["__pxTotalOffsetY"].get<int>()),
 m_opacity(j["__opacity"].get<float>()),
-m_definition(&w->getLayerDef(j["layerDefUid"].get<unsigned int>())),
+m_definition(&w->getLayerDef(j["layerDefUid"].get<int>())),
 level(l)
 {
     std::string key = "gridTiles";
@@ -24,16 +24,16 @@ level(l)
     }
     for (const auto& tile : j[key]) {
         Tile new_tile;
-        new_tile.coordId = tile["d"].get<std::vector<unsigned int>>()[coo_id_index];
-        new_tile.position.x = tile["px"].get<std::vector<unsigned int>>()[0];
-        new_tile.position.y = tile["px"].get<std::vector<unsigned int>>()[1];
+        new_tile.coordId = tile["d"].get<std::vector<int>>()[coo_id_index];
+        new_tile.position.x = tile["px"].get<std::vector<int>>()[0];
+        new_tile.position.y = tile["px"].get<std::vector<int>>()[1];
 
         new_tile.world_position.x = static_cast<int>(new_tile.position.x) + l->position.x;
         new_tile.world_position.y = static_cast<int>(new_tile.position.y) + l->position.y;
 
-        new_tile.tileId = tile["t"].get<unsigned int>();
-        new_tile.texture_position.x = tile["src"].get<std::vector<unsigned int>>()[0];
-        new_tile.texture_position.y = tile["src"].get<std::vector<unsigned int>>()[1];
+        new_tile.tileId = tile["t"].get<int>();
+        new_tile.texture_position.x = tile["src"].get<std::vector<int>>()[0];
+        new_tile.texture_position.y = tile["src"].get<std::vector<int>>()[1];
 
         auto flip = tile["f"].get<unsigned int>();
         new_tile.flipX = flip & 1u;
@@ -78,11 +78,11 @@ auto Layer::getName() const -> const std::string& {
     return m_definition->name;
 }
 
-auto Layer::getCellSize() const -> unsigned int {
+auto Layer::getCellSize() const -> int {
     return m_definition->cell_size;
 }
 
-auto Layer::getGridSize() const -> const UIntPoint& {
+auto Layer::getGridSize() const -> const IntPoint& {
     return m_grid_size;
 }
 
@@ -118,7 +118,7 @@ auto Layer::allTiles() const -> const std::vector<Tile>& {
     return m_tiles;
 }
 
-auto Layer::getTile(unsigned int grid_x, unsigned int grid_y) const -> const Tile& {
+auto Layer::getTile(int grid_x, int grid_y) const -> const Tile& {
     auto id = grid_x + m_grid_size.x*grid_y;
     if (m_tiles_map.count(id) > 0)
         return *(m_tiles_map.at(id));
@@ -171,6 +171,6 @@ void Layer::updateTileVerticesTex(const Tile& tile) const {
 
 void Layer::updateTileVerticesCol(const Tile& tile) const {
     for (int i = 0; i < 4; ++i) {
-        tile.vertices[i].col.a = unsigned(m_opacity*255);
+        tile.vertices[i].col.a = unsigned(m_opacity*255)&0xffu;
     }
 }

@@ -16,8 +16,8 @@ namespace ldtk {
         friend World;
     public:
         const std::string name;
-        unsigned int uid;
-        const UIntPoint size;
+        int uid;
+        const IntPoint size;
         const Color color;
         const FloatPoint pivot;
 

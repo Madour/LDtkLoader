@@ -8,8 +8,8 @@ using namespace ldtk;
 Level::Level(const nlohmann::json& j, World* w) :
 world(w),
 name(j["identifier"].get<std::string>()),
-uid(j["uid"].get<unsigned int>()),
-size(j["pxWid"].get<unsigned int>(), j["pxHei"].get<unsigned int>()),
+uid(j["uid"].get<int>()),
+size(j["pxWid"].get<int>(), j["pxHei"].get<int>()),
 position(j["worldX"].get<int>(), j["worldY"].get<int>())
 {
     for (const auto& level : j["layerInstances"]) {
@@ -21,7 +21,7 @@ position(j["worldX"].get<int>(), j["worldY"].get<int>())
     m_neighbours[Dir::South]; m_neighbours[Dir::West];
     for (const auto& neighbour : j["__neighbours"]) {
         const auto& dir = neighbour["dir"].get<std::string>();
-        const auto& level_uid = neighbour["levelUid"].get<unsigned int>();
+        const auto& level_uid = neighbour["levelUid"].get<int>();
         if (dir == "n")
             m_neighbours[Dir::North].push_back(level_uid);
         else if (dir == "e")

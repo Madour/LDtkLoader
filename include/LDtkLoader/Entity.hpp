@@ -28,9 +28,9 @@ namespace ldtk {
     public:
 
         auto getName() const -> const std::string&;
-        auto getSize() const -> const UIntPoint&;
-        auto getPosition() const -> const UIntPoint&;
-        auto getGridPosition() const -> const UIntPoint&;
+        auto getSize() const -> const IntPoint&;
+        auto getPosition() const -> const IntPoint&;
+        auto getGridPosition() const -> const IntPoint&;
         auto getColor() const -> const Color&;
         auto getPivot() const -> const FloatPoint&;
 
@@ -45,8 +45,8 @@ namespace ldtk {
 
         const EntityDef* m_definition = nullptr;
 
-        const UIntPoint m_position;
-        const UIntPoint m_grid_pos;
+        const IntPoint m_position;
+        const IntPoint m_grid_pos;
 
         std::unordered_map<std::string, EntityField> m_fields;
         std::unordered_map<std::string, std::vector<EntityField>> m_array_fields;

@@ -17,7 +17,7 @@ void World::loadFromFile(const std::string& filepath) {
 
     m_default_pivot_x = j["defaultPivotX"].get<float>();
     m_default_pivot_y = j["defaultPivotY"].get<float>();
-    m_default_cell_size = j["defaultGridSize"].get<unsigned int>();
+    m_default_cell_size = j["defaultGridSize"].get<int>();
 
     m_background_color = Color(j["bgColor"].get<std::string>());
 
@@ -89,7 +89,7 @@ auto World::getLayout() const -> const WorldLayout& {
     return m_layout;
 }
 
-auto World::getLayerDef(unsigned int id) const -> const LayerDef& {
+auto World::getLayerDef(int id) const -> const LayerDef& {
     for (const auto& layer_def : m_layers_defs)
         if (layer_def.uid == id)
             return layer_def;
@@ -103,7 +103,7 @@ auto World::getLayerDef(const std::string& name) const -> const LayerDef& {
     throw std::invalid_argument("LayerDef name "+name+" not found in World "+m_name+".");
 }
 
-auto World::getEntityDef(unsigned int id) const -> const EntityDef& {
+auto World::getEntityDef(int id) const -> const EntityDef& {
     for (const auto& entity_def : m_entities_defs)
         if (entity_def.uid == id)
             return entity_def;
@@ -131,7 +131,7 @@ auto World::getTileset(const std::string& name) const -> const Tileset& {
     throw std::invalid_argument("Tileset name "+name+" not found in World "+m_name+".");
 }
 
-auto World::getEnum(unsigned int id) const -> const Enum& {
+auto World::getEnum(int id) const -> const Enum& {
     for (const auto& item : m_enums)
         if (item.second.uid == id)
             return item.second;
@@ -148,7 +148,7 @@ auto World::allLevels() const -> const std::vector<Level>& {
     return m_levels;
 }
 
-auto World::getLevel(unsigned int id) const -> const Level& {
+auto World::getLevel(int id) const -> const Level& {
     for (const auto& level : m_levels)
         if (level.uid == id)
             return level;

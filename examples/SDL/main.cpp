@@ -21,7 +21,7 @@ int main() {
     SDL_Init(SDL_INIT_EVERYTHING);
     SDL_Renderer* renderer;
     SDL_Window* window;
-    SDL_CreateWindowAndRenderer(int(level.size.x)*4, int(level.size.y)*4, SDL_WINDOW_OPENGL, &window, &renderer);
+    SDL_CreateWindowAndRenderer(level.size.x*4, level.size.y*4, SDL_WINDOW_OPENGL, &window, &renderer);
     SDL_SetWindowTitle(window, "LDtkLoader - SDL");
 
     // load the tileset texture
@@ -41,13 +41,13 @@ int main() {
     for (const auto& tile : tiles_vector) {
         // destination rect on the window
         SDL_Rect dest = {
-            int(tile.position.x), int(tile.position.y),
-            int(layer.getCellSize()), int(layer.getCellSize())
+            tile.position.x, tile.position.y,
+            layer.getCellSize(), layer.getCellSize()
         };
         // source rect from the tileset
         SDL_Rect src = {
-            int(tile.texture_position.x), int(tile.texture_position.y),
-            int(layer.getTileset().tile_size), int(layer.getTileset().tile_size)
+            tile.texture_position.x, tile.texture_position.y,
+            layer.getTileset().tile_size, layer.getTileset().tile_size
         };
         // get tile flips
         int flip = (tile.flipX ? SDL_FLIP_HORIZONTAL : SDL_FLIP_NONE)

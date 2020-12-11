@@ -18,8 +18,8 @@ int main() {
                     std::cout << "    Layer " << layer.getName() << " (tileset used : " << layer.getTileset().name << ") :" << std::endl;
 
                     // print layer tiles Ids
-                    for (unsigned int y = 0; y < layer.getGridSize().y; ++y) {
-                        for (unsigned int x = 0; x < layer.getGridSize().x; ++x) {
+                    for (int y = 0; y < layer.getGridSize().y; ++y) {
+                        for (int x = 0; x < layer.getGridSize().x; ++x) {
                             auto& tile = layer.getTile(x, y);
                             if (tile == ldtk::Tile::None)
                                 printf("    ");

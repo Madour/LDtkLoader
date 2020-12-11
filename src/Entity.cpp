@@ -8,9 +8,9 @@
 using namespace ldtk;
 
 Entity::Entity(const nlohmann::json& j, const World* w) :
-m_position( j["px"][0].get<unsigned int>(), j["px"][1].get<unsigned int>() ),
-m_grid_pos( j["__grid"][0].get<unsigned int>(), j["__grid"][1].get<unsigned int>() ),
-m_definition( &w->getEntityDef(j["defUid"].get<unsigned int>()) )
+m_position( j["px"][0].get<int>(), j["px"][1].get<int>() ),
+m_grid_pos( j["__grid"][0].get<int>(), j["__grid"][1].get<int>() ),
+m_definition( &w->getEntityDef(j["defUid"].get<int>()) )
 {
     for (const auto& field : j["fieldInstances"]) {
         EntityField f;
@@ -55,9 +55,9 @@ m_definition( &w->getEntityDef(j["defUid"].get<unsigned int>()) )
                 }
             }
             else if (field_type == "Array<Point>") {
-                f.type_name = typeid(UIntPoint).name();
+                f.type_name = typeid(IntPoint).name();
                 for (const auto& v : field["__value"]) {
-                    f.value = std::make_shared<UIntPoint>(v["cx"].get<unsigned int>(), v["cy"].get<unsigned int>());
+                    f.value = std::make_shared<IntPoint>(v["cx"].get<int>(), v["cy"].get<int>());
                     m_array_fields[field["__identifier"]].push_back(f);
                 }
             }
@@ -100,8 +100,8 @@ m_definition( &w->getEntityDef(j["defUid"].get<unsigned int>()) )
             m_fields[field["__identifier"]] = f;
         }
         else if (field_type == "Point") {
-            f.type_name = typeid(UIntPoint).name();
-            f.value = std::make_shared<UIntPoint>(field["__value"]["cx"].get<unsigned int>(), field["__value"]["cy"].get<unsigned int>());
+            f.type_name = typeid(IntPoint).name();
+            f.value = std::make_shared<IntPoint>(field["__value"]["cx"].get<int>(), field["__value"]["cy"].get<int>());
             m_fields[field["__identifier"]] = f;
         }
         else if (field_type.find("LocalEnum") != std::string::npos) {
@@ -120,15 +120,15 @@ auto Entity::getName() const -> const std::string& {
     return m_definition->name;
 }
 
-auto Entity::getSize() const -> const UIntPoint& {
+auto Entity::getSize() const -> const IntPoint& {
     return m_definition->size;
 }
 
-auto Entity::getPosition() const -> const UIntPoint& {
+auto Entity::getPosition() const -> const IntPoint& {
     return m_position;
 }
 
-auto Entity::getGridPosition() const -> const UIntPoint& {
+auto Entity::getGridPosition() const -> const IntPoint& {
     return m_grid_pos;
 }
 
