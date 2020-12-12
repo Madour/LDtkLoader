@@ -59,13 +59,11 @@ namespace ldtk {
             const auto& field = m_fields.at(field_name);
             if (typeid(T).name() == field.type_name)
                 return *static_cast<T*>(field.value.get());
-            else {
+            else
                 ldtk_error("Field \""+field_name+"\" of entity \""+getName()+"\" is of type \""+field.type_name+"\" and not \""+typeid(T).name()+"\".");
-            }
         }
-        if (m_array_fields.count(field_name) > 0) {
+        if (m_array_fields.count(field_name) > 0)
             ldtk_error("Field \""+field_name+"\" of Entity \""+getName()+"\" is an Array Field, try using `getArrayField`.");
-        }
         ldtk_error("Entity \""+getName()+"\" does not have a field name \""+field_name+"\".");
     }
 
@@ -82,13 +80,11 @@ namespace ldtk {
                 }
                 return res;
             }
-            else {
+            else
                 ldtk_error("Array field \""+field_name+"\" of entity \""+getName()+"\" is of type \""+array_field.at(0).type_name+"\" and not \""+typeid(T).name()+"\".");
-            }
         }
-        if (m_fields.count(field_name) > 0) {
+        if (m_fields.count(field_name) > 0)
             ldtk_error("Field \""+field_name+"\" of Entity \""+getName()+"\" is not an Array Field, try using `getField`.");
-        }
         ldtk_error("Entity \""+getName()+"\" does not have an array field named \""+field_name+"\".");
     }
 

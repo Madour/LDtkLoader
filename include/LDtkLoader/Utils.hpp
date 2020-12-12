@@ -7,7 +7,11 @@
 
 #include "LDtkLoader/DataTypes.hpp"
 
-#define ldtk_error(msg) ldtk::print_error(__FUNCTION__, msg);exit(-1)
+#ifdef LDTK_NO_THROW
+    #define ldtk_error(msg) do{ldtk::print_error(__FUNCTION__, msg);exit(EXIT_FAILURE);}while(0)
+#else
+    #define ldtk_error(msg) throw std::invalid_argument("LDtkLoader exception (in "+std::string(__FUNCTION__)+") : "+std::string(msg))
+#endif
 
 namespace ldtk {
     LayerType getLayerTypeFromString(const std::string& type_name);

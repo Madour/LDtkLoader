@@ -2,22 +2,22 @@ cmake_minimum_required(VERSION 3.10)
 
 project(LDtkLoader)
 
-# temporary
+# get source files
 file(GLOB_RECURSE Src src/*.cpp)
 
+# create the static lib target
 add_library(LDtkLoader STATIC ${Src})
 target_include_directories(LDtkLoader PRIVATE include)
 set_target_properties(LDtkLoader PROPERTIES
     CXX_STANDARD 11
     ARCHIVE_OUTPUT_DIRECTORY lib
 )
+if (LDTK_NO_THROW)
+    target_compile_definitions(LDtkLoader PUBLIC LDTK_NO_THROW)
+endif()
 
-# if(MSVC)
-#     target_compile_options(LDtkLoader PRIVATE /W4 /WX)
-# else()
-#     target_compile_options(LDtkLoader PRIVATE -Wall -Wextra -pedantic -Werror)
-# endif()
 
+# examples targets
 option(BUILD_SFML_EXAMPLE "Build an example using LDtkLoader with SFML." OFF)
 option(BUILD_SDL_EXAMPLE  "Build an example using LDtkLoader with SDL."  OFF)
 
