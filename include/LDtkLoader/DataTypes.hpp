@@ -49,7 +49,7 @@ namespace ldtk {
         mutable std::array<Vertex, 4> vertices;
         static const Tile None;
     private:
-        Tile(int coordid, int tileid);
+        Tile(int coord_id, int tile_id);
     };
 
     bool operator==(const Tile& l, const Tile& r);

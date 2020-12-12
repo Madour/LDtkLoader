@@ -7,7 +7,10 @@ using namespace ldtk;
 Color::Color() = default;
 
 Color::Color(unsigned int red, unsigned int green, unsigned int blue, unsigned int alpha) :
-r(red&0xffu), g(green&0xffu), b(blue&0xffu), a(alpha&0xffu)
+r(red&0xffu),
+g(green&0xffu),
+b(blue&0xffu),
+a(alpha&0xffu)
 {}
 
 Color::Color(const std::string& hex) :
@@ -16,7 +19,9 @@ Color(std::stoul(hex.substr(1, 2), nullptr, 16),
       std::stoul(hex.substr(5, 2), nullptr, 16))
 {}
 
-Tile::Tile(int coordid, int tileid) : coordId(coordid), tileId(tileid)
+Tile::Tile(int coord_id, int tile_id) :
+coordId(coord_id),
+tileId(tile_id)
 {}
 
 const Tile Tile::None{-1, -1};
