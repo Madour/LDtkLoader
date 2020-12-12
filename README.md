@@ -46,6 +46,8 @@ cmake --build .
 ```
 
 Additional CMake options you can pass :
+ - `-DLDTK_NO_THROW` : to print message and exit when there is an error instead of throwing exceptions.
+
  - `-DBUILD_SFML_EXAMPLE=ON` : to build the SFML example (requires SFML installed)
     - set `-DSFML_ROOT=/path/to/SFML/` if CMake is unable to find it
     - set `-DSFML_STATIC_LIBRARIES=TRUE` if you want to link the static libraries
@@ -69,7 +71,5 @@ header metadata etc are not loaded.
 
 ### To Do :
  - [ ] Extended IntGrid data (store values)
- - [ ] Improve error handling
- - [ ] Make API more consistent
  - [ ] Helper classes/methods for rendering
  - [ ] API documentation
