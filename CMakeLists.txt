@@ -12,6 +12,12 @@ set_target_properties(LDtkLoader PROPERTIES
     ARCHIVE_OUTPUT_DIRECTORY lib
 )
 
+# if(MSVC)
+#     target_compile_options(LDtkLoader PRIVATE /W4 /WX)
+# else()
+#     target_compile_options(LDtkLoader PRIVATE -Wall -Wextra -pedantic -Werror)
+# endif()
+
 option(BUILD_SFML_EXAMPLE "Build an example using LDtkLoader with SFML." OFF)
 option(BUILD_SDL_EXAMPLE  "Build an example using LDtkLoader with SDL."  OFF)
 

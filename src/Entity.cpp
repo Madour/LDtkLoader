@@ -8,9 +8,9 @@
 using namespace ldtk;
 
 Entity::Entity(const nlohmann::json& j, const World* w) :
+m_definition( &w->getEntityDef(j["defUid"].get<int>()) ),
 m_position( j["px"][0].get<int>(), j["px"][1].get<int>() ),
-m_grid_pos( j["__grid"][0].get<int>(), j["__grid"][1].get<int>() ),
-m_definition( &w->getEntityDef(j["defUid"].get<int>()) )
+m_grid_pos( j["__grid"][0].get<int>(), j["__grid"][1].get<int>() )
 {
     for (const auto& field : j["fieldInstances"]) {
         EntityField f;

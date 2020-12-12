@@ -10,11 +10,11 @@
 using namespace ldtk;
 
 Layer::Layer(const nlohmann::json& j, const World* w, const Level* l) :
-m_grid_size({j["__cWid"].get<int>(), j["__cHei"].get<int>()}),
+level(l),
+m_definition(&w->getLayerDef(j["layerDefUid"].get<int>())),
 m_total_offset(j["__pxTotalOffsetX"].get<int>(), j["__pxTotalOffsetY"].get<int>()),
 m_opacity(j["__opacity"].get<float>()),
-m_definition(&w->getLayerDef(j["layerDefUid"].get<int>())),
-level(l)
+m_grid_size({j["__cWid"].get<int>(), j["__cHei"].get<int>()})
 {
     std::string key = "gridTiles";
     int coo_id_index = 0;
@@ -59,10 +59,10 @@ level(l)
 }
 
 Layer::Layer(Layer&& other) noexcept :
-m_grid_size(other.m_grid_size),
 m_definition(other.m_definition),
 m_total_offset(other.m_total_offset),
 m_opacity(other.m_opacity),
+m_grid_size(other.m_grid_size),
 m_tiles(std::move(other.m_tiles)),
 m_entities(std::move(other.m_entities))
 {
