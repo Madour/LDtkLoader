@@ -31,8 +31,8 @@ namespace ldtk {
 
         auto operator[](const std::string& val_name) const -> const EnumValue&;
 
-        auto hasIcons() -> bool;
-        auto getIconsTileset() -> const Tileset&;
+        auto hasIcons() const -> bool;
+        auto getIconsTileset() const -> const Tileset&;
         auto getIconTexturePos(const std::string& val_name) const -> IntPoint;
         auto getIconTexturePos(const EnumValue& val) const -> IntPoint;
 

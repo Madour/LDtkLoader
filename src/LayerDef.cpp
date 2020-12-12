@@ -26,7 +26,5 @@ pivot({j["tilePivotX"].get<float>(), j["tilePivotY"].get<float>()})
 auto LayerDef::getTileset() const -> const Tileset& {
     if (m_tileset)
         return *m_tileset;
-
-    std::cerr << "ERROR in Layer::getTileset : Layer " << name << " doesn't have a tileset." << std::endl;
-    throw std::invalid_argument("Layer "+name+" doesn't have a tileset.");
+    ldtk_error("Layer \""+name+"\" doesn't have a tileset.");
 }

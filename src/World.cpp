@@ -142,7 +142,7 @@ auto World::getEnum(int id) const -> const Enum& {
 auto World::getEnum(const std::string& name) const -> const Enum& {
     if (m_enums.count(name) > 0)
         return m_enums.at(name);
-    ldtk_error("Enum \""+name+"\" not found in World \'"+m_name+"\'.");
+    ldtk_error("Enum \""+name+"\" not found in World \""+m_name+"\".");
 }
 
 auto World::allLevels() const -> const std::vector<Level>& {

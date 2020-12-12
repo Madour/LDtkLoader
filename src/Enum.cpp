@@ -30,31 +30,27 @@ m_tileset( j["iconTilesetUid"].is_null() ? nullptr : &w->getTileset(j["iconTiles
 auto Enum::operator[](const std::string& val_name) const -> const EnumValue& {
     if (m_values.count(val_name) > 0)
         return m_values.at(val_name);
-    throw std::invalid_argument("Enum "+name+" does not have value "+val_name);
+    ldtk_error("Enum \""+name+"\" does not have value \""+val_name+"\".");
 }
 
-auto Enum::hasIcons() -> bool {
+auto Enum::hasIcons() const -> bool {
     return m_tileset != nullptr;
 }
 
-auto Enum::getIconsTileset() -> const Tileset& {
+auto Enum::getIconsTileset() const -> const Tileset& {
     if (m_tileset != nullptr)
         return *m_tileset;
-    throw std::invalid_argument("Enum "+name+" values don't have icons.");
+    ldtk_error("Enum \""+name+"\" values don't have icons.");
 }
 
 auto Enum::getIconTexturePos(const std::string& val_name) const -> IntPoint {
-    if (m_tileset == nullptr)
-        throw std::invalid_argument("Enum "+name+" values don't have icons.");
     if (m_values.count(val_name) > 0)
-        return m_tileset->getTileTexturePos(m_values.at(val_name).tile_id);
-    throw std::invalid_argument("Enum "+name+" does not have value "+val_name);
+        return getIconsTileset().getTileTexturePos(m_values.at(val_name).tile_id);
+    ldtk_error("Enum \""+name+"\" does not have value \""+val_name+"\".");
 }
 
 auto Enum::getIconTexturePos(const EnumValue& val) const -> IntPoint {
-    if (m_tileset == nullptr)
-        throw std::invalid_argument("Enum "+name+" values don't have icons.");
     if (val.type_id == uid)
-        return m_tileset->getTileTexturePos(val.tile_id);
-    throw std::invalid_argument("Enum "+name+" does not have value "+val.name);
+        return getIconsTileset().getTileTexturePos(val.tile_id);
+    ldtk_error("Enum \""+name+"\" does not have value \""+val.name+"\".");
 }

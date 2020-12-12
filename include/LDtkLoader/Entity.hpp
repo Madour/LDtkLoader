@@ -10,6 +10,7 @@
 #include "LDtkLoader/DataTypes.hpp"
 #include "LDtkLoader/Enum.hpp"
 #include "LDtkLoader/EntityDef.hpp"
+#include "LDtkLoader/Utils.hpp"
 
 namespace ldtk {
 
@@ -55,15 +56,17 @@ namespace ldtk {
     template <typename T>
     auto Entity::getField(const std::string& field_name) const -> const T& {
         if (m_fields.count(field_name) > 0) {
-            if (typeid(T).name() == m_fields.at(field_name).type_name)
-                return *static_cast<T*>(m_fields.at(field_name).value.get());
+            const auto& field = m_fields.at(field_name);
+            if (typeid(T).name() == field.type_name)
+                return *static_cast<T*>(field.value.get());
             else {
-                std::cerr << "Field " << field_name << " of entity " << getName()
-                          << " is not of type " << typeid(T).name() << std::endl;
-                throw std::invalid_argument("Field "+field_name+" of entity "+getName()+" is not of type "+typeid(T).name());
+                ldtk_error("Field \""+field_name+"\" of entity \""+getName()+"\" is of type \""+field.type_name+"\" and not \""+typeid(T).name()+"\".");
             }
         }
-        throw std::invalid_argument("Entity "+getName()+" does not have a field name "+field_name);
+        if (m_array_fields.count(field_name) > 0) {
+            ldtk_error("Field \""+field_name+"\" of Entity \""+getName()+"\" is an Array Field, try using `getArrayField`.");
+        }
+        ldtk_error("Entity \""+getName()+"\" does not have a field name \""+field_name+"\".");
     }
 
     template <typename T>
@@ -80,12 +83,13 @@ namespace ldtk {
                 return res;
             }
             else {
-                std::cerr << "Field " << field_name << " of entity " << getName()
-                          << " is not of type " << typeid(T).name() << std::endl;
-                throw std::invalid_argument("Field "+field_name+" of entity "+getName()+" is not of type "+typeid(T).name());
+                ldtk_error("Array field \""+field_name+"\" of entity \""+getName()+"\" is of type \""+array_field.at(0).type_name+"\" and not \""+typeid(T).name()+"\".");
             }
         }
-        throw std::invalid_argument("Entity "+getName()+" does not have a field name "+field_name);
+        if (m_fields.count(field_name) > 0) {
+            ldtk_error("Field \""+field_name+"\" of Entity \""+getName()+"\" is not an Array Field, try using `getField`.");
+        }
+        ldtk_error("Entity \""+getName()+"\" does not have an array field named \""+field_name+"\".");
     }
 
 }
