@@ -9,6 +9,7 @@
 #include "LDtkLoader/thirdparty/json.hpp"
 #include "LDtkLoader/DataTypes.hpp"
 #include "LDtkLoader/Enum.hpp"
+#include "LDtkLoader/FieldsContainer.hpp"
 #include "LDtkLoader/EntityDef.hpp"
 #include "LDtkLoader/Utils.hpp"
 
