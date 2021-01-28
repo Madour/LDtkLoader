@@ -47,7 +47,7 @@ namespace ldtk {
         void addField(const std::string& name, const Field<T>& field);
 
         template <typename T>
-        auto getField(const std::string& name) -> const Field<T>&;
+        auto getField(const std::string& name) const -> const Field<T>&;
 
         template <typename T>
         void addArrayField(const std::string& name, const std::vector<Field<T>>& field);
@@ -56,7 +56,7 @@ namespace ldtk {
         void addArrayField(const std::string& name, const ArrayField<T>& field);
 
         template <typename T>
-        auto getArrayField(const std::string& name) -> const ArrayField<T>&;
+        auto getArrayField(const std::string& name) const -> const ArrayField<T>&;
 
     private:
         std::vector<std::shared_ptr<IField>> m_gc;
@@ -81,9 +81,9 @@ namespace ldtk {
     }
 
     template <typename T>
-    auto FieldsContainer::getField(const std::string& name) -> const Field<T>& {
+    auto FieldsContainer::getField(const std::string& name) const -> const Field<T>& {
         if (m_fields.count(name) > 0) {
-            const auto* field = m_fields[name];
+            const auto* field = m_fields.at(name);
             const auto* ret = dynamic_cast<const Field<T>*>(field);
             if (ret)
                 return *ret;
@@ -107,9 +107,9 @@ namespace ldtk {
     }
 
     template <typename T>
-    auto FieldsContainer::getArrayField(const std::string& name) -> const ArrayField<T>& {
+    auto FieldsContainer::getArrayField(const std::string& name) const -> const ArrayField<T>& {
         if (m_array_fields.count(name) > 0) {
-            const auto* field = m_array_fields[name];
+            const auto* field = m_array_fields.at(name);
             const auto* ret = dynamic_cast<const ArrayField<T>*>(field);
             if (ret)
                 return *ret;

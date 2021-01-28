@@ -20,18 +20,24 @@ endif()
 # examples targets
 option(BUILD_SFML_EXAMPLE "Build an example using LDtkLoader with SFML." OFF)
 option(BUILD_SDL_EXAMPLE  "Build an example using LDtkLoader with SDL."  OFF)
+option(BUILD_API_TEST     "Build an example that loads a file showcasing all features of LDtk."  OFF)
 
 if (BUILD_SFML_EXAMPLE)
-    message(STATUS "Will build LDtkLoader SFML example")
+    message(STATUS "LDtkSFML target available.")
     add_subdirectory(examples/SFML)
 endif()
 
 if (BUILD_SDL_EXAMPLE)
-    message(STATUS "Will build LDtkLoader SDL example")
+    message(STATUS "LDtkSDL target available.")
     add_subdirectory(examples/SDL)
 endif()
 
-if (BUILD_SDL_EXAMPLE OR BUILD_SFML_EXAMPLE)
-    message(STATUS "Will build LDtkLoader console example")
+if (BUILD_API_TEST)
+    message(STATUS "LDtkAPI_test target available.")
+    add_subdirectory(examples/API_test)
+endif()
+
+if (BUILD_SDL_EXAMPLE OR BUILD_SFML_EXAMPLE OR BUILD_API_TEST)
+    message(STATUS "LDtkConsole target available.")
     add_subdirectory(examples/console)
 endif()

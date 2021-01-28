@@ -13,105 +13,127 @@ m_position( j["px"][0].get<int>(), j["px"][1].get<int>() ),
 m_grid_pos( j["__grid"][0].get<int>(), j["__grid"][1].get<int>() )
 {
     for (const auto& field : j["fieldInstances"]) {
-        EntityField f;
-        auto&& field_type = field["__type"].get<std::string>();
+        auto field_type = field["__type"].get<std::string>();
+        auto field_name = field["__identifier"].get<std::string>();
+        auto field_value = field["__value"];
 
         // array fields
         if (field_type.find("Array") != std::string::npos) {
-            m_array_fields[field["__identifier"]] = {};
             if (field_type == "Array<Int>") {
-                f.type_name = typeid(int).name();
-                for (int v : field["__value"]) {
-                    f.value = std::make_shared<int>(v);
-                    m_array_fields[field["__identifier"]].push_back(f);
+                std::vector<Field<int>> values;
+                for (const auto& v : field_value) {
+                    if (v.is_null())
+                        values.emplace_back(null);
+                    else
+                        values.emplace_back(v.get<int>());
                 }
+                addArrayField(field_name, values);
             }
             else if (field_type == "Array<Float>") {
-                f.type_name = typeid(float).name();
-                for (const float v : field["__value"]) {
-                    f.value = std::make_shared<float>(v);
-                    m_array_fields[field["__identifier"]].push_back(f);
+                std::vector<Field<float>> values;
+                for (const auto& v : field_value) {
+                    if (v.is_null())
+                        values.emplace_back(null);
+                    else
+                        values.emplace_back(v.get<float>());
                 }
+                addArrayField(field_name, values);
             }
             else if (field_type == "Array<Bool>") {
-                f.type_name = typeid(bool).name();
-                for (const bool v : field["__value"]) {
-                    f.value = std::make_shared<bool>(v);
-                    m_array_fields[field["__identifier"]].push_back(f);
+                std::vector<Field<bool>> values;
+                for (const auto& v : field_value) {
+                    if (v.is_null())
+                        values.emplace_back(null);
+                    else
+                        values.emplace_back(v.get<bool>());
                 }
+                addArrayField(field_name, values);
             }
             else if (field_type == "Array<String>") {
-                f.type_name = typeid(std::string).name();
-                for (const std::string v : field["__value"]) {
-                    f.value = std::make_shared<std::string>(v);
-                    m_array_fields[field["__identifier"]].push_back(f);
+                std::vector<Field<std::string>> values;
+                for (const auto& v : field_value) {
+                    if (v.is_null())
+                        values.emplace_back(null);
+                    else
+                        values.emplace_back(v.get<std::string>());
                 }
+                addArrayField(field_name, values);
             }
             else if (field_type == "Array<Color>") {
-                f.type_name = typeid(Color).name();
-                for (const std::string v : field["__value"]) {
-                    f.value = std::make_shared<Color>(v);
-                    m_array_fields[field["__identifier"]].push_back(f);
+                std::vector<Field<Color>> values;
+                for (const auto& v : field_value) {
+                    if (v.is_null())
+                        values.emplace_back(null);
+                    else
+                        values.emplace_back(Color(v.get<std::string>()));
                 }
+                addArrayField(field_name, values);
             }
             else if (field_type == "Array<Point>") {
-                f.type_name = typeid(IntPoint).name();
-                for (const auto& v : field["__value"]) {
-                    f.value = std::make_shared<IntPoint>(v["cx"].get<int>(), v["cy"].get<int>());
-                    m_array_fields[field["__identifier"]].push_back(f);
+                std::vector<Field<IntPoint>> values;
+                for (const auto& v : field_value) {
+                    if (v.is_null())
+                        values.emplace_back(null);
+                    else
+                        values.emplace_back(IntPoint(v["cx"].get<int>(), v["cy"].get<int>()));
                 }
+                addArrayField(field_name, values);
             }
             else if (field_type.find("LocalEnum") != std::string::npos) {
-                auto&& enum_type = field_type.substr(field_type.find('.')+1, field_type.size()-field_type.find('.')-2);
-                f.type_name = typeid(EnumValue).name();
-                for (const auto& v : field["__value"]) {
+                auto enum_type = field_type.substr(field_type.find('.')+1, field_type.size()-field_type.find('.')-2);
+                std::vector<Field<EnumValue>> values;
+                for (const auto& v : field_value) {
                     if (v.is_null())
-                        f.value = std::make_shared<EnumValue>(EnumValue::None);
+                        values.emplace_back(null);
                     else
-                        f.value = std::make_shared<EnumValue>(w->getEnum(enum_type)[v.get<std::string>()]);
-                    m_array_fields[field["__identifier"]].push_back(f);
+                        values.emplace_back(w->getEnum(enum_type)[v]);
                 }
+                addArrayField(field_name, values);
             }
         }
         // simple fields
         else if (field_type == "Int") {
-            f.type_name = typeid(int).name();
-            f.value = std::make_shared<int>(field["__value"].get<int>());
-            m_fields[field["__identifier"]] = f;
+            if (field_value.is_null())
+                addField<int>(field_name, null);
+            else
+                addField<int>(field_name, field_value);
         }
         else if (field_type == "Float") {
-            f.type_name = typeid(float).name();
-            f.value = std::make_shared<float>(field["__value"].get<float>());
-            m_fields[field["__identifier"]] = f;
+            if (field_value.is_null())
+                addField<float>(field_name, null);
+            else
+                addField<float>(field_name, field_value);
         }
         else if (field_type == "Bool") {
-            f.type_name = typeid(bool).name();
-            f.value = std::make_shared<bool>(field["__value"].get<bool>());
-            m_fields[field["__identifier"]] = f;
+            if (field_value.is_null())
+                addField<bool>(field_name, null);
+            else
+                addField<bool>(field_name, field_value);
         }
         else if (field_type == "String") {
-            f.type_name = typeid(std::string).name();
-            f.value = std::make_shared<std::string>(field["__value"].get<std::string>());
-            m_fields[field["__identifier"]] = f;
+            if (field_value.is_null())
+                addField<std::string>(field_name, null);
+            else
+                addField<std::string>(field_name, field_value);
         }
         else if (field_type == "Color") {
-            f.type_name = typeid(Color).name();
-            f.value = std::make_shared<std::string>(field["__value"].get<std::string>());
-            m_fields[field["__identifier"]] = f;
+            if (field_value.is_null())
+                addField<Color>(field_name, null);
+            else
+                addField<Color>(field_name, Color(field_value));
         }
         else if (field_type == "Point") {
-            f.type_name = typeid(IntPoint).name();
-            f.value = std::make_shared<IntPoint>(field["__value"]["cx"].get<int>(), field["__value"]["cy"].get<int>());
-            m_fields[field["__identifier"]] = f;
+            if (field_value.is_null())
+                addField<IntPoint>(field_name, null);
+            else
+                addField<IntPoint>(field_name, {field_value["cx"].get<int>(), field_value["cy"].get<int>()});
         }
         else if (field_type.find("LocalEnum") != std::string::npos) {
-            auto&& enum_type = field_type.substr(field_type.find('.')+1, field_type.size());
-            f.type_name = typeid(EnumValue).name();
-            if (field["__value"].is_null())
-                f.value = std::make_shared<EnumValue>(EnumValue::None);
+            auto enum_type = field_type.substr(field_type.find('.')+1, field_type.size());
+            if (field_value.is_null())
+                addField<EnumValue>(field_name, null);
             else
-                f.value = std::make_shared<EnumValue>(w->getEnum(enum_type)[field["__value"].get<std::string>()]);
-            m_fields[field["__identifier"]] = f;
+                addField<EnumValue>(field_name, w->getEnum(enum_type)[field_value]);
         }
     }
 }

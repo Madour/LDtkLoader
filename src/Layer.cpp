@@ -59,6 +59,7 @@ m_grid_size({j["__cWid"].get<int>(), j["__cHei"].get<int>()})
 }
 
 Layer::Layer(Layer&& other) noexcept :
+level(other.level),
 m_definition(other.m_definition),
 m_total_offset(other.m_total_offset),
 m_opacity(other.m_opacity),

@@ -11,13 +11,17 @@
 namespace ldtk {
 
     class World;
+    class Enum;
 
     struct EnumValue {
         const std::string name;
+    private:
+        friend Enum;
+        friend bool operator==(const EnumValue& l, const EnumValue& r);
+        EnumValue(std::string name, int id, int tile_id, int type_id);
         const int id;
         const int tile_id;
         const int type_id;
-        static EnumValue None;
     };
 
     bool operator==(const EnumValue& l, const EnumValue& r);

@@ -5,7 +5,12 @@
 
 using namespace ldtk;
 
-EnumValue EnumValue::None{"", -1, -1, -1};
+EnumValue::EnumValue(std::string val_name, int val_id, int val_tile_id, int val_type_id) :
+name(std::move(val_name)),
+id(val_id),
+tile_id(val_tile_id),
+type_id(val_type_id)
+{}
 
 bool ldtk::operator==(const EnumValue& l, const EnumValue& r) {
     return (l.id == r.id) && (l.type_id == r.type_id);
