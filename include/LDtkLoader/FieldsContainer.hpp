@@ -29,7 +29,30 @@ namespace ldtk {
         constexpr auto is_null() const -> bool {
             return !optional<T>::has_value();
         }
+
     };
+
+    template <class T>
+    constexpr bool operator==(const Field<T>& lhs, const T& rhs) {
+        if (lhs.is_null()) return false;
+        return (lhs.value() == rhs);
+    }
+
+    template <class T>
+    constexpr bool operator==(const T& lhs, const Field<T>& rhs) {
+        if (rhs.is_null()) return false;
+        return (rhs.value() == lhs);
+    }
+
+    template <class T>
+    constexpr bool operator!=(const Field<T>& lhs, const T& rhs) {
+        return !(lhs == rhs);
+    }
+
+    template <class T>
+    constexpr bool operator!=(const T& lhs, const Field<T>& rhs) {
+        return !(lhs == rhs);
+    }
 
     template <typename T>
     struct ArrayField : IField, std::vector<Field<T>> {

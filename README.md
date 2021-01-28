@@ -63,13 +63,11 @@ Documentation is under construction and can be found on the [**wiki**](https://g
  - [x] IntGrid layers
  - [x] Tiles layers
  - [x] AutoLayer layers
- - [x] Enums
  - [x] Entities layers
-
-Note that LDtkLoader loads only the data needed to render the levels. Things like rules,
-header metadata etc are not loaded.
+ - [x] Enums
+ - [x] Entities and fields
 
 ### To Do :
  - [ ] Extended IntGrid data (store values)
- - [ ] Helper classes/methods for rendering
+ - [ ] Helper classes/methods for SFML or SDL rendering
  - [ ] API documentation

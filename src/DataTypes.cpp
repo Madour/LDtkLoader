@@ -19,6 +19,12 @@ Color(std::stoul(hex.substr(1, 2), nullptr, 16),
       std::stoul(hex.substr(5, 2), nullptr, 16))
 {}
 
+bool ldtk::operator==(const Color& lhs, const Color& rhs) {
+    return (lhs.r == rhs.r && lhs.g == rhs.g &&
+            lhs.b == rhs.b && lhs.a == rhs.a);
+
+}
+
 Tile::Tile(int coord_id, int tile_id) :
 coordId(coord_id),
 tileId(tile_id)

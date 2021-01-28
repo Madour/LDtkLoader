@@ -16,6 +16,11 @@ namespace ldtk {
         T y;
     };
 
+    template <typename T>
+    bool operator==(const Point<T>& lhs, const Point<T>& rhs) {
+        return (lhs.x == rhs.x && lhs.y == rhs.y);
+    }
+
     typedef Point<float> FloatPoint;
     typedef Point<int> IntPoint;
     typedef Point<unsigned int> UIntPoint;
@@ -30,6 +35,8 @@ namespace ldtk {
         std::uint8_t b = 0;
         std::uint8_t a = 0xffu;
     };
+
+    bool operator==(const Color& lhs, const Color& rhs);
 
     struct Vertex {
         FloatPoint pos = {0.f, 0.f};
