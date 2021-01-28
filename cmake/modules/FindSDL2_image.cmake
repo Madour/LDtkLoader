@@ -98,9 +98,9 @@ set(SDL2IMAGE_INCLUDE_DIR ${SDL2_IMAGE_INCLUDE_DIRS})
 set(SDL2IMAGE_FOUND ${SDL2_IMAGE_FOUND})
 
 if (SDL2_IMAGE_FOUND)
-    message("-- Found SDL2_image : ${SDL2_IMAGE_LIBRARIES}")
+    message(STATUS "Found SDL2_image : ${SDL2_IMAGE_LIBRARIES}")
 else()
-    message(FATAL_ERROR "-- SDL2_image not found")
+    message(FATAL_ERROR "SDL2_image not found")
 endif()
 
 mark_as_advanced(SDL2_IMAGE_LIBRARY SDL2_IMAGE_INCLUDE_DIR)
