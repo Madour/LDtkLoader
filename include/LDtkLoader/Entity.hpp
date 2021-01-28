@@ -29,6 +29,10 @@ namespace ldtk {
         auto getColor() const -> const Color&;
         auto getPivot() const -> const FloatPoint&;
 
+        auto hasIcon() const -> bool;
+        auto getIconTileset() const -> const Tileset&;
+        auto getIconTexturePos() const -> IntPoint;
+
     private:
         explicit Entity(const nlohmann::json& j, const World* w);
 

@@ -16,16 +16,16 @@ namespace ldtk {
         friend World;
     public:
         const std::string name;
-        int uid;
+        const int uid;
         const IntPoint size;
         const Color color;
         const FloatPoint pivot;
+        const Tileset* tileset;
+        const int tile_id;
 
     private:
         EntityDef(const nlohmann::json& j, World* w);
 
-        const Tileset* m_tileset;
-        int m_tile_id;
     };
 
 }

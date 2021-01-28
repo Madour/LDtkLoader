@@ -161,3 +161,15 @@ auto Entity::getColor() const -> const Color& {
 auto Entity::getPivot() const -> const FloatPoint& {
     return m_definition->pivot;
 }
+
+auto Entity::hasIcon() const -> bool {
+    return m_definition->tileset != nullptr;
+}
+
+auto Entity::getIconTileset() const -> const Tileset& {
+    return *m_definition->tileset;
+}
+
+auto Entity::getIconTexturePos() const -> IntPoint {
+    return m_definition->tileset->getTileTexturePos(m_definition->tile_id);
+}

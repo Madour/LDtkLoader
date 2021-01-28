@@ -274,7 +274,7 @@
 				"renderMode": "Tile",
 				"showName": true,
 				"tilesetId": 31,
-				"tileId": 51,
+				"tileId": 49,
 				"tileRenderMode": "Stretch",
 				"maxPerLevel": 0,
 				"limitBehavior": "DiscardOldOnes",
@@ -735,7 +735,7 @@
 							},
 							{ "__identifier": "color", "__value": "#7F95AB", "__type": "Color", "defUid": 12, "realEditorValues": [] }
 						] },
-						{ "__identifier": "Test", "__grid": [6,21], "__tile": { "tilesetUid": 31, "srcRect": [48,48,16,16] }, "defUid": 15, "px": [104,344], "fieldInstances": [
+						{ "__identifier": "Test", "__grid": [6,21], "__tile": { "tilesetUid": 31, "srcRect": [16,48,16,16] }, "defUid": 15, "px": [104,344], "fieldInstances": [
 							{
 								"__identifier": "Integer",
 								"__value": 1,
@@ -1301,7 +1301,7 @@
 					"autoLayerTiles": [],
 					"seed": 8894473,
 					"gridTiles": [],
-					"entityInstances": [{ "__identifier": "Test", "__grid": [7,7], "__tile": { "tilesetUid": 31, "srcRect": [48,48,16,16] }, "defUid": 15, "px": [120,120], "fieldInstances": [
+					"entityInstances": [{ "__identifier": "Test", "__grid": [7,7], "__tile": { "tilesetUid": 31, "srcRect": [16,48,16,16] }, "defUid": 15, "px": [120,120], "fieldInstances": [
 						{
 							"__identifier": "Integer",
 							"__value": 2,
