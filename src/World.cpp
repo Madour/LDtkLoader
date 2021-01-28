@@ -13,6 +13,9 @@ World::World() = default;
 void World::loadFromFile(const std::string& filepath) {
     m_name = filepath;
     std::ifstream in(filepath);
+    if (in.fail()) {
+        ldtk_error("Failed to open file \"" + filepath + "\" : " + strerror(errno));
+    }
     json j;
     in >> j;
 
