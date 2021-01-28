@@ -2,20 +2,26 @@
 	"__header__": {
 		"fileType": "LDtk Project JSON",
 		"app": "LDtk",
-		"schema": "https://ldtk.io/json",
+		"doc": "https://ldtk.io/json",
+		"schema": "https://ldtk.io/files/JSON_SCHEMA.json",
 		"appAuthor": "Sebastien 'deepnight' Benard",
-		"appVersion": "0.6.1",
+		"appVersion": "0.7.2",
 		"url": "https://ldtk.io"
 	},
-	"jsonVersion": "0.6.1",
+	"jsonVersion": "0.7.2",
 	"defaultPivotX": 0.5,
 	"defaultPivotY": 0.5,
 	"defaultGridSize": 16,
 	"bgColor": "#373852",
 	"defaultLevelBgColor": "#373852",
-	"nextUid": 35,
+	"nextUid": 37,
 	"minifyJson": false,
+	"externalLevels": false,
 	"exportTiled": false,
+	"exportPng": false,
+	"pngFilePattern": null,
+	"backupOnSave": false,
+	"backupLimit": 10,
 	"worldLayout": "LinearVertical",
 	"worldGridWidth": 256,
 	"worldGridHeight": 256,
@@ -271,10 +277,10 @@
 				"width": 32,
 				"height": 32,
 				"color": "#00A5FF",
-				"renderMode": "Tile",
+				"renderMode": "Ellipse",
 				"showName": true,
-				"tilesetId": 31,
-				"tileId": 49,
+				"tilesetId": null,
+				"tileId": null,
 				"tileRenderMode": "Stretch",
 				"maxPerLevel": 0,
 				"limitBehavior": "DiscardOldOnes",
@@ -295,6 +301,7 @@
 						"editorAlwaysShow": true,
 						"min": null,
 						"max": null,
+						"regex": null,
 						"acceptFileTypes": null,
 						"defaultOverride": null
 					},
@@ -312,6 +319,7 @@
 						"editorAlwaysShow": true,
 						"min": null,
 						"max": null,
+						"regex": null,
 						"acceptFileTypes": null,
 						"defaultOverride": null
 					},
@@ -329,6 +337,7 @@
 						"editorAlwaysShow": true,
 						"min": null,
 						"max": null,
+						"regex": null,
 						"acceptFileTypes": null,
 						"defaultOverride": null
 					},
@@ -346,6 +355,7 @@
 						"editorAlwaysShow": true,
 						"min": null,
 						"max": null,
+						"regex": null,
 						"acceptFileTypes": null,
 						"defaultOverride": null
 					},
@@ -363,6 +373,7 @@
 						"editorAlwaysShow": true,
 						"min": null,
 						"max": null,
+						"regex": null,
 						"acceptFileTypes": null,
 						"defaultOverride": null
 					},
@@ -372,7 +383,7 @@
 						"uid": 22,
 						"type": { "id": "F_Enum", "params": [21] },
 						"isArray": false,
-						"canBeNull": true,
+						"canBeNull": false,
 						"arrayMinLength": null,
 						"arrayMaxLength": null,
 						"editorDisplayMode": "NameAndValue",
@@ -380,6 +391,7 @@
 						"editorAlwaysShow": true,
 						"min": null,
 						"max": null,
+						"regex": null,
 						"acceptFileTypes": null,
 						"defaultOverride": null
 					},
@@ -397,6 +409,7 @@
 						"editorAlwaysShow": true,
 						"min": null,
 						"max": null,
+						"regex": null,
 						"acceptFileTypes": null,
 						"defaultOverride": { "id": "V_Int", "params": [0] }
 					},
@@ -414,6 +427,7 @@
 						"editorAlwaysShow": true,
 						"min": null,
 						"max": null,
+						"regex": null,
 						"acceptFileTypes": null,
 						"defaultOverride": null
 					},
@@ -431,6 +445,7 @@
 						"editorAlwaysShow": true,
 						"min": null,
 						"max": null,
+						"regex": null,
 						"acceptFileTypes": null,
 						"defaultOverride": null
 					},
@@ -448,6 +463,7 @@
 						"editorAlwaysShow": true,
 						"min": null,
 						"max": null,
+						"regex": null,
 						"acceptFileTypes": null,
 						"defaultOverride": null
 					},
@@ -465,6 +481,25 @@
 						"editorAlwaysShow": true,
 						"min": null,
 						"max": null,
+						"regex": null,
+						"acceptFileTypes": null,
+						"defaultOverride": null
+					},
+					{
+						"identifier": "FilePath",
+						"__type": "FilePath",
+						"uid": 35,
+						"type": "F_Path",
+						"isArray": false,
+						"canBeNull": false,
+						"arrayMinLength": null,
+						"arrayMaxLength": null,
+						"editorDisplayMode": "NameAndValue",
+						"editorDisplayPos": "Center",
+						"editorAlwaysShow": true,
+						"min": null,
+						"max": null,
+						"regex": null,
 						"acceptFileTypes": null,
 						"defaultOverride": null
 					}
@@ -500,6 +535,7 @@
 						"editorAlwaysShow": false,
 						"min": null,
 						"max": null,
+						"regex": null,
 						"acceptFileTypes": null,
 						"defaultOverride": null
 					},
@@ -517,6 +553,7 @@
 						"editorAlwaysShow": false,
 						"min": null,
 						"max": null,
+						"regex": null,
 						"acceptFileTypes": null,
 						"defaultOverride": { "id": "V_Int", "params": [8361387] }
 					}
@@ -527,7 +564,7 @@
 			{
 				"identifier": "Inca_front_by_Kronbits_extended",
 				"uid": 2,
-				"relPath": "Inca_front_by_Kronbits-extended.png",
+				"relPath": "atlas/Inca_front_by_Kronbits-extended.png",
 				"pxWid": 320,
 				"pxHei": 224,
 				"tileGridSize": 16,
@@ -543,14 +580,14 @@
 					{ "ids": [88,89], "mode": "Stamp" }
 				],
 				"cachedPixelData": {
-					"opaqueTiles": "1111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111",
-					"averageColors": "f965f964fa65f965f854f854fa65f964fa64f964fa64fa64fa64f964f088f088f088f088f088f088f854f854f854f854f954f854f854f844f954f854f954fa64fa64f954f088f088f088f088f088f088f965f964f965f964f965f954f965f954fa65f965fa54fa64fa64f954f088f088f088f088f088f088f744f744f854f844f854f854f634f533f644f633f954f954f954f854f088f088f088f088f088f088f954f954f964f854f964f954f964f854f964f854f088f088f088f088f088f088f088f088f088f088f854f754f964f964f954f854f954f854f854f854f088f088f088f088f088f088f088f088f088f088f855f854f965f964f965f964f965f964f965f964f088f088f088f088f088f088f088f088f088f088f854f854f744f854f954f954f854f965f964f954f088f088f088f088f088f088f088f088f088f088f854f854f854f854f954f964f954f965f854f954f088f088f088f088f088f088f088f088f088f088f854f854f964f855f854f854f954f854f854f964f088f088f088f088f088f088f088f088f088f088f965f854f744f854f643f088f088f088f088f088f088f088f088f088f088f088f088f088f088f088f854f643f643f754f754f088f088f088f088f088f088f088f088f088f088f088f088f088f088f088fa65f965f954f744f566f088f088f088f088f088f088f088f088f088f088f088f088f088f088f088f965f965f954f744f088f088f088f088f088f088f088f088f088f088f088f088f088f088f088f088"
+					"opaqueTiles": "1111111111111111111111111111111111111111111111111111111111111111111111111111111111111111110011111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111",
+					"averageColors": "f965f964fa65f965f854f854fa65f964fa64f964fa64fa64fa64f964f088f088f088f088f088f088f854f854f854f854f954f854f854f844f954f854f954fa64fa64f954f088f088f088f088f088f088f965f964f965f964f965f954f965f954fa65f965fa54fa64fa64f954f088f088f088f088f088f088f744f744f854f844f854f854f634f533f644f633f954f954f954f854f088f088f088f088f088f088f954f954f964f854f964f954f964f854f964f85430001000f088f088f088f088f088f088f088f088f854f754f964f964f954f854f954f854f854f854f088f088f088f088f088f088f088f088f088f088f855f854f965f964f965f964f965f964f965f964f088f088f088f088f088f088f088f088f088f088f854f854f744f854f954f954f854f965f964f954f088f088f088f088f088f088f088f088f088f088f854f854f854f854f954f964f954f965f854f954f088f088f088f088f088f088f088f088f088f088f854f854f964f855f854f854f954f854f854f964f088f088f088f088f088f088f088f088f088f088f965f854f744f854f643f088f088f088f088f088f088f088f088f088f088f088f088f088f088f088f854f643f643f754f754f088f088f088f088f088f088f088f088f088f088f088f088f088f088f088fa65f965f954f744f566f088f088f088f088f088f088f088f088f088f088f088f088f088f088f088f965f965f954f744f088f088f088f088f088f088f088f088f088f088f088f088f088f088f088f088"
 				}
 			},
 			{
 				"identifier": "_Soul_s_RPG_Graphics_Icons",
 				"uid": 31,
-				"relPath": "7Soul's RPG Graphics - Icons.png",
+				"relPath": "atlas/RPG Graphics Icons by 7Soul's.png",
 				"pxWid": 256,
 				"pxHei": 2048,
 				"tileGridSize": 16,
@@ -581,6 +618,12 @@
 			"pxHei": 448,
 			"__bgColor": "#373852",
 			"bgColor": null,
+			"bgRelPath": null,
+			"bgPos": null,
+			"bgPivotX": 0.5,
+			"bgPivotY": 0.5,
+			"__bgPos": null,
+			"externalRelPath": null,
 			"layerInstances": [
 				{
 					"__identifier": "IntGrid_8px_grid",
@@ -696,7 +739,7 @@
 					"seed": 7679736,
 					"gridTiles": [],
 					"entityInstances": [
-						{ "__identifier": "Labels", "__grid": [5,5], "__tile": null, "defUid": 10, "px": [88,88], "fieldInstances": [
+						{ "__identifier": "Labels", "__grid": [5,5], "__pivot": [0.5,0.5], "__tile": null, "defUid": 10, "px": [88,88], "fieldInstances": [
 							{
 								"__identifier": "text",
 								"__value": "IntGrid (classic)",
@@ -709,7 +752,7 @@
 							},
 							{ "__identifier": "color", "__value": "#7F95AB", "__type": "Color", "defUid": 12, "realEditorValues": [] }
 						] },
-						{ "__identifier": "Labels", "__grid": [14,5], "__tile": null, "defUid": 10, "px": [232,88], "fieldInstances": [
+						{ "__identifier": "Labels", "__grid": [14,5], "__pivot": [0.5,0.5], "__tile": null, "defUid": 10, "px": [232,88], "fieldInstances": [
 							{
 								"__identifier": "text",
 								"__value": "IntGrid (with rules)",
@@ -722,7 +765,7 @@
 							},
 							{ "__identifier": "color", "__value": "#7F95AB", "__type": "Color", "defUid": 12, "realEditorValues": [] }
 						] },
-						{ "__identifier": "Labels", "__grid": [29,5], "__tile": null, "defUid": 10, "px": [472,88], "fieldInstances": [
+						{ "__identifier": "Labels", "__grid": [29,5], "__pivot": [0.5,0.5], "__tile": null, "defUid": 10, "px": [472,88], "fieldInstances": [
 							{
 								"__identifier": "text",
 								"__value": "Tiles",
@@ -735,7 +778,7 @@
 							},
 							{ "__identifier": "color", "__value": "#7F95AB", "__type": "Color", "defUid": 12, "realEditorValues": [] }
 						] },
-						{ "__identifier": "Test", "__grid": [6,21], "__tile": { "tilesetUid": 31, "srcRect": [16,48,16,16] }, "defUid": 15, "px": [104,344], "fieldInstances": [
+						{ "__identifier": "Test", "__grid": [6,21], "__pivot": [0.5,0.5], "__tile": null, "defUid": 15, "px": [104,344], "fieldInstances": [
 							{
 								"__identifier": "Integer",
 								"__value": 1,
@@ -772,12 +815,12 @@
 							},
 							{
 								"__identifier": "String_multiLines",
-								"__value": "foo\nbar",
+								"__value": "foo\\\nbar",
 								"__type": "String",
 								"defUid": 20,
 								"realEditorValues": [{
 									"id": "V_String",
-									"params": ["foo\nbar"]
+									"params": ["foo\\\nbar"]
 								}]
 							},
 							{
@@ -848,9 +891,19 @@
 									"id": "V_String",
 									"params": ["13,25"]
 								} ]
+							},
+							{
+								"__identifier": "FilePath",
+								"__value": "README.md",
+								"__type": "FilePath",
+								"defUid": 35,
+								"realEditorValues": [{
+									"id": "V_String",
+									"params": ["README.md"]
+								}]
 							}
 						] },
-						{ "__identifier": "Labels", "__grid": [6,16], "__tile": null, "defUid": 10, "px": [104,264], "fieldInstances": [
+						{ "__identifier": "Labels", "__grid": [6,16], "__pivot": [0.5,0.5], "__tile": null, "defUid": 10, "px": [104,264], "fieldInstances": [
 							{
 								"__identifier": "text",
 								"__value": "Entity fields",
@@ -863,7 +916,7 @@
 							},
 							{ "__identifier": "color", "__value": "#7F95AB", "__type": "Color", "defUid": 12, "realEditorValues": [] }
 						] },
-						{ "__identifier": "Labels", "__grid": [21,5], "__tile": null, "defUid": 10, "px": [344,88], "fieldInstances": [
+						{ "__identifier": "Labels", "__grid": [21,5], "__pivot": [0.5,0.5], "__tile": null, "defUid": 10, "px": [344,88], "fieldInstances": [
 							{
 								"__identifier": "text",
 								"__value": "PureAutoLayers",
@@ -876,7 +929,7 @@
 							},
 							{ "__identifier": "color", "__value": "#7F95AB", "__type": "Color", "defUid": 12, "realEditorValues": [] }
 						] },
-						{ "__identifier": "Labels", "__grid": [21,6], "__tile": null, "defUid": 10, "px": [344,104], "fieldInstances": [
+						{ "__identifier": "Labels", "__grid": [21,6], "__pivot": [0.5,0.5], "__tile": null, "defUid": 10, "px": [344,104], "fieldInstances": [
 							{
 								"__identifier": "text",
 								"__value": "(based on IntGrid_classic)",
@@ -895,16 +948,16 @@
 								"realEditorValues": [{ "id": "V_Int", "params": [7439025] }]
 							}
 						] },
-						{ "__identifier": "Labels", "__grid": [20,2], "__tile": null, "defUid": 10, "px": [328,40], "fieldInstances": [
+						{ "__identifier": "Labels", "__grid": [20,2], "__pivot": [0.5,0.5], "__tile": null, "defUid": 10, "px": [328,40], "fieldInstances": [
 							{
 								"__identifier": "text",
-								"__value": "This file can be used to check if an API supports LDtk file format properly. \n\nIt takes advantage of all important LDtk features.",
+								"__value": "This file can be used to check if an API supports LDtk file format properly. \n\nIt uses all important LDtk features.",
 								"__type": "String",
 								"defUid": 11,
 								"realEditorValues": [{
 									"id": "V_String",
 									"params": [
-										"This file can be used to check if an API supports LDtk file format properly. \n\nIt takes advantage of all important LDtk features."
+										"This file can be used to check if an API supports LDtk file format properly. \n\nIt uses all important LDtk features."
 									]
 								}]
 							},
@@ -916,7 +969,7 @@
 								"realEditorValues": [{ "id": "V_Int", "params": [16763904] }]
 							}
 						] },
-						{ "__identifier": "Labels", "__grid": [37,5], "__tile": null, "defUid": 10, "px": [600,88], "fieldInstances": [
+						{ "__identifier": "Labels", "__grid": [37,5], "__pivot": [0.5,0.5], "__tile": null, "defUid": 10, "px": [600,88], "fieldInstances": [
 							{
 								"__identifier": "text",
 								"__value": "IntGrid with a 8px grid size",
@@ -941,7 +994,7 @@
 					"__pxTotalOffsetX": 0,
 					"__pxTotalOffsetY": 0,
 					"__tilesetDefUid": 2,
-					"__tilesetRelPath": "Inca_front_by_Kronbits-extended.png",
+					"__tilesetRelPath": "atlas/Inca_front_by_Kronbits-extended.png",
 					"levelId": 0,
 					"layerDefUid": 26,
 					"pxOffsetX": 0,
@@ -1093,7 +1146,7 @@
 					"__pxTotalOffsetX": 0,
 					"__pxTotalOffsetY": 0,
 					"__tilesetDefUid": 2,
-					"__tilesetRelPath": "Inca_front_by_Kronbits-extended.png",
+					"__tilesetRelPath": "atlas/Inca_front_by_Kronbits-extended.png",
 					"levelId": 0,
 					"layerDefUid": 3,
 					"pxOffsetX": 0,
@@ -1204,7 +1257,7 @@
 					"__pxTotalOffsetX": 0,
 					"__pxTotalOffsetY": 0,
 					"__tilesetDefUid": 2,
-					"__tilesetRelPath": "Inca_front_by_Kronbits-extended.png",
+					"__tilesetRelPath": "atlas/Inca_front_by_Kronbits-extended.png",
 					"levelId": 0,
 					"layerDefUid": 14,
 					"pxOffsetX": 0,
@@ -1260,6 +1313,12 @@
 			"pxHei": 256,
 			"__bgColor": "#373852",
 			"bgColor": null,
+			"bgRelPath": null,
+			"bgPos": null,
+			"bgPivotX": 0.5,
+			"bgPivotY": 0.5,
+			"__bgPos": null,
+			"externalRelPath": null,
 			"layerInstances": [
 				{
 					"__identifier": "IntGrid_8px_grid",
@@ -1301,7 +1360,7 @@
 					"autoLayerTiles": [],
 					"seed": 8894473,
 					"gridTiles": [],
-					"entityInstances": [{ "__identifier": "Test", "__grid": [7,7], "__tile": { "tilesetUid": 31, "srcRect": [16,48,16,16] }, "defUid": 15, "px": [120,120], "fieldInstances": [
+					"entityInstances": [{ "__identifier": "Test", "__grid": [7,7], "__pivot": [0.5,0.5], "__tile": null, "defUid": 15, "px": [120,120], "fieldInstances": [
 						{
 							"__identifier": "Integer",
 							"__value": 2,
@@ -1372,7 +1431,17 @@
 							"realEditorValues": [ { "id": "V_Int", "params": [10] }, null, { "id": "V_Int", "params": [20] } ]
 						},
 						{ "__identifier": "Array_Enum", "__value": [], "__type": "Array<LocalEnum.SomeEnum>", "defUid": 29, "realEditorValues": [] },
-						{ "__identifier": "Array_points", "__value": [], "__type": "Array<Point>", "defUid": 30, "realEditorValues": [] }
+						{ "__identifier": "Array_points", "__value": [], "__type": "Array<Point>", "defUid": 30, "realEditorValues": [] },
+						{
+							"__identifier": "FilePath",
+							"__value": "README.md",
+							"__type": "FilePath",
+							"defUid": 35,
+							"realEditorValues": [{
+								"id": "V_String",
+								"params": ["README.md"]
+							}]
+						}
 					] }]
 				},
 				{
@@ -1385,7 +1454,7 @@
 					"__pxTotalOffsetX": 0,
 					"__pxTotalOffsetY": 0,
 					"__tilesetDefUid": 2,
-					"__tilesetRelPath": "Inca_front_by_Kronbits-extended.png",
+					"__tilesetRelPath": "atlas/Inca_front_by_Kronbits-extended.png",
 					"levelId": 32,
 					"layerDefUid": 26,
 					"pxOffsetX": 0,
@@ -1427,7 +1496,7 @@
 					"__pxTotalOffsetX": 0,
 					"__pxTotalOffsetY": 0,
 					"__tilesetDefUid": 2,
-					"__tilesetRelPath": "Inca_front_by_Kronbits-extended.png",
+					"__tilesetRelPath": "atlas/Inca_front_by_Kronbits-extended.png",
 					"levelId": 32,
 					"layerDefUid": 3,
 					"pxOffsetX": 0,
@@ -1770,7 +1839,7 @@
 					"__pxTotalOffsetX": 0,
 					"__pxTotalOffsetY": 0,
 					"__tilesetDefUid": 2,
-					"__tilesetRelPath": "Inca_front_by_Kronbits-extended.png",
+					"__tilesetRelPath": "atlas/Inca_front_by_Kronbits-extended.png",
 					"levelId": 32,
 					"layerDefUid": 14,
 					"pxOffsetX": 0,
@@ -1793,6 +1862,12 @@
 			"pxHei": 160,
 			"__bgColor": "#373852",
 			"bgColor": null,
+			"bgRelPath": null,
+			"bgPos": null,
+			"bgPivotX": 0.5,
+			"bgPivotY": 0.5,
+			"__bgPos": null,
+			"externalRelPath": null,
 			"layerInstances": [
 				{
 					"__identifier": "IntGrid_8px_grid",
@@ -1846,7 +1921,7 @@
 					"__pxTotalOffsetX": 0,
 					"__pxTotalOffsetY": 0,
 					"__tilesetDefUid": 2,
-					"__tilesetRelPath": "Inca_front_by_Kronbits-extended.png",
+					"__tilesetRelPath": "atlas/Inca_front_by_Kronbits-extended.png",
 					"levelId": 33,
 					"layerDefUid": 26,
 					"pxOffsetX": 0,
@@ -1909,7 +1984,7 @@
 					"__pxTotalOffsetX": 0,
 					"__pxTotalOffsetY": 0,
 					"__tilesetDefUid": 2,
-					"__tilesetRelPath": "Inca_front_by_Kronbits-extended.png",
+					"__tilesetRelPath": "atlas/Inca_front_by_Kronbits-extended.png",
 					"levelId": 33,
 					"layerDefUid": 3,
 					"pxOffsetX": 0,
@@ -2016,7 +2091,7 @@
 					"__pxTotalOffsetX": 0,
 					"__pxTotalOffsetY": 0,
 					"__tilesetDefUid": 2,
-					"__tilesetRelPath": "Inca_front_by_Kronbits-extended.png",
+					"__tilesetRelPath": "atlas/Inca_front_by_Kronbits-extended.png",
 					"levelId": 33,
 					"layerDefUid": 14,
 					"pxOffsetX": 0,
@@ -2045,7 +2120,164 @@
 					"entityInstances": []
 				}
 			],
-			"__neighbours": [{ "levelUid": 32, "dir": "n" }]
+			"__neighbours": [ { "levelUid": 36, "dir": "s" }, { "levelUid": 32, "dir": "n" } ]
+		},
+		{
+			"identifier": "Level4",
+			"uid": 36,
+			"worldX": 0,
+			"worldY": 960,
+			"pxWid": 256,
+			"pxHei": 256,
+			"__bgColor": "#373852",
+			"bgColor": null,
+			"bgRelPath": "atlas/Inca_back2_by_Kronbits.png",
+			"bgPos": "Contain",
+			"bgPivotX": 0.5,
+			"bgPivotY": 0.5,
+			"__bgPos": { "topLeftPx": [36,0], "scale": [1.1428571428571428,1.1428571428571428], "cropRect": [0,0,160,224] },
+			"externalRelPath": null,
+			"layerInstances": [
+				{
+					"__identifier": "IntGrid_8px_grid",
+					"__type": "IntGrid",
+					"__cWid": 32,
+					"__cHei": 32,
+					"__gridSize": 8,
+					"__opacity": 1,
+					"__pxTotalOffsetX": 0,
+					"__pxTotalOffsetY": 0,
+					"__tilesetDefUid": null,
+					"__tilesetRelPath": null,
+					"levelId": 36,
+					"layerDefUid": 34,
+					"pxOffsetX": 0,
+					"pxOffsetY": 0,
+					"intGrid": [],
+					"autoLayerTiles": [],
+					"seed": 3866698,
+					"gridTiles": [],
+					"entityInstances": []
+				},
+				{
+					"__identifier": "Entities",
+					"__type": "Entities",
+					"__cWid": 16,
+					"__cHei": 16,
+					"__gridSize": 16,
+					"__opacity": 1,
+					"__pxTotalOffsetX": 0,
+					"__pxTotalOffsetY": 0,
+					"__tilesetDefUid": null,
+					"__tilesetRelPath": null,
+					"levelId": 36,
+					"layerDefUid": 13,
+					"pxOffsetX": 0,
+					"pxOffsetY": 0,
+					"intGrid": [],
+					"autoLayerTiles": [],
+					"seed": 3655473,
+					"gridTiles": [],
+					"entityInstances": [{ "__identifier": "Labels", "__grid": [8,1], "__pivot": [0.5,0.5], "__tile": null, "defUid": 10, "px": [129,24], "fieldInstances": [
+						{
+							"__identifier": "text",
+							"__value": "Level background image",
+							"__type": "String",
+							"defUid": 11,
+							"realEditorValues": [{
+								"id": "V_String",
+								"params": ["Level background image"]
+							}]
+						},
+						{ "__identifier": "color", "__value": "#7F95AB", "__type": "Color", "defUid": 12, "realEditorValues": [] }
+					] }]
+				},
+				{
+					"__identifier": "PureAutoLayer",
+					"__type": "AutoLayer",
+					"__cWid": 16,
+					"__cHei": 16,
+					"__gridSize": 16,
+					"__opacity": 1,
+					"__pxTotalOffsetX": 0,
+					"__pxTotalOffsetY": 0,
+					"__tilesetDefUid": 2,
+					"__tilesetRelPath": "atlas/Inca_front_by_Kronbits-extended.png",
+					"levelId": 36,
+					"layerDefUid": 26,
+					"pxOffsetX": 0,
+					"pxOffsetY": 0,
+					"intGrid": [],
+					"autoLayerTiles": [],
+					"seed": 5193927,
+					"gridTiles": [],
+					"entityInstances": []
+				},
+				{
+					"__identifier": "IntGrid_classic",
+					"__type": "IntGrid",
+					"__cWid": 16,
+					"__cHei": 16,
+					"__gridSize": 16,
+					"__opacity": 1,
+					"__pxTotalOffsetX": 0,
+					"__pxTotalOffsetY": 0,
+					"__tilesetDefUid": null,
+					"__tilesetRelPath": null,
+					"levelId": 36,
+					"layerDefUid": 1,
+					"pxOffsetX": 0,
+					"pxOffsetY": 0,
+					"intGrid": [],
+					"autoLayerTiles": [],
+					"seed": 6618746,
+					"gridTiles": [],
+					"entityInstances": []
+				},
+				{
+					"__identifier": "IntGrid_with_rules",
+					"__type": "IntGrid",
+					"__cWid": 16,
+					"__cHei": 16,
+					"__gridSize": 16,
+					"__opacity": 1,
+					"__pxTotalOffsetX": 0,
+					"__pxTotalOffsetY": 0,
+					"__tilesetDefUid": 2,
+					"__tilesetRelPath": "atlas/Inca_front_by_Kronbits-extended.png",
+					"levelId": 36,
+					"layerDefUid": 3,
+					"pxOffsetX": 0,
+					"pxOffsetY": 0,
+					"intGrid": [],
+					"autoLayerTiles": [],
+					"seed": 7313278,
+					"gridTiles": [],
+					"entityInstances": []
+				},
+				{
+					"__identifier": "Tiles",
+					"__type": "Tiles",
+					"__cWid": 16,
+					"__cHei": 16,
+					"__gridSize": 16,
+					"__opacity": 1,
+					"__pxTotalOffsetX": 0,
+					"__pxTotalOffsetY": 0,
+					"__tilesetDefUid": 2,
+					"__tilesetRelPath": "atlas/Inca_front_by_Kronbits-extended.png",
+					"levelId": 36,
+					"layerDefUid": 14,
+					"pxOffsetX": 0,
+					"pxOffsetY": 0,
+					"intGrid": [],
+					"autoLayerTiles": [],
+					"seed": 4655507,
+					"gridTiles": [],
+					"entityInstances": []
+				}
+			],
+			"__neighbours": [{ "levelUid": 33, "dir": "n" }]
 		}
 	]
 }

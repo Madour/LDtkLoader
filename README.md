@@ -1,4 +1,4 @@
-<h1> LDtk Loader <img src=https://img.shields.io/badge/LDtk_version-0.6.1-default></h1>
+<h1> LDtk Loader <img src=https://img.shields.io/badge/LDtk_version-0.7.2-default></h1>
 
 
 ### Load LDtk levels in your C++ game
@@ -60,6 +60,7 @@ Documentation is under construction and can be found on the [**wiki**](https://g
 
 ### Supported features
 
+ - [x] Loads external (.ldtkl) and embedded levels
  - [x] IntGrid layers
  - [x] Tiles layers
  - [x] AutoLayer layers
@@ -68,6 +69,7 @@ Documentation is under construction and can be found on the [**wiki**](https://g
  - [x] Entities and fields
 
 ### To Do
+ - [ ] Level backgrounds
  - [ ] Extended IntGrid data (store values)
  - [ ] Helper classes/methods for SFML or SDL rendering
  - [ ] API documentation

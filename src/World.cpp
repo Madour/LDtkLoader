@@ -6,7 +6,6 @@
 #include "LDtkLoader/Utils.hpp"
 
 using namespace ldtk;
-using json = nlohmann::json;
 
 World::World() = default;
 
@@ -16,7 +15,7 @@ void World::loadFromFile(const std::string& filepath) {
     if (in.fail()) {
         ldtk_error("Failed to open file \"" + filepath + "\" : " + strerror(errno));
     }
-    json j;
+    nlohmann::json j;
     in >> j;
 
     m_default_pivot_x = j["defaultPivotX"].get<float>();

@@ -1,5 +1,7 @@
 // Created by Modar Nasser on 12/11/2020.
 
+#include <fstream>
+
 #include "LDtkLoader/Level.hpp"
 #include "LDtkLoader/World.hpp"
 
@@ -12,7 +14,20 @@ uid(j["uid"].get<int>()),
 size(j["pxWid"].get<int>(), j["pxHei"].get<int>()),
 position(j["worldX"].get<int>(), j["worldY"].get<int>())
 {
-    for (const auto& level : j["layerInstances"]) {
+    nlohmann::json jl;
+
+    // check if level is external and open it if so
+    if (!j["externalRelPath"].is_null()) {
+        std::ifstream in(j["externalRelPath"].get<std::string>());
+        if (in.fail()) {
+            ldtk_error("Failed to open file \"" + j["externalRelPath"].get<std::string>() + "\" : " + strerror(errno));
+        }
+        in >> jl;
+    }
+    else
+        jl = j;
+
+    for (const auto& level : jl["layerInstances"]) {
         Layer new_layer{level, w, this};
         m_layers.push_back(std::move(new_layer));
     }
