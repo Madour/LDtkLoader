@@ -67,7 +67,15 @@ Documentation is under construction and can be found on the [**wiki**](https://g
  - [x] Enums
  - [x] Entities and fields
 
-### To Do :
+### To Do
  - [ ] Extended IntGrid data (store values)
  - [ ] Helper classes/methods for SFML or SDL rendering
  - [ ] API documentation
+
+### License
+
+LDtkLoader is licensed under the **zlib license**.
+
+Bundled dependencies : 
+ - [json](https://github.com/nlohmann/json) - MIT license
+ - [Optional](https://github.com/akrzemi1/Optional) - Boost Software Licence
