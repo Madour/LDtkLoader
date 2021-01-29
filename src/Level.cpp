@@ -12,7 +12,8 @@ world(w),
 name(j["identifier"].get<std::string>()),
 uid(j["uid"].get<int>()),
 size(j["pxWid"].get<int>(), j["pxHei"].get<int>()),
-position(j["worldX"].get<int>(), j["worldY"].get<int>())
+position(j["worldX"].get<int>(), j["worldY"].get<int>()),
+bg_color(j["__bgColor"].get<std::string>())
 {
     nlohmann::json jl;
 
@@ -54,6 +55,7 @@ name(other.name),
 uid(other.uid),
 size(other.size),
 position(other.position),
+bg_color(other.bg_color),
 m_layers(std::move(other.m_layers)),
 m_neighbours(std::move(other.m_neighbours))
 {}
