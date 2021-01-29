@@ -83,4 +83,14 @@ namespace ldtk {
         South,
         West
     };
+
+    class FilePath : std::string {
+    public:
+        using std::string::basic_string;
+        using std::string::c_str;
+
+        std::string parent_path() const;
+        std::string filename() const;
+        std::string extension() const;
+    };
 }
