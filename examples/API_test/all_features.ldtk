@@ -894,12 +894,12 @@
 							},
 							{
 								"__identifier": "FilePath",
-								"__value": "README.md",
+								"__value": "all_features.ldtk",
 								"__type": "FilePath",
 								"defUid": 35,
 								"realEditorValues": [{
 									"id": "V_String",
-									"params": ["README.md"]
+									"params": ["all_features.ldtk"]
 								}]
 							}
 						] },
@@ -1434,12 +1434,12 @@
 						{ "__identifier": "Array_points", "__value": [], "__type": "Array<Point>", "defUid": 30, "realEditorValues": [] },
 						{
 							"__identifier": "FilePath",
-							"__value": "README.md",
+							"__value": "all_features.ldtk",
 							"__type": "FilePath",
 							"defUid": 35,
 							"realEditorValues": [{
 								"id": "V_String",
-								"params": ["README.md"]
+								"params": ["all_features.ldtk"]
 							}]
 						}
 					] }]
