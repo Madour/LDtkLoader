@@ -48,3 +48,5 @@ namespace ldtk {
     };
 
 }
+
+auto operator<<(std::ostream& os, const ldtk::EnumValue& enum_value) -> std::ostream&;

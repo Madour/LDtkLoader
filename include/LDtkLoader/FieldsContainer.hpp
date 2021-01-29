@@ -142,3 +142,12 @@ namespace ldtk {
     }
 
 }
+
+template <typename T>
+auto operator<<(std::ostream& os, ldtk::Field<T> field) -> std::ostream& {
+    if (field.is_null())
+        os << "null";
+    else
+        os << field.value();
+    return os;
+}

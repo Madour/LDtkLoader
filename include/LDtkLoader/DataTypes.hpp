@@ -86,6 +86,7 @@ namespace ldtk {
 
     class FilePath : std::string {
     public:
+        FilePath(const std::string& str);
         using std::string::basic_string;
         using std::string::c_str;
 
@@ -94,3 +95,11 @@ namespace ldtk {
         std::string extension() const;
     };
 }
+
+template <typename T>
+auto operator<<(std::ostream& os, const ldtk::Point<T>& pt) -> std::ostream& {
+    os << "(" << pt.x << ", " << pt.y << ")";
+    return os;
+}
+auto operator<<(std::ostream& os, const ldtk::Color& col) -> std::ostream&;
+auto operator<<(std::ostream& os, const ldtk::FilePath& fp) -> std::ostream&;

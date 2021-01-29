@@ -59,3 +59,8 @@ auto Enum::getIconTexturePos(const EnumValue& val) const -> IntPoint {
         return getIconsTileset().getTileTexturePos(val.tile_id);
     ldtk_error("Enum \""+name+"\" does not have value \""+val.name+"\".");
 }
+
+auto operator<<(std::ostream& os, const ldtk::EnumValue& enum_value) -> std::ostream& {
+    os << enum_value.name;
+    return os;
+}

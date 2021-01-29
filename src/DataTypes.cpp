@@ -40,6 +40,10 @@ bool ldtk::operator!=(const Tile& l, const Tile& r) {
     return !(ldtk::operator==(l, r));
 }
 
+ldtk::FilePath::FilePath(const std::string& str) {
+    this->assign(str);
+}
+
 std::string ldtk::FilePath::filename() const {
     auto i = find_last_of("/\\");
     if (i == npos)
@@ -60,4 +64,15 @@ std::string ldtk::FilePath::extension() const {
     if (i == npos)
         return "";
     return f.substr(i+1);
+}
+
+auto operator<<(std::ostream& os, const ldtk::Color& col) -> std::ostream& {
+    os << "rgb(" << (int)col.r << ", " << (int)col.g << ", " << (int)col.b << ")";
+    return os;
+}
+
+
+auto operator<<(std::ostream& os, const ldtk::FilePath& fp) -> std::ostream& {
+    os << fp.c_str();
+    return os;
 }

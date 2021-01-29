@@ -86,7 +86,17 @@ m_grid_pos( j["__grid"][0].get<int>(), j["__grid"][1].get<int>() )
                     if (v.is_null())
                         values.emplace_back(null);
                     else
-                        values.emplace_back(w->getEnum(enum_type)[v]);
+                        values.emplace_back(w->getEnum(enum_type)[v.get<std::string>()]);
+                }
+                addArrayField(field_name, values);
+            }
+            else if (field_type == "Array<FilePath>") {
+                std::vector<Field<FilePath>> values;
+                for (const auto& v : field_value) {
+                    if (v.is_null())
+                        values.emplace_back(null);
+                    else
+                        values.emplace_back(v.get<std::string>());
                 }
                 addArrayField(field_name, values);
             }
@@ -134,6 +144,12 @@ m_grid_pos( j["__grid"][0].get<int>(), j["__grid"][1].get<int>() )
                 addField<EnumValue>(field_name, null);
             else
                 addField<EnumValue>(field_name, w->getEnum(enum_type)[field_value]);
+        }
+        else if (field_type == "FilePath") {
+            if (field_value.is_null())
+                addField<FilePath>(field_name, null);
+            else
+                addField<FilePath>(field_name, field_value.get<std::string>());
         }
     }
 }

@@ -14,7 +14,7 @@
 	"defaultGridSize": 16,
 	"bgColor": "#373852",
 	"defaultLevelBgColor": "#373852",
-	"nextUid": 37,
+	"nextUid": 38,
 	"minifyJson": false,
 	"externalLevels": false,
 	"exportTiled": false,
@@ -502,6 +502,24 @@
 						"regex": null,
 						"acceptFileTypes": null,
 						"defaultOverride": null
+					},
+					{
+						"identifier": "file_path_array",
+						"__type": "Array<FilePath>",
+						"uid": 37,
+						"type": "F_Path",
+						"isArray": true,
+						"canBeNull": true,
+						"arrayMinLength": null,
+						"arrayMaxLength": null,
+						"editorDisplayMode": "NameAndValue",
+						"editorDisplayPos": "Center",
+						"editorAlwaysShow": true,
+						"min": null,
+						"max": null,
+						"regex": null,
+						"acceptFileTypes": null,
+						"defaultOverride": null
 					}
 				]
 			},
@@ -901,6 +919,13 @@
 									"id": "V_String",
 									"params": ["all_features.ldtk"]
 								}]
+							},
+							{
+								"__identifier": "file_path_array",
+								"__value": [null],
+								"__type": "Array<FilePath>",
+								"defUid": 37,
+								"realEditorValues": [null]
 							}
 						] },
 						{ "__identifier": "Labels", "__grid": [6,16], "__pivot": [0.5,0.5], "__tile": null, "defUid": 10, "px": [104,264], "fieldInstances": [
@@ -1441,6 +1466,19 @@
 								"id": "V_String",
 								"params": ["all_features.ldtk"]
 							}]
+						},
+						{
+							"__identifier": "file_path_array",
+							"__value": [ "atlas/Inca_front_by_Kronbits-extended.png", "CMakeLists.txt" ],
+							"__type": "Array<FilePath>",
+							"defUid": 37,
+							"realEditorValues": [ {
+								"id": "V_String",
+								"params": ["atlas/Inca_front_by_Kronbits-extended.png"]
+							}, {
+								"id": "V_String",
+								"params": ["CMakeLists.txt"]
+							} ]
 						}
 					] }]
 				},
