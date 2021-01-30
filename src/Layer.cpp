@@ -112,7 +112,7 @@ auto Layer::hasTileset() const -> bool {
 }
 
 auto Layer::getTileset() const -> const Tileset& {
-    return m_definition->getTileset();
+    return *m_definition->m_tileset;
 }
 
 auto Layer::allTiles() const -> const std::vector<Tile>& {

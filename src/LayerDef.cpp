@@ -22,9 +22,3 @@ LayerDef::LayerDef(const nlohmann::json& j, World* w) :
     if ( !j["autoTilesetDefUid"].is_null() )
         m_tileset = &w->getTileset(j["autoTilesetDefUid"].get<int>());
 }
-
-auto LayerDef::getTileset() const -> const Tileset& {
-    if (m_tileset)
-        return *m_tileset;
-    ldtk_error("Layer \""+name+"\" doesn't have a tileset.");
-}

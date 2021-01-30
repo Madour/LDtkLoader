@@ -25,8 +25,6 @@ namespace ldtk {
         const IntPoint offset;
         const FloatPoint tile_pivot;
 
-        auto getTileset() const -> const Tileset&;
-
     private:
         LayerDef(const nlohmann::json& j, World* w);
 
