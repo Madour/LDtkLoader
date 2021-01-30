@@ -69,7 +69,6 @@ Documentation is under construction and can be found on the [**wiki**](https://g
  - [x] Entities and fields
 
 ### To Do
- - [ ] Level backgrounds
  - [ ] Extended IntGrid data (store values)
  - [ ] Helper classes/methods for SFML or SDL rendering
  - [ ] API documentation
