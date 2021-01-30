@@ -70,6 +70,15 @@ void World::loadFromFile(const std::string& filepath) {
         Level new_level{level, this};
         m_levels.push_back(std::move(new_level));
     }
+
+    // fill levels neighbours
+    for (auto& level : m_levels) {
+        for (const auto& item : level.m_neighbours_id) {
+            for (const auto& id : item.second)
+                level.m_neighbours[item.first].push_back(&getLevel(id));
+        }
+        level.m_neighbours[Dir::None];
+    }
 }
 
 auto World::getName() const -> const std::string& {

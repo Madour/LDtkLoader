@@ -33,19 +33,19 @@ bg_color(j["__bgColor"].get<std::string>())
         m_layers.push_back(std::move(new_layer));
     }
 
-    m_neighbours[Dir::North]; m_neighbours[Dir::East];
-    m_neighbours[Dir::South]; m_neighbours[Dir::West];
+    m_neighbours_id[Dir::North]; m_neighbours_id[Dir::East];
+    m_neighbours_id[Dir::South]; m_neighbours_id[Dir::West];
     for (const auto& neighbour : j["__neighbours"]) {
         const auto& dir = neighbour["dir"].get<std::string>();
         const auto& level_uid = neighbour["levelUid"].get<int>();
         if (dir == "n")
-            m_neighbours[Dir::North].push_back(level_uid);
+            m_neighbours_id[Dir::North].push_back(level_uid);
         else if (dir == "e")
-            m_neighbours[Dir::East].push_back(level_uid);
+            m_neighbours_id[Dir::East].push_back(level_uid);
         else if (dir == "s")
-            m_neighbours[Dir::South].push_back(level_uid);
+            m_neighbours_id[Dir::South].push_back(level_uid);
         else
-            m_neighbours[Dir::West].push_back(level_uid);
+            m_neighbours_id[Dir::West].push_back(level_uid);
     }
 
     if (j["bgRelPath"].is_null())
@@ -69,6 +69,7 @@ position(other.position),
 bg_color(other.bg_color),
 m_layers(std::move(other.m_layers)),
 m_bg_image(std::move(other.m_bg_image)),
+m_neighbours_id(std::move(other.m_neighbours_id)),
 m_neighbours(std::move(other.m_neighbours))
 {}
 
@@ -91,16 +92,12 @@ auto Level::getBgImage() const -> const BgImage& {
     return m_bg_image.value();
 }
 
-auto Level::getNeighbours(const Dir& direction) const -> std::vector<const Level*> {
-    std::vector<const Level*> res;
-    if (direction != Dir::None)
-        for (auto id : m_neighbours.at(direction))
-            res.emplace_back(&world->getLevel(id));
-    return res;
+auto Level::getNeighbours(const Dir& direction) const -> const std::vector<const Level*>& {
+    return m_neighbours.at(direction);
 }
 
 auto Level::getNeighbourDirection(const Level& level) const -> Dir {
-    for (const auto& item : m_neighbours) {
+    for (const auto& item : m_neighbours_id) {
         for (auto id : item.second) {
             if (id == level.uid)
                 return item.first;

@@ -41,7 +41,7 @@ namespace ldtk {
         auto hasBgImage() const -> bool;
         auto getBgImage() const -> const BgImage&;
 
-        auto getNeighbours(const Dir& direction) const -> std::vector<const Level*>;
+        auto getNeighbours(const Dir& direction) const -> const std::vector<const Level*>&;
         auto getNeighbourDirection(const Level& level) const -> Dir;
 
     private:
@@ -49,7 +49,8 @@ namespace ldtk {
 
         std::vector<Layer> m_layers;
         std::experimental::optional<BgImage> m_bg_image;
-        std::unordered_map<Dir, std::vector<int>> m_neighbours;
+        std::unordered_map<Dir, std::vector<int>> m_neighbours_id;
+        std::unordered_map<Dir, std::vector<const Level*>> m_neighbours;
     };
 
 }
