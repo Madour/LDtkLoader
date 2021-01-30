@@ -39,10 +39,12 @@ for (const auto& enemy : level1.getLayer("Entities").getEntities("Enemy")) {
 
 ### Build
 
+Should work with any C++11 compiler. 
+
 ```shell
 mkdir build && cd build
 cmake ..
-cmake --build .
+cmake --build . --config Release
 ```
 
 Additional CMake options you can pass :
@@ -60,16 +62,9 @@ Documentation is under construction and can be found on the [**wiki**](https://g
 
 ### Supported features
 
- - [x] Loads external (.ldtkl) and embedded levels
- - [x] IntGrid layers
- - [x] Tiles layers
- - [x] AutoLayer layers
- - [x] Entities layers
- - [x] Enums
- - [x] Entities and fields
+LDtk Loader is up to date with the latest LDtk v0.7.2 features !
 
 ### To Do
- - [ ] Extended IntGrid data (store values)
  - [ ] Helper classes/methods for SFML or SDL rendering
  - [ ] API documentation
 
