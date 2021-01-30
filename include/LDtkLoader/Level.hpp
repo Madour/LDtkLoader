@@ -16,6 +16,14 @@ namespace ldtk {
 
     class Level {
         friend World;
+
+        struct BgImage {
+            FilePath path;
+            IntPoint pos;
+            FloatPoint scale;
+            IntRect crop;
+        };
+
     public:
         Level(Level&& other) noexcept ;
 
@@ -30,6 +38,9 @@ namespace ldtk {
         auto allLayers() const -> const std::vector<Layer>&;
         auto getLayer(const std::string& layer_name) const -> const Layer&;
 
+        auto hasBgImage() const -> bool;
+        auto getBgImage() const -> const BgImage&;
+
         auto getNeighbours(const Dir& direction) const -> std::vector<const Level*>;
         auto getNeighbourDirection(const Level& level) const -> Dir;
 
@@ -37,6 +48,7 @@ namespace ldtk {
         explicit Level(const nlohmann::json& j, World* w);
 
         std::vector<Layer> m_layers;
+        std::experimental::optional<BgImage> m_bg_image;
         std::unordered_map<Dir, std::vector<int>> m_neighbours;
     };
 

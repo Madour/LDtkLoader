@@ -2170,10 +2170,10 @@
 			"__bgColor": "#373852",
 			"bgColor": null,
 			"bgRelPath": "atlas/Inca_back2_by_Kronbits.png",
-			"bgPos": "Contain",
+			"bgPos": "Cover",
 			"bgPivotX": 0.5,
 			"bgPivotY": 0.5,
-			"__bgPos": { "topLeftPx": [36,0], "scale": [1.1428571428571428,1.1428571428571428], "cropRect": [0,0,160,224] },
+			"__bgPos": { "topLeftPx": [0,0], "scale": [1.6,1.6], "cropRect": [0,32,160,160] },
 			"externalRelPath": null,
 			"layerInstances": [
 				{

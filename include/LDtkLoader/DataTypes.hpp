@@ -25,6 +25,22 @@ namespace ldtk {
     typedef Point<int> IntPoint;
     typedef Point<unsigned int> UIntPoint;
 
+    template <typename T>
+    struct Rect {
+        Rect() : x(0), y(0), width(0), height(0) {}
+        Rect(T x, T y, T w, T h) : x(x), y(y), width(w), height(h) {}
+        T x; T y;
+        T width; T height;
+    };
+
+    template <typename T>
+    bool operator==(const Rect<T>& lhs, const Rect<T>& rhs) {
+        return (lhs.x == rhs.x && lhs.y == rhs.y && lhs.width == rhs.width && lhs.height == rhs.height);
+    }
+
+    typedef Rect<float> FloatRect;
+    typedef Rect<int> IntRect;
+
     struct Color {
         Color();
         explicit Color(const std::string& hex);
@@ -86,6 +102,7 @@ namespace ldtk {
 
     class FilePath : std::string {
     public:
+        FilePath() = default;
         FilePath(const std::string& str);
         using std::string::basic_string;
         using std::string::c_str;

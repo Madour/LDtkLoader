@@ -47,6 +47,17 @@ bg_color(j["__bgColor"].get<std::string>())
         else
             m_neighbours[Dir::West].push_back(level_uid);
     }
+
+    if (j["bgRelPath"].is_null())
+        m_bg_image = null;
+    else {
+        m_bg_image = BgImage();
+        m_bg_image->path = FilePath(j["bgRelPath"].get<std::string>());
+        m_bg_image->pos = {j["__bgPos"]["topLeftPx"][0].get<int>(), j["__bgPos"]["topLeftPx"][1].get<int>()};
+        m_bg_image->scale = {j["__bgPos"]["scale"][0].get<float>(), j["__bgPos"]["scale"][1].get<float>()};
+        m_bg_image->crop = {j["__bgPos"]["cropRect"][0].get<int>(), j["__bgPos"]["cropRect"][1].get<int>(),
+                            j["__bgPos"]["cropRect"][2].get<int>(), j["__bgPos"]["cropRect"][3].get<int>()};
+    }
 }
 
 Level::Level(Level&& other) noexcept :
@@ -57,6 +68,7 @@ size(other.size),
 position(other.position),
 bg_color(other.bg_color),
 m_layers(std::move(other.m_layers)),
+m_bg_image(std::move(other.m_bg_image)),
 m_neighbours(std::move(other.m_neighbours))
 {}
 
@@ -69,6 +81,14 @@ auto Level::getLayer(const std::string& layer_name) const -> const Layer& {
         if (layer.getName() == layer_name)
             return layer;
     ldtk_error("Layer name \""+layer_name+"\" not found in Level \""+name+"\".");
+}
+
+auto Level::hasBgImage() const -> bool {
+    return m_bg_image.has_value();
+}
+
+auto Level::getBgImage() const -> const BgImage& {
+    return m_bg_image.value();
 }
 
 auto Level::getNeighbours(const Dir& direction) const -> std::vector<const Level*> {
