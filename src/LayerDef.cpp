@@ -9,13 +9,13 @@
 using namespace ldtk;
 
 LayerDef::LayerDef(const nlohmann::json& j, World* w) :
-type(getLayerTypeFromString(j["type"].get<std::string>())),
-name(j["identifier"].get<std::string>()),
-uid(j["uid"].get<int>()),
-cell_size(j["gridSize"].get<int>()),
-opacity(j["displayOpacity"].get<float>()),
-offset({j["pxOffsetX"].get<int>(), j["pxOffsetY"].get<int>()}),
-pivot({j["tilePivotX"].get<float>(), j["tilePivotY"].get<float>()})
+        type(getLayerTypeFromString(j["type"].get<std::string>())),
+        name(j["identifier"].get<std::string>()),
+        uid(j["uid"].get<int>()),
+        cell_size(j["gridSize"].get<int>()),
+        opacity(j["displayOpacity"].get<float>()),
+        offset({j["pxOffsetX"].get<int>(), j["pxOffsetY"].get<int>()}),
+        tile_pivot({j["tilePivotX"].get<float>(), j["tilePivotY"].get<float>()})
 {
     if ( !j["tilesetDefUid"].is_null() )
         m_tileset = &w->getTileset(j["tilesetDefUid"].get<int>());

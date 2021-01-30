@@ -23,12 +23,12 @@ namespace ldtk {
         const int cell_size;
         const float opacity;
         const IntPoint offset;
-        const FloatPoint pivot;
+        const FloatPoint tile_pivot;
 
         auto getTileset() const -> const Tileset&;
 
     private:
-        explicit LayerDef(const nlohmann::json& j, World* w);
+        LayerDef(const nlohmann::json& j, World* w);
 
         const Tileset* m_tileset = nullptr;
     };
