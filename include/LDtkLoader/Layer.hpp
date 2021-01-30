@@ -40,6 +40,8 @@ namespace ldtk {
         auto allTiles() const -> const std::vector<Tile>&;
         auto getTile(int grid_x, int grid_y) const -> const Tile&;
 
+        auto getIntGridVal(int grid_x, int grid_y) const -> const IntGridValue&;
+
         auto hasEntity(const std::string& entity_name) const -> bool;
         auto getEntities(const std::string& entity_name) const -> const std::vector<Entity>&;
 
@@ -59,6 +61,7 @@ namespace ldtk {
 
         std::vector<Tile> m_tiles;
         std::unordered_map<std::string, std::vector<Entity>> m_entities;
+        std::map<int, const IntGridValue*> m_intgrid;
         std::map<int, Tile*> m_tiles_map;
     };
 

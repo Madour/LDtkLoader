@@ -78,6 +78,13 @@ namespace ldtk {
     bool operator==(const Tile& l, const Tile& r);
     bool operator!=(const Tile& l, const Tile& r);
 
+    struct IntGridValue {
+        const int value;
+        const std::string name;
+        const Color color;
+        static const IntGridValue None;
+    };
+
     enum class WorldLayout {
         Free,
         GridVania,

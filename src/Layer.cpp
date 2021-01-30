@@ -3,9 +3,7 @@
 #include <iostream>
 
 #include "LDtkLoader/Layer.hpp"
-#include "LDtkLoader/Utils.hpp"
 #include "LDtkLoader/World.hpp"
-#include "LDtkLoader/Level.hpp"
 
 using namespace ldtk;
 
@@ -17,14 +15,14 @@ m_opacity(j["__opacity"].get<float>()),
 m_grid_size({j["__cWid"].get<int>(), j["__cHei"].get<int>()})
 {
     std::string key = "gridTiles";
-    int coo_id_index = 0;
+    int coordId_index = 0;
     if (getType() == LayerType::IntGrid || getType() == LayerType::AutoLayer) {
         key = "autoLayerTiles";
-        coo_id_index = 1;
+        coordId_index = 1;
     }
     for (const auto& tile : j[key]) {
         Tile new_tile;
-        new_tile.coordId = tile["d"].get<std::vector<int>>()[coo_id_index];
+        new_tile.coordId = tile["d"].get<std::vector<int>>()[coordId_index];
         new_tile.position.x = tile["px"].get<std::vector<int>>()[0];
         new_tile.position.y = tile["px"].get<std::vector<int>>()[1];
 
@@ -52,6 +50,10 @@ m_grid_size({j["__cWid"].get<int>(), j["__cHei"].get<int>()})
         [](const Tile& lhs, const Tile& rhs) {return lhs.coordId < rhs.coordId;}
     );
 
+    for (const auto& val : j["intGrid"]) {
+        m_intgrid[val["coordId"].get<int>()] = &m_definition->m_intgrid_values[val["v"].get<int>()];
+    }
+
     for (const auto& ent : j["entityInstances"]) {
         Entity new_ent{ent, w};
         m_entities[new_ent.getName()].push_back(std::move(new_ent));
@@ -65,7 +67,8 @@ m_total_offset(other.m_total_offset),
 m_opacity(other.m_opacity),
 m_grid_size(other.m_grid_size),
 m_tiles(std::move(other.m_tiles)),
-m_entities(std::move(other.m_entities))
+m_entities(std::move(other.m_entities)),
+m_intgrid(std::move(other.m_intgrid))
 {
   for (auto& tile : m_tiles)
       m_tiles_map[tile.coordId] = &tile;
@@ -124,6 +127,13 @@ auto Layer::getTile(int grid_x, int grid_y) const -> const Tile& {
     if (m_tiles_map.count(id) > 0)
         return *(m_tiles_map.at(id));
     return Tile::None;
+}
+
+auto Layer::getIntGridVal(int grid_x, int grid_y) const -> const IntGridValue& {
+    auto id = grid_x + m_grid_size.x*grid_y;
+    if (m_intgrid.count(id) > 0)
+        return *(m_intgrid.at(id));
+    return IntGridValue::None;
 }
 
 auto Layer::hasEntity(const std::string& entity_name) const -> bool {

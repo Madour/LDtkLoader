@@ -21,8 +21,9 @@ tile_pivot({j["tilePivotX"].get<float>(), j["tilePivotY"].get<float>()})
     else if ( !j["autoTilesetDefUid"].is_null() )
         m_tileset = &w->getTileset(j["autoTilesetDefUid"].get<int>());
 
+    int i = 0;
     for (const auto& val : j["intGridValues"]) {
-        m_intgrid_values.push_back({val["identifier"].is_null() ? "" : val["identifier"], Color(val["color"])});
+        m_intgrid_values.push_back({i++, val["identifier"].is_null() ? "" : val["identifier"], Color(val["color"])});
     }
 }
 

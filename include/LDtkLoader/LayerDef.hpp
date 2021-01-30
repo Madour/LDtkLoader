@@ -17,10 +17,6 @@ namespace ldtk {
         friend World;
         friend Layer;
 
-        struct IntGridValue {
-            const std::string name;
-            const Color color;
-        };
     public:
         const LayerType type;
         const std::string name;

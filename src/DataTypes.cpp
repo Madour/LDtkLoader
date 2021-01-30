@@ -32,6 +32,8 @@ tileId(tile_id)
 
 const Tile Tile::None{-1, -1};
 
+const IntGridValue IntGridValue::None{-1, "", Color()};
+
 bool ldtk::operator==(const Tile& l, const Tile& r) {
     return (l.coordId == r.coordId) && (l.tileId == r.tileId);
 }
