@@ -16,6 +16,11 @@ namespace ldtk {
     class LayerDef {
         friend World;
         friend Layer;
+
+        struct IntGridValue {
+            const std::string name;
+            const Color color;
+        };
     public:
         const LayerType type;
         const std::string name;
@@ -29,6 +34,7 @@ namespace ldtk {
         LayerDef(const nlohmann::json& j, World* w);
 
         const Tileset* m_tileset = nullptr;
+        std::vector<IntGridValue> m_intgrid_values;
     };
 
 }
