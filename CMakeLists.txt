@@ -36,8 +36,3 @@ if (BUILD_API_TEST)
     message(STATUS "LDtkAPI_test target available.")
     add_subdirectory(examples/API_test)
 endif()
-
-if (BUILD_SDL_EXAMPLE OR BUILD_SFML_EXAMPLE OR BUILD_API_TEST)
-    message(STATUS "LDtkConsole target available.")
-    add_subdirectory(examples/console)
-endif()
