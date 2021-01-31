@@ -9,7 +9,7 @@ int main() {
 
     // load the LDtk file
     ldtk::World world;
-    world.loadFromFile("level.ldtk");
+    world.loadFromFile("assets/level.ldtk");
 
     // get the level and the layer we want to render
     const auto& level = world.getLevel("Level");
@@ -25,7 +25,7 @@ int main() {
     SDL_SetWindowTitle(window, "LDtkLoader - SDL");
 
     // load the tileset texture
-    SDL_Texture* tileset_texture = IMG_LoadTexture(renderer, layer.getTileset().path.c_str());
+    SDL_Texture* tileset_texture = IMG_LoadTexture(renderer, ("assets/"+layer.getTileset().path).c_str());
 
     // create a render texture to draw the map
     SDL_Texture* tilemap_texture = SDL_CreateTexture(

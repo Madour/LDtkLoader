@@ -17,5 +17,4 @@ target_link_libraries(LDtkSDL PRIVATE LDtkLoader SDL2::SDL2 ${SDL2_IMAGE_LIBRARI
 set_target_properties(LDtkSDL PROPERTIES RUNTIME_OUTPUT_DIRECTORY bin)
 
 get_target_property(BIN_DIR LDtkSDL RUNTIME_OUTPUT_DIRECTORY)
-file(COPY tileset.png DESTINATION ${BIN_DIR})
-file(COPY level.ldtk DESTINATION ${BIN_DIR})
+file(COPY assets DESTINATION ${BIN_DIR})

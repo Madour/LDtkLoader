@@ -9,7 +9,7 @@ int main() {
 
     // load the LDtk file
     ldtk::World world;
-    world.loadFromFile("level.ldtk");
+    world.loadFromFile("assets/level.ldtk");
 
     // get the level and the layer we want to render
     const auto& level = world.getLevel("Level");
@@ -19,7 +19,7 @@ int main() {
 
     // load the tileset texture
     sf::Texture tileset_texture;
-    tileset_texture.loadFromFile(layer.getTileset().path);
+    tileset_texture.loadFromFile("assets/"+layer.getTileset().path);
 
 
     // create the VertexArray that will store all the tiles

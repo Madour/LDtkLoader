@@ -14,5 +14,4 @@ target_link_libraries(LDtkSFML PRIVATE LDtkLoader sfml-graphics)
 set_target_properties(LDtkSFML PROPERTIES RUNTIME_OUTPUT_DIRECTORY bin)
 
 get_target_property(BIN_DIR LDtkSFML RUNTIME_OUTPUT_DIRECTORY)
-file(COPY tileset.png DESTINATION ${BIN_DIR})
-file(COPY level.ldtk DESTINATION ${BIN_DIR})
+file(COPY assets DESTINATION ${BIN_DIR})
