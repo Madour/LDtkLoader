@@ -17,14 +17,16 @@ set_target_properties(LDtkLoader PROPERTIES
     DEBUG_POSTFIX -d
 )
 
-if (LDTK_NO_THROW)
-    target_compile_definitions(LDtkLoader PUBLIC LDTK_NO_THROW)
-endif()
 
 # examples targets
+option(LDTK_NO_THROW      "Replace all throws by an error print and exit" OFF)
 option(BUILD_SFML_EXAMPLE "Build an example using LDtkLoader with SFML." OFF)
 option(BUILD_SDL_EXAMPLE  "Build an example using LDtkLoader with SDL."  OFF)
 option(BUILD_API_TEST     "Build an example that loads a file showcasing all features of LDtk."  OFF)
+
+if (LDTK_NO_THROW)
+    target_compile_definitions(LDtkLoader PUBLIC LDTK_NO_THROW)
+endif()
 
 if (BUILD_SFML_EXAMPLE)
     message(STATUS "LDtkSFML target available.")
