@@ -44,25 +44,53 @@ Should work with any C++11 compiler.
 ```shell
 mkdir build && cd build
 cmake ..
-cmake --build . --config Release
+cmake --build . --config [Release|Debug]
 ```
 
 Additional CMake options you can pass :
- - `-DLDTK_NO_THROW` : to print message and exit when there is an error instead of throwing exceptions.
+ - `-DLDTK_NO_THROW` : to print message and exit when there is an error instead of throwing exceptions
+
+ - `-DBUILD_API_TEST` : to build the API test example, to make sure the library works as expected
 
  - `-DBUILD_SFML_EXAMPLE=ON` : to build the SFML example (requires SFML installed)
     - set `-DSFML_ROOT=/path/to/SFML/` if CMake is unable to find it
     - set `-DSFML_STATIC_LIBRARIES=TRUE` if you want to link the static libraries
 
- - `-DBUILD_SDL_EXAMPLE=ON` : to build the SDL example (requires SDL2 and SDL2_image installed) 
+ - `-DBUILD_SDL_EXAMPLE=ON` : to build the SDL example (requires SDL2 and SDL2_image installed)
+
+### Install
+
+In the build directory, run : 
+
+```shell
+cmake -DCMAKE_INSTALL_PREFIX=/install/path/LDtkLoader ..
+cmake --install . --config [Release|Debug]
+```
+
+This will copy the libraries, the headers and the cmake config file to the given install path.
+
+### How to use LDtkLoader in your project
+
+After installation, to use the LDtkLoader library in your CMake project, you can just call :
+
+```cmake
+find_package(LDtkLoader)
+```
+
+The `find_package` command will automatically get the correct library (release or debug) depending on your current CMake configuration.
+
+Then you only have to link the library to your target :
+
+```cmake
+target_link_libraries(YourTarget PRIVATE LDtkLoader)
+```
+
+Note : if you installed LDtkLoader at a custom path, you might need 
+to pass a `-DLDtkLoader_ROOT=/install/path/LDtkLoader` option to cmake so it can find the package.
 
 ### Documentation
 
 Documentation is under construction and can be found on the [**wiki**](https://github.com/Madour/LDtkLoader/wiki).
-
-### Supported features
-
-LDtk Loader is up to date with the latest LDtk v0.7.2 features !
 
 ### To Do
  - [ ] Helper classes/methods for SFML or SDL rendering
