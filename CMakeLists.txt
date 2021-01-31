@@ -1,21 +1,25 @@
 cmake_minimum_required(VERSION 3.10)
 
-project(LDtkLoader)
+project(LDtkLoader VERSION 0.7.2)
 
 # get source files
 file(GLOB_RECURSE Src src/*.cpp)
 
 # create the static lib target
 add_library(LDtkLoader STATIC ${Src})
-target_include_directories(LDtkLoader PRIVATE include)
+# set include directory for build and install
+target_include_directories(LDtkLoader PUBLIC $<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/include>)
+target_include_directories(LDtkLoader INTERFACE $<INSTALL_INTERFACE:include>)
+# set lib target properties
 set_target_properties(LDtkLoader PROPERTIES
     CXX_STANDARD 11
     ARCHIVE_OUTPUT_DIRECTORY lib
+    DEBUG_POSTFIX -d
 )
+
 if (LDTK_NO_THROW)
     target_compile_definitions(LDtkLoader PUBLIC LDTK_NO_THROW)
 endif()
-
 
 # examples targets
 option(BUILD_SFML_EXAMPLE "Build an example using LDtkLoader with SFML." OFF)
@@ -36,3 +40,17 @@ if (BUILD_API_TEST)
     message(STATUS "LDtkAPI_test target available.")
     add_subdirectory(examples/API_test)
 endif()
+
+# generate LDtkLoaderConfig.cmake
+include(CMakePackageConfigHelpers)
+configure_package_config_file(
+    "cmake/LDtkLoaderConfig.cmake.in" "${CMAKE_CURRENT_BINARY_DIR}/LDtkLoaderConfig.cmake"
+    INSTALL_DESTINATION cmake
+)
+
+# install rules
+install(TARGETS LDtkLoader EXPORT LDtkLoaderTargets)
+install(DIRECTORY include DESTINATION .)
+install(FILES LICENSE.md README.md DESTINATION .)
+install(FILES ${CMAKE_CURRENT_BINARY_DIR}/LDtkLoaderConfig.cmake DESTINATION cmake)
+install(EXPORT LDtkLoaderTargets DESTINATION cmake)
