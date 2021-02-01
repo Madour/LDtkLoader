@@ -50,12 +50,14 @@ endif()
 include(CMakePackageConfigHelpers)
 configure_package_config_file(
     "cmake/LDtkLoaderConfig.cmake.in" "${CMAKE_CURRENT_BINARY_DIR}/LDtkLoaderConfig.cmake"
-    INSTALL_DESTINATION cmake
+    INSTALL_DESTINATION ${CMAKE_INSTALL_PREFIX}/cmake
 )
 
-# install rules
-install(TARGETS LDtkLoader EXPORT LDtkLoaderTargets)
-install(DIRECTORY include DESTINATION .)
-install(FILES LICENSE.md README.md DESTINATION .)
-install(FILES ${CMAKE_CURRENT_BINARY_DIR}/LDtkLoaderConfig.cmake DESTINATION cmake)
-install(EXPORT LDtkLoaderTargets DESTINATION cmake)
+if (MSVC OR MINGW)
+    # install rules works only on windows for now
+    install(TARGETS LDtkLoader EXPORT LDtkLoaderTargets)
+    install(DIRECTORY include DESTINATION ${CMAKE_INSTALL_PREFIX})
+    install(FILES LICENSE.md README.md DESTINATION ${CMAKE_INSTALL_PREFIX})
+    install(FILES ${CMAKE_CURRENT_BINARY_DIR}/LDtkLoaderConfig.cmake DESTINATION ${CMAKE_INSTALL_PREFIX}/cmake)
+    install(EXPORT LDtkLoaderTargets DESTINATION ${CMAKE_INSTALL_PREFIX}/cmake)
+endif()
