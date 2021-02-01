@@ -25,6 +25,7 @@ namespace ldtk {
 
         using optional<T>::optional;
         using optional<T>::value;
+        using optional<T>::value_or;
 
         constexpr auto is_null() const -> bool {
             return !optional<T>::has_value();
