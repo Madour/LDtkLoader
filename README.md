@@ -48,13 +48,15 @@ for (const auto& enemy : level1.getLayer("Entities").getEntities("Enemy")) {
 
 ### Build
 
-Should work with any C++11 compiler. 
+Should work with any C++11 compiler. (MSVC uses `--config` to specify build type,
+other compilers use the `CMAKE_BUILD_TYPE` variable)
 
 ```shell
 mkdir build && cd build
-cmake -DCMAKE_BUILD_TYPE=[Debug|Release] ..
-cmake --build .
+cmake [-DCMAKE_BUILD_TYPE={Debug|Release}] ..
+cmake --build . [--config {Debug|Release}]
 ```
+
 
 Additional CMake options you can pass :
  - `-DLDTK_NO_THROW` : to print message and exit when there is an error instead of throwing exceptions
@@ -73,10 +75,10 @@ In the build directory, run :
 
 ```shell
 cmake [-DCMAKE_INSTALL_PREFIX=/install/path/LDtkLoader] ..
-cmake --install .
+cmake --install . [--config {Debug|Release}]
 ```
 
-This will copy the libraries, the headers and the cmake config file to the given install path.
+This will copy the libraries, the headers and the cmake config files to the install path.
 
 ### How to use LDtkLoader in your project
 
