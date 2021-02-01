@@ -16,7 +16,10 @@ set_target_properties(LDtkLoader PROPERTIES
     ARCHIVE_OUTPUT_DIRECTORY lib
     DEBUG_POSTFIX -d
 )
-
+# compile definition for msvc debug mode
+target_compile_definitions(LDtkLoader PRIVATE
+    "$<$<AND:$<CXX_COMPILER_ID:MSVC>,$<CONFIG:Debug>>:Z7>"
+)
 
 # examples targets
 option(LDTK_NO_THROW      "Replace all throws by an error print and exit" OFF)
