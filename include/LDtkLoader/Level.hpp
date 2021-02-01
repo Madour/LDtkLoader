@@ -17,6 +17,7 @@ namespace ldtk {
     class Level {
         friend World;
 
+    public:
         struct BgImage {
             FilePath path;
             IntPoint pos;
@@ -24,7 +25,6 @@ namespace ldtk {
             IntRect crop;
         };
 
-    public:
         Level(Level&& other) noexcept ;
 
         const World* world;
