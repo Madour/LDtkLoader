@@ -29,11 +29,20 @@ for (const auto& tile : bg_layer.allTiles()) {
 
 // iterate on Enemy entities
 for (const auto& enemy : level1.getLayer("Entities").getEntities("Enemy")) {
-    // access a field
-    const auto& enemy_weapon = enemy.getField<ldtk::EnumValue>("ActiveWeapon");
-    if (enemy_weapon == world.getEnum("Weapon")["Sword"]) {
-        // the enemy has a Sword !
+    
+    // iterate over an array field of Enum values
+    for (const auto& item : enemy.getArrayField<ldtk::EnumValue>("items")) {
+        // test if field is null
+        if (!item.is_null()) {
+            // do something with item
+            if (item == world.getEnum("Items")["Sword"]) {
+                // the enemy has a Sword !
+            }
+        }
     }
+
+    // get an Entity field
+    int enemy_hp = enemy.getField<int>("HP").value();
 }
 ```
 
@@ -43,8 +52,8 @@ Should work with any C++11 compiler.
 
 ```shell
 mkdir build && cd build
-cmake ..
-cmake --build . --config [Release|Debug]
+cmake -DCMAKE_BUILD_TYPE=[Debug|Release] ..
+cmake --build .
 ```
 
 Additional CMake options you can pass :
@@ -63,8 +72,8 @@ Additional CMake options you can pass :
 In the build directory, run : 
 
 ```shell
-cmake -DCMAKE_INSTALL_PREFIX=/install/path/LDtkLoader ..
-cmake --install . --config [Release|Debug]
+cmake [-DCMAKE_INSTALL_PREFIX=/install/path/LDtkLoader] ..
+cmake --install .
 ```
 
 This will copy the libraries, the headers and the cmake config file to the given install path.

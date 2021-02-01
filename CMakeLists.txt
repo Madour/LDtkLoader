@@ -46,18 +46,21 @@ if (BUILD_API_TEST)
     add_subdirectory(examples/API_test)
 endif()
 
-# generate LDtkLoaderConfig.cmake
+include(GNUInstallDirs)
 include(CMakePackageConfigHelpers)
+
+# generate LDtkLoaderConfig.cmake
 configure_package_config_file(
     "cmake/LDtkLoaderConfig.cmake.in" "${CMAKE_CURRENT_BINARY_DIR}/LDtkLoaderConfig.cmake"
-    INSTALL_DESTINATION ${CMAKE_INSTALL_PREFIX}/cmake
+    INSTALL_DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/LDtkLoader
 )
 
-if (MSVC OR MINGW)
-    # install rules works only on windows for now
-    install(TARGETS LDtkLoader EXPORT LDtkLoaderTargets)
-    install(DIRECTORY include DESTINATION ${CMAKE_INSTALL_PREFIX})
-    install(FILES LICENSE.md README.md DESTINATION ${CMAKE_INSTALL_PREFIX})
-    install(FILES ${CMAKE_CURRENT_BINARY_DIR}/LDtkLoaderConfig.cmake DESTINATION ${CMAKE_INSTALL_PREFIX}/cmake)
-    install(EXPORT LDtkLoaderTargets DESTINATION ${CMAKE_INSTALL_PREFIX}/cmake)
-endif()
+# install license and readme to doc directory
+install(FILES LICENSE.md README.md DESTINATION ${CMAKE_INSTALL_DOCDIR})
+# install headers to include directory
+install(DIRECTORY include/LDtkLoader DESTINATION ${CMAKE_INSTALL_INCLUDEDIR})
+
+# cmake export targets
+install(TARGETS LDtkLoader EXPORT LDtkLoaderTargets)
+install(FILES ${CMAKE_CURRENT_BINARY_DIR}/LDtkLoaderConfig.cmake DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/LDtkLoader)
+install(EXPORT LDtkLoaderTargets DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/LDtkLoader)
