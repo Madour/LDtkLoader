@@ -5,6 +5,7 @@
 #include <cinttypes>
 #include <string>
 #include <array>
+#include <iostream>
 
 namespace ldtk {
 
