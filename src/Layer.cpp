@@ -50,8 +50,16 @@ m_grid_size({j["__cWid"].get<int>(), j["__cHei"].get<int>()})
         [](const Tile& lhs, const Tile& rhs) {return lhs.coordId < rhs.coordId;}
     );
 
+    /*
     for (const auto& val : j["intGrid"]) {
         m_intgrid[val["coordId"].get<int>()] = &m_definition->m_intgrid_values[val["v"].get<int>()];
+    }
+    */
+    int coord_id = 0;
+    for (const auto& val : j["intGridCsv"]) {
+        if (val.get<int>() != -1)
+            m_intgrid[coord_id] = &m_definition->m_intgrid_values[val.get<int>()];
+        coord_id++;
     }
 
     for (const auto& ent : j["entityInstances"]) {

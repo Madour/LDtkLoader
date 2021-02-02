@@ -1,7 +1,5 @@
 // Created by Modar Nasser on 22/11/2020.
 
-#include <memory>
-
 #include "LDtkLoader/Entity.hpp"
 #include "LDtkLoader/World.hpp"
 
