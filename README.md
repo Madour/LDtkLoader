@@ -1,4 +1,4 @@
-<h1> LDtk Loader <img src=https://img.shields.io/badge/LDtk_version-0.7.2-default></h1>
+<h1> LDtk Loader • <img src=https://img.shields.io/badge/LDtk_version-0.7.2-default> <img src=https://github.com/Madour/LDtkLoader/workflows/CI/badge.svg></h1>
 
 
 ### Load LDtk levels in your C++ game
