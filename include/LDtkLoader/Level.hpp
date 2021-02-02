@@ -4,7 +4,7 @@
 
 #include <string>
 #include <vector>
-#include <unordered_map>
+#include <map>
 
 #include "LDtkLoader/thirdparty/json.hpp"
 #include "LDtkLoader/DataTypes.hpp"
@@ -49,8 +49,8 @@ namespace ldtk {
 
         std::vector<Layer> m_layers;
         std::experimental::optional<BgImage> m_bg_image;
-        std::unordered_map<Dir, std::vector<int>> m_neighbours_id;
-        std::unordered_map<Dir, std::vector<const Level*>> m_neighbours;
+        std::map<Dir, std::vector<int>> m_neighbours_id;
+        std::map<Dir, std::vector<const Level*>> m_neighbours;
     };
 
 }
