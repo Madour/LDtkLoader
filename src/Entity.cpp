@@ -9,6 +9,7 @@ using namespace ldtk;
 
 Entity::Entity(const nlohmann::json& j, const World* w) :
 m_definition( &w->getEntityDef(j["defUid"].get<int>()) ),
+m_size( j["width"].get<int>(), j["height"].get<int>() ),
 m_position( j["px"][0].get<int>(), j["px"][1].get<int>() ),
 m_grid_pos( j["__grid"][0].get<int>(), j["__grid"][1].get<int>() )
 {
@@ -159,7 +160,7 @@ auto Entity::getName() const -> const std::string& {
 }
 
 auto Entity::getSize() const -> const IntPoint& {
-    return m_definition->size;
+    return m_size;
 }
 
 auto Entity::getPosition() const -> const IntPoint& {

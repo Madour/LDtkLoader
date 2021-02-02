@@ -38,6 +38,7 @@ namespace ldtk {
 
         const EntityDef* m_definition = nullptr;
 
+        const IntPoint m_size;
         const IntPoint m_position;
         const IntPoint m_grid_pos;
 
