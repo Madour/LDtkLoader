@@ -50,8 +50,20 @@ m_grid_size({j["__cWid"].get<int>(), j["__cHei"].get<int>()})
         [](const Tile& lhs, const Tile& rhs) {return lhs.coordId < rhs.coordId;}
     );
 
-    for (const auto& val : j["intGrid"]) {
-        m_intgrid[val["coordId"].get<int>()] = &m_definition->m_intgrid_values[val["v"].get<int>()];
+    // LDtk v0.8+
+    if (j.contains("intGridCsv")) {
+        int coord_id = 0;
+        for (const auto& val : j["intGridCsv"]) {
+            if (val.get<int>() != 0)
+                m_intgrid[coord_id] = &m_definition->m_intgrid_values[val.get<int>()-1];
+            coord_id++;
+        }
+    }
+    // LDtk pre v0.8
+    else {
+        for (const auto& val : j["intGrid"]) {
+            m_intgrid[val["coordId"].get<int>()] = &m_definition->m_intgrid_values[val["v"].get<int>()];
+        }
     }
 
     for (const auto& ent : j["entityInstances"]) {

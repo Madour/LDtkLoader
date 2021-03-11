@@ -9,12 +9,13 @@
 #include "LDtkLoader/thirdparty/json.hpp"
 #include "LDtkLoader/DataTypes.hpp"
 #include "LDtkLoader/Layer.hpp"
+#include "LDtkLoader/FieldsContainer.hpp"
 
 namespace ldtk {
 
     class World;
 
-    class Level {
+    class Level : public FieldsContainer {
         friend World;
 
     public:

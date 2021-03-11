@@ -33,6 +33,8 @@ bg_color(j["__bgColor"].get<std::string>())
         m_layers.push_back(std::move(new_layer));
     }
 
+    parseFields(j["fieldInstances"], w);
+
     m_neighbours_id[Dir::North]; m_neighbours_id[Dir::East];
     m_neighbours_id[Dir::South]; m_neighbours_id[Dir::West];
     for (const auto& neighbour : j["__neighbours"]) {
@@ -61,6 +63,7 @@ bg_color(j["__bgColor"].get<std::string>())
 }
 
 Level::Level(Level&& other) noexcept :
+FieldsContainer(std::move(other)),
 world(other.world),
 name(other.name),
 uid(other.uid),
