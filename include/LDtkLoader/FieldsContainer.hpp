@@ -5,11 +5,13 @@
 #include <memory>
 #include <vector>
 #include <unordered_map>
-#include "thirdparty/optional.hpp"
-#include "DataTypes.hpp"
-#include "Utils.hpp"
+#include "LDtkLoader/thirdparty/optional.hpp"
+#include "LDtkLoader/thirdparty/json.hpp"
+#include "LDtkLoader/DataTypes.hpp"
+#include "LDtkLoader/Utils.hpp"
 
 namespace ldtk {
+    class World;
 
     template<typename T>
     using optional = std::experimental::optional<T>;
@@ -62,8 +64,10 @@ namespace ldtk {
     };
 
     class FieldsContainer {
-
     public:
+        FieldsContainer() = default;
+        FieldsContainer(FieldsContainer&& other) noexcept;
+
         template <typename T>
         void addField(const std::string& name, const T& field);
 
@@ -82,11 +86,13 @@ namespace ldtk {
         template <typename T>
         auto getArrayField(const std::string& name) const -> const ArrayField<T>&;
 
+    protected:
+        void parseFields(const nlohmann::json& j, const World* w);
+
     private:
         std::vector<std::shared_ptr<IField>> m_gc;
         std::unordered_map<std::string, IField*> m_fields;
         std::unordered_map<std::string, IField*> m_array_fields;
-
     };
 
 
