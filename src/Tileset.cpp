@@ -50,11 +50,11 @@ auto Tileset::getTileData(int tile_id) const -> const std::string& {
     return m_custom_data.at(-1);
 }
 
-auto Tileset::hasTags() -> bool {
+auto Tileset::hasTags() const -> bool {
     return m_tags_enum != nullptr;
 }
 
-auto Tileset::getTagsEnum() -> const Enum& {
+auto Tileset::getTagsEnum() const -> const Enum& {
     return *m_tags_enum;
 }
 

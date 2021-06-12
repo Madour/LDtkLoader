@@ -27,8 +27,8 @@ namespace ldtk {
         auto getTileTexturePos(int tile_id) const -> IntPoint;
         auto getTileData(int tile_id) const -> const std::string&;
 
-        auto hasTags() -> bool;
-        auto getTagsEnum() -> const Enum&;
+        auto hasTags() const -> bool;
+        auto getTagsEnum() const -> const Enum&;
         auto getTilesWithTag(const EnumValue& enumvalue) const -> const std::vector<int>&;
 
         Tileset(const nlohmann::json& j, World* w);
