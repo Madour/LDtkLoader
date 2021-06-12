@@ -19,6 +19,10 @@ namespace ldtk {
         friend Level;
 
     public:
+        Layer(const Layer&) = delete;
+        Layer(Layer&&) = default;
+        auto operator=(const Layer&) -> Layer& = delete;
+
         const Level* level = nullptr;
 
         auto getType() const -> const LayerType&;

@@ -22,6 +22,10 @@ namespace ldtk {
         friend Layer;
 
     public:
+        Entity(const Entity&) = delete;
+        Entity(Entity&&) = default;
+        auto operator=(const Entity&) -> Entity& = delete;
+
         auto getName() const -> const std::string&;
         auto getSize() const -> const IntPoint&;
         auto getPosition() const -> const IntPoint&;
