@@ -38,28 +38,36 @@ void World::loadFromFile(const std::string& filepath) {
     m_layers_defs.clear();
     m_tilesets.clear();
     m_enums_map.clear();
+    m_enums_defs.clear();
     m_levels.clear();
 
     const auto& defs = j["defs"];
 
+    // parsing enums first because tilesets need them for tags
+    m_enums_map.reserve(defs["enums"].size());
+    m_enums_defs.reserve(defs["enums"].size());
+    for (const auto& en : defs["enums"]) {
+        m_enums_defs.emplace_back(en, this);
+        m_enums_map.emplace(en["identifier"].get<std::string>(), &m_enums_defs.back());
+    }
+
     // parsing tilesets
     m_tilesets.reserve(defs["tilesets"].size());
     for (const auto& tileset : defs["tilesets"]) {
-        m_tilesets.emplace_back(tileset);
+        m_tilesets.emplace_back(tileset, this);
+    }
+
+    // set enums tileset pointer
+    for (auto& en : m_enums_defs) {
+        if (en.m_tileset_id != -1) {
+            en.m_tileset = &getTileset(en.m_tileset_id);
+        }
     }
 
     // parsing layers defs
     m_layers_defs.reserve(defs["layers"].size());
     for (const auto& layer_def : defs["layers"]) {
         m_layers_defs.emplace_back(layer_def, this);
-    }
-
-    // parsing enums
-    m_enums_map.reserve(defs["enums"].size());
-    m_enums_defs.reserve(defs["enums"].size());
-    for (const auto& en : defs["enums"]) {
-        m_enums_defs.emplace_back(en, this);
-        m_enums_map.emplace(en["identifier"].get<std::string>(), &m_enums_defs.back());
     }
 
     //parsing entities def

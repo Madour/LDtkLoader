@@ -5,12 +5,12 @@
 
 using namespace ldtk;
 
-EnumValue::EnumValue(std::string val_name, int val_id, int val_tile_id, const Color& val_color, Enum* val_enum_type) :
+EnumValue::EnumValue(std::string val_name, int val_id, int val_tile_id, const Color& val_color, const Enum& val_enum_type) :
 name(std::move(val_name)),
 color(val_color),
+type(val_enum_type),
 id(val_id),
-tile_id(val_tile_id),
-enum_type(val_enum_type)
+tile_id(val_tile_id)
 {}
 
 auto EnumValue::hasIcon() const -> bool {
@@ -18,7 +18,7 @@ auto EnumValue::hasIcon() const -> bool {
 }
 
 auto EnumValue::getIconTileset() const -> const Tileset& {
-    return enum_type->getIconsTileset();
+    return type.getIconsTileset();
 }
 
 auto EnumValue::getIconTexturePos() const -> IntPoint {
@@ -27,7 +27,7 @@ auto EnumValue::getIconTexturePos() const -> IntPoint {
 
 
 bool ldtk::operator==(const EnumValue& l, const EnumValue& r) {
-    return (l.id == r.id) && (l.enum_type->uid == r.enum_type->uid);
+    return (l.id == r.id) && (l.type.uid == r.type.uid);
 }
 bool ldtk::operator!=(const EnumValue& l, const EnumValue& r) {
     return !(ldtk::operator==(l, r));
@@ -36,13 +36,13 @@ bool ldtk::operator!=(const EnumValue& l, const EnumValue& r) {
 Enum::Enum(const nlohmann::json& j, const World* w) :
 name(j["identifier"].get<std::string>()),
 uid(j["uid"].get<int>()),
-m_tileset( j["iconTilesetUid"].is_null() ? nullptr : &w->getTileset(j["iconTilesetUid"].get<int>()) )
+m_tileset_id(j["iconTilesetUid"].is_null() ? -1 : 1)
 {
     int id = 0;
     for (const auto& value : j["values"]) {
         const auto& val_name = value["id"].get<std::string>();
         const auto& tile_id = value["tileId"].is_null() ? -1 : value["tileId"].get<int>();
-        m_values.insert({val_name, {val_name, id++, tile_id, Color(value["color"].get<int>()), this}});
+        m_values.insert({val_name, {val_name, id++, tile_id, Color(value["color"].get<int>()), *this}});
     }
 }
 
