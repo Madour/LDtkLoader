@@ -55,6 +55,7 @@ namespace ldtk {
 
         const LayerDef* m_definition = nullptr;
 
+        bool m_visible;
         mutable IntPoint m_total_offset;
         mutable float m_opacity;
         const IntPoint m_grid_size;

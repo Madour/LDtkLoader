@@ -10,6 +10,7 @@ using namespace ldtk;
 Layer::Layer(const nlohmann::json& j, const World* w, const Level* l) :
 level(l),
 m_definition(&w->getLayerDef(j["layerDefUid"].get<int>())),
+m_visible(j["visible"].get<bool>()),
 m_total_offset(j["__pxTotalOffsetX"].get<int>(), j["__pxTotalOffsetY"].get<int>()),
 m_opacity(j["__opacity"].get<float>()),
 m_grid_size({j["__cWid"].get<int>(), j["__cHei"].get<int>()})
@@ -75,6 +76,7 @@ m_grid_size({j["__cWid"].get<int>(), j["__cHei"].get<int>()})
 Layer::Layer(Layer&& other) noexcept :
 level(other.level),
 m_definition(other.m_definition),
+m_visible(other.m_visible),
 m_total_offset(other.m_total_offset),
 m_opacity(other.m_opacity),
 m_grid_size(other.m_grid_size),
