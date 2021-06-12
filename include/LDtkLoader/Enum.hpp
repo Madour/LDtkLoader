@@ -35,6 +35,10 @@ namespace ldtk {
     class Enum {
         friend World;
     public:
+        Enum(const Enum&) = delete;
+        Enum(Enum&&) = default;
+        auto operator=(const Enum&) -> Enum& = delete;
+
         const std::string name;
         const int uid;
 

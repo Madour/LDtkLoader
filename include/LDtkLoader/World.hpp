@@ -18,6 +18,10 @@ namespace ldtk {
     class World {
     public:
         World();
+        World(const World&) = delete;
+        World(World&&) = default;
+        auto operator=(const World&) -> World& = delete;
+
         void loadFromFile(const std::string& filepath);
 
         auto getName() const -> const std::string&;

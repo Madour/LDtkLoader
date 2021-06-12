@@ -26,6 +26,10 @@ namespace ldtk {
             IntRect crop;
         };
 
+        Level(const Level&) = delete;
+        Level(Level&&) = default;
+        auto operator=(const Level&) -> Level& = delete;
+
         const World* world;
 
         const std::string name;
