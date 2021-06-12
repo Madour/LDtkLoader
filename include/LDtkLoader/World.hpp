@@ -58,7 +58,8 @@ namespace ldtk {
         std::vector<Tileset> m_tilesets;
         std::vector<LayerDef> m_layers_defs;
         std::vector<EntityDef> m_entities_defs;
-        std::map<std::string, Enum> m_enums;
+        std::vector<Enum> m_enums_defs;
+        std::unordered_map<std::string, Enum*> m_enums_map;
 
         std::vector<Level> m_levels;
     };

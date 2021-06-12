@@ -43,9 +43,9 @@ namespace ldtk {
         auto hasIcons() const -> bool;
         auto getIconsTileset() const -> const Tileset&;
 
-    private:
         Enum(const nlohmann::json& j, const World* w);
 
+    private:
         const Tileset* m_tileset = nullptr;
         std::unordered_map<std::string, EnumValue> m_values;
     };

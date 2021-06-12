@@ -17,9 +17,8 @@ namespace ldtk {
 
     class Layer {
         friend Level;
-    public:
-        Layer(Layer&& other) noexcept;
 
+    public:
         const Level* level = nullptr;
 
         auto getType() const -> const LayerType&;
@@ -45,9 +44,9 @@ namespace ldtk {
         auto hasEntity(const std::string& entity_name) const -> bool;
         auto getEntities(const std::string& entity_name) const -> const std::vector<Entity>&;
 
-    private:
         Layer(const nlohmann::json& j, const World* w, const Level* l);
 
+    private:
         void updateTileVertices(const Tile& tile) const;
         void updateTileVerticesPos(const Tile& tile) const;
         void updateTileVerticesTex(const Tile& tile) const;

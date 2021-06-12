@@ -23,7 +23,6 @@ namespace ldtk {
 
         auto getTileTexturePos(int tile_id) const -> IntPoint;
 
-    private:
         explicit Tileset(const nlohmann::json& j);
     };
 

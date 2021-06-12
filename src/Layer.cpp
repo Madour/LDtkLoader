@@ -41,8 +41,8 @@ m_grid_size({j["__cWid"].get<int>(), j["__cHei"].get<int>()})
         updateTileVertices(new_tile);
 
         m_tiles.push_back(new_tile);
-        auto& last_tile = m_tiles[m_tiles.size()-1];
-        m_tiles_map[last_tile.coordId] = &(last_tile);
+        auto& last_tile = m_tiles.back();
+        m_tiles_map[last_tile.coordId] = &last_tile;
     }
 
     std::sort(
@@ -68,25 +68,10 @@ m_grid_size({j["__cWid"].get<int>(), j["__cHei"].get<int>()})
     }
 
     for (const auto& ent : j["entityInstances"]) {
-        Entity new_ent{ent, w};
-        m_entities[new_ent.getName()].push_back(std::move(new_ent));
+        m_entities[ent["__identifier"]].emplace_back(ent, w);
     }
 }
 
-Layer::Layer(Layer&& other) noexcept :
-level(other.level),
-m_definition(other.m_definition),
-m_visible(other.m_visible),
-m_total_offset(other.m_total_offset),
-m_opacity(other.m_opacity),
-m_grid_size(other.m_grid_size),
-m_tiles(std::move(other.m_tiles)),
-m_entities(std::move(other.m_entities)),
-m_intgrid(std::move(other.m_intgrid))
-{
-  for (auto& tile : m_tiles)
-      m_tiles_map[tile.coordId] = &tile;
-}
 
 auto Layer::getType() const -> const LayerType& {
     return m_definition->type;

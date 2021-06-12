@@ -66,7 +66,6 @@ namespace ldtk {
     class FieldsContainer {
     public:
         FieldsContainer() = default;
-        FieldsContainer(FieldsContainer&& other) noexcept;
 
         template <typename T>
         void addField(const std::string& name, const T& field);

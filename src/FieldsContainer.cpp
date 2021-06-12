@@ -5,12 +5,6 @@
 
 using namespace ldtk;
 
-FieldsContainer::FieldsContainer(FieldsContainer&& other) noexcept :
-m_gc(std::move(other.m_gc)),
-m_fields(std::move(other.m_fields)),
-m_array_fields(std::move(other.m_array_fields))
-{}
-
 void FieldsContainer::parseFields(const nlohmann::json& j, const World* w) {
     for (const auto& field : j) {
         auto field_type = field["__type"].get<std::string>();
