@@ -646,8 +646,8 @@
 			"tileGridSize": 16,
 			"spacing": 0,
 			"padding": 0,
-			"tagsSourceEnumUid": null,
-			"enumTags": [],
+			"tagsSourceEnumUid": 42,
+			"enumTags": [ { "enumValueId": "Bush", "tileIds": [49,50,53,64,65,66,67,80,81,82,83,84,96,97,98,99,100] }, { "enumValueId": "FlowerPot", "tileIds": [50,51,52,53] }, { "enumValueId": "Pot", "tileIds": [51,52,53,54,55] }, { "enumValueId": "NoIcon", "tileIds": [] } ],
 			"customData": [{ "tileId": 49, "data": "test\ntest2\ntest3" }],
 			"savedSelections": [],
 			"cachedPixelData": {

@@ -5,8 +5,10 @@
 #include <string>
 #include <unordered_map>
 
+#include "LDtkLoader/thirdparty/optional.hpp"
 #include "LDtkLoader/thirdparty/json.hpp"
 #include "LDtkLoader/DataTypes.hpp"
+#include "LDtkLoader/Enum.hpp"
 
 namespace ldtk {
     class World;
@@ -25,10 +27,17 @@ namespace ldtk {
         auto getTileTexturePos(int tile_id) const -> IntPoint;
         auto getTileData(int tile_id) const -> const std::string&;
 
-        explicit Tileset(const nlohmann::json& j);
+        auto hasTags() -> bool;
+        auto getTagsEnum() -> const Enum&;
+        auto getTilesWithTag(const EnumValue& enumvalue) const -> const std::vector<int>&;
+
+        Tileset(const nlohmann::json& j, World* w);
 
     private:
+        friend World;
+        const Enum* m_tags_enum;
         std::unordered_map<int, std::string> m_custom_data;
+        std::unordered_map<std::string, std::vector<int>> m_tag_tiles_map;
     };
 
 }

@@ -6,16 +6,17 @@
 #include <vector>
 #include "LDtkLoader/thirdparty/json.hpp"
 #include "LDtkLoader/DataTypes.hpp"
-#include "LDtkLoader/Tileset.hpp"
 
 namespace ldtk {
 
     class World;
     class Enum;
+    struct Tileset;
 
     struct EnumValue {
         const std::string name;
         const Color color;
+        const Enum& type;
 
         auto hasIcon() const -> bool;
         auto getIconTileset() const -> const Tileset&;
@@ -23,10 +24,9 @@ namespace ldtk {
     private:
         friend Enum;
         friend bool operator==(const EnumValue& l, const EnumValue& r);
-        EnumValue(std::string name, int id, int tile_id, const Color& color, Enum* enum_type);
+        EnumValue(std::string name, int id, int tile_id, const Color& color, const Enum& enum_type);
         const int id;
         const int tile_id;
-        const Enum* enum_type;
     };
 
     bool operator==(const EnumValue& l, const EnumValue& r);
@@ -50,7 +50,9 @@ namespace ldtk {
         Enum(const nlohmann::json& j, const World* w);
 
     private:
-        const Tileset* m_tileset = nullptr;
+        friend World;
+        const int m_tileset_id;
+        const Tileset* m_tileset;
         std::unordered_map<std::string, EnumValue> m_values;
     };
 
