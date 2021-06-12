@@ -7,6 +7,7 @@ file(GLOB_RECURSE Src src/*.cpp)
 
 # create the static lib target
 add_library(LDtkLoader STATIC ${Src})
+target_compile_definitions(LDtkLoader PRIVATE _CRT_SECURE_NO_WARNINGS)
 # set include directory for build and install
 target_include_directories(LDtkLoader PUBLIC $<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/include>)
 target_include_directories(LDtkLoader INTERFACE $<INSTALL_INTERFACE:include>)
