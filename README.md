@@ -1,4 +1,4 @@
-<h1> LDtk Loader • <img src=https://img.shields.io/badge/LDtk_version-0.8.1-default> <img src=https://github.com/Madour/LDtkLoader/workflows/CI/badge.svg></h1>
+<h1> LDtk Loader • <img src=https://img.shields.io/badge/LDtk_version-0.9.3-default> <img src=https://github.com/Madour/LDtkLoader/workflows/CI/badge.svg></h1>
 
 
 ### Load LDtk levels in your C++ game
@@ -48,15 +48,16 @@ for (const auto& enemy : level1.getLayer("Entities").getEntities("Enemy")) {
 
 ### Build
 
-Should work with any C++11 compiler. (MSVC uses `--config` to specify build type,
-other compilers use the `CMAKE_BUILD_TYPE` variable)
+Should work with any C++11 compiler. 
+You can select Debug or Release mode when building.
 
 ```shell
 mkdir build && cd build
-cmake [-DCMAKE_BUILD_TYPE={Debug|Release}] ..
-cmake --build . [--config {Debug|Release}]
+cmake -DCMAKE_BUILD_TYPE={Debug|Release} ..
+cmake --build . --config {Debug|Release}
 ```
 
+This will generate the static library (debug library has the suffix '-d').
 
 Additional CMake options you can pass :
  - `-DLDTK_NO_THROW` : to print message and exit when there is an error instead of throwing exceptions
@@ -75,20 +76,21 @@ In the build directory, run :
 
 ```shell
 cmake [-DCMAKE_INSTALL_PREFIX=/install/path/LDtkLoader] ..
-cmake --install . [--config {Debug|Release}]
+cmake --install . --config {Debug|Release}
 ```
 
 This will copy the libraries, the headers and the cmake config files to the install path.
 
 ### How to use LDtkLoader in your project
 
-After installation, to use the LDtkLoader library in your CMake project, you can just call :
+After installation, to use LDtkLoader in your CMake project, you can just call :
 
 ```cmake
 find_package(LDtkLoader)
 ```
 
-The `find_package` command will automatically get the correct library (release or debug) depending on your current CMake configuration.
+The `find_package` command will automatically get the correct library (release or debug) 
+depending on your current CMake configuration.
 
 Then you only have to link the library to your target :
 
