@@ -3,6 +3,7 @@
 #pragma once
 
 #include <string>
+#include <unordered_map>
 
 #include "LDtkLoader/thirdparty/json.hpp"
 #include "LDtkLoader/DataTypes.hpp"
@@ -22,8 +23,12 @@ namespace ldtk {
         const int padding;
 
         auto getTileTexturePos(int tile_id) const -> IntPoint;
+        auto getTileData(int tile_id) const -> const std::string&;
 
         explicit Tileset(const nlohmann::json& j);
+
+    private:
+        std::unordered_map<int, std::string> m_custom_data;
     };
 
 }
