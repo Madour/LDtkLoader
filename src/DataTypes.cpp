@@ -13,6 +13,10 @@ b(blue&0xffu),
 a(alpha&0xffu)
 {}
 
+Color::Color(int hex) :
+Color((hex>>16)&0xff, (hex>>8)&0xff, hex&0xff)
+{}
+
 Color::Color(const std::string& hex) :
 Color(std::stoul(hex.substr(1, 2), nullptr, 16),
       std::stoul(hex.substr(3, 2), nullptr, 16),
