@@ -20,8 +20,8 @@ namespace ldtk {
 
     class Entity : public FieldsContainer {
         friend Layer;
-    public:
 
+    public:
         auto getName() const -> const std::string&;
         auto getSize() const -> const IntPoint&;
         auto getPosition() const -> const IntPoint&;
@@ -33,15 +33,14 @@ namespace ldtk {
         auto getIconTileset() const -> const Tileset&;
         auto getIconTexturePos() const -> IntPoint;
 
-    private:
         explicit Entity(const nlohmann::json& j, const World* w);
 
+    private:
         const EntityDef* m_definition = nullptr;
 
         const IntPoint m_size;
         const IntPoint m_position;
         const IntPoint m_grid_pos;
-
     };
 
 }

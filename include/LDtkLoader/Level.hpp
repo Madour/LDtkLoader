@@ -26,8 +26,6 @@ namespace ldtk {
             IntRect crop;
         };
 
-        Level(Level&& other) noexcept ;
-
         const World* world;
 
         const std::string name;
@@ -45,9 +43,9 @@ namespace ldtk {
         auto getNeighbours(const Dir& direction) const -> const std::vector<const Level*>&;
         auto getNeighbourDirection(const Level& level) const -> Dir;
 
-    private:
         explicit Level(const nlohmann::json& j, World* w);
 
+    private:
         std::vector<Layer> m_layers;
         std::experimental::optional<BgImage> m_bg_image;
         std::map<Dir, std::vector<int>> m_neighbours_id;

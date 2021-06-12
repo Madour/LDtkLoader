@@ -28,9 +28,9 @@ bg_color(j["__bgColor"].get<std::string>())
     else
         jl = j;
 
+    m_layers.reserve(jl["layerInstances"].size());
     for (const auto& level : jl["layerInstances"]) {
-        Layer new_layer{level, w, this};
-        m_layers.push_back(std::move(new_layer));
+        m_layers.emplace_back(level, w, this);
     }
 
     parseFields(j["fieldInstances"], w);
@@ -61,20 +61,6 @@ bg_color(j["__bgColor"].get<std::string>())
                             j["__bgPos"]["cropRect"][2].get<int>(), j["__bgPos"]["cropRect"][3].get<int>()};
     }
 }
-
-Level::Level(Level&& other) noexcept :
-FieldsContainer(std::move(other)),
-world(other.world),
-name(other.name),
-uid(other.uid),
-size(other.size),
-position(other.position),
-bg_color(other.bg_color),
-m_layers(std::move(other.m_layers)),
-m_bg_image(std::move(other.m_bg_image)),
-m_neighbours_id(std::move(other.m_neighbours_id)),
-m_neighbours(std::move(other.m_neighbours))
-{}
 
 auto Level::allLayers() const -> const std::vector<Layer>& {
     return m_layers;

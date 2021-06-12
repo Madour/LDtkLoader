@@ -26,9 +26,9 @@ namespace ldtk {
         const IntPoint offset;
         const FloatPoint tile_pivot;
 
-    private:
         LayerDef(const nlohmann::json& j, World* w);
 
+    private:
         const Tileset* m_tileset = nullptr;
         std::vector<IntGridValue> m_intgrid_values;
     };

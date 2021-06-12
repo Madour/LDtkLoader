@@ -37,38 +37,42 @@ void World::loadFromFile(const std::string& filepath) {
     // reset all containers
     m_layers_defs.clear();
     m_tilesets.clear();
-    m_enums.clear();
+    m_enums_map.clear();
     m_levels.clear();
 
     const auto& defs = j["defs"];
 
     // parsing tilesets
+    m_tilesets.reserve(defs["tilesets"].size());
     for (const auto& tileset : defs["tilesets"]) {
-        Tileset new_tileset{tileset};
-        m_tilesets.push_back(std::move(new_tileset));
+        m_tilesets.emplace_back(tileset);
     }
 
     // parsing layers defs
+    m_layers_defs.reserve(defs["layers"].size());
     for (const auto& layer_def : defs["layers"]) {
-        LayerDef new_layer_def{layer_def, this};
-        m_layers_defs.push_back(std::move(new_layer_def));
+        m_layers_defs.emplace_back(layer_def, this);
     }
 
     // parsing enums
+    m_enums_map.reserve(defs["enums"].size());
+    m_enums_defs.reserve(defs["enums"].size());
     for (const auto& en : defs["enums"]) {
-        m_enums.insert({en["identifier"].get<std::string>(), std::move(Enum(en, this))});
+        m_enums_defs.emplace_back(en, this);
+        m_enums_map.emplace(en["identifier"].get<std::string>(), &m_enums_defs.back());
     }
 
     //parsing entities def
+    m_entities_defs.reserve(defs["entities"].size());
     for (const auto& ent_def : defs["entities"]) {
         EntityDef new_entity_def{ent_def, this};
-        m_entities_defs.push_back(std::move(new_entity_def));
+        m_entities_defs.emplace_back(ent_def, this);
     }
 
     // parsing levels
+    m_levels.reserve(j["levels"].size());
     for (const auto& level : j["levels"]) {
-        Level new_level{level, this};
-        m_levels.push_back(std::move(new_level));
+        m_levels.emplace_back(level, this);
     }
 
     // fill levels neighbours
@@ -144,15 +148,15 @@ auto World::getTileset(const std::string& name) const -> const Tileset& {
 }
 
 auto World::getEnum(int id) const -> const Enum& {
-    for (const auto& item : m_enums)
-        if (item.second.uid == id)
-            return item.second;
+    for (const auto& en : m_enums_defs)
+        if (en.uid == id)
+            return en;
     ldtk_error("Enum ID \""+std::to_string(id)+"\" not found in World \""+m_name+"\".");
 }
 
 auto World::getEnum(const std::string& name) const -> const Enum& {
-    if (m_enums.count(name) > 0)
-        return m_enums.at(name);
+    if (m_enums_map.count(name) > 0)
+        return *m_enums_map.at(name);
     ldtk_error("Enum \""+name+"\" not found in World \""+m_name+"\".");
 }
 

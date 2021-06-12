@@ -23,9 +23,7 @@ namespace ldtk {
         const Tileset* tileset;
         const int tile_id;
 
-    private:
         EntityDef(const nlohmann::json& j, World* w);
-
     };
 
 }
