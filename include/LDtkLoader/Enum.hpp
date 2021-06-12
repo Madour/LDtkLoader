@@ -15,13 +15,18 @@ namespace ldtk {
 
     struct EnumValue {
         const std::string name;
+        const Color color;
+
+        auto hasIcon() const -> bool;
+        auto getIconTileset() const -> const Tileset&;
+        auto getIconTexturePos() const -> IntPoint;
     private:
         friend Enum;
         friend bool operator==(const EnumValue& l, const EnumValue& r);
-        EnumValue(std::string name, int id, int tile_id, int type_id);
+        EnumValue(std::string name, int id, int tile_id, const Color& color, Enum* enum_type);
         const int id;
         const int tile_id;
-        const int type_id;
+        const Enum* enum_type;
     };
 
     bool operator==(const EnumValue& l, const EnumValue& r);
@@ -31,14 +36,12 @@ namespace ldtk {
         friend World;
     public:
         const std::string name;
-        int uid;
+        const int uid;
 
         auto operator[](const std::string& val_name) const -> const EnumValue&;
 
         auto hasIcons() const -> bool;
         auto getIconsTileset() const -> const Tileset&;
-        auto getIconTexturePos(const std::string& val_name) const -> IntPoint;
-        auto getIconTexturePos(const EnumValue& val) const -> IntPoint;
 
     private:
         Enum(const nlohmann::json& j, const World* w);

@@ -23,7 +23,11 @@ tile_pivot({j["tilePivotX"].get<float>(), j["tilePivotY"].get<float>()})
 
     int i = 0;
     for (const auto& val : j["intGridValues"]) {
-        m_intgrid_values.push_back({i++, val["identifier"].is_null() ? "" : val["identifier"], Color(val["color"])});
+        m_intgrid_values.push_back({
+            i++,
+            val["identifier"].is_null() ? "" : val["identifier"],
+            Color(val["color"].get<std::string>())
+        });
     }
 }
 

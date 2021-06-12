@@ -130,7 +130,7 @@ void FieldsContainer::parseFields(const nlohmann::json& j, const World* w) {
             if (field_value.is_null())
                 addField<Color>(field_name, null);
             else
-                addField<Color>(field_name, Color(field_value));
+                addField<Color>(field_name, Color(field_value.get<std::string>()));
         }
         else if (field_type == "Point") {
             if (field_value.is_null())

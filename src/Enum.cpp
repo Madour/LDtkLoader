@@ -5,15 +5,29 @@
 
 using namespace ldtk;
 
-EnumValue::EnumValue(std::string val_name, int val_id, int val_tile_id, int val_type_id) :
+EnumValue::EnumValue(std::string val_name, int val_id, int val_tile_id, const Color& val_color, Enum* val_enum_type) :
 name(std::move(val_name)),
+color(val_color),
 id(val_id),
 tile_id(val_tile_id),
-type_id(val_type_id)
+enum_type(val_enum_type)
 {}
 
+auto EnumValue::hasIcon() const -> bool {
+    return tile_id != -1;
+}
+
+auto EnumValue::getIconTileset() const -> const Tileset& {
+    return enum_type->getIconsTileset();
+}
+
+auto EnumValue::getIconTexturePos() const -> IntPoint {
+    return getIconTileset().getTileTexturePos(tile_id);
+}
+
+
 bool ldtk::operator==(const EnumValue& l, const EnumValue& r) {
-    return (l.id == r.id) && (l.type_id == r.type_id);
+    return (l.id == r.id) && (l.enum_type->uid == r.enum_type->uid);
 }
 bool ldtk::operator!=(const EnumValue& l, const EnumValue& r) {
     return !(ldtk::operator==(l, r));
@@ -27,8 +41,8 @@ m_tileset( j["iconTilesetUid"].is_null() ? nullptr : &w->getTileset(j["iconTiles
     int id = 0;
     for (const auto& value : j["values"]) {
         const auto& val_name = value["id"].get<std::string>();
-        const auto& tile_id = value["tileId"].is_null() ? 0 : value["tileId"].get<int>();
-        m_values.insert({val_name, {val_name, id++, tile_id, uid}});
+        const auto& tile_id = value["tileId"].is_null() ? -1 : value["tileId"].get<int>();
+        m_values.insert({val_name, {val_name, id++, tile_id, Color(value["color"].get<int>()), this}});
     }
 }
 
@@ -46,18 +60,6 @@ auto Enum::getIconsTileset() const -> const Tileset& {
     if (m_tileset != nullptr)
         return *m_tileset;
     ldtk_error("Enum \""+name+"\" values don't have icons.");
-}
-
-auto Enum::getIconTexturePos(const std::string& val_name) const -> IntPoint {
-    if (m_values.count(val_name) > 0)
-        return getIconsTileset().getTileTexturePos(m_values.at(val_name).tile_id);
-    ldtk_error("Enum \""+name+"\" does not have value \""+val_name+"\".");
-}
-
-auto Enum::getIconTexturePos(const EnumValue& val) const -> IntPoint {
-    if (val.type_id == uid)
-        return getIconsTileset().getTileTexturePos(val.tile_id);
-    ldtk_error("Enum \""+name+"\" does not have value \""+val.name+"\".");
 }
 
 auto operator<<(std::ostream& os, const ldtk::EnumValue& enum_value) -> std::ostream& {
