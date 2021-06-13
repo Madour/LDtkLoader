@@ -5,7 +5,13 @@
 
 int main() {
     ldtk::World world;
-    world.loadFromFile("all_features.ldtk");
+    try {
+        world.loadFromFile("all_features.ldtk");
+    }
+    catch (std::exception& ex) {
+        std::cerr << ex.what() << std::endl;
+        return 1;
+    }
 
     // loads everything without errors
     std::cout << "Loaded API test file successfully !" << std::endl;

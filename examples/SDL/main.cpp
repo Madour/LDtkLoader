@@ -6,10 +6,17 @@
 #include <LDtkLoader/World.hpp>
 
 int main() {
-
-    // load the LDtk file
+    // declare a LDtk World
     ldtk::World world;
-    world.loadFromFile("assets/level.ldtk");
+
+    // load the LDtk World from file
+    try {
+        world.loadFromFile("assets/level.ldtk");
+    }
+    catch (std::exception& ex) {
+        std::cerr << ex.what() << std::endl;
+        return 1;
+    }
 
     // get the level and the layer we want to render
     const auto& level = world.getLevel("Level");
