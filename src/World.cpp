@@ -10,7 +10,7 @@ using namespace ldtk;
 World::World() = default;
 
 void World::loadFromFile(const std::string& filepath) {
-    m_name = filepath;
+    m_file_path = filepath;
     std::ifstream in(filepath);
     if (in.fail()) {
         ldtk_error("Failed to open file \"" + filepath + "\" : " + strerror(errno));
@@ -91,8 +91,8 @@ void World::loadFromFile(const std::string& filepath) {
     }
 }
 
-auto World::getName() const -> const std::string& {
-    return m_name;
+auto World::getFilePath() const -> const FilePath& {
+    return m_file_path;
 }
 
 auto World::getDefaultPivot() const -> const FloatPoint& {
@@ -115,28 +115,28 @@ auto World::getLayerDef(int id) const -> const LayerDef& {
     for (const auto& layer_def : m_layers_defs)
         if (layer_def.uid == id)
             return layer_def;
-    ldtk_error("LayerDef ID \""+std::to_string(id)+"\" not found in World \""+m_name+"\".");
+    ldtk_error("LayerDef ID \""+std::to_string(id)+"\" not found in World \""+m_file_path.filename()+"\".");
 }
 
 auto World::getLayerDef(const std::string& name) const -> const LayerDef& {
     for (const auto& layer_def : m_layers_defs)
         if (layer_def.name == name)
             return layer_def;
-    ldtk_error("LayerDef name \""+name+"\" not found in World \""+m_name+"\".");
+    ldtk_error("LayerDef name \""+name+"\" not found in World \""+m_file_path.filename()+"\".");
 }
 
 auto World::getEntityDef(int id) const -> const EntityDef& {
     for (const auto& entity_def : m_entities_defs)
         if (entity_def.uid == id)
             return entity_def;
-    ldtk_error("EntityDef ID \""+std::to_string(id)+"\" not found in World \""+m_name+"\".");
+    ldtk_error("EntityDef ID \""+std::to_string(id)+"\" not found in World \""+m_file_path.filename()+"\".");
 }
 
 auto World::getEntityDef(const std::string& name) const -> const EntityDef& {
     for (const auto& entity_def : m_entities_defs)
         if (entity_def.name == name)
             return entity_def;
-    ldtk_error("EntityDef name \""+name+"\" not found in World \""+m_name+"\".");
+    ldtk_error("EntityDef name \""+name+"\" not found in World \""+m_file_path.filename()+"\".");
 }
 
 auto World::allTilesets() const -> const std::vector<Tileset>& {
@@ -147,28 +147,28 @@ auto World::getTileset(int id) const -> const Tileset& {
     for (const auto& tileset : m_tilesets)
         if (tileset.uid == id)
             return tileset;
-    ldtk_error("Tileset ID \""+std::to_string(id)+"\" not found in World \""+m_name+"\".");
+    ldtk_error("Tileset ID \""+std::to_string(id)+"\" not found in World \""+m_file_path.filename()+"\".");
 }
 
 auto World::getTileset(const std::string& name) const -> const Tileset& {
     for (const auto& tileset : m_tilesets)
         if (tileset.name == name)
             return tileset;
-    ldtk_error("Tileset name \""+name+"\" not found in World \""+m_name+"\".");
+    ldtk_error("Tileset name \""+name+"\" not found in World \""+m_file_path.filename()+"\".");
 }
 
 auto World::getEnum(int id) const -> const Enum& {
     for (const auto& en : m_enums)
         if (en.uid == id)
             return en;
-    ldtk_error("Enum ID \""+std::to_string(id)+"\" not found in World \""+m_name+"\".");
+    ldtk_error("Enum ID \""+std::to_string(id)+"\" not found in World \""+m_file_path.filename()+"\".");
 }
 
 auto World::getEnum(const std::string& name) const -> const Enum& {
     for (const auto& en : m_enums)
         if (en.name == name)
             return en;
-    ldtk_error("Enum \""+name+"\" not found in World \""+m_name+"\".");
+    ldtk_error("Enum \""+name+"\" not found in World \""+m_file_path.filename()+"\".");
 }
 
 auto World::allLevels() const -> const std::vector<Level>& {
@@ -179,12 +179,12 @@ auto World::getLevel(int id) const -> const Level& {
     for (const auto& level : m_levels)
         if (level.uid == id)
             return level;
-    ldtk_error("Level ID \""+std::to_string(id)+"\" not found in World \""+m_name+"\".");
+    ldtk_error("Level ID \""+std::to_string(id)+"\" not found in World \""+m_file_path.filename()+"\".");
 }
 
 auto World::getLevel(const std::string& name) const -> const Level& {
     for (const auto& level : m_levels)
         if (level.name == name)
             return level;
-    ldtk_error("Level name \""+name+"\" not found in World \""+m_name+"\".");
+    ldtk_error("Level name \""+name+"\" not found in World \""+m_file_path.filename()+"\".");
 }

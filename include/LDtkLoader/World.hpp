@@ -24,7 +24,7 @@ namespace ldtk {
 
         void loadFromFile(const std::string& filepath);
 
-        auto getName() const -> const std::string&;
+        auto getFilePath() const -> const FilePath&;
 
         auto getDefaultPivot() const -> const FloatPoint&;
 
@@ -52,7 +52,7 @@ namespace ldtk {
         auto getLevel(const std::string& name) const -> const Level&;
 
     private:
-        std::string m_name;
+        FilePath m_file_path;
         FloatPoint m_default_pivot;
         int m_default_cell_size = 0;
         Color m_background_color;

@@ -50,21 +50,21 @@ ldtk::FilePath::FilePath(const std::string& str) {
     this->assign(str);
 }
 
-std::string ldtk::FilePath::filename() const {
-    auto i = find_last_of("/\\");
-    if (i == npos)
-        return *this;
-    return substr(i+1);
-}
-
-std::string ldtk::FilePath::parent_path() const {
+auto ldtk::FilePath::directory() const -> std::string {
     auto i = find_last_of("/\\");
     if (i == npos)
         return "";
     return substr(0, i+1);
 }
 
-std::string ldtk::FilePath::extension() const {
+auto ldtk::FilePath::filename() const -> std::string {
+    auto i = find_last_of("/\\");
+    if (i == npos)
+        return *this;
+    return substr(i+1);
+}
+
+auto ldtk::FilePath::extension() const -> std::string {
     auto f = filename();
     auto i = f.find_last_of('.');
     if (i == npos)

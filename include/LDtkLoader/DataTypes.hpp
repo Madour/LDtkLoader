@@ -116,9 +116,9 @@ namespace ldtk {
         using std::string::basic_string;
         using std::string::c_str;
 
-        std::string parent_path() const;
-        std::string filename() const;
-        std::string extension() const;
+        auto directory() const -> std::string;
+        auto filename() const -> std::string;
+        auto extension() const -> std::string;
     };
 }
 
