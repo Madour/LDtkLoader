@@ -40,6 +40,7 @@ namespace ldtk {
         auto getEntityDef(int id) const -> const EntityDef&;
         auto getEntityDef(const std::string& name) const -> const EntityDef&;
 
+        auto allTilesets() const -> const std::vector<Tileset>&;
         auto getTileset(int id) const -> const Tileset&;
         auto getTileset(const std::string& name) const -> const Tileset&;
 

@@ -141,6 +141,10 @@ auto World::getEntityDef(const std::string& name) const -> const EntityDef& {
     ldtk_error("EntityDef name \""+name+"\" not found in World \""+m_name+"\".");
 }
 
+auto World::allTilesets() const -> const std::vector<Tileset>& {
+    return m_tilesets;
+}
+
 auto World::getTileset(int id) const -> const Tileset& {
     for (const auto& tileset : m_tilesets)
         if (tileset.uid == id)
