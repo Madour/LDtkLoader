@@ -26,7 +26,7 @@ namespace ldtk {
 
         auto getName() const -> const std::string&;
 
-        auto getDefaultPivot() const -> Point<float>;
+        auto getDefaultPivot() const -> const FloatPoint&;
 
         auto getDefaultCellSize() const -> int;
 
@@ -53,8 +53,7 @@ namespace ldtk {
 
     private:
         std::string m_name;
-        float m_default_pivot_x = 0.f;
-        float m_default_pivot_y = 0.f;
+        FloatPoint m_default_pivot;
         int m_default_cell_size = 0;
         Color m_background_color;
 
@@ -63,8 +62,7 @@ namespace ldtk {
         std::vector<Tileset> m_tilesets;
         std::vector<LayerDef> m_layers_defs;
         std::vector<EntityDef> m_entities_defs;
-        std::vector<Enum> m_enums_defs;
-        std::unordered_map<std::string, Enum*> m_enums_map;
+        std::vector<Enum> m_enums;
 
         std::vector<Level> m_levels;
     };

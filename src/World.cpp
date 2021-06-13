@@ -18,8 +18,8 @@ void World::loadFromFile(const std::string& filepath) {
     nlohmann::json j;
     in >> j;
 
-    m_default_pivot_x = j["defaultPivotX"].get<float>();
-    m_default_pivot_y = j["defaultPivotY"].get<float>();
+    m_default_pivot.x = j["defaultPivotX"].get<float>();
+    m_default_pivot.y = j["defaultPivotY"].get<float>();
     m_default_cell_size = j["defaultGridSize"].get<int>();
 
     m_background_color = Color(j["bgColor"].get<std::string>());
@@ -35,49 +35,47 @@ void World::loadFromFile(const std::string& filepath) {
         m_layout = WorldLayout::LinearVertical;
 
     // reset all containers
-    m_layers_defs.clear();
+    m_enums.clear();
     m_tilesets.clear();
-    m_enums_map.clear();
-    m_enums_defs.clear();
+    m_layers_defs.clear();
+    m_entities_defs.clear();
     m_levels.clear();
 
     const auto& defs = j["defs"];
 
-    // parsing enums first because tilesets need them for tags
-    m_enums_map.reserve(defs["enums"].size());
-    m_enums_defs.reserve(defs["enums"].size());
+    // parse enums first because tilesets need them for tags
+    m_enums.reserve(defs["enums"].size());
     for (const auto& en : defs["enums"]) {
-        m_enums_defs.emplace_back(en, this);
-        m_enums_map.emplace(en["identifier"].get<std::string>(), &m_enums_defs.back());
+        m_enums.emplace_back(en, this);
     }
 
-    // parsing tilesets
+    // parse tilesets
     m_tilesets.reserve(defs["tilesets"].size());
     for (const auto& tileset : defs["tilesets"]) {
         m_tilesets.emplace_back(tileset, this);
     }
 
     // set enums tileset pointer
-    for (auto& en : m_enums_defs) {
+    for (auto& en : m_enums) {
         if (en.m_tileset_id != -1) {
             en.m_tileset = &getTileset(en.m_tileset_id);
         }
     }
 
-    // parsing layers defs
+    // parse layers defs
     m_layers_defs.reserve(defs["layers"].size());
     for (const auto& layer_def : defs["layers"]) {
         m_layers_defs.emplace_back(layer_def, this);
     }
 
-    //parsing entities def
+    //parse entities def
     m_entities_defs.reserve(defs["entities"].size());
     for (const auto& ent_def : defs["entities"]) {
         EntityDef new_entity_def{ent_def, this};
         m_entities_defs.emplace_back(ent_def, this);
     }
 
-    // parsing levels
+    // parse levels
     m_levels.reserve(j["levels"].size());
     for (const auto& level : j["levels"]) {
         m_levels.emplace_back(level, this);
@@ -97,8 +95,8 @@ auto World::getName() const -> const std::string& {
     return m_name;
 }
 
-auto World::getDefaultPivot() const -> FloatPoint {
-    return {m_default_pivot_x, m_default_pivot_y};
+auto World::getDefaultPivot() const -> const FloatPoint& {
+    return m_default_pivot;
 }
 
 auto World::getDefaultCellSize() const -> int {
@@ -160,15 +158,16 @@ auto World::getTileset(const std::string& name) const -> const Tileset& {
 }
 
 auto World::getEnum(int id) const -> const Enum& {
-    for (const auto& en : m_enums_defs)
+    for (const auto& en : m_enums)
         if (en.uid == id)
             return en;
     ldtk_error("Enum ID \""+std::to_string(id)+"\" not found in World \""+m_name+"\".");
 }
 
 auto World::getEnum(const std::string& name) const -> const Enum& {
-    if (m_enums_map.count(name) > 0)
-        return *m_enums_map.at(name);
+    for (const auto& en : m_enums)
+        if (en.name == name)
+            return en;
     ldtk_error("Enum \""+name+"\" not found in World \""+m_name+"\".");
 }
 
