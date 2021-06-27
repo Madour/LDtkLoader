@@ -21,6 +21,7 @@ m_grid_size({j["__cWid"].get<int>(), j["__cHei"].get<int>()})
         key = "autoLayerTiles";
         coordId_index = 1;
     }
+    m_tiles.reserve(j[key].size());
     for (const auto& tile : j[key]) {
         Tile new_tile;
         new_tile.coordId = tile["d"].get<std::vector<int>>()[coordId_index];
@@ -41,8 +42,6 @@ m_grid_size({j["__cWid"].get<int>(), j["__cHei"].get<int>()})
         updateTileVertices(new_tile);
 
         m_tiles.push_back(new_tile);
-        auto& last_tile = m_tiles.back();
-        m_tiles_map[last_tile.coordId] = &last_tile;
     }
 
     std::sort(
@@ -50,6 +49,9 @@ m_grid_size({j["__cWid"].get<int>(), j["__cHei"].get<int>()})
         m_tiles.end(),
         [](const Tile& lhs, const Tile& rhs) {return lhs.coordId < rhs.coordId;}
     );
+
+    for (auto& tile : m_tiles)
+        m_tiles_map[tile.coordId] = &tile;
 
     // LDtk v0.8+
     if (j.contains("intGridCsv")) {
