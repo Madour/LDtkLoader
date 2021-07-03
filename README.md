@@ -7,6 +7,8 @@
 
 You can use it to load LDtk levels in your game and access any data you need via the API.
 
+Completely supports the ldtk format (including external levels). 
+
 ### Sample code
 
 A taste of simplicity :
@@ -106,6 +108,14 @@ to pass a `-DLDtkLoader_ROOT=/install/path/LDtkLoader` option to cmake so it can
 Documentation is under construction and can be found on the [**wiki**](https://github.com/Madour/LDtkLoader/wiki).
 
 Alternatively, you can build the API documentation with doxygen using the provided Doxyfile.
+
+### Demo
+
+A demo using LDtkLoader with SFML can be found [**here**](https://github.com/Madour/LDtk-SFML-Game).
+
+Here is a preview :
+
+https://user-images.githubusercontent.com/11854124/122610077-57f48a00-d07f-11eb-98ac-278a3d3dbd01.mp4
 
 ### To Do
  - [ ] Helper classes/methods for SFML or SDL rendering
