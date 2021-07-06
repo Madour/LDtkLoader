@@ -137,6 +137,10 @@ auto Layer::getIntGridVal(int grid_x, int grid_y) const -> const IntGridValue& {
     return IntGridValue::None;
 }
 
+auto Layer::allEntities() const -> const std::unordered_map<std::string, std::vector<Entity>>& {
+    return m_entities;
+}
+
 auto Layer::hasEntity(const std::string& entity_name) const -> bool {
     return m_entities.count(entity_name) > 0;
 }

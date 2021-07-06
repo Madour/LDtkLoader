@@ -45,6 +45,7 @@ namespace ldtk {
 
         auto getIntGridVal(int grid_x, int grid_y) const -> const IntGridValue&;
 
+        auto allEntities() const -> const std::unordered_map<std::string, std::vector<Entity>>&;
         auto hasEntity(const std::string& entity_name) const -> bool;
         auto getEntities(const std::string& entity_name) const -> const std::vector<Entity>&;
 
