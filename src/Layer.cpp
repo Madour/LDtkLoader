@@ -44,12 +44,6 @@ m_grid_size({j["__cWid"].get<int>(), j["__cHei"].get<int>()})
         m_tiles.push_back(new_tile);
     }
 
-    std::sort(
-        m_tiles.begin(),
-        m_tiles.end(),
-        [](const Tile& lhs, const Tile& rhs) {return lhs.coordId < rhs.coordId;}
-    );
-
     for (auto& tile : m_tiles)
         m_tiles_map[tile.coordId] = &tile;
 
