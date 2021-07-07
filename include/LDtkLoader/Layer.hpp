@@ -16,8 +16,6 @@ namespace ldtk {
     class Level;
 
     class Layer {
-        friend Level;
-
     public:
         Layer(const Layer&) = delete;
         Layer(Layer&&) = default;

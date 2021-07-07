@@ -13,7 +13,6 @@ namespace ldtk {
     class World;
 
     class EntityDef {
-        friend World;
     public:
         const std::string name;
         const int uid;

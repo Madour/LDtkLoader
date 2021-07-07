@@ -16,11 +16,8 @@
 namespace ldtk {
 
     class World;
-    class Layer;
 
     class Entity : public FieldsContainer {
-        friend Layer;
-
     public:
         Entity(const Entity&) = delete;
         Entity(Entity&&) = default;

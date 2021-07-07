@@ -34,6 +34,7 @@ namespace ldtk {
 
     class Enum {
         friend World;
+
     public:
         Enum(const Enum&) = delete;
         Enum(Enum&&) = default;
@@ -50,7 +51,6 @@ namespace ldtk {
         Enum(const nlohmann::json& j, const World* w);
 
     private:
-        friend World;
         const int m_tileset_id;
         const Tileset* m_tileset;
         std::unordered_map<std::string, EnumValue> m_values;

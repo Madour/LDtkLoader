@@ -14,7 +14,6 @@ namespace ldtk {
     class Layer;
 
     class LayerDef {
-        friend World;
         friend Layer;
 
     public:

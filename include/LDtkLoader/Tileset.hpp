@@ -11,11 +11,10 @@
 #include "LDtkLoader/Enum.hpp"
 
 namespace ldtk {
+
     class World;
 
     struct Tileset {
-        friend World;
-
         const std::string name;
         const int uid;
         const std::string path;
@@ -34,7 +33,6 @@ namespace ldtk {
         Tileset(const nlohmann::json& j, World* w);
 
     private:
-        friend World;
         const Enum* m_tags_enum;
         std::unordered_map<int, std::string> m_custom_data;
         std::unordered_map<std::string, std::vector<int>> m_tag_tiles_map;
