@@ -4,9 +4,10 @@ project(LDtkLoader VERSION 0.9.3)
 
 # get source files
 file(GLOB_RECURSE Src src/*.cpp)
+file(GLOB_RECURSE Inc include/LDtkLoader/*.hpp)
 
 # create the static lib target
-add_library(LDtkLoader STATIC ${Src})
+add_library(LDtkLoader STATIC ${Src} ${Inc})
 target_compile_definitions(LDtkLoader PRIVATE _CRT_SECURE_NO_WARNINGS)
 # set include directory for build and install
 target_include_directories(LDtkLoader PUBLIC $<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/include>)
