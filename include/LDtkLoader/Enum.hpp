@@ -21,6 +21,7 @@ namespace ldtk {
         auto hasIcon() const -> bool;
         auto getIconTileset() const -> const Tileset&;
         auto getIconTexturePos() const -> IntPoint;
+
     private:
         friend Enum;
         friend bool operator==(const EnumValue& l, const EnumValue& r);

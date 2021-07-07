@@ -64,6 +64,6 @@ auto Enum::getIconsTileset() const -> const Tileset& {
 }
 
 auto operator<<(std::ostream& os, const ldtk::EnumValue& enum_value) -> std::ostream& {
-    os << enum_value.name;
+    os << enum_value.type.name << "." << enum_value.name;
     return os;
 }
