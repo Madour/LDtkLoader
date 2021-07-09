@@ -63,8 +63,10 @@ m_grid_size({j["__cWid"].get<int>(), j["__cHei"].get<int>()})
         }
     }
 
+    m_entities.reserve(j["entityInstances"].size());
     for (const auto& ent : j["entityInstances"]) {
-        m_entities[ent["__identifier"]].emplace_back(ent, w);
+        m_entities.emplace_back(ent, w);
+        m_entities_by_name[m_entities.back().getName()].emplace_back(m_entities.back());
     }
 }
 
@@ -131,14 +133,19 @@ auto Layer::getIntGridVal(int grid_x, int grid_y) const -> const IntGridValue& {
     return IntGridValue::None;
 }
 
-auto Layer::hasEntity(const std::string& entity_name) const -> bool {
-    return m_entities.count(entity_name) > 0;
+auto Layer::allEntities() const -> const std::vector<Entity>& {
+    return m_entities;
 }
 
-auto Layer::getEntities(const std::string& entity_name) const -> const std::vector<Entity>& {
-    if (m_entities.count(entity_name) > 0)
-        return m_entities.at(entity_name);
-    throw std::invalid_argument("Layer "+getName()+" does not have Entity named "+entity_name);
+auto Layer::hasEntity(const std::string& entity_name) const -> bool {
+    return m_entities_by_name.count(entity_name) > 0 && !m_entities_by_name.at(entity_name).empty();
+}
+
+auto Layer::getEntitiesByName(const std::string& entity_name) const -> const std::vector<std::reference_wrapper<Entity>>& {
+    if (m_entities_by_name.count(entity_name) > 0)
+        return m_entities_by_name.at(entity_name);
+    else
+        return m_entities_by_name[entity_name];
 }
 
 void Layer::updateTileVertices(const Tile& tile) const {
