@@ -49,3 +49,12 @@ auto Entity::getIconTileset() const -> const Tileset& {
 auto Entity::getIconTexturePos() const -> IntPoint {
     return m_definition->tileset->getTileTexturePos(m_definition->tile_id);
 }
+
+auto Entity::hasTag(const std::string& tag) -> bool {
+    auto pos = std::find(m_definition->tags.begin(), m_definition->tags.end(), tag);
+    return pos != m_definition->tags.end();
+}
+
+auto Entity::getTags() -> const std::vector<std::string>& {
+    return m_definition->tags;
+}

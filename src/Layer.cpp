@@ -66,7 +66,11 @@ m_grid_size({j["__cWid"].get<int>(), j["__cHei"].get<int>()})
     m_entities.reserve(j["entityInstances"].size());
     for (const auto& ent : j["entityInstances"]) {
         m_entities.emplace_back(ent, w);
-        m_entities_by_name[m_entities.back().getName()].emplace_back(m_entities.back());
+        auto& new_ent = m_entities.back();
+        m_entities_by_name[new_ent.getName()].emplace_back(new_ent);
+        for (const auto& tag : new_ent.getTags()) {
+            m_entities_by_tag[tag].emplace_back(new_ent);
+        }
     }
 }
 
@@ -146,6 +150,13 @@ auto Layer::getEntitiesByName(const std::string& entity_name) const -> const std
         return m_entities_by_name.at(entity_name);
     else
         return m_entities_by_name[entity_name];
+}
+
+auto Layer::getEntitiesByTag(const std::string& tag) const -> const std::vector<std::reference_wrapper<Entity>>& {
+    if (m_entities_by_tag.count(tag) > 0)
+        return m_entities_by_tag.at(tag);
+    else
+        return m_entities_by_tag[tag];
 }
 
 void Layer::updateTileVertices(const Tile& tile) const {

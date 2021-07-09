@@ -21,6 +21,7 @@ namespace ldtk {
         const FloatPoint pivot;
         const Tileset* tileset;
         const int tile_id;
+        const std::vector<std::string> tags;
 
         EntityDef(const nlohmann::json& j, World* w);
     };
