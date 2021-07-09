@@ -34,6 +34,9 @@ namespace ldtk {
         auto getIconTileset() const -> const Tileset&;
         auto getIconTexturePos() const -> IntPoint;
 
+        auto hasTag(const std::string& tag) -> bool;
+        auto getTags() -> const std::vector<std::string>&;
+
         explicit Entity(const nlohmann::json& j, const World* w);
 
     private:

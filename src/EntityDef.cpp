@@ -12,5 +12,6 @@ size({j["width"].get<int>(), j["height"].get<int>()}),
 color(j["color"].get<std::string>()),
 pivot({j["pivotX"].get<float>(), j["pivotY"].get<float>()}),
 tileset(j["tilesetId"].is_null() ? nullptr : &w->getTileset(j["tilesetId"].get<int>())),
-tile_id(j["tileId"].is_null() ? -1 : j["tileId"].get<int>())
+tile_id(j["tileId"].is_null() ? -1 : j["tileId"].get<int>()),
+tags(j["tags"].get<std::vector<std::string>>())
 {}
