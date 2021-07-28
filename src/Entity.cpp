@@ -11,13 +11,12 @@ m_size( j["width"].get<int>(), j["height"].get<int>() ),
 m_position( j["px"][0].get<int>(), j["px"][1].get<int>() ),
 m_grid_pos( j["__grid"][0].get<int>(), j["__grid"][1].get<int>() )
 {
-    if (j["__tile"] != nullptr)
-    {
+    if (!j["__tile"].is_null()) {
         m_tileset = &w->getTileset(j["__tile"]["tilesetUid"].get<int>());
-        m_src_rect.x = j["__tile"]["srcRect"][0];
-        m_src_rect.y = j["__tile"]["srcRect"][1];
-        m_src_rect.width = j["__tile"]["srcRect"][2];
-        m_src_rect.height = j["__tile"]["srcRect"][3];
+        m_src_rect.x = j["__tile"]["srcRect"][0].get<int>();
+        m_src_rect.y = j["__tile"]["srcRect"][1].get<int>();
+        m_src_rect.width = j["__tile"]["srcRect"][2].get<int>();
+        m_src_rect.height = j["__tile"]["srcRect"][3].get<int>();
     }
     parseFields(j["fieldInstances"], w);
 }
@@ -54,7 +53,7 @@ auto Entity::getTileset() const -> const Tileset& {
     return *m_tileset;
 }
 
-auto Entity::getTilesetRect() const -> const Rect<int>& {
+auto Entity::getTextureRect() const -> const IntRect& {
     return m_src_rect;
 }
 
