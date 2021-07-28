@@ -29,9 +29,10 @@ namespace ldtk {
         auto getGridPosition() const -> const IntPoint&;
         auto getColor() const -> const Color&;
         auto getPivot() const -> const FloatPoint&;
+
         auto hasTile() const -> bool;
         auto getTileset() const -> const Tileset&;
-        auto getTilesetRect() const -> const Rect<int>&;
+        auto getTextureRect() const -> const IntRect&;
 
         auto hasIcon() const -> bool;
         auto getIconTileset() const -> const Tileset&;
@@ -50,7 +51,7 @@ namespace ldtk {
         const IntPoint m_grid_pos;
 
         const Tileset* m_tileset = nullptr;
-        Rect<int> m_src_rect;
+        IntRect m_src_rect;
     };
 
 }
