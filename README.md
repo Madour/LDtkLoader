@@ -30,7 +30,7 @@ for (const auto& tile : bg_layer.allTiles()) {
 }
 
 // iterate on Enemy entities
-for (const auto& enemy : level1.getLayer("Entities").getEntities("Enemy")) {
+for (const auto& enemy : level1.getLayer("Entities").getEntitiesByName("Enemy")) {
     
     // iterate over an array field of Enum values
     for (const auto& item : enemy.getArrayField<ldtk::EnumValue>("items")) {
