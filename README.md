@@ -7,7 +7,7 @@
 
 You can use it to load LDtk levels in your game and access any data you need via the API.
 
-Completely supports the ldtk format (including external levels). 
+Completely supports the ldtk format (including external levels).
 
 ### Sample code
 
@@ -31,7 +31,7 @@ for (const auto& tile : bg_layer.allTiles()) {
 
 // iterate on Enemy entities
 for (const auto& enemy : level1.getLayer("Entities").getEntitiesByName("Enemy")) {
-    
+
     // iterate over an array field of Enum values
     for (const auto& item : enemy.getArrayField<ldtk::EnumValue>("items")) {
         // test if field is null
@@ -50,7 +50,7 @@ for (const auto& enemy : level1.getLayer("Entities").getEntitiesByName("Enemy"))
 
 ### Build
 
-Should work with any C++11 compiler. 
+Should work with any C++11 compiler.
 You can select Debug or Release mode when building.
 
 ```shell
@@ -72,9 +72,11 @@ Additional CMake options you can pass :
 
  - `-DBUILD_SDL_EXAMPLE=ON` : to build the SDL example (requires SDL2 and SDL2_image installed)
 
+ - `-DBUILD_RAYLIB_EXAMPLE=ON` : to build the Raylib example (requires raylib installed)
+
 ### Install
 
-In the build directory, run : 
+In the build directory, run :
 
 ```shell
 cmake [-DCMAKE_INSTALL_PREFIX=/install/path/LDtkLoader] ..
@@ -91,7 +93,7 @@ After installation, to use LDtkLoader in your CMake project, you can just call :
 find_package(LDtkLoader)
 ```
 
-The `find_package` command will automatically get the correct library (release or debug) 
+The `find_package` command will automatically get the correct library (release or debug)
 depending on your current CMake configuration.
 
 Then you only have to link the library to your target :
@@ -100,7 +102,7 @@ Then you only have to link the library to your target :
 target_link_libraries(YourTarget PRIVATE LDtkLoader)
 ```
 
-Note : if you installed LDtkLoader at a custom path, you might need 
+Note : if you installed LDtkLoader at a custom path, you might need
 to pass a `-DLDtkLoader_ROOT=/install/path/LDtkLoader` option to cmake so it can find the package.
 
 ### Documentation
@@ -125,6 +127,6 @@ https://user-images.githubusercontent.com/11854124/122610077-57f48a00-d07f-11eb-
 
 LDtkLoader is licensed under the **zlib license**.
 
-Bundled dependencies : 
+Bundled dependencies :
  - [json](https://github.com/nlohmann/json) - MIT license
  - [Optional](https://github.com/akrzemi1/Optional) - Boost Software Licence
