@@ -23,7 +23,7 @@ set_target_properties(LDtkLoader PROPERTIES
 option(LDTK_NO_THROW        "Replace all throws by an error print and exit" OFF)
 option(BUILD_SFML_EXAMPLE   "Build an example using LDtkLoader with SFML." OFF)
 option(BUILD_SDL_EXAMPLE    "Build an example using LDtkLoader with SDL."  OFF)
-option(BUILD_RAYLIB_EXAMPLE "Build an example using LDtkLoader with Raylib." OFF)
+option(BUILD_RAYLIB_EXAMPLE "Build an example using LDtkLoader with raylib." OFF)
 option(BUILD_API_TEST       "Build an example that loads a file showcasing all features of LDtk."  OFF)
 
 if (LDTK_NO_THROW)

@@ -47,7 +47,8 @@ int main()
                 static_cast<float>(tile.texture_position.x),
                 static_cast<float>(tile.texture_position.y),
                 layer.getTileset().tile_size * ((tile.flipX == true) ? -1.0f : 1.0f),
-                layer.getTileset().tile_size * ((tile.flipY == true) ? -1.0f : 1.0f)};
+                layer.getTileset().tile_size * ((tile.flipY == true) ? -1.0f : 1.0f)
+            };
             DrawTextureRec(texture, src, dest, WHITE);
         }
         EndTextureMode();
@@ -59,12 +60,14 @@ int main()
             0,
             0,
             static_cast<float>(renderer.texture.width),
-            -static_cast<float>(renderer.texture.height)};
+            -static_cast<float>(renderer.texture.height)
+        };
         Rectangle dest = {
             0,
             0,
             static_cast<float>(renderer.texture.width) * 4,
-            static_cast<float>(renderer.texture.height) * 4};
+            static_cast<float>(renderer.texture.height) * 4
+        };
         DrawTexturePro(renderer.texture, src, dest, {0}, .0f, WHITE);
         EndDrawing();
     }

@@ -72,7 +72,7 @@ Additional CMake options you can pass :
 
  - `-DBUILD_SDL_EXAMPLE=ON` : to build the SDL example (requires SDL2 and SDL2_image installed)
 
- - `-DBUILD_RAYLIB_EXAMPLE=ON` : to build the Raylib example (requires raylib installed)
+ - `-DBUILD_RAYLIB_EXAMPLE=ON` : to build the raylib example (requires raylib installed)
 
 ### Install
 
