@@ -7,6 +7,16 @@ project(LDtkLoader-raylib)
 
 find_package(raylib REQUIRED)
 
+if (MSVC)
+    if(NOT DEFINED ${raylib_INCLUDE_DIRS})
+        set(raylib_INCLUDE_DIRS ${RAYLIB_INCLUDE_DIRS})
+    endif()
+
+    if(NOT DEFINED ${raylib_LIBRARIES})
+        set(raylib_LIBRARIES ${RAYLIB_LIBRARIES})
+    endif()
+endif()
+
 add_executable(LDtkRaylib main.cpp)
 target_include_directories(LDtkRaylib PRIVATE ../../include ${raylib_INCLUDE_DIRS})
 target_link_libraries(LDtkRaylib PRIVATE ${raylib_LIBRARIES} LDtkLoader)
