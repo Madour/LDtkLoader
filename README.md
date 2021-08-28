@@ -30,7 +30,7 @@ for (const auto& tile : bg_layer.allTiles()) {
 }
 
 // iterate on Enemy entities
-for (const auto& enemy : level1.getLayer("Entities").getEntitiesByName("Enemy")) {
+for (const ldtk::Entity& enemy : level1.getLayer("Entities").getEntitiesByName("Enemy")) {
 
     // iterate over an array field of Enum values
     for (const auto& item : enemy.getArrayField<ldtk::EnumValue>("items")) {
@@ -118,6 +118,14 @@ A demo using LDtkLoader with SFML can be found [**here**](https://github.com/Mad
 Here is a preview :
 
 https://user-images.githubusercontent.com/11854124/122610077-57f48a00-d07f-11eb-98ac-278a3d3dbd01.mp4
+
+--- 
+
+A demo using LDtkLoader with Direct X11 can be found [**here**](https://github.com/dontpanic5/LDtk-D11/) (by @dontpanic5)
+
+Here is a preview : 
+
+https://user-images.githubusercontent.com/242570/129111903-88727f39-9e21-45cb-bc76-a5d7975a4a9c.mp4
 
 ### To Do
  - [ ] Helper classes/methods for SFML or SDL rendering
