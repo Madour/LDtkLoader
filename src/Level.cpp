@@ -19,7 +19,7 @@ bg_color(j["__bgColor"].get<std::string>())
 
     // check if level is external and open it if so
     if (!j["externalRelPath"].is_null()) {
-        std::ifstream in(j["externalRelPath"].get<std::string>());
+        std::ifstream in(w->getFilePath().directory() + j["externalRelPath"].get<std::string>());
         if (in.fail()) {
             ldtk_error("Failed to open file \"" + j["externalRelPath"].get<std::string>() + "\" : " + strerror(errno));
         }
