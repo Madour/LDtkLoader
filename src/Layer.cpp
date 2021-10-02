@@ -176,17 +176,18 @@ void Layer::updateTileVerticesPos(const Tile& tile) const {
 }
 
 void Layer::updateTileVerticesTex(const Tile& tile) const {
+    auto cell_size = getCellSize();
     IntPoint modif[4];
-    auto cell_size_i = static_cast<int>(getCellSize());
+    IntPoint tex_coo[4] = {{0, 0}, {cell_size, 0}, {cell_size, cell_size}, {0, cell_size}};
+
     if (tile.flipX) {
-        modif[0].x =  cell_size_i; modif[1].x = -cell_size_i;
-        modif[3].x =  cell_size_i; modif[2].x = -cell_size_i;
+        modif[0].x =  cell_size; modif[1].x = -cell_size;
+        modif[3].x =  cell_size; modif[2].x = -cell_size;
     }
     if (tile.flipY) {
-        modif[0].y =  cell_size_i; modif[1].y =  cell_size_i;
-        modif[3].y = -cell_size_i; modif[2].y = -cell_size_i;
+        modif[0].y =  cell_size; modif[1].y =  cell_size;
+        modif[3].y = -cell_size; modif[2].y = -cell_size;
     }
-    UIntPoint tex_coo[4] = { {0, 0},  {16, 0},  {16, 16},  {0, 16}};
     for (int i = 0; i < 4; ++i) {
         tile.vertices[i].tex.x = tile.texture_position.x+tex_coo[i].x+modif[i].x;
         tile.vertices[i].tex.y = tile.texture_position.y+tex_coo[i].y+modif[i].y;
