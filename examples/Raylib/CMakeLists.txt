@@ -18,8 +18,8 @@ if (MSVC)
 endif()
 
 add_executable(LDtkRaylib main.cpp)
-target_include_directories(LDtkRaylib PRIVATE ../../include ${raylib_INCLUDE_DIRS})
-target_link_libraries(LDtkRaylib PRIVATE ${raylib_LIBRARIES} LDtkLoader)
+target_include_directories(LDtkRaylib PRIVATE ../../include)
+target_link_libraries(LDtkRaylib PRIVATE LDtkLoader raylib)
 set_target_properties(LDtkRaylib PROPERTIES RUNTIME_OUTPUT_DIRECTORY bin)
 
 get_target_property(BIN_DIR LDtkRaylib RUNTIME_OUTPUT_DIRECTORY)
