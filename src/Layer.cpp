@@ -15,6 +15,12 @@ m_total_offset(j["__pxTotalOffsetX"].get<int>(), j["__pxTotalOffsetY"].get<int>(
 m_opacity(j["__opacity"].get<float>()),
 m_grid_size({j["__cWid"].get<int>(), j["__cHei"].get<int>()})
 {
+	auto& overrideTilesetUid = j["overrideTilesetUid"];
+	if (!overrideTilesetUid.is_null())
+	{
+		m_overrideTileset = &w->getTileset(overrideTilesetUid.get<int>());
+	}
+
     std::string key = "gridTiles";
     int coordId_index = 0;
     if (getType() == LayerType::IntGrid || getType() == LayerType::AutoLayer) {
@@ -112,11 +118,11 @@ void Layer::setOpacity(float opacity) const {
 }
 
 auto Layer::hasTileset() const -> bool {
-    return m_definition->m_tileset != nullptr;
+	return m_overrideTileset != nullptr || m_definition->m_tileset != nullptr;
 }
 
 auto Layer::getTileset() const -> const Tileset& {
-    return *m_definition->m_tileset;
+	return m_overrideTileset == nullptr ? *m_definition->m_tileset : *m_overrideTileset;
 }
 
 auto Layer::allTiles() const -> const std::vector<Tile>& {
