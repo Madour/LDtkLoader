@@ -57,6 +57,7 @@ namespace ldtk {
         void updateTileVerticesCol(const Tile& tile) const;
 
         const LayerDef* m_definition = nullptr;
+        const Tileset* m_override_tileset = nullptr;
 
         bool m_visible;
         mutable IntPoint m_total_offset;
