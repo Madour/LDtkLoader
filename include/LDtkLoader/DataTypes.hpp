@@ -43,7 +43,7 @@ namespace ldtk {
     typedef Rect<int> IntRect;
 
     struct Color {
-        Color();
+        Color() = default;
         explicit Color(const std::string& hex);
         explicit Color(int hex);
         Color(unsigned int red, unsigned int green, unsigned int blue, unsigned int alpha=0xffu);
