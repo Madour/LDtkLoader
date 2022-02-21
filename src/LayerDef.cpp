@@ -21,13 +21,12 @@ tile_pivot({j["tilePivotX"].get<float>(), j["tilePivotY"].get<float>()})
     else if ( !j["autoTilesetDefUid"].is_null() )
         m_tileset = &w->getTileset(j["autoTilesetDefUid"].get<int>());
 
-    int i = 0;
-    for (const auto& val : j["intGridValues"]) {
-        m_intgrid_values.push_back({
-            i++,
-            val["identifier"].is_null() ? "" : val["identifier"],
-            Color(val["color"].get<std::string>())
-        });
+    if (type == LayerType::IntGrid) {
+        for (const auto& int_grid_val : j["intGridValues"]) {
+            auto val = int_grid_val["value"].get<int>();
+            auto identifier = int_grid_val["identifier"].is_null() ? "" : int_grid_val["identifier"].get<std::string>();
+            auto color = Color(int_grid_val["color"].get<std::string>());
+            m_intgrid_values.emplace(val, IntGridValue{val, identifier, color});
+        }
     }
 }
-
