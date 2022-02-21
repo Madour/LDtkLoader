@@ -31,9 +31,11 @@
 *.out
 *.app
 
-# CMake / Visual Studio
+# CMake / IDEs
 build/
 build*
+dist/
 out/
+.idea/
 .vs/
 CMakeSettings.json
