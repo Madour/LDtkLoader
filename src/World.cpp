@@ -7,8 +7,6 @@
 
 using namespace ldtk;
 
-World::World() = default;
-
 void World::loadFromFile(const std::string& filepath) {
     m_file_path = filepath;
     std::ifstream in(filepath);
