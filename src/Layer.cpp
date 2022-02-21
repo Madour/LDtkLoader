@@ -32,8 +32,8 @@ m_grid_size({j["__cWid"].get<int>(), j["__cHei"].get<int>()})
         new_tile.position.x = tile["px"].get<std::vector<int>>()[0];
         new_tile.position.y = tile["px"].get<std::vector<int>>()[1];
 
-        new_tile.world_position.x = static_cast<int>(new_tile.position.x) + l->position.x;
-        new_tile.world_position.y = static_cast<int>(new_tile.position.y) + l->position.y;
+        new_tile.world_position.x = static_cast<int>(new_tile.position.x) + level->position.x;
+        new_tile.world_position.y = static_cast<int>(new_tile.position.y) + level->position.y;
 
         new_tile.tileId = tile["t"].get<int>();
         new_tile.texture_position.x = tile["src"].get<std::vector<int>>()[0];
@@ -56,14 +56,14 @@ m_grid_size({j["__cWid"].get<int>(), j["__cHei"].get<int>()})
         int coord_id = 0;
         for (const auto& val : j["intGridCsv"]) {
             if (val.get<int>() != 0)
-                m_intgrid[coord_id] = &m_definition->m_intgrid_values[val.get<int>()-1];
+                m_intgrid[coord_id] = &m_definition->m_intgrid_values.at(val.get<int>());
             coord_id++;
         }
     }
     // LDtk pre v0.8
     else {
         for (const auto& val : j["intGrid"]) {
-            m_intgrid[val["coordId"].get<int>()] = &m_definition->m_intgrid_values[val["v"].get<int>()];
+            m_intgrid[val["coordId"].get<int>()] = &m_definition->m_intgrid_values.at(val["v"].get<int>());
         }
     }
 

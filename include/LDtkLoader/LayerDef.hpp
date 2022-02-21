@@ -2,6 +2,7 @@
 
 #pragma once
 
+#include <map>
 #include <string>
 
 #include "LDtkLoader/thirdparty/json.hpp"
@@ -29,7 +30,7 @@ namespace ldtk {
 
     private:
         const Tileset* m_tileset = nullptr;
-        std::vector<IntGridValue> m_intgrid_values;
+        std::map<int, IntGridValue> m_intgrid_values;
     };
 
 }
