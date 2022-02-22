@@ -35,13 +35,14 @@ int main() {
     tilemap.setPrimitiveType(sf::PrimitiveType::Quads);
     int i = 0;
     for (const auto& tile : tiles_vector) {
+        auto vertices = tile.getVertices();
         for (int j = 0; j < 4 ; ++j) {
             // set the position and texture coordinate of each vertex
             // flips are already done, you don't have to do it manually
-            tilemap[i*4+j].position.x = tile.vertices[j].pos.x;
-            tilemap[i*4+j].position.y = tile.vertices[j].pos.y;
-            tilemap[i*4+j].texCoords.x = static_cast<float>(tile.vertices[j].tex.x);
-            tilemap[i*4+j].texCoords.y = static_cast<float>(tile.vertices[j].tex.y);
+            tilemap[i*4+j].position.x = vertices[j].pos.x;
+            tilemap[i*4+j].position.y = vertices[j].pos.y;
+            tilemap[i*4+j].texCoords.x = static_cast<float>(vertices[j].tex.x);
+            tilemap[i*4+j].texCoords.y = static_cast<float>(vertices[j].tex.y);
         }
         i++;
     }
