@@ -107,5 +107,10 @@ auto operator<<(std::ostream& os, const ldtk::Point<T>& pt) -> std::ostream& {
     os << "(" << pt.x << ", " << pt.y << ")";
     return os;
 }
+template <typename T>
+auto operator<<(std::ostream& os, const ldtk::Rect<T>& rect) -> std::ostream& {
+    os << "(" << rect.x << ", " << rect.y << ", " << rect.width << ", " << rect.height << ")";
+    return os;
+}
 auto operator<<(std::ostream& os, const ldtk::Color& col) -> std::ostream&;
 auto operator<<(std::ostream& os, const ldtk::FilePath& fp) -> std::ostream&;
