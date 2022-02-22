@@ -30,13 +30,9 @@ namespace ldtk {
         auto getColor() const -> const Color&;
         auto getPivot() const -> const FloatPoint&;
 
-        auto hasTile() const -> bool;
-        auto getTileset() const -> const Tileset&;
+        auto hasSprite() const -> bool;
+        auto getTexturePath() const -> const std::string&;
         auto getTextureRect() const -> const IntRect&;
-
-        auto hasIcon() const -> bool;
-        auto getIconTileset() const -> const Tileset&;
-        auto getIconTexturePos() const -> IntPoint;
 
         auto hasTag(const std::string& tag) -> bool;
         auto getTags() -> const std::vector<std::string>&;
@@ -49,9 +45,10 @@ namespace ldtk {
         const IntPoint m_size;
         const IntPoint m_position;
         const IntPoint m_grid_pos;
+        const Color m_color;
 
         const Tileset* m_tileset = nullptr;
-        IntRect m_src_rect;
+        const IntRect m_texture_rect;
     };
 
 }
