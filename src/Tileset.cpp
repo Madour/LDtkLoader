@@ -8,7 +8,7 @@ using namespace ldtk;
 Tileset::Tileset(const nlohmann::json& j, World* w) :
 name(j["identifier"].get<std::string>()),
 uid(j["uid"].get<int>()),
-path(j["relPath"].get<std::string>()),
+path(j["relPath"].is_null() ? "" : j["relPath"].get<std::string>()),
 texture_size({j["pxWid"].get<int>(), j["pxHei"].get<int>()}),
 tile_size(j["tileGridSize"].get<int>()),
 spacing(j["spacing"].get<int>()),
@@ -16,8 +16,8 @@ padding(j["padding"].get<int>()),
 m_tags_enum(j["tagsSourceEnumUid"].is_null() ? nullptr : &w->getEnum(j["tagsSourceEnumUid"].get<int>()))
 {
     // parse tiles custom data
-    m_custom_data[-1] = "";
-    m_custom_data.reserve(j["customData"].size());
+    m_custom_data.reserve(j["customData"].size() + 1);
+    m_custom_data.emplace(-1, "");
     for (auto& data : j["customData"]) {
         m_custom_data[data["tileId"].get<int>()] = data["data"].get<std::string>();
     }
