@@ -86,6 +86,10 @@ auto Layer::getName() const -> const std::string& {
     return m_definition->name;
 }
 
+auto Layer::isVisible() const -> bool {
+    return m_visible;
+}
+
 auto Layer::getCellSize() const -> int {
     return m_definition->cell_size;
 }
