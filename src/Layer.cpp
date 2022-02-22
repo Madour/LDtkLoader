@@ -27,24 +27,12 @@ m_grid_size({j["__cWid"].get<int>(), j["__cHei"].get<int>()})
     }
     m_tiles.reserve(j[key].size());
     for (const auto& tile : j[key]) {
-        m_tiles.emplace_back();
-        auto& new_tile = m_tiles.back();
-
-        new_tile.coordId = tile["d"].get<std::vector<int>>()[coordId_index];
-        new_tile.position.x = tile["px"].get<std::vector<int>>()[0] + m_total_offset.x;
-        new_tile.position.y = tile["px"].get<std::vector<int>>()[1] + m_total_offset.y;
-        new_tile.world_position.x = new_tile.position.x + level->position.x;
-        new_tile.world_position.y = new_tile.position.y + level->position.y;
-
-        new_tile.tileId = tile["t"].get<int>();
-        new_tile.texture_position.x = tile["src"].get<std::vector<int>>()[0];
-        new_tile.texture_position.y = tile["src"].get<std::vector<int>>()[1];
-
-        auto flip = tile["f"].get<unsigned int>();
-        new_tile.flipX = flip & 1u;
-        new_tile.flipY = (flip>>1u) & 1u;
-
-        updateTileVertices(new_tile);
+        m_tiles.emplace_back(
+                this,
+                tile["d"].get<std::vector<int>>().at(coordId_index),
+                tile["t"].get<int>(),
+                tile["f"].get<int>()
+        );
     }
 
     for (auto& tile : m_tiles)
@@ -153,44 +141,3 @@ auto Layer::getEntitiesByTag(const std::string& tag) const -> const std::vector<
         return m_entities_by_tag[tag];
 }
 
-void Layer::updateTileVertices(const Tile& tile) const {
-    updateTileVerticesPos(tile);
-    updateTileVerticesTex(tile);
-    updateTileVerticesCol(tile);
-}
-
-void Layer::updateTileVerticesPos(const Tile& tile) const {
-    auto& verts = tile.vertices;
-    auto cell_size = getCellSize();
-
-    verts[0].pos.x = static_cast<float>(tile.position.x);           verts[1].pos.x = static_cast<float>(tile.position.x+cell_size);
-    verts[0].pos.y = static_cast<float>(tile.position.y);           verts[1].pos.y = static_cast<float>(tile.position.y);
-
-    verts[3].pos.x = static_cast<float>(tile.position.x);           verts[2].pos.x = static_cast<float>(tile.position.x+cell_size);
-    verts[3].pos.y = static_cast<float>(tile.position.y+cell_size); verts[2].pos.y = static_cast<float>(tile.position.y+cell_size);
-}
-
-void Layer::updateTileVerticesTex(const Tile& tile) const {
-    auto cell_size = getCellSize();
-    IntPoint modif[4];
-    IntPoint tex_coo[4] = {{0, 0}, {cell_size, 0}, {cell_size, cell_size}, {0, cell_size}};
-
-    if (tile.flipX) {
-        modif[0].x =  cell_size; modif[1].x = -cell_size;
-        modif[3].x =  cell_size; modif[2].x = -cell_size;
-    }
-    if (tile.flipY) {
-        modif[0].y =  cell_size; modif[1].y =  cell_size;
-        modif[3].y = -cell_size; modif[2].y = -cell_size;
-    }
-    for (int i = 0; i < 4; ++i) {
-        tile.vertices[i].tex.x = tile.texture_position.x + tex_coo[i].x + modif[i].x;
-        tile.vertices[i].tex.y = tile.texture_position.y + tex_coo[i].y + modif[i].y;
-    }
-}
-
-void Layer::updateTileVerticesCol(const Tile& tile) const {
-    for (int i = 0; i < 4; ++i) {
-        tile.vertices[i].col.a = unsigned(m_opacity*255)&0xffu;
-    }
-}
