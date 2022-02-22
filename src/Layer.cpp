@@ -27,13 +27,14 @@ m_grid_size({j["__cWid"].get<int>(), j["__cHei"].get<int>()})
     }
     m_tiles.reserve(j[key].size());
     for (const auto& tile : j[key]) {
-        Tile new_tile;
+        m_tiles.emplace_back();
+        auto& new_tile = m_tiles.back();
+
         new_tile.coordId = tile["d"].get<std::vector<int>>()[coordId_index];
         new_tile.position.x = tile["px"].get<std::vector<int>>()[0] + m_total_offset.x;
         new_tile.position.y = tile["px"].get<std::vector<int>>()[1] + m_total_offset.y;
-
-        new_tile.world_position.x = static_cast<int>(new_tile.position.x) + level->position.x;
-        new_tile.world_position.y = static_cast<int>(new_tile.position.y) + level->position.y;
+        new_tile.world_position.x = new_tile.position.x + level->position.x;
+        new_tile.world_position.y = new_tile.position.y + level->position.y;
 
         new_tile.tileId = tile["t"].get<int>();
         new_tile.texture_position.x = tile["src"].get<std::vector<int>>()[0];
@@ -44,8 +45,6 @@ m_grid_size({j["__cWid"].get<int>(), j["__cHei"].get<int>()})
         new_tile.flipY = (flip>>1u) & 1u;
 
         updateTileVertices(new_tile);
-
-        m_tiles.push_back(new_tile);
     }
 
     for (auto& tile : m_tiles)
