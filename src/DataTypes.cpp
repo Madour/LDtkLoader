@@ -27,22 +27,7 @@ bool ldtk::operator==(const Color& lhs, const Color& rhs) {
 
 }
 
-Tile::Tile(int coord_id, int tile_id) :
-coordId(coord_id),
-tileId(tile_id)
-{}
-
-const Tile Tile::None{-1, -1};
-
 const IntGridValue IntGridValue::None{-1, "", Color()};
-
-bool ldtk::operator==(const Tile& l, const Tile& r) {
-    return (l.coordId == r.coordId) && (l.tileId == r.tileId);
-}
-
-bool ldtk::operator!=(const Tile& l, const Tile& r) {
-    return !(ldtk::operator==(l, r));
-}
 
 ldtk::FilePath::FilePath(const std::string& str) {
     this->assign(str);

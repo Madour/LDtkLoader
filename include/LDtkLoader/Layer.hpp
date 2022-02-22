@@ -7,6 +7,7 @@
 #include "LDtkLoader/thirdparty/json.hpp"
 #include "LDtkLoader/DataTypes.hpp"
 #include "LDtkLoader/LayerDef.hpp"
+#include "LDtkLoader/Tile.hpp"
 #include "LDtkLoader/Tileset.hpp"
 #include "LDtkLoader/Entity.hpp"
 
@@ -51,11 +52,6 @@ namespace ldtk {
         Layer(const nlohmann::json& j, const World* w, const Level* l);
 
     private:
-        void updateTileVertices(const Tile& tile) const;
-        void updateTileVerticesPos(const Tile& tile) const;
-        void updateTileVerticesTex(const Tile& tile) const;
-        void updateTileVerticesCol(const Tile& tile) const;
-
         const LayerDef* m_definition = nullptr;
         const Tileset* m_override_tileset = nullptr;
 

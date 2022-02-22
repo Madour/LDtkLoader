@@ -2,10 +2,9 @@
 
 #pragma once
 
-#include <cinttypes>
-#include <string>
-#include <array>
+#include <cstdint>
 #include <iostream>
+#include <string>
 
 namespace ldtk {
 
@@ -59,26 +58,7 @@ namespace ldtk {
     struct Vertex {
         FloatPoint pos = {0.f, 0.f};
         IntPoint tex = {0, 0};
-        Color col = {255, 255, 255};
     };
-
-    struct Tile {
-        Tile() = default;
-        int coordId=0;
-        int tileId=0;
-        IntPoint position;
-        IntPoint world_position;
-        IntPoint texture_position;
-        bool flipX=false;
-        bool flipY=false;
-        mutable std::array<Vertex, 4> vertices;
-        static const Tile None;
-    private:
-        Tile(int coord_id, int tile_id);
-    };
-
-    bool operator==(const Tile& l, const Tile& r);
-    bool operator!=(const Tile& l, const Tile& r);
 
     struct IntGridValue {
         const int value;
