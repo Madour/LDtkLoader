@@ -8,10 +8,10 @@ using namespace ldtk;
 EntityDef::EntityDef(const nlohmann::json& j, World* w) :
 name(j["identifier"].get<std::string>()),
 uid(j["uid"].get<int>()),
-size({j["width"].get<int>(), j["height"].get<int>()}),
+size(j["width"].get<int>(), j["height"].get<int>()),
 color(j["color"].get<std::string>()),
-pivot({j["pivotX"].get<float>(), j["pivotY"].get<float>()}),
-tileset(j["tilesetId"].is_null() ? nullptr : &w->getTileset(j["tilesetId"].get<int>())),
-tile_id(j["tileId"].is_null() ? -1 : j["tileId"].get<int>()),
+pivot(j["pivotX"].get<float>(), j["pivotY"].get<float>()),
+tileset(j["tileRect"].is_null() ? nullptr : &w->getTileset(j["tileRect"]["tilesetUid"].get<int>())),
+texture_rect(j["tileRect"].is_null() ? IntRect{} : IntRect{j["tileRect"]["x"], j["tileRect"]["y"], j["tileRect"]["w"], j["tileRect"]["h"]}),
 tags(j["tags"].get<std::vector<std::string>>())
 {}

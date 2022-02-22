@@ -6,18 +6,14 @@
 using namespace ldtk;
 
 Entity::Entity(const nlohmann::json& j, const World* w) :
-m_definition( &w->getEntityDef(j["defUid"].get<int>()) ),
-m_size( j["width"].get<int>(), j["height"].get<int>() ),
-m_position( j["px"][0].get<int>(), j["px"][1].get<int>() ),
-m_grid_pos( j["__grid"][0].get<int>(), j["__grid"][1].get<int>() )
+m_definition(&w->getEntityDef(j["defUid"].get<int>())),
+m_size(j["width"].get<int>(), j["height"].get<int>()),
+m_position(j["px"][0].get<int>(), j["px"][1].get<int>()),
+m_grid_pos(j["__grid"][0].get<int>(), j["__grid"][1].get<int>()),
+m_color(j["__smartColor"].get<std::string>()),
+m_tileset(j["__tile"].is_null() ? nullptr : &w->getTileset(j["__tile"]["tilesetUid"].get<int>())),
+m_texture_rect(j["__tile"].is_null() ? IntRect{} : IntRect{j["__tile"]["x"], j["__tile"]["y"], j["__tile"]["w"], j["__tile"]["h"]})
 {
-    if (!j["__tile"].is_null()) {
-        m_tileset = &w->getTileset(j["__tile"]["tilesetUid"].get<int>());
-        m_src_rect.x = j["__tile"]["x"].get<int>();
-        m_src_rect.y = j["__tile"]["y"].get<int>();
-        m_src_rect.width = j["__tile"]["w"].get<int>();
-        m_src_rect.height = j["__tile"]["h"].get<int>();
-    }
     parseFields(j["fieldInstances"], w);
 }
 
@@ -38,35 +34,23 @@ auto Entity::getGridPosition() const -> const IntPoint& {
 }
 
 auto Entity::getColor() const -> const Color& {
-    return m_definition->color;
+    return m_color;
 }
 
 auto Entity::getPivot() const -> const FloatPoint& {
     return m_definition->pivot;
 }
 
-auto Entity::hasTile() const -> bool {
+auto Entity::hasSprite() const -> bool {
     return m_tileset != nullptr;
 }
 
-auto Entity::getTileset() const -> const Tileset& {
-    return *m_tileset;
+auto Entity::getTexturePath() const -> const std::string& {
+    return m_tileset->path;
 }
 
 auto Entity::getTextureRect() const -> const IntRect& {
-    return m_src_rect;
-}
-
-auto Entity::hasIcon() const -> bool {
-    return m_definition->tileset != nullptr;
-}
-
-auto Entity::getIconTileset() const -> const Tileset& {
-    return *m_definition->tileset;
-}
-
-auto Entity::getIconTexturePos() const -> IntPoint {
-    return m_definition->tileset->getTileTexturePos(m_definition->tile_id);
+    return m_texture_rect;
 }
 
 auto Entity::hasTag(const std::string& tag) -> bool {
