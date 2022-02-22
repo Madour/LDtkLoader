@@ -23,6 +23,8 @@ namespace ldtk {
         Entity(Entity&&) = default;
         auto operator=(const Entity&) -> Entity& = delete;
 
+        const std::string iid;
+
         auto getName() const -> const std::string&;
         auto getSize() const -> const IntPoint&;
         auto getPosition() const -> const IntPoint&;

@@ -6,6 +6,7 @@
 using namespace ldtk;
 
 Entity::Entity(const nlohmann::json& j, const World* w) :
+iid(j["iid"].get<std::string>()),
 m_definition(&w->getEntityDef(j["defUid"].get<int>())),
 m_size(j["width"].get<int>(), j["height"].get<int>()),
 m_position(j["px"][0].get<int>(), j["px"][1].get<int>()),
