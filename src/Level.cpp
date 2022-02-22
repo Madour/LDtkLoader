@@ -8,6 +8,7 @@
 using namespace ldtk;
 
 Level::Level(const nlohmann::json& j, World* w) :
+FieldsContainer(j["fieldInstances"], w),
 world(w),
 name(j["identifier"].get<std::string>()),
 iid(j["iid"].get<std::string>()),
@@ -33,8 +34,6 @@ bg_color(j["__bgColor"].get<std::string>())
     for (const auto& level : jl["layerInstances"]) {
         m_layers.emplace_back(level, w, this);
     }
-
-    parseFields(j["fieldInstances"], w);
 
     m_neighbours_id[Dir::North]; m_neighbours_id[Dir::East];
     m_neighbours_id[Dir::South]; m_neighbours_id[Dir::West];

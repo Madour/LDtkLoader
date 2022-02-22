@@ -86,6 +86,7 @@ namespace ldtk {
         auto getArrayField(const std::string& name) const -> const ArrayField<T>&;
 
     protected:
+        FieldsContainer(const nlohmann::json& j, const World* w);
         void parseFields(const nlohmann::json& j, const World* w);
 
     private:
