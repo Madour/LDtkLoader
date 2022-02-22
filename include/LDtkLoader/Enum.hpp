@@ -6,6 +6,7 @@
 #include <vector>
 #include "LDtkLoader/thirdparty/json.hpp"
 #include "LDtkLoader/DataTypes.hpp"
+#include "LDtkLoader/TagsContainer.hpp"
 
 namespace ldtk {
 
@@ -33,7 +34,7 @@ namespace ldtk {
     bool operator==(const EnumValue& l, const EnumValue& r);
     bool operator!=(const EnumValue& l, const EnumValue& r);
 
-    class Enum {
+    class Enum : public TagsContainer {
         friend World;
 
     public:
