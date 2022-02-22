@@ -9,12 +9,14 @@
 #include "LDtkLoader/thirdparty/json.hpp"
 #include "LDtkLoader/DataTypes.hpp"
 #include "LDtkLoader/Enum.hpp"
+#include "LDtkLoader/TagsContainer.hpp"
 
 namespace ldtk {
 
     class World;
 
-    struct Tileset {
+    class Tileset : public TagsContainer {
+    public:
         const std::string name;
         const int uid;
         const std::string path;
@@ -24,11 +26,11 @@ namespace ldtk {
         const int padding;
 
         auto getTileTexturePos(int tile_id) const -> IntPoint;
-        auto getTileData(int tile_id) const -> const std::string&;
+        auto getTileCustomData(int tile_id) const -> const std::string&;
 
-        auto hasTags() const -> bool;
+        auto hasTagsEnum() const -> bool;
         auto getTagsEnum() const -> const Enum&;
-        auto getTilesWithTag(const EnumValue& enumvalue) const -> const std::vector<int>&;
+        auto getTilesWithTagEnum(const EnumValue& enumvalue) const -> const std::vector<int>&;
 
         Tileset(const nlohmann::json& j, World* w);
 

@@ -12,7 +12,7 @@ namespace ldtk {
 
     class World;
     class Enum;
-    struct Tileset;
+    class Tileset;
 
     struct EnumValue {
         const std::string name;
