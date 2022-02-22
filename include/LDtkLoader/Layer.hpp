@@ -30,10 +30,8 @@ namespace ldtk {
         auto getGridSize() const -> const IntPoint&;
 
         auto getOffset() const -> const IntPoint&;
-        void setOffset(const IntPoint& offset) const;
 
         auto getOpacity() const -> float;
-        void setOpacity(float opacity) const;
 
         auto hasTileset() const -> bool;
         auto getTileset() const -> const Tileset&;
@@ -60,8 +58,8 @@ namespace ldtk {
         const Tileset* m_override_tileset = nullptr;
 
         bool m_visible;
-        mutable IntPoint m_total_offset;
-        mutable float m_opacity;
+        IntPoint m_total_offset;
+        float m_opacity;
         const IntPoint m_grid_size;
 
         std::vector<Tile> m_tiles;

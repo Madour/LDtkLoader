@@ -78,7 +78,6 @@ m_grid_size({j["__cWid"].get<int>(), j["__cHei"].get<int>()})
     }
 }
 
-
 auto Layer::getType() const -> const LayerType& {
     return m_definition->type;
 }
@@ -99,20 +98,8 @@ auto Layer::getOffset() const -> const IntPoint& {
     return m_total_offset;
 }
 
-void Layer::setOffset(const IntPoint& offset) const {
-    m_total_offset = offset;
-    for (const auto& tile : m_tiles)
-        updateTileVerticesPos(tile);
-}
-
 auto Layer::getOpacity() const -> float {
     return m_opacity;
-}
-
-void Layer::setOpacity(float opacity) const {
-    m_opacity = std::min(1.f, std::max(0.f, opacity));
-    for (const auto& tile : m_tiles)
-        updateTileVerticesCol(tile);
 }
 
 auto Layer::hasTileset() const -> bool {
