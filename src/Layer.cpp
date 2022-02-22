@@ -9,6 +9,7 @@ using namespace ldtk;
 
 Layer::Layer(const nlohmann::json& j, const World* w, const Level* l) :
 level(l),
+iid(j["iid"].get<std::string>()),
 m_definition(&w->getLayerDef(j["layerDefUid"].get<int>())),
 m_visible(j["visible"].get<bool>()),
 m_total_offset(j["__pxTotalOffsetX"].get<int>(), j["__pxTotalOffsetY"].get<int>()),

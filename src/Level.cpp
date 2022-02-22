@@ -10,6 +10,7 @@ using namespace ldtk;
 Level::Level(const nlohmann::json& j, World* w) :
 world(w),
 name(j["identifier"].get<std::string>()),
+iid(j["iid"].get<std::string>()),
 uid(j["uid"].get<int>()),
 size(j["pxWid"].get<int>(), j["pxHei"].get<int>()),
 position(j["worldX"].get<int>(), j["worldY"].get<int>()),
