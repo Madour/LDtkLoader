@@ -6,6 +6,7 @@
 using namespace ldtk;
 
 Tileset::Tileset(const nlohmann::json& j, World* w) :
+TagsContainer(j["tags"]),
 name(j["identifier"].get<std::string>()),
 uid(j["uid"].get<int>()),
 path(j["relPath"].is_null() ? "" : j["relPath"].get<std::string>()),
@@ -44,13 +45,13 @@ auto Tileset::getTileTexturePos(int tile_id) const -> IntPoint {
     };
 }
 
-auto Tileset::getTileData(int tile_id) const -> const std::string& {
+auto Tileset::getTileCustomData(int tile_id) const -> const std::string& {
     if (m_custom_data.count(tile_id) > 0)
         return m_custom_data.at(tile_id);
     return m_custom_data.at(-1);
 }
 
-auto Tileset::hasTags() const -> bool {
+auto Tileset::hasTagsEnum() const -> bool {
     return m_tags_enum != nullptr;
 }
 
@@ -58,7 +59,7 @@ auto Tileset::getTagsEnum() const -> const Enum& {
     return *m_tags_enum;
 }
 
-auto Tileset::getTilesWithTag(const EnumValue& enumvalue) const -> const std::vector<int>& {
+auto Tileset::getTilesWithTagEnum(const EnumValue& enumvalue) const -> const std::vector<int>& {
     if (enumvalue.type.uid != m_tags_enum->uid)
         ldtk_error("Enum value \""+enumvalue.name+"\" is not a value of Enum \""+m_tags_enum->name+"\".");
 
