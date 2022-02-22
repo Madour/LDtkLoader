@@ -34,6 +34,7 @@ bool ldtk::operator!=(const EnumValue& l, const EnumValue& r) {
 }
 
 Enum::Enum(const nlohmann::json& j, const World* w) :
+TagsContainer(j["tags"]),
 name(j["identifier"].get<std::string>()),
 uid(j["uid"].get<int>()),
 m_tileset_id(j["iconTilesetUid"].is_null() ? -1 : j["iconTilesetUid"].get<int>()),
