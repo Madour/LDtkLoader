@@ -29,8 +29,8 @@ m_grid_size({j["__cWid"].get<int>(), j["__cHei"].get<int>()})
     for (const auto& tile : j[key]) {
         Tile new_tile;
         new_tile.coordId = tile["d"].get<std::vector<int>>()[coordId_index];
-        new_tile.position.x = tile["px"].get<std::vector<int>>()[0];
-        new_tile.position.y = tile["px"].get<std::vector<int>>()[1];
+        new_tile.position.x = tile["px"].get<std::vector<int>>()[0] + m_total_offset.x;
+        new_tile.position.y = tile["px"].get<std::vector<int>>()[1] + m_total_offset.y;
 
         new_tile.world_position.x = static_cast<int>(new_tile.position.x) + level->position.x;
         new_tile.world_position.y = static_cast<int>(new_tile.position.y) + level->position.y;
@@ -171,12 +171,13 @@ void Layer::updateTileVertices(const Tile& tile) const {
 
 void Layer::updateTileVerticesPos(const Tile& tile) const {
     auto& verts = tile.vertices;
-    auto& offset = m_total_offset;
     auto cell_size = getCellSize();
-    verts[0].pos.x = static_cast<float>(tile.position.x+offset.x);           verts[0].pos.y = static_cast<float>(tile.position.y+offset.y);
-    verts[1].pos.x = static_cast<float>(tile.position.x+cell_size+offset.x); verts[1].pos.y = static_cast<float>(tile.position.y+offset.y);
-    verts[2].pos.x = static_cast<float>(tile.position.x+cell_size+offset.x); verts[2].pos.y = static_cast<float>(tile.position.y+cell_size+offset.y);
-    verts[3].pos.x = static_cast<float>(tile.position.x+offset.x);           verts[3].pos.y = static_cast<float>(tile.position.y+cell_size+offset.y);
+
+    verts[0].pos.x = static_cast<float>(tile.position.x);           verts[1].pos.x = static_cast<float>(tile.position.x+cell_size);
+    verts[0].pos.y = static_cast<float>(tile.position.y);           verts[1].pos.y = static_cast<float>(tile.position.y);
+
+    verts[3].pos.x = static_cast<float>(tile.position.x);           verts[2].pos.x = static_cast<float>(tile.position.x+cell_size);
+    verts[3].pos.y = static_cast<float>(tile.position.y+cell_size); verts[2].pos.y = static_cast<float>(tile.position.y+cell_size);
 }
 
 void Layer::updateTileVerticesTex(const Tile& tile) const {
@@ -193,8 +194,8 @@ void Layer::updateTileVerticesTex(const Tile& tile) const {
         modif[3].y = -cell_size; modif[2].y = -cell_size;
     }
     for (int i = 0; i < 4; ++i) {
-        tile.vertices[i].tex.x = tile.texture_position.x+tex_coo[i].x+modif[i].x;
-        tile.vertices[i].tex.y = tile.texture_position.y+tex_coo[i].y+modif[i].y;
+        tile.vertices[i].tex.x = tile.texture_position.x + tex_coo[i].x + modif[i].x;
+        tile.vertices[i].tex.y = tile.texture_position.y + tex_coo[i].y + modif[i].y;
     }
 }
 
