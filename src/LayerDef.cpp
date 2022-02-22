@@ -13,14 +13,10 @@ name(j["identifier"].get<std::string>()),
 uid(j["uid"].get<int>()),
 cell_size(j["gridSize"].get<int>()),
 opacity(j["displayOpacity"].get<float>()),
-offset({j["pxOffsetX"].get<int>(), j["pxOffsetY"].get<int>()}),
-tile_pivot({j["tilePivotX"].get<float>(), j["tilePivotY"].get<float>()})
+offset(j["pxOffsetX"].get<int>(), j["pxOffsetY"].get<int>()),
+tile_pivot(j["tilePivotX"].get<float>(), j["tilePivotY"].get<float>()),
+m_tileset(j["tilesetDefUid"].is_null() ? nullptr : &w->getTileset(j["tilesetDefUid"].get<int>()))
 {
-    if ( !j["tilesetDefUid"].is_null() )
-        m_tileset = &w->getTileset(j["tilesetDefUid"].get<int>());
-    else if ( !j["autoTilesetDefUid"].is_null() )
-        m_tileset = &w->getTileset(j["autoTilesetDefUid"].get<int>());
-
     if (type == LayerType::IntGrid) {
         for (const auto& int_grid_val : j["intGridValues"]) {
             auto val = int_grid_val["value"].get<int>();
