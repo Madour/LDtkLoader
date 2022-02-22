@@ -13,10 +13,10 @@ m_grid_pos( j["__grid"][0].get<int>(), j["__grid"][1].get<int>() )
 {
     if (!j["__tile"].is_null()) {
         m_tileset = &w->getTileset(j["__tile"]["tilesetUid"].get<int>());
-        m_src_rect.x = j["__tile"]["srcRect"][0].get<int>();
-        m_src_rect.y = j["__tile"]["srcRect"][1].get<int>();
-        m_src_rect.width = j["__tile"]["srcRect"][2].get<int>();
-        m_src_rect.height = j["__tile"]["srcRect"][3].get<int>();
+        m_src_rect.x = j["__tile"]["x"].get<int>();
+        m_src_rect.y = j["__tile"]["y"].get<int>();
+        m_src_rect.width = j["__tile"]["w"].get<int>();
+        m_src_rect.height = j["__tile"]["h"].get<int>();
     }
     parseFields(j["fieldInstances"], w);
 }
