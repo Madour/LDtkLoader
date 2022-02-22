@@ -26,6 +26,8 @@ namespace ldtk {
         auto getType() const -> const LayerType&;
         auto getName() const -> const std::string&;
 
+        auto isVisible() const -> bool;
+
         auto getCellSize() const -> int;
         auto getGridSize() const -> const IntPoint&;
 
