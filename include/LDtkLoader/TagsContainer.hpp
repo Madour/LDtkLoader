@@ -10,8 +10,8 @@
 namespace ldtk {
     class TagsContainer {
     public:
-        auto hasTag(const std::string& tag) -> bool;
-        auto getTags() -> const std::vector<std::string>&;
+        auto hasTag(const std::string& tag) const -> bool;
+        auto getTags() const -> const std::vector<std::string>&;
 
         explicit TagsContainer(const nlohmann::json& j);
 

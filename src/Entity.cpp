@@ -53,11 +53,10 @@ auto Entity::getTextureRect() const -> const IntRect& {
     return m_texture_rect;
 }
 
-auto Entity::hasTag(const std::string& tag) -> bool {
-    auto pos = std::find(m_definition->tags.begin(), m_definition->tags.end(), tag);
-    return pos != m_definition->tags.end();
+auto Entity::hasTag(const std::string& tag) const -> bool {
+    return m_definition->hasTag(tag);
 }
 
-auto Entity::getTags() -> const std::vector<std::string>& {
-    return m_definition->tags;
+auto Entity::getTags() const -> const std::vector<std::string>& {
+    return m_definition->getTags();
 }

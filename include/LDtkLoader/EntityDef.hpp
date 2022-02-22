@@ -6,13 +6,14 @@
 
 #include "LDtkLoader/thirdparty/json.hpp"
 #include "LDtkLoader/DataTypes.hpp"
+#include "LDtkLoader/TagsContainer.hpp"
 #include "LDtkLoader/Tileset.hpp"
 
 namespace ldtk {
 
     class World;
 
-    class EntityDef {
+    class EntityDef : public TagsContainer {
     public:
         const std::string name;
         const int uid;
@@ -21,7 +22,6 @@ namespace ldtk {
         const FloatPoint pivot;
         const Tileset* tileset;
         const IntRect texture_rect;
-        const std::vector<std::string> tags;
 
         EntityDef(const nlohmann::json& j, World* w);
     };
