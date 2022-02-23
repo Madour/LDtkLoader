@@ -28,6 +28,7 @@ namespace ldtk {
         using optional<T>::optional;
         using optional<T>::value;
         using optional<T>::value_or;
+        using optional<T>::operator->;
 
         constexpr auto is_null() const -> bool {
             return !optional<T>::has_value();
@@ -90,7 +91,7 @@ namespace ldtk {
         void parseFields(const nlohmann::json& j, const World* w);
 
     private:
-        std::vector<std::shared_ptr<IField>> m_gc;
+        std::vector<std::unique_ptr<IField>> m_gc;
         std::unordered_map<std::string, IField*> m_fields;
         std::unordered_map<std::string, IField*> m_array_fields;
     };
