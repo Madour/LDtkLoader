@@ -13,6 +13,7 @@ namespace ldtk {
         auto hasTag(const std::string& tag) const -> bool;
         auto getTags() const -> const std::vector<std::string>&;
 
+    protected:
         explicit TagsContainer(const nlohmann::json& j);
 
     private:
