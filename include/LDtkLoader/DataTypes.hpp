@@ -100,6 +100,13 @@ namespace ldtk {
         auto filename() const -> std::string;
         auto extension() const -> std::string;
     };
+
+    struct EntityRef {
+        std::string entity_iid;
+        std::string layer_iid;
+        std::string level_iid;
+        std::string world_iid;
+    };
 }
 
 template <typename T>
