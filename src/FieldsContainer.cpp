@@ -47,7 +47,7 @@ void FieldsContainer::parseFields(const nlohmann::json& j, const World* w) {
                 }
                 addArrayField(field_name, values);
             }
-            else if (field_type == "Array<String>") {
+            else if (field_type == "Array<String>" || field_type == "Array<Multilines>") {
                 std::vector<Field<std::string>> values;
                 for (const auto& v : field_value) {
                     if (v.is_null())
@@ -98,6 +98,19 @@ void FieldsContainer::parseFields(const nlohmann::json& j, const World* w) {
                 }
                 addArrayField(field_name, values);
             }
+            else if (field_type == "Array<EntityRef>") {
+                std::vector<Field<EntityRef>> values;
+                for (const auto& v : field_value) {
+                    if (v.is_null())
+                        values.emplace_back(null);
+                    else
+                        values.emplace_back(EntityRef{
+                            v["entityIid"].get<std::string>(), v["layerIid"].get<std::string>(),
+                            v["levelIid"].get<std::string>(), v["worldIid"].get<std::string>()
+                        });
+                }
+                addArrayField(field_name, values);
+            }
         }
             // simple fields
         else if (field_type == "Int") {
@@ -118,7 +131,7 @@ void FieldsContainer::parseFields(const nlohmann::json& j, const World* w) {
             else
                 addField<bool>(field_name, field_value);
         }
-        else if (field_type == "String") {
+        else if (field_type == "String" || field_type == "Multilines") {
             if (field_value.is_null())
                 addField<std::string>(field_name, null);
             else
@@ -148,6 +161,15 @@ void FieldsContainer::parseFields(const nlohmann::json& j, const World* w) {
                 addField<FilePath>(field_name, null);
             else
                 addField<FilePath>(field_name, field_value.get<std::string>());
+        }
+        else if (field_type == "EntityRef") {
+            if (field_value.is_null())
+                addField<EntityRef>(field_name, null);
+            else
+                addField<EntityRef>(field_name, {field_value["entityIid"].get<std::string>(),
+                                                 field_value["layerIid"].get<std::string>(),
+                                                 field_value["levelIid"].get<std::string>(),
+                                                 field_value["worldIid"].get<std::string>()});
         }
     }
 }
