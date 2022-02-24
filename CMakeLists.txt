@@ -19,7 +19,7 @@ set_target_properties(LDtkLoader PROPERTIES
     DEBUG_POSTFIX -d
 )
 
-# examples targets
+# build options
 option(LDTK_NO_THROW        "Replace all throws by an error print and exit" OFF)
 option(BUILD_SFML_EXAMPLE   "Build an example using LDtkLoader with SFML." OFF)
 option(BUILD_SDL_EXAMPLE    "Build an example using LDtkLoader with SDL."  OFF)
@@ -50,8 +50,16 @@ if (BUILD_API_TEST)
     add_subdirectory(examples/API_test)
 endif()
 
+# cmake install rules
 include(GNUInstallDirs)
 include(CMakePackageConfigHelpers)
+
+# generate LDtkLoaderConfigVersion.cmake
+write_basic_package_version_file(
+    "${CMAKE_CURRENT_BINARY_DIR}/LDtkLoaderConfigVersion.cmake"
+    VERSION ${CMAKE_PROJECT_VERSION}
+    COMPATIBILITY SameMinorVersion
+)
 
 # generate LDtkLoaderConfig.cmake
 configure_package_config_file(
@@ -59,12 +67,13 @@ configure_package_config_file(
     INSTALL_DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/LDtkLoader
 )
 
-# install license and readme to doc directory
+# install license and readme to ${CMAKE_INSTALL_PREFIX}/share/doc/LDtkLoader
 install(FILES LICENSE.md README.md DESTINATION ${CMAKE_INSTALL_DOCDIR})
-# install headers to include directory
+# install headers to ${CMAKE_INSTALL_PREFIX}/include
 install(DIRECTORY include/LDtkLoader DESTINATION ${CMAKE_INSTALL_INCLUDEDIR})
-
-# cmake export targets
+# install static lib target to ${CMAKE_INSTALL_PREFIX}/lib
 install(TARGETS LDtkLoader EXPORT LDtkLoaderTargets ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR})
-install(FILES ${CMAKE_CURRENT_BINARY_DIR}/LDtkLoaderConfig.cmake DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/LDtkLoader)
+# install cmake package files to ${CMAKE_INSTALL_PREFIX}/lib/cmake/LDtkLoader
 install(EXPORT LDtkLoaderTargets DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/LDtkLoader)
+install(FILES ${CMAKE_CURRENT_BINARY_DIR}/LDtkLoaderConfig.cmake DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/LDtkLoader)
+install(FILES ${CMAKE_CURRENT_BINARY_DIR}/LDtkLoaderConfigVersion.cmake DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/LDtkLoader)
