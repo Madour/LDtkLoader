@@ -32,24 +32,24 @@ m_grid_size({j["__cWid"].get<int>(), j["__cHei"].get<int>()})
                 tile["t"].get<int>(),
                 tile["f"].get<int>()
         );
+        auto& new_tile = m_tiles.back();
+        m_tiles_map.emplace(new_tile.coordId, new_tile);
     }
-
-    for (auto& tile : m_tiles)
-        m_tiles_map[tile.coordId] = &tile;
 
     // LDtk v0.8+
     if (j.contains("intGridCsv")) {
         int coord_id = 0;
         for (const auto& val : j["intGridCsv"]) {
-            if (val.get<int>() != 0)
-                m_intgrid[coord_id] = &m_definition->m_intgrid_values.at(val.get<int>());
+            if (val.get<int>() != 0) {
+                m_intgrid.emplace(coord_id, m_definition->m_intgrid_values.at(val.get<int>()));
+            }
             coord_id++;
         }
     }
     // LDtk pre v0.8
     else {
         for (const auto& val : j["intGrid"]) {
-            m_intgrid[val["coordId"].get<int>()] = &m_definition->m_intgrid_values.at(val["v"].get<int>());
+            m_intgrid.emplace(val["coordId"].get<int>(), m_definition->m_intgrid_values.at(val["v"].get<int>()));
         }
     }
 
@@ -107,14 +107,14 @@ auto Layer::allTiles() const -> const std::vector<Tile>& {
 auto Layer::getTile(int grid_x, int grid_y) const -> const Tile& {
     auto id = grid_x + m_grid_size.x*grid_y;
     if (m_tiles_map.count(id) > 0)
-        return *(m_tiles_map.at(id));
+        return m_tiles_map.at(id);
     return Tile::None;
 }
 
 auto Layer::getIntGridVal(int grid_x, int grid_y) const -> const IntGridValue& {
     auto id = grid_x + m_grid_size.x*grid_y;
     if (m_intgrid.count(id) > 0)
-        return *(m_intgrid.at(id));
+        return m_intgrid.at(id);
     return IntGridValue::None;
 }
 
