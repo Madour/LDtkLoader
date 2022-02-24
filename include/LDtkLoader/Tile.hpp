@@ -31,7 +31,7 @@ namespace ldtk {
 
         static const Tile None;
 
-        Tile(const Layer* l, int coord_id, int tile_id, int flips);
+        Tile(const Layer* l, IntPoint pos, int tile_id, int flips);
     };
 
     bool operator==(const Tile& l, const Tile& r);
