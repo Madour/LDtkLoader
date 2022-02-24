@@ -21,16 +21,14 @@ m_grid_size({j["__cWid"].get<int>(), j["__cHei"].get<int>()})
     }
 
     std::string key = "gridTiles";
-    int coordId_index = 0;
     if (getType() == LayerType::IntGrid || getType() == LayerType::AutoLayer) {
         key = "autoLayerTiles";
-        coordId_index = 1;
     }
     m_tiles.reserve(j[key].size());
     for (const auto& tile : j[key]) {
         m_tiles.emplace_back(
                 this,
-                tile["d"].get<std::vector<int>>().at(coordId_index),
+                IntPoint{tile["px"][0].get<int>(), tile["px"][1].get<int>()},
                 tile["t"].get<int>(),
                 tile["f"].get<int>()
         );
@@ -140,5 +138,9 @@ auto Layer::getEntitiesByTag(const std::string& tag) const -> const std::vector<
         return m_entities_by_tag.at(tag);
     else
         return m_entities_by_tag[tag];
+}
+
+auto Layer::getCoordIdAt(int x, int y) const -> int {
+    return (x + y * m_grid_size.x) / getCellSize() ;
 }
 

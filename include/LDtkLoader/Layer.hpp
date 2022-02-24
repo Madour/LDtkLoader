@@ -50,6 +50,8 @@ namespace ldtk {
         auto getEntitiesByName(const std::string& entity_name) const -> const std::vector<std::reference_wrapper<Entity>>&;
         auto getEntitiesByTag(const std::string& tag) const -> const std::vector<std::reference_wrapper<Entity>>&;
 
+        auto getCoordIdAt(int x, int y) const -> int;
+
         Layer(const nlohmann::json& j, const World* w, const Level* l);
 
     private:
@@ -62,11 +64,13 @@ namespace ldtk {
         const IntPoint m_grid_size;
 
         std::vector<Tile> m_tiles;
+        std::map<int, Tile*> m_tiles_map;
+
+        std::map<int, const IntGridValue*> m_intgrid;
+
         std::vector<Entity> m_entities;
         mutable std::unordered_map<std::string, std::vector<std::reference_wrapper<Entity>>> m_entities_by_name;
         mutable std::unordered_map<std::string, std::vector<std::reference_wrapper<Entity>>> m_entities_by_tag;
-        std::map<int, const IntGridValue*> m_intgrid;
-        std::map<int, Tile*> m_tiles_map;
     };
 
 }
