@@ -64,9 +64,9 @@ namespace ldtk {
         const IntPoint m_grid_size;
 
         std::vector<Tile> m_tiles;
-        std::map<int, Tile*> m_tiles_map;
+        std::map<int, std::reference_wrapper<const Tile>> m_tiles_map;
 
-        std::map<int, const IntGridValue*> m_intgrid;
+        std::map<int, std::reference_wrapper<const IntGridValue>> m_intgrid;
 
         std::vector<Entity> m_entities;
         mutable std::unordered_map<std::string, std::vector<std::reference_wrapper<Entity>>> m_entities_by_name;
