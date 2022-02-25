@@ -38,6 +38,7 @@ namespace ldtk {
         const IntPoint size;
         const IntPoint position;
         const Color bg_color;
+        const int depth;
 
         auto allLayers() const -> const std::vector<Layer>&;
         auto getLayer(const std::string& layer_name) const -> const Layer&;
