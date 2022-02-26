@@ -1,6 +1,7 @@
 // Created by Modar Nasser on 12/11/2020.
 
 #include <fstream>
+#include <memory>
 
 #include "LDtkLoader/Level.hpp"
 #include "LDtkLoader/World.hpp"
@@ -26,7 +27,7 @@ depth(j["worldDepth"].get<int>())
         if (in.fail()) {
             ldtk_error("Failed to open file \"" + j["externalRelPath"].get<std::string>() + "\" : " + strerror(errno));
         }
-        pjl = std::make_unique<nlohmann::json>();
+        pjl.reset(new nlohmann::json());
         in >> *pjl;
     }
 
