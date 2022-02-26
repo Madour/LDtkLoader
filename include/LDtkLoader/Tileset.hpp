@@ -13,7 +13,7 @@
 
 namespace ldtk {
 
-    class World;
+    class Project;
 
     class Tileset : public TagsContainer {
     public:
@@ -32,7 +32,7 @@ namespace ldtk {
         auto getTagsEnum() const -> const Enum&;
         auto getTilesWithTagEnum(const EnumValue& enumvalue) const -> const std::vector<int>&;
 
-        Tileset(const nlohmann::json& j, World* w);
+        Tileset(const nlohmann::json& j, Project* p);
 
     private:
         const Enum* m_tags_enum;

@@ -1,11 +1,11 @@
 // Created by Modar Nasser on 11/11/2020.
 
 #include "LDtkLoader/Tileset.hpp"
-#include "LDtkLoader/World.hpp"
+#include "LDtkLoader/Project.hpp"
 
 using namespace ldtk;
 
-Tileset::Tileset(const nlohmann::json& j, World* w) :
+Tileset::Tileset(const nlohmann::json& j, Project* p) :
 TagsContainer(j["tags"]),
 name(j["identifier"].get<std::string>()),
 uid(j["uid"].get<int>()),
@@ -14,7 +14,7 @@ texture_size({j["pxWid"].get<int>(), j["pxHei"].get<int>()}),
 tile_size(j["tileGridSize"].get<int>()),
 spacing(j["spacing"].get<int>()),
 padding(j["padding"].get<int>()),
-m_tags_enum(j["tagsSourceEnumUid"].is_null() ? nullptr : &w->getEnum(j["tagsSourceEnumUid"].get<int>()))
+m_tags_enum(j["tagsSourceEnumUid"].is_null() ? nullptr : &p->getEnum(j["tagsSourceEnumUid"].get<int>()))
 {
     // parse tiles custom data
     m_custom_data.reserve(j["customData"].size() + 1);

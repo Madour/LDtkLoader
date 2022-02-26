@@ -1,7 +1,9 @@
 // Created by Modar Nasser on 13/11/2020.
 
 #include "LDtkLoader/Enum.hpp"
-#include "LDtkLoader/World.hpp"
+#include "LDtkLoader/Tileset.hpp"
+#include "LDtkLoader/Utils.hpp"
+
 
 using namespace ldtk;
 
@@ -33,7 +35,7 @@ bool ldtk::operator!=(const EnumValue& l, const EnumValue& r) {
     return !(ldtk::operator==(l, r));
 }
 
-Enum::Enum(const nlohmann::json& j, const World* w) :
+Enum::Enum(const nlohmann::json& j) :
 TagsContainer(j["tags"]),
 name(j["identifier"].get<std::string>()),
 uid(j["uid"].get<int>()),
