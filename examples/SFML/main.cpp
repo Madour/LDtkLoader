@@ -1,22 +1,25 @@
 // Created by Modar Nasser on 12/11/2020.
 
 #include <SFML/Graphics.hpp>
-#include <LDtkLoader/World.hpp>
+#include <LDtkLoader/Project.hpp>
 
 #include <iostream>
 
 int main() {
     // declare a LDtk World
-    ldtk::World world;
+    ldtk::Project ldtk_project;
 
     // load the LDtk World from file
     try {
-        world.loadFromFile("assets/level.ldtk");
+        ldtk_project.loadFromFile("assets/level.ldtk");
     }
     catch (std::exception& ex) {
         std::cerr << ex.what() << std::endl;
         return 1;
     }
+
+    // get the world
+    const auto& world = ldtk_project.getWorld();
 
     // get the level and the layer we want to render
     const auto& level = world.getLevel("Level");
