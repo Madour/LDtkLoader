@@ -15,8 +15,11 @@ A taste of simplicity :
 
 ```c++
 // load the file
-ldtk::World world;
-world.loadFromFile("my_levels.ldtk");
+ldtk::Project ldtk_project;
+ldtk_project.loadFromFile("my_project.ldtk");
+
+// get a world
+const auto& world = ldtk_project.getWorld("MyWorld");
 
 // get a level
 const auto& level1 = world.getLevel("Level1");

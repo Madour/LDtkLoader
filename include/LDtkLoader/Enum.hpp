@@ -10,7 +10,6 @@
 
 namespace ldtk {
 
-    class World;
     class Enum;
     class Tileset;
 
@@ -35,7 +34,7 @@ namespace ldtk {
     bool operator!=(const EnumValue& l, const EnumValue& r);
 
     class Enum : public TagsContainer {
-        friend World;
+        friend class Project;
 
     public:
         Enum(const Enum&) = delete;
@@ -50,7 +49,7 @@ namespace ldtk {
         auto hasIcons() const -> bool;
         auto getIconsTileset() const -> const Tileset&;
 
-        Enum(const nlohmann::json& j, const World* w);
+        explicit Enum(const nlohmann::json& j);
 
     private:
         const int m_tileset_id;

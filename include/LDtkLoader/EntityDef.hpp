@@ -11,7 +11,7 @@
 
 namespace ldtk {
 
-    class World;
+    class Project;
 
     class EntityDef : public TagsContainer {
     public:
@@ -23,7 +23,7 @@ namespace ldtk {
         const Tileset* tileset;
         const IntRect texture_rect;
 
-        EntityDef(const nlohmann::json& j, World* w);
+        EntityDef(const nlohmann::json& j, Project* p);
     };
 
 }
