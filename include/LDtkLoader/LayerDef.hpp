@@ -11,11 +11,10 @@
 
 namespace ldtk {
 
-    class World;
-    class Layer;
+    class Project;
 
     class LayerDef {
-        friend Layer;
+        friend class Layer;
 
     public:
         const LayerType type;
@@ -26,7 +25,7 @@ namespace ldtk {
         const IntPoint offset;
         const FloatPoint tile_pivot;
 
-        LayerDef(const nlohmann::json& j, World* w);
+        LayerDef(const nlohmann::json& j, Project* p);
 
     private:
         const Tileset* m_tileset = nullptr;

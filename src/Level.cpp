@@ -19,22 +19,8 @@ position(j["worldX"].get<int>(), j["worldY"].get<int>()),
 bg_color(j["__bgColor"].get<std::string>()),
 depth(j["worldDepth"].get<int>())
 {
-    std::unique_ptr<nlohmann::json> pjl = nullptr;
-
-    // check if level is external and open it if so
-    if (!j["externalRelPath"].is_null()) {
-        std::ifstream in(w->getFilePath().directory() + j["externalRelPath"].get<std::string>());
-        if (in.fail()) {
-            ldtk_error("Failed to open file \"" + j["externalRelPath"].get<std::string>() + "\" : " + strerror(errno));
-        }
-        pjl.reset(new nlohmann::json());
-        in >> *pjl;
-    }
-
-    const auto& jl = (pjl == nullptr ? j : *pjl);
-
-    m_layers.reserve(jl["layerInstances"].size());
-    for (const auto& level : jl["layerInstances"]) {
+    m_layers.reserve(j["layerInstances"].size());
+    for (const auto& level : j["layerInstances"]) {
         m_layers.emplace_back(level, w, this);
     }
 

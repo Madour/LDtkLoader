@@ -14,6 +14,7 @@
 
 namespace ldtk {
 
+    class Project;
 
     class World {
     public:
@@ -22,9 +23,9 @@ namespace ldtk {
         World(World&&) = default;
         auto operator=(const World&) -> World& = delete;
 
-        void loadFromFile(const std::string& filepath);
+        const std::string iid;
 
-        auto getFilePath() const -> const FilePath&;
+        auto getName() const -> const std::string&;
 
         auto getDefaultPivot() const -> const FloatPoint&;
 
@@ -51,19 +52,13 @@ namespace ldtk {
         auto getLevel(int id) const -> const Level&;
         auto getLevel(const std::string& name) const -> const Level&;
 
+        World(const nlohmann::json& j, Project* p, bool external_levels);
+
     private:
-        FilePath m_file_path;
-        FloatPoint m_default_pivot;
-        int m_default_cell_size = 0;
-        Color m_background_color;
+        Project* m_project;
+        std::string m_name;
 
         WorldLayout m_layout = WorldLayout::Free;
-
-        std::vector<Tileset> m_tilesets;
-        std::vector<LayerDef> m_layers_defs;
-        std::vector<EntityDef> m_entities_defs;
-        std::vector<Enum> m_enums;
-
         std::vector<Level> m_levels;
     };
 
