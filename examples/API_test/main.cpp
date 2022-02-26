@@ -1,12 +1,12 @@
 // Created by Modar Nasser on 28/01/2021.
 
 #include <iostream>
-#include "LDtkLoader/World.hpp"
+#include "LDtkLoader/Project.hpp"
 
 int main() {
-    ldtk::World world;
+    ldtk::Project ldtk_project;
     try {
-        world.loadFromFile("all_features.ldtk");
+        ldtk_project.loadFromFile("all_features.ldtk");
     }
     catch (std::exception& ex) {
         std::cerr << ex.what() << std::endl;
