@@ -6,10 +6,10 @@
 #include <vector>
 
 #include "LDtkLoader/thirdparty/json.hpp"
+#include "LDtkLoader/defs/EntityDef.hpp"
+#include "LDtkLoader/defs/LayerDef.hpp"
 #include "LDtkLoader/DataTypes.hpp"
-#include "LDtkLoader/EntityDef.hpp"
 #include "LDtkLoader/Enum.hpp"
-#include "LDtkLoader/LayerDef.hpp"
 #include "LDtkLoader/Level.hpp"
 #include "LDtkLoader/Tileset.hpp"
 #include "LDtkLoader/World.hpp"

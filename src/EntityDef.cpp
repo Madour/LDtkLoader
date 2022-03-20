@@ -1,6 +1,6 @@
 // Created by Modar Nasser on 16/11/2020.
 
-#include "LDtkLoader/EntityDef.hpp"
+#include "LDtkLoader/defs/EntityDef.hpp"
 #include "LDtkLoader/Project.hpp"
 
 using namespace ldtk;

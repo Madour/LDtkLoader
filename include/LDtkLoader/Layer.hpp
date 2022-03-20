@@ -5,8 +5,8 @@
 #include <string>
 
 #include "LDtkLoader/thirdparty/json.hpp"
+#include "LDtkLoader/defs/LayerDef.hpp"
 #include "LDtkLoader/DataTypes.hpp"
-#include "LDtkLoader/LayerDef.hpp"
 #include "LDtkLoader/Tile.hpp"
 #include "LDtkLoader/Tileset.hpp"
 #include "LDtkLoader/Entity.hpp"
