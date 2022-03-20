@@ -29,6 +29,7 @@ namespace ldtk {
     struct Rect {
         Rect() : x(0), y(0), width(0), height(0) {}
         Rect(T x, T y, T w, T h) : x(x), y(y), width(w), height(h) {}
+        Rect(const Point<T>& pos, const Point<T>& size) : x(pos.x), y(pos.y), width(size.x), height(size.y) {}
         T x; T y;
         T width; T height;
     };

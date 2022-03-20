@@ -29,6 +29,7 @@ namespace ldtk {
 
     private:
         const Tileset* m_tileset = nullptr;
+        const Tileset* m_auto_tileset = nullptr;        // tileset for Auto layers based on a grid layer
         std::map<int, IntGridValue> m_intgrid_values;
     };
 

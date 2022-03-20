@@ -12,12 +12,12 @@ Level::Level(const nlohmann::json& j, World* w) :
 FieldsContainer(j["fieldInstances"], w),
 world(w),
 name(j["identifier"].get<std::string>()),
-iid(j["iid"].get<std::string>()),
+iid(j.contains("iid") ? j["iid"].get<std::string>() : name),
 uid(j["uid"].get<int>()),
 size(j["pxWid"].get<int>(), j["pxHei"].get<int>()),
 position(j["worldX"].get<int>(), j["worldY"].get<int>()),
 bg_color(j["__bgColor"].get<std::string>()),
-depth(j["worldDepth"].get<int>())
+depth(j.contains("worldDepth") ? j["worldDepth"].get<int>() : 0)
 {
     m_layers.reserve(j["layerInstances"].size());
     for (const auto& level : j["layerInstances"]) {
