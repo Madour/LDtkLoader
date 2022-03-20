@@ -6,7 +6,7 @@
 using namespace ldtk;
 
 Tileset::Tileset(const nlohmann::json& j, Project* p) :
-TagsContainer(j["tags"]),
+TagsContainer(j.contains("tags") ? j["tags"] : nlohmann::json{}),
 name(j["identifier"].get<std::string>()),
 uid(j["uid"].get<int>()),
 path(j["relPath"].is_null() ? "" : j["relPath"].get<std::string>()),

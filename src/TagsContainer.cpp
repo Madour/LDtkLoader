@@ -6,7 +6,7 @@
 using namespace ldtk;
 
 TagsContainer::TagsContainer(const nlohmann::json& j) :
-m_tags(j.get<std::vector<std::string>>())
+m_tags(j.empty() ? std::vector<std::string>{} : j.get<std::vector<std::string>>())
 {}
 
 auto TagsContainer::hasTag(const std::string& tag) const -> bool {
