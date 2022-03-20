@@ -6,6 +6,7 @@
 
 #include "LDtkLoader/thirdparty/json.hpp"
 #include "LDtkLoader/containers/TagsContainer.hpp"
+#include "LDtkLoader/defs/FieldDef.hpp"
 #include "LDtkLoader/DataTypes.hpp"
 #include "LDtkLoader/Tileset.hpp"
 
@@ -22,6 +23,7 @@ namespace ldtk {
         const FloatPoint pivot;
         const Tileset* tileset;
         const IntRect texture_rect;
+        std::vector<FieldDef> fields;
 
         EntityDef(const nlohmann::json& j, Project* p);
     };

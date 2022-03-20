@@ -9,6 +9,7 @@
 #include "LDtkLoader/thirdparty/json.hpp"
 #include "LDtkLoader/containers/FieldsContainer.hpp"
 #include "LDtkLoader/defs/EntityDef.hpp"
+#include "LDtkLoader/defs/FieldDef.hpp"
 #include "LDtkLoader/DataTypes.hpp"
 #include "LDtkLoader/Enum.hpp"
 #include "LDtkLoader/Utils.hpp"
@@ -38,6 +39,8 @@ namespace ldtk {
 
         auto hasTag(const std::string& tag) const -> bool;
         auto getTags() const -> const std::vector<std::string>&;
+
+        auto allFields() const -> const std::vector<FieldDef>&;
 
         explicit Entity(const nlohmann::json& j, const World* w);
 
