@@ -18,7 +18,6 @@ namespace ldtk {
 
     class World {
     public:
-        World() = default;
         World(const World&) = delete;
         World(World&&) = default;
         auto operator=(const World&) -> World& = delete;
