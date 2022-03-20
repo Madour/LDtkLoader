@@ -7,6 +7,7 @@
 #include <unordered_map>
 #include "LDtkLoader/thirdparty/optional.hpp"
 #include "LDtkLoader/thirdparty/json.hpp"
+#include "LDtkLoader/defs/FieldDef.hpp"
 #include "LDtkLoader/DataTypes.hpp"
 #include "LDtkLoader/Utils.hpp"
 
@@ -77,6 +78,9 @@ namespace ldtk {
         template <typename T>
         auto getField(const std::string& name) const -> const Field<T>&;
 
+        template <FieldType T>
+        auto getField(const std::string& name) const -> const Field<getFieldType<T>>&;
+
         template <typename T>
         void addArrayField(const std::string& name, const std::vector<Field<T>>& field);
 
@@ -85,6 +89,9 @@ namespace ldtk {
 
         template <typename T>
         auto getArrayField(const std::string& name) const -> const ArrayField<T>&;
+
+        template <FieldType T>
+        auto getArrayField(const std::string& name) const -> const ArrayField<getFieldType<T>>&;
 
     protected:
         FieldsContainer(const nlohmann::json& j, const World* w);
@@ -123,6 +130,11 @@ namespace ldtk {
         ldtk_error("Field \"" + name + "\" does not exist.");
     }
 
+    template <FieldType T>
+    auto FieldsContainer::getField(const std::string& name) const -> const Field<getFieldType<T>>& {
+        return getField<getFieldType<T>>(name);
+    }
+
     template <typename T>
     void FieldsContainer::addArrayField(const std::string& name, const std::vector<Field<T>>& field) {
         auto* new_field = new ArrayField<T>(field);
@@ -147,6 +159,11 @@ namespace ldtk {
             ldtk_error("ArrayField \"" + name + "\" is not of type " + typeid(T).name() + ".");
         }
         ldtk_error("ArrayField \"" + name + "\" does not exist.");
+    }
+
+    template <FieldType T>
+    auto FieldsContainer::getArrayField(const std::string& name) const -> const ArrayField<getFieldType<T>>& {
+        return getArrayField<getFieldType<T>>(name);
     }
 
 }
