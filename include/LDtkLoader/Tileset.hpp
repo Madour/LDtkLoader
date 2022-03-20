@@ -9,7 +9,7 @@
 #include "LDtkLoader/thirdparty/json.hpp"
 #include "LDtkLoader/DataTypes.hpp"
 #include "LDtkLoader/Enum.hpp"
-#include "LDtkLoader/TagsContainer.hpp"
+#include "LDtkLoader/containers/TagsContainer.hpp"
 
 namespace ldtk {
 

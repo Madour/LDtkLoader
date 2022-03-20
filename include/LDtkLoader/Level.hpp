@@ -7,9 +7,9 @@
 #include <map>
 
 #include "LDtkLoader/thirdparty/json.hpp"
+#include "LDtkLoader/containers/FieldsContainer.hpp"
 #include "LDtkLoader/DataTypes.hpp"
 #include "LDtkLoader/Layer.hpp"
-#include "LDtkLoader/FieldsContainer.hpp"
 
 namespace ldtk {
 

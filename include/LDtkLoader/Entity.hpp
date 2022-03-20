@@ -7,10 +7,10 @@
 #include <iostream>
 #include <unordered_map>
 #include "LDtkLoader/thirdparty/json.hpp"
+#include "LDtkLoader/containers/FieldsContainer.hpp"
+#include "LDtkLoader/defs/EntityDef.hpp"
 #include "LDtkLoader/DataTypes.hpp"
 #include "LDtkLoader/Enum.hpp"
-#include "LDtkLoader/FieldsContainer.hpp"
-#include "LDtkLoader/EntityDef.hpp"
 #include "LDtkLoader/Utils.hpp"
 
 namespace ldtk {

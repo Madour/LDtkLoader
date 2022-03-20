@@ -2,7 +2,7 @@
 
 #include <iostream>
 
-#include "LDtkLoader/LayerDef.hpp"
+#include "LDtkLoader/defs/LayerDef.hpp"
 #include "LDtkLoader/Project.hpp"
 
 using namespace ldtk;

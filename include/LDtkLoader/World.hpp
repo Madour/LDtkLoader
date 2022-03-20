@@ -5,10 +5,11 @@
 #include <string>
 
 #include "LDtkLoader/thirdparty/json.hpp"
+
+#include "LDtkLoader/defs/LayerDef.hpp"
+#include "LDtkLoader/defs/EntityDef.hpp"
 #include "LDtkLoader/DataTypes.hpp"
 #include "LDtkLoader/Tileset.hpp"
-#include "LDtkLoader/LayerDef.hpp"
-#include "LDtkLoader/EntityDef.hpp"
 #include "LDtkLoader/Level.hpp"
 #include "LDtkLoader/Enum.hpp"
 
