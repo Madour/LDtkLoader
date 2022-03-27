@@ -36,32 +36,32 @@ namespace ldtk {
             return !optional<T>::has_value();
         }
 
-        constexpr operator ArrayField<T>&() const {
+        operator const ArrayField<T>&() const {
             throw std::runtime_error("Cannot convert ldtk::Field<T> to ldtk::ArrayField<T>");
-            //return ArrayField<T>(std::vector<Field<T>>(*this));
+            return ArrayField<T>(std::vector<Field<T>>(*this));
         }
 
     };
 
     template <class T>
-    constexpr bool operator==(const Field<T>& lhs, const T& rhs) {
+    bool operator==(const Field<T>& lhs, const T& rhs) {
         if (lhs.is_null()) return false;
         return (lhs.value() == rhs);
     }
 
     template <class T>
-    constexpr bool operator==(const T& lhs, const Field<T>& rhs) {
+    bool operator==(const T& lhs, const Field<T>& rhs) {
         if (rhs.is_null()) return false;
         return (rhs.value() == lhs);
     }
 
     template <class T>
-    constexpr bool operator!=(const Field<T>& lhs, const T& rhs) {
+    bool operator!=(const Field<T>& lhs, const T& rhs) {
         return !(lhs == rhs);
     }
 
     template <class T>
-    constexpr bool operator!=(const T& lhs, const Field<T>& rhs) {
+    bool operator!=(const T& lhs, const Field<T>& rhs) {
         return !(lhs == rhs);
     }
 
@@ -71,9 +71,9 @@ namespace ldtk {
         ArrayField() = default;
         explicit ArrayField(const std::vector<Field<T>>& vals) : std::vector<Field<T>>(vals) {}
 
-        constexpr operator Field<T>&() const {
+        operator const Field<T>&() const {
             throw std::runtime_error("Cannot convert ldtk::ArrayField<T> to ldtk::Field<T>");
-            // return this->at(0);
+            return this->at(0);
         }
     };
 }
