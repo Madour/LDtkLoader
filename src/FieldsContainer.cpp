@@ -112,7 +112,7 @@ void FieldsContainer::parseFields(const nlohmann::json& j, const World* w) {
                 addArrayField(field_name, values);
             }
         }
-            // simple fields
+        // simple fields
         else if (field_type == "Int") {
             if (field_value.is_null())
                 addField<int>(field_name, null);
