@@ -4,13 +4,13 @@
 
 #include <map>
 #include <string>
+#include <vector>
 
 #include "LDtkLoader/thirdparty/json.hpp"
 #include "LDtkLoader/DataTypes.hpp"
 #include "LDtkLoader/Tileset.hpp"
 
 namespace ldtk {
-
     enum class FieldType {
         Int,
         Float,
@@ -39,27 +39,32 @@ namespace ldtk {
         std::string name;
     };
 
-    template<FieldType> struct field_type_;
-    template<> struct field_type_<FieldType::Int> { using type = int; };
-    template<> struct field_type_<FieldType::ArrayInt> { using type = int; };
-    template<> struct field_type_<FieldType::Float> { using type = float; };
-    template<> struct field_type_<FieldType::ArrayFloat> { using type = float; };
-    template<> struct field_type_<FieldType::Bool> { using type = bool; };
-    template<> struct field_type_<FieldType::ArrayBool> { using type = bool; };
-    template<> struct field_type_<FieldType::String> { using type = std::string; };
-    template<> struct field_type_<FieldType::ArrayString> { using type = std::string; };
-    template<> struct field_type_<FieldType::Color> { using type = Color; };
-    template<> struct field_type_<FieldType::ArrayColor> { using type = Color; };
-    template<> struct field_type_<FieldType::Point> { using type = IntPoint; };
-    template<> struct field_type_<FieldType::ArrayPoint> { using type = IntPoint; };
-    template<> struct field_type_<FieldType::Enum> { using type = EnumValue; };
-    template<> struct field_type_<FieldType::ArrayEnum> { using type = EnumValue; };
-    template<> struct field_type_<FieldType::FilePath> { using type = FilePath; };
-    template<> struct field_type_<FieldType::ArrayFilePath> { using type = FilePath; };
-    template<> struct field_type_<FieldType::EntityRef> { using type = EntityRef; };
-    template<> struct field_type_<FieldType::ArrayEntityRef> { using type = EntityRef; };
+    template <typename T>
+    struct Field;
+    template <typename T>
+    struct ArrayField;
+
+    template<FieldType> struct field_type_from_enum_;
+    template<> struct field_type_from_enum_<FieldType::Int>       { using type = Field<int>; };
+    template<> struct field_type_from_enum_<FieldType::Float>     { using type = Field<float>; };
+    template<> struct field_type_from_enum_<FieldType::Bool>      { using type = Field<bool>; };
+    template<> struct field_type_from_enum_<FieldType::String>    { using type = Field<std::string>; };
+    template<> struct field_type_from_enum_<FieldType::Color>     { using type = Field<Color>; };
+    template<> struct field_type_from_enum_<FieldType::Point>     { using type = Field<IntPoint>; };
+    template<> struct field_type_from_enum_<FieldType::Enum>      { using type = Field<EnumValue>; };
+    template<> struct field_type_from_enum_<FieldType::FilePath>  { using type = Field<FilePath>;  };
+    template<> struct field_type_from_enum_<FieldType::EntityRef> { using type = Field<EntityRef>; };
+
+    template<> struct field_type_from_enum_<FieldType::ArrayInt>      { using type = ArrayField<int>; };
+    template<> struct field_type_from_enum_<FieldType::ArrayFloat>    { using type = ArrayField<float>; };
+    template<> struct field_type_from_enum_<FieldType::ArrayBool>     { using type = ArrayField<bool>; };
+    template<> struct field_type_from_enum_<FieldType::ArrayString>   { using type = ArrayField<std::string>; };
+    template<> struct field_type_from_enum_<FieldType::ArrayColor>    { using type = ArrayField<Color>; };
+    template<> struct field_type_from_enum_<FieldType::ArrayPoint>    { using type = ArrayField<IntPoint>; };
+    template<> struct field_type_from_enum_<FieldType::ArrayEnum>     { using type = ArrayField<EnumValue>; };
+    template<> struct field_type_from_enum_<FieldType::ArrayFilePath> { using type = ArrayField<FilePath>; };
+    template<> struct field_type_from_enum_<FieldType::ArrayEntityRef> { using type = ArrayField<EntityRef>; };
 
     template<FieldType T>
-    using getFieldType = typename field_type_<T>::type;
-
+    using getFieldType = typename field_type_from_enum_<T>::type;
 }
