@@ -25,6 +25,9 @@ namespace ldtk {
 
     template <typename T>
     struct Field : IField, private optional<T> {
+    private:
+        static ArrayField<T> m_dummy;
+    public:
         using value_type = T;
 
         using optional<T>::optional;
@@ -38,10 +41,12 @@ namespace ldtk {
 
         operator const ArrayField<T>&() const {
             throw std::runtime_error("Cannot convert ldtk::Field<T> to ldtk::ArrayField<T>");
-            return ArrayField<T>(std::vector<Field<T>>(*this));
+            return m_dummy;
         }
-
     };
+
+    template <typename T>
+    ArrayField<T> Field<T>::m_dummy;
 
     template <class T>
     bool operator==(const Field<T>& lhs, const T& rhs) {
