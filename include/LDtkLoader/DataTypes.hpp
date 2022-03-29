@@ -102,11 +102,15 @@ namespace ldtk {
         auto extension() const -> std::string;
     };
 
+    struct IID : std::string {
+        using std::string::basic_string;
+    };
+
     struct EntityRef {
-        std::string entity_iid;
-        std::string layer_iid;
-        std::string level_iid;
-        std::string world_iid;
+        IID entity_iid;
+        IID layer_iid;
+        IID level_iid;
+        IID world_iid;
     };
 }
 

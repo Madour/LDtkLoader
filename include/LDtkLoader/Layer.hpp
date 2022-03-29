@@ -23,7 +23,7 @@ namespace ldtk {
         auto operator=(const Layer&) -> Layer& = delete;
 
         const Level* level = nullptr;
-        const std::string iid;
+        const IID iid;
 
         auto getType() const -> const LayerType&;
         auto getName() const -> const std::string&;
