@@ -33,7 +33,7 @@ namespace ldtk {
         const World* world;
 
         const std::string name;
-        const std::string iid;
+        const IID iid;
         const int uid;
         const IntPoint size;
         const IntPoint position;
