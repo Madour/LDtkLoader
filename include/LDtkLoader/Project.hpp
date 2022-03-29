@@ -48,6 +48,7 @@ namespace ldtk {
         auto allWorlds() const -> const std::vector<World>&;
         auto getWorld() const -> const World&;
         auto getWorld(const std::string& name) const -> const World&;
+        auto getWorld(const IID& iid) const -> const World&;
 
     private:
         FilePath m_file_path;

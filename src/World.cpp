@@ -128,3 +128,10 @@ auto World::getLevel(const std::string& name) const -> const Level& {
             return level;
     ldtk_error("Level name \""+name+"\" not found in World \""+m_name+"\".");
 }
+
+auto World::getLevel(const IID& level_iid) const -> const Level& {
+    for (const auto& level : m_levels)
+        if (level.iid == level_iid)
+            return level;
+    ldtk_error("Level with IID \""+level_iid.str()+"\" not found in World \""+m_name+"\".");
+}
