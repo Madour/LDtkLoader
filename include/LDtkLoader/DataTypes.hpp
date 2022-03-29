@@ -102,9 +102,14 @@ namespace ldtk {
         auto extension() const -> std::string;
     };
 
-    struct IID : std::string {
-        using std::string::basic_string;
+    struct IID {
+        explicit IID(std::string iid);
+        auto str() const -> const std::string&;
+    private:
+        std::string m_iid;
     };
+
+    bool operator==(const IID& lhs, const IID& rhs);
 
     struct EntityRef {
         IID entity_iid;
@@ -126,3 +131,4 @@ auto operator<<(std::ostream& os, const ldtk::Rect<T>& rect) -> std::ostream& {
 }
 auto operator<<(std::ostream& os, const ldtk::Color& col) -> std::ostream&;
 auto operator<<(std::ostream& os, const ldtk::FilePath& fp) -> std::ostream&;
+auto operator<<(std::ostream& os, const ldtk::IID& fp) -> std::ostream&;

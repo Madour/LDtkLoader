@@ -9,7 +9,7 @@ using namespace ldtk;
 
 Layer::Layer(const nlohmann::json& j, const World* w, const Level* l) :
 level(l),
-iid(j.contains("iid") ? j["iid"].get<IID>() : ""),
+iid(j.contains("iid") ? j["iid"].get<std::string>() : ""),
 m_definition(&w->getLayerDef(j["layerDefUid"].get<int>())),
 m_visible(j["visible"].get<bool>()),
 m_total_offset(j["__pxTotalOffsetX"].get<int>(), j["__pxTotalOffsetY"].get<int>()),
@@ -140,6 +140,13 @@ auto Layer::getEntitiesByTag(const std::string& tag) const -> const std::vector<
         return m_entities_by_tag.at(tag);
     else
         return m_entities_by_tag[tag];
+}
+
+auto Layer::getEntity(const IID& entity_iid) const -> const Entity& {
+    for (const auto& entity : m_entities)
+        if (entity.iid == entity_iid)
+            return entity;
+    ldtk_error("Entity with IID \""+entity_iid.str()+"\" not found in Layer \""+getName()+"\".");
 }
 
 auto Layer::getCoordIdAt(int x, int y) const -> int {

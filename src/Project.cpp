@@ -170,3 +170,10 @@ auto Project::getWorld(const std::string& name) const -> const World& {
             return world;
     ldtk_error("World name \""+name+"\" not found in Project \""+getFilePath().c_str()+"\".");
 }
+
+auto Project::getWorld(const IID& iid) const -> const World& {
+    for (const auto& world : m_worlds)
+        if (world.iid == iid)
+            return world;
+    ldtk_error("World with IID \""+iid.str()+"\" not found in Project \""+getFilePath().c_str()+"\".");
+}

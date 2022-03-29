@@ -49,6 +49,7 @@ namespace ldtk {
         auto allEntities() const -> const std::vector<Entity>&;
         auto getEntitiesByName(const std::string& entity_name) const -> const std::vector<std::reference_wrapper<Entity>>&;
         auto getEntitiesByTag(const std::string& tag) const -> const std::vector<std::reference_wrapper<Entity>>&;
+        auto getEntity(const IID& entity_iid) const -> const Entity&;
 
         auto getCoordIdAt(int x, int y) const -> int;
 

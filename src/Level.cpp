@@ -12,7 +12,7 @@ Level::Level(const nlohmann::json& j, World* w) :
 FieldsContainer(j["fieldInstances"], w),
 world(w),
 name(j["identifier"].get<std::string>()),
-iid(j.contains("iid") ? j["iid"].get<IID>() : ""),
+iid(j.contains("iid") ? j["iid"].get<std::string>() : ""),
 uid(j["uid"].get<int>()),
 size(j["pxWid"].get<int>(), j["pxHei"].get<int>()),
 position(j["worldX"].get<int>(), j["worldY"].get<int>()),
@@ -60,6 +60,13 @@ auto Level::getLayer(const std::string& layer_name) const -> const Layer& {
         if (layer.getName() == layer_name)
             return layer;
     ldtk_error("Layer name \""+layer_name+"\" not found in Level \""+name+"\".");
+}
+
+auto Level::getLayer(const IID& layer_iid) const -> const Layer& {
+    for (const auto& layer : m_layers)
+        if (layer.iid == layer_iid)
+            return layer;
+    ldtk_error("Layer with IID \""+layer_iid.str()+"\" not found in Level \""+name+"\".");
 }
 
 auto Level::hasBgImage() const -> bool {
