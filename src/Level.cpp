@@ -12,7 +12,7 @@ Level::Level(const nlohmann::json& j, World* w) :
 FieldsContainer(j["fieldInstances"], w),
 world(w),
 name(j["identifier"].get<std::string>()),
-iid(j.contains("iid") ? j["iid"].get<std::string>() : name),
+iid(j.contains("iid") ? j["iid"].get<IID>() : ""),
 uid(j["uid"].get<int>()),
 size(j["pxWid"].get<int>(), j["pxHei"].get<int>()),
 position(j["worldX"].get<int>(), j["worldY"].get<int>()),
