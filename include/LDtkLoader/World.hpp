@@ -23,7 +23,7 @@ namespace ldtk {
         World(World&&) = default;
         auto operator=(const World&) -> World& = delete;
 
-        const std::string iid;
+        const IID iid;
 
         auto getName() const -> const std::string&;
 
@@ -51,6 +51,7 @@ namespace ldtk {
         auto allLevels() const -> const std::vector<Level>&;
         auto getLevel(int id) const -> const Level&;
         auto getLevel(const std::string& name) const -> const Level&;
+        auto getLevel(const IID& iid) const -> const Level&;
 
         World(const nlohmann::json& j, Project* p, bool external_levels);
 

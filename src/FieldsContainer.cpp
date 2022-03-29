@@ -105,8 +105,8 @@ void FieldsContainer::parseFields(const nlohmann::json& j, const World* w) {
                         values.emplace_back(null);
                     else
                         values.emplace_back(EntityRef{
-                            v["entityIid"].get<IID>(), v["layerIid"].get<IID>(),
-                            v["levelIid"].get<IID>(), v["worldIid"].get<IID>()
+                            IID(v["entityIid"].get<std::string>()), IID(v["layerIid"].get<std::string>()),
+                            IID(v["levelIid"].get<std::string>()), IID(v["worldIid"].get<std::string>())
                         });
                 }
                 addArrayField(field_name, values);
@@ -166,10 +166,10 @@ void FieldsContainer::parseFields(const nlohmann::json& j, const World* w) {
             if (field_value.is_null())
                 addField<EntityRef>(field_name, null);
             else
-                addField<EntityRef>(field_name, {field_value["entityIid"].get<IID>(),
-                                                 field_value["layerIid"].get<IID>(),
-                                                 field_value["levelIid"].get<IID>(),
-                                                 field_value["worldIid"].get<IID>()});
+                addField<EntityRef>(field_name, {IID(field_value["entityIid"].get<std::string>()),
+                                                 IID(field_value["layerIid"].get<std::string>()),
+                                                 IID(field_value["levelIid"].get<std::string>()),
+                                                 IID(field_value["worldIid"].get<std::string>())});
         }
     }
 }

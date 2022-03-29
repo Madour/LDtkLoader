@@ -42,6 +42,7 @@ namespace ldtk {
 
         auto allLayers() const -> const std::vector<Layer>&;
         auto getLayer(const std::string& layer_name) const -> const Layer&;
+        auto getLayer(const IID& layer_name) const -> const Layer&;
 
         auto hasBgImage() const -> bool;
         auto getBgImage() const -> const BgImage&;

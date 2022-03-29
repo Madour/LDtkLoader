@@ -2,6 +2,8 @@
 
 #include "LDtkLoader/DataTypes.hpp"
 
+#include <utility>
+
 using namespace ldtk;
 
 Color::Color(unsigned int red, unsigned int green, unsigned int blue, unsigned int alpha) :
@@ -55,6 +57,17 @@ auto ldtk::FilePath::extension() const -> std::string {
     return f.substr(i+1);
 }
 
+IID::IID(std::string  iid): m_iid(std::move(iid))
+{}
+
+auto IID::str() const -> const std::string& {
+    return m_iid;
+}
+
+bool ldtk::operator==(const IID& lhs, const IID& rhs) {
+    return lhs.str() == rhs.str();
+}
+
 auto operator<<(std::ostream& os, const ldtk::Color& col) -> std::ostream& {
     os << "rgb(" << (int)col.r << ", " << (int)col.g << ", " << (int)col.b << ")";
     return os;
@@ -63,5 +76,10 @@ auto operator<<(std::ostream& os, const ldtk::Color& col) -> std::ostream& {
 
 auto operator<<(std::ostream& os, const ldtk::FilePath& fp) -> std::ostream& {
     os << fp.c_str();
+    return os;
+}
+
+auto operator<<(std::ostream& os, const ldtk::IID& iid) -> std::ostream& {
+    os << iid.str();
     return os;
 }
