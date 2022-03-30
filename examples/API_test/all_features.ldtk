@@ -5,11 +5,11 @@
 		"doc": "https://ldtk.io/json",
 		"schema": "https://ldtk.io/files/JSON_SCHEMA.json",
 		"appAuthor": "Sebastien 'deepnight' Benard",
-		"appVersion": "0.10.0-beta3",
+		"appVersion": "1.0.0",
 		"url": "https://ldtk.io"
 	},
-	"jsonVersion": "0.10.0-beta3",
-	"appBuildId": 457078,
+	"jsonVersion": "1.0.0",
+	"appBuildId": 457931,
 	"nextUid": 52,
 	"identifierStyle": "Capitalize",
 	"worldLayout": "LinearVertical",
@@ -378,6 +378,7 @@
 			"tileId": 38,
 			"tileRenderMode": "FitInside",
 			"tileRect": { "tilesetUid": 50, "x": 96, "y": 32, "w": 32, "h": 32 },
+			"nineSliceBorders": [],
 			"maxCount": 0,
 			"limitScope": "PerLevel",
 			"limitBehavior": "DiscardOldOnes",
@@ -533,7 +534,7 @@
 					"identifier": "Enum",
 					"__type": "LocalEnum.SomeEnum",
 					"uid": 22,
-					"type": { "id": "F_Enum", "params": [21] },
+					"type": "F_Enum(21)",
 					"isArray": false,
 					"canBeNull": false,
 					"arrayMinLength": null,
@@ -678,7 +679,7 @@
 					"identifier": "Array_Enum",
 					"__type": "Array<LocalEnum.SomeEnum>",
 					"uid": 29,
-					"type": { "id": "F_Enum", "params": [21] },
+					"type": "F_Enum(21)",
 					"isArray": true,
 					"canBeNull": false,
 					"arrayMinLength": null,
@@ -812,6 +813,7 @@
 			"tileId": null,
 			"tileRenderMode": "FitInside",
 			"tileRect": null,
+			"nineSliceBorders": [],
 			"maxCount": 0,
 			"limitScope": "PerLevel",
 			"limitBehavior": "DiscardOldOnes",
@@ -898,6 +900,7 @@
 			"tileId": null,
 			"tileRenderMode": "Stretch",
 			"tileRect": null,
+			"nineSliceBorders": [],
 			"maxCount": 0,
 			"limitScope": "PerLevel",
 			"limitBehavior": "MoveLastOne",
@@ -908,7 +911,7 @@
 					"identifier": "SomeEnum",
 					"__type": "LocalEnum.SomeEnum",
 					"uid": 40,
-					"type": { "id": "F_Enum", "params": [21] },
+					"type": "F_Enum(21)",
 					"isArray": false,
 					"canBeNull": false,
 					"arrayMinLength": null,
@@ -984,6 +987,7 @@
 			"tileId": null,
 			"tileRenderMode": "Stretch",
 			"tileRect": null,
+			"nineSliceBorders": [],
 			"maxCount": 0,
 			"limitScope": "PerLevel",
 			"limitBehavior": "MoveLastOne",
@@ -994,7 +998,7 @@
 					"identifier": "SomeEnum",
 					"__type": "LocalEnum.SomeEnum",
 					"uid": 43,
-					"type": { "id": "F_Enum", "params": [21] },
+					"type": "F_Enum(21)",
 					"isArray": false,
 					"canBeNull": false,
 					"arrayMinLength": null,
@@ -1070,6 +1074,7 @@
 			"tileId": 30,
 			"tileRenderMode": "FitInside",
 			"tileRect": { "tilesetUid": 50, "x": 224, "y": 16, "w": 16, "h": 16 },
+			"nineSliceBorders": [],
 			"maxCount": 0,
 			"limitScope": "PerLevel",
 			"limitBehavior": "MoveLastOne",
@@ -1337,12 +1342,12 @@
 									"entityIid": "a3030e7f-66b0-11ec-9cd7-475e109a2d54",
 									"layerIid": "a3030e77-66b0-11ec-9cd7-0b0cf743a68c",
 									"levelIid": "a3030e70-66b0-11ec-9cd7-3fe74f53b9c3",
-									"worldIid": "49699890-8dc0-11ec-96cf-49d2440c184f"
+									"worldIid": "4da36340-8dc0-11ec-bd9f-53aecb18fbc0"
 								}, {
 									"entityIid": "a3030e80-66b0-11ec-9cd7-2d1f488cc325",
 									"layerIid": "a3030e77-66b0-11ec-9cd7-0b0cf743a68c",
 									"levelIid": "a3030e70-66b0-11ec-9cd7-3fe74f53b9c3",
-									"worldIid": "49699890-8dc0-11ec-96cf-49d2440c184f"
+									"worldIid": "4da36340-8dc0-11ec-bd9f-53aecb18fbc0"
 								} ], "__type": "Array<EntityRef>", "__tile": null, "defUid": 51, "realEditorValues": [ {
 									"id": "V_String",
 									"params": ["a3030e7f-66b0-11ec-9cd7-475e109a2d54"]
@@ -1411,7 +1416,7 @@
 								"entityIid": "d0e23330-66b0-11ec-895f-e701a663b232",
 								"layerIid": "a3030e77-66b0-11ec-9cd7-0b0cf743a68c",
 								"levelIid": "a3030e70-66b0-11ec-9cd7-3fe74f53b9c3",
-								"worldIid": "49699890-8dc0-11ec-96cf-49d2440c184f"
+								"worldIid": "4da36340-8dc0-11ec-bd9f-53aecb18fbc0"
 							}, "__type": "EntityRef", "__tile": null, "defUid": 47, "realEditorValues": [{
 								"id": "V_String",
 								"params": ["d0e23330-66b0-11ec-895f-e701a663b232"]
@@ -1433,7 +1438,7 @@
 								"entityIid": "d1f3a330-66b0-11ec-895f-87022e90e72f",
 								"layerIid": "a3030e77-66b0-11ec-9cd7-0b0cf743a68c",
 								"levelIid": "a3030e70-66b0-11ec-9cd7-3fe74f53b9c3",
-								"worldIid": "49699890-8dc0-11ec-96cf-49d2440c184f"
+								"worldIid": "4da36340-8dc0-11ec-bd9f-53aecb18fbc0"
 							}, "__type": "EntityRef", "__tile": null, "defUid": 47, "realEditorValues": [{
 								"id": "V_String",
 								"params": ["d1f3a330-66b0-11ec-895f-87022e90e72f"]
@@ -1455,7 +1460,7 @@
 								"entityIid": "d08b1280-66b0-11ec-895f-aff95798ac90",
 								"layerIid": "a3030e77-66b0-11ec-9cd7-0b0cf743a68c",
 								"levelIid": "a3030e70-66b0-11ec-9cd7-3fe74f53b9c3",
-								"worldIid": "49699890-8dc0-11ec-96cf-49d2440c184f"
+								"worldIid": "4da36340-8dc0-11ec-bd9f-53aecb18fbc0"
 							}, "__type": "EntityRef", "__tile": null, "defUid": 47, "realEditorValues": [{
 								"id": "V_String",
 								"params": ["d08b1280-66b0-11ec-895f-aff95798ac90"]
