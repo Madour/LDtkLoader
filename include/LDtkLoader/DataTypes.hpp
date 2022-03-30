@@ -111,11 +111,17 @@ namespace ldtk {
 
     bool operator==(const IID& lhs, const IID& rhs);
 
+    class Entity;
     struct EntityRef {
+        EntityRef(IID ent, IID  layer, IID level, IID world);
         IID entity_iid;
         IID layer_iid;
         IID level_iid;
         IID world_iid;
+        auto operator->() const -> const Entity*;
+    private:
+        friend class Project;
+        const Entity* ref = nullptr;
     };
 }
 
