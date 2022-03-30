@@ -5,6 +5,8 @@
 
 using namespace ldtk;
 
+std::vector<EntityRef*> FieldsContainer::tmp_entity_refs_vector;
+
 FieldsContainer::FieldsContainer(const nlohmann::json& j, const World* w) {
     parseFields(j, w);
 }
@@ -100,16 +102,24 @@ void FieldsContainer::parseFields(const nlohmann::json& j, const World* w) {
             }
             else if (field_type == "Array<EntityRef>") {
                 std::vector<Field<EntityRef>> values;
+                values.reserve(field_value.size());
                 for (const auto& v : field_value) {
-                    if (v.is_null())
+                    if (v.is_null()) {
                         values.emplace_back(null);
-                    else
+                    }
+                    else {
                         values.emplace_back(EntityRef{
                             IID(v["entityIid"].get<std::string>()), IID(v["layerIid"].get<std::string>()),
                             IID(v["levelIid"].get<std::string>()), IID(v["worldIid"].get<std::string>())
                         });
+                    }
                 }
                 addArrayField(field_name, values);
+                auto& this_field = *dynamic_cast<ArrayField<EntityRef>*>(m_array_fields.at(field_name));
+                for (auto& ent_ref : this_field) {
+                    tmp_entity_refs_vector.emplace_back(&ent_ref.value());
+                }
+
             }
         }
         // simple fields
@@ -163,13 +173,17 @@ void FieldsContainer::parseFields(const nlohmann::json& j, const World* w) {
                 addField<FilePath>(field_name, field_value.get<std::string>());
         }
         else if (field_type == "EntityRef") {
-            if (field_value.is_null())
+            if (field_value.is_null()) {
                 addField<EntityRef>(field_name, null);
-            else
+            }
+            else {
                 addField<EntityRef>(field_name, {IID(field_value["entityIid"].get<std::string>()),
                                                  IID(field_value["layerIid"].get<std::string>()),
                                                  IID(field_value["levelIid"].get<std::string>()),
                                                  IID(field_value["worldIid"].get<std::string>())});
+                auto& this_field = *dynamic_cast<Field<EntityRef>*>(m_fields.at(field_name));
+                tmp_entity_refs_vector.emplace_back(&this_field.value());
+            }
         }
     }
 }
