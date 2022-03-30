@@ -68,6 +68,17 @@ bool ldtk::operator==(const IID& lhs, const IID& rhs) {
     return lhs.str() == rhs.str();
 }
 
+EntityRef::EntityRef(IID ent, IID  layer, IID level, IID world) :
+entity_iid(std::move(ent)),
+layer_iid(std::move(layer)),
+level_iid(std::move(level)),
+world_iid(std::move(world))
+{}
+
+auto EntityRef::operator->() const -> const Entity* {
+    return ref;
+}
+
 auto operator<<(std::ostream& os, const ldtk::Color& col) -> std::ostream& {
     os << "rgb(" << (int)col.r << ", " << (int)col.g << ", " << (int)col.b << ")";
     return os;

@@ -72,7 +72,14 @@ void Project::loadFromFile(const std::string& filepath) {
         }
     }
 
-    // TODO : resolve EntityRefs using iids
+    // resolve all EntityRefs in the project
+    for (auto* ref : FieldsContainer::tmp_entity_refs_vector) {
+        auto& world = (m_worlds.size() == 1 ? getWorld() : getWorld(ref->world_iid));
+        ref->ref = &world.getLevel(ref->level_iid)
+                         .getLayer(ref->layer_iid)
+                         .getEntity(ref->entity_iid);
+    }
+    FieldsContainer::tmp_entity_refs_vector.clear();
 }
 
 auto Project::getFilePath() const -> const FilePath& {
