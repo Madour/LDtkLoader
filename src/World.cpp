@@ -36,9 +36,9 @@ m_name(j.contains("identifier") ? j["identifier"].get<std::string>() : "")
         nlohmann::json external_level;
         for (const auto& level : j["levels"]) {
             // read then create the external levels
-            std::ifstream in(m_project->getFilePath().directory() + j["externalRelPath"].get<std::string>());
+            std::ifstream in(m_project->getFilePath().directory() + level["externalRelPath"].get<std::string>());
             if (in.fail()) {
-                ldtk_error("Failed to open file \"" + j["externalRelPath"].get<std::string>() + "\" : " + strerror(errno));
+                ldtk_error("Failed to open file \"" + level["externalRelPath"].get<std::string>() + "\" : " + strerror(errno));
             }
             in >> external_level;
             m_levels.emplace_back(external_level, this);
