@@ -5,6 +5,8 @@
 #include "LDtkLoader/Layer.hpp"
 #include "LDtkLoader/World.hpp"
 
+#include "json.hpp"
+
 using namespace ldtk;
 
 Layer::Layer(const nlohmann::json& j, const World* w, const Level* l) :

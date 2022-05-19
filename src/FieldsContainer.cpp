@@ -2,6 +2,7 @@
 
 #include "LDtkLoader/containers/FieldsContainer.hpp"
 #include "LDtkLoader/World.hpp"
+#include "json.hpp"
 
 using namespace ldtk;
 

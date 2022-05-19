@@ -5,7 +5,7 @@
 #include <string>
 #include <vector>
 
-#include "LDtkLoader/thirdparty/json.hpp"
+#include "LDtkLoader/thirdparty/json_fwd.hpp"
 
 namespace ldtk {
     class TagsContainer {

@@ -2,6 +2,7 @@
 
 #include "LDtkLoader/defs/EntityDef.hpp"
 #include "LDtkLoader/Project.hpp"
+#include "json.hpp"
 
 using namespace ldtk;
 

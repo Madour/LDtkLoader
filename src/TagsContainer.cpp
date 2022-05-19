@@ -2,6 +2,7 @@
 
 #include "LDtkLoader/containers/TagsContainer.hpp"
 
+#include "json.hpp"
 
 using namespace ldtk;
 

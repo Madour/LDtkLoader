@@ -2,6 +2,7 @@
 
 #include "LDtkLoader/Tileset.hpp"
 #include "LDtkLoader/Project.hpp"
+#include "json.hpp"
 
 using namespace ldtk;
 

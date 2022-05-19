@@ -6,7 +6,7 @@
 #include <memory>
 #include <iostream>
 #include <unordered_map>
-#include "LDtkLoader/thirdparty/json.hpp"
+#include "LDtkLoader/thirdparty/json_fwd.hpp"
 #include "LDtkLoader/containers/FieldsContainer.hpp"
 #include "LDtkLoader/defs/EntityDef.hpp"
 #include "LDtkLoader/defs/FieldDef.hpp"

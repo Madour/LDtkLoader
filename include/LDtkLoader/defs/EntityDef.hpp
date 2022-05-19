@@ -4,7 +4,7 @@
 
 #include <string>
 
-#include "LDtkLoader/thirdparty/json.hpp"
+#include "LDtkLoader/thirdparty/json_fwd.hpp"
 #include "LDtkLoader/containers/TagsContainer.hpp"
 #include "LDtkLoader/defs/FieldDef.hpp"
 #include "LDtkLoader/DataTypes.hpp"

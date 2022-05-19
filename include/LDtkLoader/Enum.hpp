@@ -3,8 +3,10 @@
 #pragma once
 
 #include <string>
+#include <unordered_map>
 #include <vector>
-#include "LDtkLoader/thirdparty/json.hpp"
+
+#include "LDtkLoader/thirdparty/json_fwd.hpp"
 #include "LDtkLoader/containers/TagsContainer.hpp"
 #include "LDtkLoader/DataTypes.hpp"
 

@@ -7,6 +7,7 @@
 
 #include "LDtkLoader/Project.hpp"
 #include "LDtkLoader/Utils.hpp"
+#include "json.hpp"
 
 using namespace ldtk;
 
