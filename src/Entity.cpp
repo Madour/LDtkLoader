@@ -2,6 +2,7 @@
 
 #include "LDtkLoader/Entity.hpp"
 #include "LDtkLoader/World.hpp"
+#include "json.hpp"
 
 using namespace ldtk;
 

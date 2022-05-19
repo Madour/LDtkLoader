@@ -5,7 +5,6 @@
 #include <string>
 #include <vector>
 
-#include "LDtkLoader/thirdparty/json.hpp"
 #include "LDtkLoader/defs/EntityDef.hpp"
 #include "LDtkLoader/defs/LayerDef.hpp"
 #include "LDtkLoader/DataTypes.hpp"

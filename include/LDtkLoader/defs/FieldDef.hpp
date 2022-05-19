@@ -6,7 +6,7 @@
 #include <string>
 #include <vector>
 
-#include "LDtkLoader/thirdparty/json.hpp"
+#include "LDtkLoader/thirdparty/json_fwd.hpp"
 #include "LDtkLoader/DataTypes.hpp"
 #include "LDtkLoader/Tileset.hpp"
 

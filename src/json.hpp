@@ -3016,7 +3016,8 @@ This type preserves the insertion order of object keys.
     using ordered_json = basic_json<nlohmann::ordered_map>;
 
 }  // namespace nlohmann
-
+#else   // INCLUDE_NLOHMANN_JSON_FWD_HPP_
+#include <LDtkLoader/thirdparty/json_fwd.hpp>
 #endif  // INCLUDE_NLOHMANN_JSON_FWD_HPP_
 
 

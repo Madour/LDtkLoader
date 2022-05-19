@@ -3,7 +3,7 @@
 #include "LDtkLoader/Enum.hpp"
 #include "LDtkLoader/Tileset.hpp"
 #include "LDtkLoader/Utils.hpp"
-
+#include "json.hpp"
 
 using namespace ldtk;
 

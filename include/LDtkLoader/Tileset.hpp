@@ -6,7 +6,7 @@
 #include <unordered_map>
 
 #include "LDtkLoader/thirdparty/optional.hpp"
-#include "LDtkLoader/thirdparty/json.hpp"
+#include "LDtkLoader/thirdparty/json_fwd.hpp"
 #include "LDtkLoader/DataTypes.hpp"
 #include "LDtkLoader/Enum.hpp"
 #include "LDtkLoader/containers/TagsContainer.hpp"
