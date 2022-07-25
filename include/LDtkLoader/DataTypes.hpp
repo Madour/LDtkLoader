@@ -3,6 +3,7 @@
 #pragma once
 
 #include <cstdint>
+#include <functional>
 #include <iostream>
 #include <string>
 
@@ -101,6 +102,8 @@ namespace ldtk {
         auto filename() const -> std::string;
         auto extension() const -> std::string;
     };
+
+    typedef std::function<auto(const std::string&) -> std::string> FileLoader;
 
     struct IID {
         explicit IID(std::string iid);

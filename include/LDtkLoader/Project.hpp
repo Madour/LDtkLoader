@@ -2,13 +2,15 @@
 
 #pragma once
 
-#include <cstdint>
+#include <cstddef>
 #include <string>
 #include <vector>
 
+#include "LDtkLoader/thirdparty/json_fwd.hpp"
+#include "LDtkLoader/thirdparty/optional.hpp"
+
 #include "LDtkLoader/defs/EntityDef.hpp"
 #include "LDtkLoader/defs/LayerDef.hpp"
-#include "LDtkLoader/thirdparty/json_fwd.hpp"
 #include "LDtkLoader/DataTypes.hpp"
 #include "LDtkLoader/Enum.hpp"
 #include "LDtkLoader/Level.hpp"
@@ -24,7 +26,10 @@ namespace ldtk {
         auto operator=(const Project&) -> Project& = delete;
 
         void loadFromFile(const std::string& filepath);
+        void loadFromFile(const std::string& filepath, FileLoader file_loader);
+
         void loadFromMemory(const std::vector<std::uint8_t>& bytes);
+        void loadFromMemory(unsigned char* data, unsigned int size);
 
         auto getFilePath() const -> const FilePath&;
 
@@ -53,7 +58,9 @@ namespace ldtk {
         auto getWorld(const IID& iid) const -> const World&;
 
     private:
-        void load(const nlohmann::json& j);
+        static auto defaultFileLoader(const std::string& filepath) -> std::string;
+
+        void load(const nlohmann::json& j, const std::experimental::optional<FileLoader>& file_loader, bool was_loaded_from_memory);
 
         FilePath m_file_path;
         FloatPoint m_default_pivot;

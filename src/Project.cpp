@@ -3,28 +3,32 @@
 #include "LDtkLoader/Project.hpp"
 
 #include <fstream>
+#include <sstream>
 
 #include "LDtkLoader/World.hpp"
 #include "json.hpp"
 
 using namespace ldtk;
 
-void Project::loadFromFile(const std::string& filepath) {
-    m_file_path = filepath;
-    std::ifstream in(filepath);
-    if (in.fail()) {
-        ldtk_error("Failed to open file \"" + filepath + "\" : " + strerror(errno));
-    }
-    nlohmann::json j;
-    in >> j;
-
-    load(j);
+void ldtk::Project::loadFromFile(const std::string& filepath) {
+    loadFromFile(filepath, defaultFileLoader);
 }
 
-void Project::loadFromMemory(const std::vector<std::uint8_t>& bytes) {
-    const nlohmann::json j = nlohmann::json::parse(bytes.data(), bytes.data() + bytes.size());
+void Project::loadFromFile(const std::string& filepath, FileLoader file_loader) {
+    m_file_path = filepath;
+    nlohmann::json j = nlohmann::json::parse(file_loader(filepath));
 
-    load(j);
+    load(j, file_loader, false);
+}
+
+void ldtk::Project::loadFromMemory(const std::vector<std::uint8_t>& bytes) {
+    nlohmann::json j = nlohmann::json::parse(bytes.data(), bytes.data() + bytes.size());
+    load(j, std::experimental::nullopt, true);
+}
+
+void ldtk::Project::loadFromMemory(unsigned char* data, unsigned int size) {
+    nlohmann::json j = nlohmann::json::parse(data, data + size);
+    load(j, std::experimental::nullopt, true);
 }
 
 auto Project::getFilePath() const -> const FilePath& {
@@ -130,8 +134,20 @@ auto Project::getWorld(const IID& iid) const -> const World& {
     ldtk_error("World with IID \""+iid.str()+"\" not found in Project \""+getFilePath().c_str()+"\".");
 }
 
-void Project::load(const nlohmann::json& j) {
-    m_default_pivot.x = j["defaultPivotX"].get<float>();
+auto ldtk::Project::defaultFileLoader(const std::string& filepath) -> std::string {
+    std::ifstream in(filepath);
+    if (in.fail()) {
+        ldtk_error("Failed to open file \"" + filepath + "\" : " + strerror(errno));
+    }
+
+    std::ostringstream file_string_stream;
+    file_string_stream << in.rdbuf();
+
+    return file_string_stream.str();
+}
+
+void ldtk::Project::load(const nlohmann::json& j, const std::experimental::optional<FileLoader>& file_loader, bool was_loaded_from_memory) {
+     m_default_pivot.x = j["defaultPivotX"].get<float>();
     m_default_pivot.y = j["defaultPivotY"].get<float>();
     m_default_cell_size = j["defaultGridSize"].get<int>();
 
@@ -178,11 +194,24 @@ void Project::load(const nlohmann::json& j) {
 
     // parse worlds
     auto external_levels = j["externalLevels"].get<bool>();
+
+    if (external_levels && was_loaded_from_memory) {
+        ldtk_error("External levels are not supported when loading from memory.");
+    }
+
     if (j["worlds"].empty()) {
-        m_worlds.emplace_back(j, this, external_levels);
+        if (file_loader.has_value()) {
+            m_worlds.emplace_back(j, this, external_levels, file_loader.value());
+        } else {
+            m_worlds.emplace_back(j, this);
+        }
     } else {
         for (const auto& world : j["worlds"]) {
-            m_worlds.emplace_back(world, this, external_levels);
+            if (file_loader.has_value()) {
+                m_worlds.emplace_back(world, this, external_levels, file_loader.value());
+            } else {
+                m_worlds.emplace_back(j, this);
+            }
         }
     }
 

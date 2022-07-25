@@ -11,20 +11,28 @@
 
 using namespace ldtk;
 
-World::World(const nlohmann::json& j, Project* p, bool external_levels) :
+ldtk::World::World(const nlohmann::json& j, Project* p) :
 iid(j.contains("iid") ? j["iid"].get<std::string>() : ""),
 m_project(p),
 m_name(j.contains("identifier") ? j["identifier"].get<std::string>() : "")
 {
-    auto layout = j["worldLayout"].get<std::string>();
-    if (layout == "Free")
-        m_layout = WorldLayout::Free;
-    else if (layout == "GridVania")
-        m_layout = WorldLayout::GridVania;
-    else if (layout == "LinearHorizontal")
-        m_layout = WorldLayout::LinearHorizontal;
-    else if (layout == "LinearVertical")
-        m_layout = WorldLayout::LinearVertical;
+    parseLayout(j);
+
+    // parse levels
+    m_levels.reserve(j["levels"].size());
+    for (const auto& level : j["levels"]) {
+        m_levels.emplace_back(level, this);
+    }
+
+    fillLevelNeighbours();
+}
+
+World::World(const nlohmann::json& j, Project* p, bool external_levels, FileLoader file_loader) :
+iid(j.contains("iid") ? j["iid"].get<std::string>() : ""),
+m_project(p),
+m_name(j.contains("identifier") ? j["identifier"].get<std::string>() : "")
+{
+    parseLayout(j);
 
     // parse levels
     m_levels.reserve(j["levels"].size());
@@ -37,23 +45,12 @@ m_name(j.contains("identifier") ? j["identifier"].get<std::string>() : "")
         nlohmann::json external_level;
         for (const auto& level : j["levels"]) {
             // read then create the external levels
-            std::ifstream in(m_project->getFilePath().directory() + level["externalRelPath"].get<std::string>());
-            if (in.fail()) {
-                ldtk_error("Failed to open file \"" + level["externalRelPath"].get<std::string>() + "\" : " + strerror(errno));
-            }
-            in >> external_level;
+            external_level = nlohmann::json::parse(file_loader(m_project->getFilePath().directory() + level["externalRelPath"].get<std::string>()));
             m_levels.emplace_back(external_level, this);
         }
     }
 
-    // fill levels neighbours
-    for (auto& level : m_levels) {
-        for (const auto& item : level.m_neighbours_id) {
-            for (const auto& id : item.second)
-                level.m_neighbours[item.first].push_back(&getLevel(id));
-        }
-        level.m_neighbours[Dir::None];
-    }
+    fillLevelNeighbours();
 }
 
 auto World::getName() const -> const std::string& {
@@ -135,4 +132,26 @@ auto World::getLevel(const IID& level_iid) const -> const Level& {
         if (level.iid == level_iid)
             return level;
     ldtk_error("Level with IID \""+level_iid.str()+"\" not found in World \""+m_name+"\".");
+}
+
+void ldtk::World::parseLayout(const nlohmann::json& j) {
+    auto layout = j["worldLayout"].get<std::string>();
+    if (layout == "Free")
+        m_layout = WorldLayout::Free;
+    else if (layout == "GridVania")
+        m_layout = WorldLayout::GridVania;
+    else if (layout == "LinearHorizontal")
+        m_layout = WorldLayout::LinearHorizontal;
+    else if (layout == "LinearVertical")
+        m_layout = WorldLayout::LinearVertical;
+}
+
+void ldtk::World::fillLevelNeighbours() {
+    for (auto& level : m_levels) {
+        for (const auto& item : level.m_neighbours_id) {
+            for (const auto& id : item.second)
+                level.m_neighbours[item.first].push_back(&getLevel(id));
+        }
+        level.m_neighbours[Dir::None];
+    }
 }
