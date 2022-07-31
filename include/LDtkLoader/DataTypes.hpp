@@ -103,7 +103,7 @@ namespace ldtk {
         auto extension() const -> std::string;
     };
 
-    typedef std::function<auto(const std::string&) -> std::string> FileLoader;
+    typedef std::function<std::string(const std::string&)> FileLoader;
 
     struct IID {
         explicit IID(std::string iid);

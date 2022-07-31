@@ -44,7 +44,7 @@ int main() {
             ldtk_project.loadFromFile("all_features.ldtk", loadFileStringFromBytes);
         }
 
-        // load from file using custom file reader function (multiple files)
+        // load from multiple files using custom file reader function
         {
             ldtk::Project ldtk_project;
             ldtk_project.loadFromFile("all_features_external.ldtk", loadFileStringFromBytes);
