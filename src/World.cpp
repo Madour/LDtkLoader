@@ -53,10 +53,8 @@ m_name(j.contains("identifier") ? j["identifier"].get<std::string>() : "")
     }
 
     // fill levels neighbours
-    for (auto& level : m_levels)
-    {
-        for (const auto& item : level.m_neighbours_id)
-        {
+    for (auto& level : m_levels) {
+        for (const auto& item : level.m_neighbours_id) {
             for (const auto& id : item.second)
                 level.m_neighbours[item.first].push_back(&getLevel(id));
         }
