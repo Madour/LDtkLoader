@@ -11,7 +11,7 @@
 
 using namespace ldtk;
 
-ldtk::World::World(const nlohmann::json& j, Project* p) :
+World::World(const nlohmann::json& j, Project* p) :
 iid(j.contains("iid") ? j["iid"].get<std::string>() : ""),
 m_project(p),
 m_name(j.contains("identifier") ? j["identifier"].get<std::string>() : "")
@@ -134,7 +134,7 @@ auto World::getLevel(const IID& level_iid) const -> const Level& {
     ldtk_error("Level with IID \""+level_iid.str()+"\" not found in World \""+m_name+"\".");
 }
 
-void ldtk::World::parseLayout(const nlohmann::json& j) {
+void World::parseLayout(const nlohmann::json& j) {
     auto layout = j["worldLayout"].get<std::string>();
     if (layout == "Free")
         m_layout = WorldLayout::Free;
@@ -146,7 +146,7 @@ void ldtk::World::parseLayout(const nlohmann::json& j) {
         m_layout = WorldLayout::LinearVertical;
 }
 
-void ldtk::World::fillLevelNeighbours() {
+void World::fillLevelNeighbours() {
     for (auto& level : m_levels) {
         for (const auto& item : level.m_neighbours_id) {
             for (const auto& id : item.second)

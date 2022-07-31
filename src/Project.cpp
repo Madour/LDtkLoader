@@ -10,7 +10,7 @@
 
 using namespace ldtk;
 
-void ldtk::Project::loadFromFile(const std::string& filepath) {
+void Project::loadFromFile(const std::string& filepath) {
     loadFromFile(filepath, defaultFileLoader);
 }
 
@@ -21,12 +21,12 @@ void Project::loadFromFile(const std::string& filepath, FileLoader file_loader) 
     load(j, file_loader, false);
 }
 
-void ldtk::Project::loadFromMemory(const std::vector<std::uint8_t>& bytes) {
+void Project::loadFromMemory(const std::vector<std::uint8_t>& bytes) {
     nlohmann::json j = nlohmann::json::parse(bytes.data(), bytes.data() + bytes.size());
     load(j, std::experimental::nullopt, true);
 }
 
-void ldtk::Project::loadFromMemory(unsigned char* data, unsigned int size) {
+void Project::loadFromMemory(unsigned char* data, unsigned int size) {
     nlohmann::json j = nlohmann::json::parse(data, data + size);
     load(j, std::experimental::nullopt, true);
 }
@@ -134,7 +134,7 @@ auto Project::getWorld(const IID& iid) const -> const World& {
     ldtk_error("World with IID \""+iid.str()+"\" not found in Project \""+getFilePath().c_str()+"\".");
 }
 
-auto ldtk::Project::defaultFileLoader(const std::string& filepath) -> std::string {
+auto Project::defaultFileLoader(const std::string& filepath) -> std::string {
     std::ifstream in(filepath);
     if (in.fail()) {
         ldtk_error("Failed to open file \"" + filepath + "\" : " + strerror(errno));
@@ -146,7 +146,7 @@ auto ldtk::Project::defaultFileLoader(const std::string& filepath) -> std::strin
     return file_string_stream.str();
 }
 
-void ldtk::Project::load(const nlohmann::json& j, const std::experimental::optional<FileLoader>& file_loader, bool was_loaded_from_memory) {
+void Project::load(const nlohmann::json& j, const std::experimental::optional<FileLoader>& file_loader, bool was_loaded_from_memory) {
      m_default_pivot.x = j["defaultPivotX"].get<float>();
     m_default_pivot.y = j["defaultPivotY"].get<float>();
     m_default_cell_size = j["defaultGridSize"].get<int>();
