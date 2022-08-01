@@ -5,6 +5,8 @@
 #include <cstdint>
 #include <functional>
 #include <iostream>
+#include <memory>
+#include <streambuf>
 #include <string>
 
 namespace ldtk {
@@ -103,7 +105,7 @@ namespace ldtk {
         auto extension() const -> std::string;
     };
 
-    typedef std::function<std::string(const std::string&)> FileLoader;
+    typedef std::function<std::unique_ptr<std::streambuf>(const std::string&)> FileLoader;
 
     struct IID {
         explicit IID(std::string iid);

@@ -3,6 +3,7 @@
 #include "LDtkLoader/Project.hpp"
 
 #include <fstream>
+#include <istream>
 
 #include "LDtkLoader/World.hpp"
 #include "json.hpp"
@@ -24,18 +25,23 @@ void Project::loadFromFile(const std::string& filepath) {
 
 void Project::loadFromFile(const std::string& filepath, const FileLoader& file_loader) {
     m_file_path = filepath;
-    nlohmann::json j = nlohmann::json::parse(file_loader(filepath));
+    nlohmann::json j;
+    std::istream(file_loader(filepath).get()) >> j;
 
     load(j, file_loader, false);
 }
 
 void Project::loadFromMemory(const std::vector<std::uint8_t>& bytes) {
+    m_file_path = "<loaded_from_memory>";
     nlohmann::json j = nlohmann::json::parse(bytes.data(), bytes.data() + bytes.size());
+
     load(j, nullptr, true);
 }
 
 void Project::loadFromMemory(unsigned char* data, unsigned int size) {
+    m_file_path = "<loaded_from_memory>";
     nlohmann::json j = nlohmann::json::parse(data, data + size);
+
     load(j, nullptr, true);
 }
 

@@ -4,6 +4,7 @@
 #include "LDtkLoader/World.hpp"
 
 #include <fstream>
+#include <istream>
 
 #include "LDtkLoader/Project.hpp"
 #include "LDtkLoader/Utils.hpp"
@@ -40,7 +41,7 @@ m_name(j.contains("identifier") ? j["identifier"].get<std::string>() : "")
             // read then create the external levels
             auto filepath = m_project->getFilePath().directory() + level["externalRelPath"].get<std::string>();
             if (file_loader != nullptr) {
-                external_level = nlohmann::json::parse(file_loader(filepath));
+                std::istream(file_loader(filepath).get()) >> external_level;
             } else {
                 std::ifstream in(filepath);
                 if (in.fail()) {
