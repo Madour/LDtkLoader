@@ -4,6 +4,7 @@
 #include "LDtkLoader/World.hpp"
 
 #include <fstream>
+#include <istream>
 
 #include "LDtkLoader/Project.hpp"
 #include "LDtkLoader/Utils.hpp"
@@ -11,11 +12,12 @@
 
 using namespace ldtk;
 
-World::World(const nlohmann::json& j, Project* p, bool external_levels) :
+World::World(const nlohmann::json& j, Project* p, const FileLoader& file_loader, bool external_levels) :
 iid(j.contains("iid") ? j["iid"].get<std::string>() : ""),
 m_project(p),
 m_name(j.contains("identifier") ? j["identifier"].get<std::string>() : "")
 {
+    // parse layout
     auto layout = j["worldLayout"].get<std::string>();
     if (layout == "Free")
         m_layout = WorldLayout::Free;
@@ -37,11 +39,16 @@ m_name(j.contains("identifier") ? j["identifier"].get<std::string>() : "")
         nlohmann::json external_level;
         for (const auto& level : j["levels"]) {
             // read then create the external levels
-            std::ifstream in(m_project->getFilePath().directory() + level["externalRelPath"].get<std::string>());
-            if (in.fail()) {
-                ldtk_error("Failed to open file \"" + level["externalRelPath"].get<std::string>() + "\" : " + strerror(errno));
+            auto filepath = m_project->getFilePath().directory() + level["externalRelPath"].get<std::string>();
+            if (file_loader != nullptr) {
+                std::istream(file_loader(filepath).get()) >> external_level;
+            } else {
+                std::ifstream in(filepath);
+                if (in.fail()) {
+                    ldtk_error("Failed to open file \"" + level["externalRelPath"].get<std::string>() + "\" : " + strerror(errno));
+                }
+                in >> external_level;
             }
-            in >> external_level;
             m_levels.emplace_back(external_level, this);
         }
     }

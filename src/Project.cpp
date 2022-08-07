@@ -3,6 +3,7 @@
 #include "LDtkLoader/Project.hpp"
 
 #include <fstream>
+#include <istream>
 
 #include "LDtkLoader/World.hpp"
 #include "json.hpp"
@@ -11,6 +12,7 @@ using namespace ldtk;
 
 void Project::loadFromFile(const std::string& filepath) {
     m_file_path = filepath;
+
     std::ifstream in(filepath);
     if (in.fail()) {
         ldtk_error("Failed to open file \"" + filepath + "\" : " + strerror(errno));
@@ -18,69 +20,29 @@ void Project::loadFromFile(const std::string& filepath) {
     nlohmann::json j;
     in >> j;
 
-    m_default_pivot.x = j["defaultPivotX"].get<float>();
-    m_default_pivot.y = j["defaultPivotY"].get<float>();
-    m_default_cell_size = j["defaultGridSize"].get<int>();
+    load(j, nullptr, false);
+}
 
-    m_background_color = Color(j["bgColor"].get<std::string>());
+void Project::loadFromFile(const std::string& filepath, const FileLoader& file_loader) {
+    m_file_path = filepath;
+    nlohmann::json j;
+    std::istream(file_loader(filepath).get()) >> j;
 
-    // reset all containers
-    m_enums.clear();
-    m_tilesets.clear();
-    m_layers_defs.clear();
-    m_entities_defs.clear();
+    load(j, file_loader, false);
+}
 
-    const auto& defs = j["defs"];
+void Project::loadFromMemory(const std::vector<std::uint8_t>& bytes) {
+    m_file_path = "<loaded_from_memory>";
+    nlohmann::json j = nlohmann::json::parse(bytes.data(), bytes.data() + bytes.size());
 
-    // parse enums first because tilesets need them for tags
-    m_enums.reserve(defs["enums"].size());
-    for (const auto& en : defs["enums"]) {
-        m_enums.emplace_back(en);
-    }
+    load(j, nullptr, true);
+}
 
-    // parse tilesets
-    m_tilesets.reserve(defs["tilesets"].size());
-    for (const auto& tileset : defs["tilesets"]) {
-        m_tilesets.emplace_back(tileset, this);
-    }
+void Project::loadFromMemory(unsigned char* data, unsigned int size) {
+    m_file_path = "<loaded_from_memory>";
+    nlohmann::json j = nlohmann::json::parse(data, data + size);
 
-    // set enums tileset pointer
-    for (auto& en : m_enums) {
-        if (en.m_tileset_id != -1) {
-            en.m_tileset = &getTileset(en.m_tileset_id);
-        }
-    }
-
-    // parse layers defs
-    m_layers_defs.reserve(defs["layers"].size());
-    for (const auto& layer_def : defs["layers"]) {
-        m_layers_defs.emplace_back(layer_def, this);
-    }
-
-    //parse entities def
-    m_entities_defs.reserve(defs["entities"].size());
-    for (const auto& ent_def : defs["entities"]) {
-        m_entities_defs.emplace_back(ent_def, this);
-    }
-
-    // parse worlds
-    auto external_levels = j["externalLevels"].get<bool>();
-    if (j["worlds"].empty()) {
-        m_worlds.emplace_back(j, this, external_levels);
-    } else {
-        for (const auto& world : j["worlds"]) {
-            m_worlds.emplace_back(world, this, external_levels);
-        }
-    }
-
-    // resolve all EntityRefs in the project
-    for (auto* ref : FieldsContainer::tmp_entity_refs_vector) {
-        auto& world = (m_worlds.size() == 1 ? getWorld() : getWorld(ref->world_iid));
-        ref->ref = &world.getLevel(ref->level_iid)
-                         .getLayer(ref->layer_iid)
-                         .getEntity(ref->entity_iid);
-    }
-    FieldsContainer::tmp_entity_refs_vector.clear();
+    load(j, nullptr, true);
 }
 
 auto Project::getFilePath() const -> const FilePath& {
@@ -184,4 +146,75 @@ auto Project::getWorld(const IID& iid) const -> const World& {
         if (world.iid == iid)
             return world;
     ldtk_error("World with IID \""+iid.str()+"\" not found in Project \""+getFilePath().c_str()+"\".");
+}
+
+void Project::load(const nlohmann::json& j, const FileLoader& file_loader, bool from_memory) {
+    m_default_pivot.x = j["defaultPivotX"].get<float>();
+    m_default_pivot.y = j["defaultPivotY"].get<float>();
+    m_default_cell_size = j["defaultGridSize"].get<int>();
+
+    m_background_color = Color(j["bgColor"].get<std::string>());
+
+    // reset all containers
+    m_enums.clear();
+    m_tilesets.clear();
+    m_layers_defs.clear();
+    m_entities_defs.clear();
+
+    const auto& defs = j["defs"];
+
+    // parse enums first because tilesets need them for tags
+    m_enums.reserve(defs["enums"].size());
+    for (const auto& en : defs["enums"]) {
+        m_enums.emplace_back(en);
+    }
+
+    // parse tilesets
+    m_tilesets.reserve(defs["tilesets"].size());
+    for (const auto& tileset : defs["tilesets"]) {
+        m_tilesets.emplace_back(tileset, this);
+    }
+
+    // set enums tileset pointer
+    for (auto& en : m_enums) {
+        if (en.m_tileset_id != -1) {
+            en.m_tileset = &getTileset(en.m_tileset_id);
+        }
+    }
+
+    // parse layers defs
+    m_layers_defs.reserve(defs["layers"].size());
+    for (const auto& layer_def : defs["layers"]) {
+        m_layers_defs.emplace_back(layer_def, this);
+    }
+
+    //parse entities def
+    m_entities_defs.reserve(defs["entities"].size());
+    for (const auto& ent_def : defs["entities"]) {
+        m_entities_defs.emplace_back(ent_def, this);
+    }
+
+    // parse worlds
+    auto external_levels = j["externalLevels"].get<bool>();
+
+    if (external_levels && from_memory) {
+        ldtk_error("External levels are not supported when loading from memory.");
+    }
+
+    if (j["worlds"].empty()) {
+        m_worlds.emplace_back(j, this, file_loader, external_levels);
+    } else {
+        for (const auto& world : j["worlds"]) {
+            m_worlds.emplace_back(world, this, file_loader, external_levels);
+        }
+    }
+
+    // resolve all EntityRefs in the project
+    for (auto* ref : FieldsContainer::tmp_entity_refs_vector) {
+        auto& world = (m_worlds.size() == 1 ? getWorld() : getWorld(ref->world_iid));
+        ref->ref = &world.getLevel(ref->level_iid)
+                         .getLayer(ref->layer_iid)
+                         .getEntity(ref->entity_iid);
+    }
+    FieldsContainer::tmp_entity_refs_vector.clear();
 }

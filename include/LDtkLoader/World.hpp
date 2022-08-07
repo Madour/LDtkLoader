@@ -53,7 +53,7 @@ namespace ldtk {
         auto getLevel(const std::string& name) const -> const Level&;
         auto getLevel(const IID& iid) const -> const Level&;
 
-        World(const nlohmann::json& j, Project* p, bool external_levels);
+        World(const nlohmann::json& j, Project* p, const FileLoader& file_loader, bool external_levels);
 
     private:
         Project* m_project;
