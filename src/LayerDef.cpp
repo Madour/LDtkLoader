@@ -18,7 +18,7 @@ opacity(j["displayOpacity"].get<float>()),
 offset(j["pxOffsetX"].get<int>(), j["pxOffsetY"].get<int>()),
 tile_pivot(j["tilePivotX"].get<float>(), j["tilePivotY"].get<float>()),
 m_tileset(j["tilesetDefUid"].is_null() ? nullptr : &p->getTileset(j["tilesetDefUid"].get<int>())),
-m_auto_tileset(j["autoTilesetDefUid"].is_null() ? nullptr : &p->getTileset(j["autoTilesetDefUid"].get<int>()))
+m_auto_tileset( j.contains("autoTilesetDefUid") && !j["autoTilesetDefUid"].is_null() ? &p->getTileset(j["autoTilesetDefUid"].get<int>()) : nullptr )
 {
     if (type == LayerType::IntGrid) {
         for (const auto& int_grid_val : j["intGridValues"]) {
