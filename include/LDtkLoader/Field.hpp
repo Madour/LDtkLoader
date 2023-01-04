@@ -24,7 +24,7 @@ namespace ldtk {
     struct ArrayField;
 
     template <typename T>
-    struct Field : IField, private optional<T> {
+    struct Field : IField, optional<T> {
     private:
         static ArrayField<T> m_dummy;
     public:
