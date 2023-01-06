@@ -29,7 +29,7 @@ depth(j.contains("worldDepth") ? j["worldDepth"].get<int>() : 0)
     m_neighbours_id[Dir::South]; m_neighbours_id[Dir::West];
     for (const auto& neighbour : j["__neighbours"]) {
         const auto& dir = neighbour["dir"].get<std::string>();
-        const auto& level_uid = neighbour["levelUid"].get<int>();
+        const auto& level_uid = IID(neighbour["levelIid"].get<std::string>());
         if (dir == "n")
             m_neighbours_id[Dir::North].push_back(level_uid);
         else if (dir == "e")
@@ -85,7 +85,7 @@ auto Level::getNeighbours(const Dir& direction) const -> const std::vector<const
 auto Level::getNeighbourDirection(const Level& level) const -> Dir {
     for (const auto& item : m_neighbours_id) {
         for (auto id : item.second) {
-            if (id == level.uid)
+            if (id == level.iid)
                 return item.first;
         }
     }
