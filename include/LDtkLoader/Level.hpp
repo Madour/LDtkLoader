@@ -55,7 +55,7 @@ namespace ldtk {
     private:
         std::vector<Layer> m_layers;
         std::experimental::optional<BgImage> m_bg_image;
-        std::map<Dir, std::vector<int>> m_neighbours_id;
+        std::map<Dir, std::vector<IID>> m_neighbours_id;
         std::map<Dir, std::vector<const Level*>> m_neighbours;
     };
 
