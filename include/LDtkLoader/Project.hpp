@@ -24,6 +24,8 @@ namespace ldtk {
         Project(Project&&) = default;
         auto operator=(const Project&) -> Project& = delete;
 
+        IID iid;
+
         void loadFromFile(const std::string& filepath);
         void loadFromFile(const std::string& filepath, const FileLoader& file_loader);
 

@@ -108,6 +108,7 @@ namespace ldtk {
     typedef std::function<std::unique_ptr<std::streambuf>(const std::string&)> FileLoader;
 
     struct IID {
+        IID() = default;
         explicit IID(std::string iid);
         auto str() const -> const std::string&;
     private:

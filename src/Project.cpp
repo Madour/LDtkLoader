@@ -149,6 +149,10 @@ auto Project::getWorld(const IID& iid) const -> const World& {
 }
 
 void Project::load(const nlohmann::json& j, const FileLoader& file_loader, bool from_memory) {
+    if (j.contains("iid")) {
+        iid = IID(j["iid"]);
+    }
+
     m_default_pivot.x = j["defaultPivotX"].get<float>();
     m_default_pivot.y = j["defaultPivotY"].get<float>();
     m_default_cell_size = j["defaultGridSize"].get<int>();
