@@ -1,4 +1,4 @@
-<h1> LDtk Loader • <img src=https://img.shields.io/badge/LDtk_version-1.0.0-default> <img src=https://github.com/Madour/LDtkLoader/workflows/CI/badge.svg></h1>
+<h1> LDtk Loader • <img src=https://img.shields.io/badge/LDtk_version-1.2.3-default> <img src=https://github.com/Madour/LDtkLoader/workflows/CI/badge.svg></h1>
 
 
 ### Load LDtk levels in your C++ game
@@ -93,7 +93,7 @@ This will copy the libraries, the headers and the cmake config files to the inst
 After installation, to use LDtkLoader in your CMake project, you can just call :
 
 ```cmake
-find_package(LDtkLoader)
+find_package(LDtkLoader 1.2)
 ```
 
 The `find_package` command will automatically get the correct library (release or debug)
