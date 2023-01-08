@@ -1,13 +1,11 @@
 <h1> LDtk Loader • <img src=https://img.shields.io/badge/LDtk_version-1.2.3-default> <img src=https://github.com/Madour/LDtkLoader/workflows/CI/badge.svg></h1>
 
 
-### Load LDtk levels in your C++ game
+**LDtkLoader** is a loader for **[LDtk](https://github.com/deepnight/ldtk)** levels and tile maps.
 
-**LDtkLoader** is a loader for **[LDtk](https://github.com/deepnight/ldtk)** tile maps.
+Use it to load and get data from LDtk projects in your game.
 
-You can use it to load LDtk levels in your game and access any data you need via the API.
-
-Completely supports the ldtk format (including external levels).
+Completely supports the .ldtk format (including external levels).
 
 ### Sample code
 
@@ -62,19 +60,14 @@ cmake -DCMAKE_BUILD_TYPE={Debug|Release} ..
 cmake --build . --config {Debug|Release}
 ```
 
-This will generate the static library (debug library has the suffix '-d').
+This will generate the static library. Debug library has the suffix '-d'.
 
-Additional CMake options you can pass :
+Additional CMake options :
+
  - `-DLDTK_NO_THROW` : to print message and exit when there is an error instead of throwing exceptions
-
  - `-DBUILD_API_TEST` : to build the API test example, to make sure the library works as expected
-
  - `-DBUILD_SFML_EXAMPLE=ON` : to build the SFML example (requires SFML installed)
-    - set `-DSFML_ROOT=/path/to/SFML/` if CMake is unable to find it
-    - set `-DSFML_STATIC_LIBRARIES=TRUE` if you want to link the static libraries
-
  - `-DBUILD_SDL_EXAMPLE=ON` : to build the SDL example (requires SDL2 and SDL2_image installed)
-
  - `-DBUILD_RAYLIB_EXAMPLE=ON` : to build the raylib example (requires raylib installed)
 
 ### Install
@@ -90,23 +83,23 @@ This will copy the libraries, the headers and the cmake config files to the inst
 
 ### How to use LDtkLoader in your project
 
-After installation, to use LDtkLoader in your CMake project, you can just call :
+After installation, to add LDtkLoader to a CMake project, use the `find_package` command:
 
 ```cmake
 find_package(LDtkLoader 1.2)
 ```
 
-The `find_package` command will automatically get the correct library (release or debug)
+The `find_package` command will automatically get the correct library (Release or Debug)
 depending on your current CMake configuration.
 
-Then you only have to link the library to your target :
+Then, the library should be linked to the target:
 
 ```cmake
 target_link_libraries(YourTarget PRIVATE LDtkLoader)
 ```
 
-Note : if you installed LDtkLoader at a custom path, you might need
-to pass a `-DLDtkLoader_ROOT=/install/path/LDtkLoader` option to cmake so it can find the package.
+Note : if LDtkLoader is installed at a custom path, you might need
+to pass a `-DLDtkLoader_ROOT=/install/path/LDtkLoader` option to cmake.
 
 ### Documentation
 
