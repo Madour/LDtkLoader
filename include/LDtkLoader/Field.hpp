@@ -24,7 +24,11 @@ namespace ldtk {
     struct ArrayField;
 
     template <typename T>
+#if defined LDTK_FIELD_PUBLIC_OPTIONAL
+    struct Field : IField, public optional<T> {
+#else
     struct Field : IField, private optional<T> {
+#endif
     private:
         static ArrayField<T> m_dummy;
     public:
@@ -33,7 +37,6 @@ namespace ldtk {
         using optional<T>::optional;
         using optional<T>::value;
         using optional<T>::value_or;
-        using optional<T>::operator->;
 
         constexpr auto is_null() const -> bool {
             return !optional<T>::has_value();
