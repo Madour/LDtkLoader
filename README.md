@@ -64,11 +64,11 @@ This will generate the static library. Debug library has the suffix '-d'.
 
 Additional CMake options :
 
- - `-DLDTK_NO_THROW` : to print message and exit when there is an error instead of throwing exceptions
- - `-DBUILD_API_TEST` : to build the API test example, to make sure the library works as expected
- - `-DBUILD_SFML_EXAMPLE=ON` : to build the SFML example (requires SFML installed)
- - `-DBUILD_SDL_EXAMPLE=ON` : to build the SDL example (requires SDL2 and SDL2_image installed)
- - `-DBUILD_RAYLIB_EXAMPLE=ON` : to build the raylib example (requires raylib installed)
+ - `-DLDTK_NO_THROW`: to print message and exit when there is an error instead of throwing exceptions
+ - `-DLDTK_BUILD_API_TEST`: to build the API test example, to make sure the library works as expected
+ - `-DLDTK_BUILD_SFML_EXAMPLE=ON`: to build the SFML example (requires SFML installed)
+ - `-DLDTK_BUILD_SDL_EXAMPLE=ON`: to build the SDL example (requires SDL2 and SDL2_image installed)
+ - `-DLDTK_BUILD_RAYLIB_EXAMPLE=ON`: to build the raylib example (requires raylib installed)
 
 ### Install
 
