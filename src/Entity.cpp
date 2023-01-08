@@ -58,6 +58,17 @@ auto Entity::getTextureRect() const -> const IntRect& {
     return m_texture_rect;
 }
 
+auto Entity::hasNineSlice() const -> bool {
+    return m_definition->nine_slice_borders.top != -1
+        && m_definition->nine_slice_borders.right != -1
+        && m_definition->nine_slice_borders.bottom != -1
+        && m_definition->nine_slice_borders.left != -1;
+}
+
+auto Entity::getNineSliceBorders() const -> const NineSliceBorders& {
+    return m_definition->nine_slice_borders;
+}
+
 auto Entity::hasTag(const std::string& tag) const -> bool {
     return m_definition->hasTag(tag);
 }

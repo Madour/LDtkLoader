@@ -2,7 +2,9 @@
 
 #pragma once
 
+#include <array>
 #include <string>
+#include <vector>
 
 #include "LDtkLoader/thirdparty/json_fwd.hpp"
 #include "LDtkLoader/containers/TagsContainer.hpp"
@@ -24,6 +26,7 @@ namespace ldtk {
         const Tileset* tileset;
         const IntRect texture_rect;
         std::vector<FieldDef> fields;
+        NineSliceBorders nine_slice_borders;
 
         EntityDef(const nlohmann::json& j, Project* p);
     };
