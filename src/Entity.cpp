@@ -15,11 +15,8 @@ m_position(j["px"][0].get<int>(), j["px"][1].get<int>()),
 m_grid_pos(j["__grid"][0].get<int>(), j["__grid"][1].get<int>()),
 m_color(j.contains("__smartColor") ? Color(j["__smartColor"].get<std::string>()) : m_definition->color),
 m_tileset(j["__tile"].is_null() ? nullptr : &w->getTileset(j["__tile"]["tilesetUid"].get<int>())),
-m_texture_rect(j["__tile"].is_null() ? IntRect{} :
-        j["__tile"].contains("x") ?
-            IntRect{j["__tile"]["x"], j["__tile"]["y"], j["__tile"]["w"], j["__tile"]["h"]} :
-            IntRect{j["__tile"]["srcRect"][0], j["__tile"]["srcRect"][1], j["__tile"]["srcRect"][2], j["__tile"]["srcRect"][3]} // v0.9.3
-)
+m_texture_rect(j["__tile"].is_null() ? IntRect{}
+                                     : IntRect{j["__tile"]["x"], j["__tile"]["y"], j["__tile"]["w"], j["__tile"]["h"]})
 {}
 
 auto Entity::getName() const -> const std::string& {
