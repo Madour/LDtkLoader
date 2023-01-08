@@ -37,6 +37,9 @@ namespace ldtk {
         auto getTexturePath() const -> const std::string&;
         auto getTextureRect() const -> const IntRect&;
 
+        auto hasNineSlice() const -> bool;
+        auto getNineSliceBorders() const -> const NineSliceBorders&;
+
         auto hasTag(const std::string& tag) const -> bool;
         auto getTags() const -> const std::vector<std::string>&;
 

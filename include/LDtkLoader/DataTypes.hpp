@@ -45,6 +45,13 @@ namespace ldtk {
     typedef Rect<float> FloatRect;
     typedef Rect<int> IntRect;
 
+    struct NineSliceBorders {
+        int top;
+        int right;
+        int bottom;
+        int left;
+    };
+
     struct Color {
         Color() = default;
         explicit Color(const std::string& hex);

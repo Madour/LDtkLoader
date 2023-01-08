@@ -26,6 +26,16 @@ texture_rect(j.contains("tileRect") ?
             IntRect{tileset->getTileTexturePos(j["tileId"].get<int>()), {tileset->tile_size, tileset->tile_size}})
 )
 {
+    if (j.contains("nineSliceBorders") && !j["nineSliceBorders"].empty()) {
+        auto borders = j["nineSliceBorders"].get<std::array<int, 4>>();
+        nine_slice_borders.top = borders[0];
+        nine_slice_borders.right = borders[1];
+        nine_slice_borders.bottom = borders[2];
+        nine_slice_borders.left = borders[3];
+    } else {
+        nine_slice_borders = {-1, -1, -1, -1};
+    }
+
     for (const auto& fd : j["fieldDefs"]) {
         auto field_type = fd["__type"].get<std::string>();
         auto field_name = fd["identifier"].get<std::string>();
