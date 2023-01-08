@@ -8,7 +8,9 @@ file(GLOB_RECURSE Inc include/LDtkLoader/*.hpp)
 
 # create the static lib target
 add_library(LDtkLoader STATIC ${Src} ${Inc})
-target_compile_definitions(LDtkLoader PRIVATE _CRT_SECURE_NO_WARNINGS)
+if (MSVC)
+    target_compile_definitions(LDtkLoader PRIVATE _CRT_SECURE_NO_WARNINGS)
+endif()
 # set include directory for build and install
 target_include_directories(LDtkLoader PUBLIC $<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/include>)
 target_include_directories(LDtkLoader INTERFACE $<INSTALL_INTERFACE:include>)
@@ -20,32 +22,32 @@ set_target_properties(LDtkLoader PROPERTIES
 )
 
 # build options
-option(LDTK_NO_THROW        "Replace all throws by an error print and exit" OFF)
-option(BUILD_SFML_EXAMPLE   "Build an example using LDtkLoader with SFML." OFF)
-option(BUILD_SDL_EXAMPLE    "Build an example using LDtkLoader with SDL."  OFF)
-option(BUILD_RAYLIB_EXAMPLE "Build an example using LDtkLoader with raylib." OFF)
-option(BUILD_API_TEST       "Build an example that loads a file showcasing all features of LDtk."  OFF)
+option(LDTK_NO_THROW "Replace all throws by an error print and exit" OFF)
+option(LDTK_BUILD_SFML_EXAMPLE   "Build an example using LDtkLoader with SFML." OFF)
+option(LDTK_BUILD_SDL_EXAMPLE    "Build an example using LDtkLoader with SDL."  OFF)
+option(LDTK_BUILD_RAYLIB_EXAMPLE "Build an example using LDtkLoader with raylib." OFF)
+option(LDTK_BUILD_API_TEST       "Build an example that loads a file showcasing all features of LDtk."  OFF)
 
 if (LDTK_NO_THROW)
     target_compile_definitions(LDtkLoader PUBLIC LDTK_NO_THROW)
 endif()
 
-if (BUILD_SFML_EXAMPLE)
+if (LDTK_BUILD_SFML_EXAMPLE)
     message(STATUS "LDtkSFML target available.")
     add_subdirectory(examples/SFML)
 endif()
 
-if (BUILD_SDL_EXAMPLE)
+if (LDTK_BUILD_SDL_EXAMPLE)
     message(STATUS "LDtkSDL target available.")
     add_subdirectory(examples/SDL)
 endif()
 
-if (BUILD_RAYLIB_EXAMPLE)
+if (LDTK_BUILD_RAYLIB_EXAMPLE)
     message(STATUS "LDtkRaylib target available.")
     add_subdirectory(examples/Raylib)
 endif()
 
-if (BUILD_API_TEST)
+if (LDTK_BUILD_API_TEST)
     message(STATUS "LDtkAPI_test target available.")
     add_subdirectory(examples/API_test)
 endif()
