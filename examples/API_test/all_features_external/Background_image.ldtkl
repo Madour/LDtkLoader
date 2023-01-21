@@ -5,7 +5,7 @@
 		"doc": "https://ldtk.io/json",
 		"schema": "https://ldtk.io/files/JSON_SCHEMA.json",
 		"appAuthor": "Sebastien 'deepnight' Benard",
-		"appVersion": "1.1.3",
+		"appVersion": "1.2.5",
 		"url": "https://ldtk.io"
 	},
 	"identifier": "Background_image",
@@ -28,37 +28,6 @@
 	"externalRelPath": null,
 	"fieldInstances": [],
 	"layerInstances": [
-		{
-			"__identifier": "IntGrid",
-			"__type": "IntGrid",
-			"__cWid": 14,
-			"__cHei": 10,
-			"__gridSize": 20,
-			"__opacity": 1,
-			"__pxTotalOffsetX": 0,
-			"__pxTotalOffsetY": 0,
-			"__tilesetDefUid": null,
-			"__tilesetRelPath": null,
-			"iid": "c6c7c320-8dc0-11ec-ab3c-df167cf6bbd2",
-			"levelId": 36,
-			"layerDefUid": 48,
-			"pxOffsetX": 0,
-			"pxOffsetY": 0,
-			"visible": true,
-			"optionalRules": [],
-			"intGridCsv": [
-				0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-				0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-				0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-				0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-				
-			],
-			"autoLayerTiles": [],
-			"seed": 2513166,
-			"overrideTilesetUid": null,
-			"gridTiles": [],
-			"entityInstances": []
-		},
 		{
 			"__identifier": "Entities",
 			"__type": "Entities",
@@ -250,6 +219,31 @@
 				{ "px": [240,144], "src": [80,80], "f": 0, "t": 105, "d": [8,167] }
 			],
 			"seed": 7313278,
+			"overrideTilesetUid": null,
+			"gridTiles": [],
+			"entityInstances": []
+		},
+		{
+			"__identifier": "Tiles",
+			"__type": "Tiles",
+			"__cWid": 17,
+			"__cHei": 12,
+			"__gridSize": 16,
+			"__opacity": 1,
+			"__pxTotalOffsetX": 0,
+			"__pxTotalOffsetY": 0,
+			"__tilesetDefUid": 2,
+			"__tilesetRelPath": "atlas/Inca_front_by_Kronbits-extended.png",
+			"iid": "a304bc2c-66b0-11ec-9cd7-0b32f9c43965",
+			"levelId": 36,
+			"layerDefUid": 14,
+			"pxOffsetX": 0,
+			"pxOffsetY": 0,
+			"visible": true,
+			"optionalRules": [],
+			"intGridCsv": [],
+			"autoLayerTiles": [],
+			"seed": 4655507,
 			"overrideTilesetUid": null,
 			"gridTiles": [],
 			"entityInstances": []

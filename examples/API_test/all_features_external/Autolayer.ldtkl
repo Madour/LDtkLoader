@@ -5,7 +5,7 @@
 		"doc": "https://ldtk.io/json",
 		"schema": "https://ldtk.io/files/JSON_SCHEMA.json",
 		"appAuthor": "Sebastien 'deepnight' Benard",
-		"appVersion": "1.1.3",
+		"appVersion": "1.2.5",
 		"url": "https://ldtk.io"
 	},
 	"identifier": "Autolayer",
@@ -28,37 +28,6 @@
 	"externalRelPath": null,
 	"fieldInstances": [],
 	"layerInstances": [
-		{
-			"__identifier": "IntGrid",
-			"__type": "IntGrid",
-			"__cWid": 13,
-			"__cHei": 13,
-			"__gridSize": 20,
-			"__opacity": 1,
-			"__pxTotalOffsetX": 0,
-			"__pxTotalOffsetY": 0,
-			"__tilesetDefUid": null,
-			"__tilesetRelPath": null,
-			"iid": "c6c66390-8dc0-11ec-ab3c-338f2fd24636",
-			"levelId": 32,
-			"layerDefUid": 48,
-			"pxOffsetX": 0,
-			"pxOffsetY": 0,
-			"visible": true,
-			"optionalRules": [],
-			"intGridCsv": [
-				0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-				0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-				0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-				0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-				0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-			],
-			"autoLayerTiles": [],
-			"seed": 5210586,
-			"overrideTilesetUid": null,
-			"gridTiles": [],
-			"entityInstances": []
-		},
 		{
 			"__identifier": "Entities",
 			"__type": "Entities",
@@ -88,7 +57,7 @@
 					"__grid": [7,5],
 					"__pivot": [0.5,0.5],
 					"__tags": [],
-					"__tile": { "tilesetUid": 50, "x": 96, "y": 32, "w": 32, "h": 32 },
+					"__tile": null,
 					"__smartColor": "#00A5FF",
 					"iid": "a303aab1-66b0-11ec-9cd7-d560fe21e017",
 					"width": 32,
@@ -114,6 +83,10 @@
 							"id": "V_String",
 							"params": ["D"]
 						}] },
+						{ "__identifier": "ExternEnum", "__value": "Value2", "__type": "ExternEnum.AnExternEnum", "__tile": null, "defUid": 49, "realEditorValues": [{
+							"id": "V_String",
+							"params": ["Value2"]
+						}] },
 						{ "__identifier": "Color", "__value": "#D63C3C", "__type": "Color", "__tile": null, "defUid": 23, "realEditorValues": [{ "id": "V_Int", "params": [14040124] }] },
 						{ "__identifier": "Point", "__value": null, "__type": "Point", "__tile": null, "defUid": 24, "realEditorValues": [] },
 						{ "__identifier": "FilePath", "__value": "README.md", "__type": "FilePath", "__tile": null, "defUid": 35, "realEditorValues": [{
@@ -123,8 +96,7 @@
 						{ "__identifier": "Array_Integer", "__value": [10,0,20], "__type": "Array<Int>", "__tile": null, "defUid": 25, "realEditorValues": [ { "id": "V_Int", "params": [10] }, null, { "id": "V_Int", "params": [20] } ] },
 						{ "__identifier": "Array_Enum", "__value": [], "__type": "Array<LocalEnum.SomeEnum>", "__tile": null, "defUid": 29, "realEditorValues": [] },
 						{ "__identifier": "Array_points", "__value": [], "__type": "Array<Point>", "__tile": null, "defUid": 30, "realEditorValues": [] },
-						{ "__identifier": "Array_multilines", "__value": [], "__type": "Array<Multilines>", "__tile": null, "defUid": 37, "realEditorValues": [] },
-						{ "__identifier": "Array_Entity_ref", "__value": [], "__type": "Array<EntityRef>", "__tile": null, "defUid": 51, "realEditorValues": [] }
+						{ "__identifier": "Array_multilines", "__value": [], "__type": "Array<Multilines>", "__tile": null, "defUid": 37, "realEditorValues": [] }
 					]
 				}
 			]
@@ -463,6 +435,31 @@
 				{ "px": [208,224], "src": [80,80], "f": 0, "t": 105, "d": [8,236] }
 			],
 			"seed": 5440332,
+			"overrideTilesetUid": null,
+			"gridTiles": [],
+			"entityInstances": []
+		},
+		{
+			"__identifier": "Tiles",
+			"__type": "Tiles",
+			"__cWid": 16,
+			"__cHei": 16,
+			"__gridSize": 16,
+			"__opacity": 1,
+			"__pxTotalOffsetX": 0,
+			"__pxTotalOffsetY": 0,
+			"__tilesetDefUid": 2,
+			"__tilesetRelPath": "atlas/Inca_front_by_Kronbits-extended.png",
+			"iid": "a303d1c0-66b0-11ec-9cd7-072fab07e723",
+			"levelId": 32,
+			"layerDefUid": 14,
+			"pxOffsetX": 0,
+			"pxOffsetY": 0,
+			"visible": true,
+			"optionalRules": [],
+			"intGridCsv": [],
+			"autoLayerTiles": [],
+			"seed": 5395320,
 			"overrideTilesetUid": null,
 			"gridTiles": [],
 			"entityInstances": []
