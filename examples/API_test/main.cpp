@@ -13,23 +13,29 @@
 template <std::size_t Size>
 struct custom_stream_buffer : std::streambuf {
     explicit custom_stream_buffer(const std::string& filename) {
-        m_handle.open(filename);
+        m_handle = fopen(filename.c_str(), "r");
+    }
+    ~custom_stream_buffer() override {
+        fclose(m_handle);
     }
     auto underflow() -> int_type override {
-        if (m_handle.eof()) {
+        if (m_eof) {
             return traits_type::eof();
         }
 
         // emulate loading bytes from a virtual filesystem
-        m_handle.read(m_buffer, Size);
-        std::streamsize read_size = m_handle.gcount();
+        size_t read_size = fread(m_buffer, 1, Size, m_handle);
+        if (read_size < Size) {
+            m_eof = true;
+        }
 
         setg(m_buffer, m_buffer, m_buffer + read_size);
         return *gptr();
     }
 private:
-    std::ifstream m_handle;
+    FILE* m_handle;
     char m_buffer[Size] = {0};
+    bool m_eof = false;
 };
 
 auto createCustomStreamBuffer(const std::string& filepath) -> std::unique_ptr<std::streambuf> {
