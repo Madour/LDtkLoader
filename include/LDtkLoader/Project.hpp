@@ -58,6 +58,9 @@ namespace ldtk {
         auto getWorld(const std::string& name) const -> const World&;
         auto getWorld(const IID& iid) const -> const World&;
 
+        auto allTocEntities() const -> const std::vector<EntityRef>&;
+        auto getTocEntitiesByName(const std::string& name) const -> const std::vector<EntityRef>&;
+
     private:
         void load(const nlohmann::json& j, const FileLoader& file_loader, bool from_memory);
 
@@ -72,5 +75,8 @@ namespace ldtk {
         std::vector<Enum> m_enums;
 
         std::vector<World> m_worlds;
+
+        std::vector<EntityRef> m_toc;
+        mutable std::map<std::string, std::vector<EntityRef>> m_toc_map;
     };
 }

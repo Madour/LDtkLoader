@@ -148,6 +148,17 @@ auto Project::getWorld(const IID& iid) const -> const World& {
     ldtk_error("World with IID \""+iid.str()+"\" not found in Project \""+getFilePath().c_str()+"\".");
 }
 
+auto Project::allTocEntities() const -> const std::vector<EntityRef>& {
+    return m_toc;
+}
+
+auto Project::getTocEntitiesByName(const std::string& name) const -> const std::vector<EntityRef>& {
+    if (m_toc_map.count(name) > 0)
+        return m_toc_map.at(name);
+    else
+        return m_toc_map[name];
+}
+
 void Project::load(const nlohmann::json& j, const FileLoader& file_loader, bool from_memory) {
     if (j.contains("iid")) {
         iid = IID(j["iid"]);
@@ -213,12 +224,31 @@ void Project::load(const nlohmann::json& j, const FileLoader& file_loader, bool 
         }
     }
 
+    auto resolveEntityRef = [this](EntityRef& ref) {
+        auto& world = (m_worlds.size() == 1 ? getWorld() : getWorld(ref.world_iid));
+        ref.ref = &world.getLevel(ref.level_iid)
+                        .getLayer(ref.layer_iid)
+                        .getEntity(ref.entity_iid);
+    };
+
+    // parse the table of content (v1.2.4)
+    if (j.contains("toc")) {
+        for (const auto& toc_entry: j["toc"]) {
+            auto entity_name = toc_entry["identifier"].get<std::string>();
+            for (const auto& ref: toc_entry["instances"]) {
+                auto entity_ref = EntityRef(IID(ref["entityIid"]), IID(ref["layerIid"]),
+                                            IID(ref["levelIid"]), IID(ref["worldIid"]));
+                resolveEntityRef(entity_ref);
+
+                m_toc.push_back(entity_ref);
+                m_toc_map[entity_name].push_back(entity_ref);
+            }
+        }
+    }
+
     // resolve all EntityRefs in the project
     for (auto* ref : FieldsContainer::tmp_entity_refs_vector) {
-        auto& world = (m_worlds.size() == 1 ? getWorld() : getWorld(ref->world_iid));
-        ref->ref = &world.getLevel(ref->level_iid)
-                         .getLayer(ref->layer_iid)
-                         .getEntity(ref->entity_iid);
+        resolveEntityRef(*ref);
     }
     FieldsContainer::tmp_entity_refs_vector.clear();
 }
