@@ -1,4 +1,4 @@
-<h1> LDtk Loader • <img src=https://img.shields.io/badge/LDtk_version-1.2.3-default> <img src=https://github.com/Madour/LDtkLoader/workflows/CI/badge.svg></h1>
+<h1> LDtk Loader • <img src=https://img.shields.io/badge/LDtk_version-1.2.5-default> <img src=https://github.com/Madour/LDtkLoader/workflows/CI/badge.svg></h1>
 
 
 **LDtkLoader** is a loader for **[LDtk](https://github.com/deepnight/ldtk)** levels and tile maps.
