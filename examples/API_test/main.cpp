@@ -1,5 +1,6 @@
 // Created by Modar Nasser on 28/01/2021.
 
+#include <chrono>
 #include <cstdint>
 #include <fstream>
 #include <iostream>
@@ -52,6 +53,8 @@ auto getFileBytes(const std::string& filepath) -> std::vector<std::uint8_t> {
 }
 
 int main() {
+    auto start = std::chrono::system_clock::now();
+
     try {
         // load from file
         {
@@ -95,8 +98,11 @@ int main() {
         return 1;
     }
 
+    auto end = std::chrono::system_clock::now();
+    auto duration = std::chrono::duration_cast<std::chrono::milliseconds>(end - start);
+
     // loads everything without errors
-    std::cout << "Loaded API test file successfully !" << std::endl;
+    std::cout << "Loaded API test file successfully in " << duration.count() << " ms !" << std::endl;
 
     return 0;
 }
