@@ -10,6 +10,10 @@
 
 using namespace ldtk;
 
+namespace ldtk {
+    std::vector<EntityRef*> temporary_entity_refs_array;
+}
+
 void Project::loadFromFile(const std::string& filepath) {
     m_file_path = filepath;
 
@@ -247,8 +251,8 @@ void Project::load(const nlohmann::json& j, const FileLoader& file_loader, bool 
     }
 
     // resolve all EntityRefs in the project
-    for (auto* ref : FieldsContainer::tmp_entity_refs_vector) {
+    for (auto* ref : temporary_entity_refs_array) {
         resolveEntityRef(*ref);
     }
-    FieldsContainer::tmp_entity_refs_vector.clear();
+    temporary_entity_refs_array.clear();
 }

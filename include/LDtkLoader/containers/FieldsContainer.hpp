@@ -50,7 +50,6 @@ namespace ldtk {
         std::vector<std::unique_ptr<IField>> m_gc;
         std::unordered_map<std::string, IField*> m_fields;
         std::unordered_map<std::string, IField*> m_array_fields;
-        static std::vector<EntityRef*> tmp_entity_refs_vector;
     };
 
     template <FieldType T>

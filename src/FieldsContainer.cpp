@@ -6,7 +6,9 @@
 
 using namespace ldtk;
 
-std::vector<EntityRef*> FieldsContainer::tmp_entity_refs_vector;
+namespace ldtk {
+    extern std::vector<EntityRef*> temporary_entity_refs_array;
+}
 
 FieldsContainer::FieldsContainer(const nlohmann::json& j, const World* w) {
     parseFields(j, w);
@@ -118,7 +120,7 @@ void FieldsContainer::parseFields(const nlohmann::json& j, const World* w) {
                 addArrayField(field_name, values);
                 auto& this_field = *dynamic_cast<ArrayField<EntityRef>*>(m_array_fields.at(field_name));
                 for (auto& ent_ref : this_field) {
-                    tmp_entity_refs_vector.emplace_back(&ent_ref.value());
+                    temporary_entity_refs_array.emplace_back(&ent_ref.value());
                 }
 
             }
@@ -183,7 +185,7 @@ void FieldsContainer::parseFields(const nlohmann::json& j, const World* w) {
                                                  IID(field_value["levelIid"].get<std::string>()),
                                                  IID(field_value["worldIid"].get<std::string>())});
                 auto& this_field = *dynamic_cast<Field<EntityRef>*>(m_fields.at(field_name));
-                tmp_entity_refs_vector.emplace_back(&this_field.value());
+                temporary_entity_refs_array.emplace_back(&this_field.value());
             }
         }
     }
