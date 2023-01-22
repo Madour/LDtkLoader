@@ -14,7 +14,7 @@
 #endif
 
 namespace ldtk {
-    LayerType getLayerTypeFromString(const std::string& type_name);
+    auto getLayerTypeFromString(const std::string& type_name) -> LayerType;
 
     inline void print_error(const std::string& fn, const std::string& msg) {
         std::cerr << "LDtkLoader Error (in " << fn << ") : " << msg << std::endl;

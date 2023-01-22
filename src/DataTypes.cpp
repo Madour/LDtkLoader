@@ -23,7 +23,7 @@ Color(std::stoul(hex.substr(1, 2), nullptr, 16),
       std::stoul(hex.substr(5, 2), nullptr, 16))
 {}
 
-bool ldtk::operator==(const Color& lhs, const Color& rhs) {
+auto ldtk::operator==(const Color& lhs, const Color& rhs) -> bool {
     return (lhs.r == rhs.r && lhs.g == rhs.g &&
             lhs.b == rhs.b && lhs.a == rhs.a);
 
@@ -64,7 +64,7 @@ auto IID::str() const -> const std::string& {
     return m_iid;
 }
 
-bool ldtk::operator==(const IID& lhs, const IID& rhs) {
+auto ldtk::operator==(const IID& lhs, const IID& rhs) -> bool {
     return lhs.str() == rhs.str();
 }
 
@@ -79,14 +79,14 @@ auto EntityRef::operator->() const -> const Entity* {
     return ref;
 }
 
-auto operator<<(std::ostream& os, const ldtk::Color& col) -> std::ostream& {
-    os << "rgb(" << (int)col.r << ", " << (int)col.g << ", " << (int)col.b << ")";
+auto operator<<(std::ostream& os, const ldtk::Color& color) -> std::ostream& {
+    os << "rgb(" << (int)color.r << ", " << (int)color.g << ", " << (int)color.b << ")";
     return os;
 }
 
 
-auto operator<<(std::ostream& os, const ldtk::FilePath& fp) -> std::ostream& {
-    os << fp.c_str();
+auto operator<<(std::ostream& os, const ldtk::FilePath& path) -> std::ostream& {
+    os << path.c_str();
     return os;
 }
 

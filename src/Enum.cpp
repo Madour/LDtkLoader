@@ -27,11 +27,10 @@ auto EnumValue::getIconTexturePos() const -> IntPoint {
     return getIconTileset().getTileTexturePos(tile_id);
 }
 
-
-bool ldtk::operator==(const EnumValue& l, const EnumValue& r) {
+auto ldtk::operator==(const EnumValue& l, const EnumValue& r) -> bool {
     return (l.id == r.id) && (l.type.uid == r.type.uid);
 }
-bool ldtk::operator!=(const EnumValue& l, const EnumValue& r) {
+auto ldtk::operator!=(const EnumValue& l, const EnumValue& r) -> bool {
     return !(ldtk::operator==(l, r));
 }
 
@@ -39,8 +38,7 @@ Enum::Enum(const nlohmann::json& j) :
 TagsContainer(j.contains("tags") ? j["tags"] : nlohmann::json{}),
 name(j["identifier"].get<std::string>()),
 uid(j["uid"].get<int>()),
-m_tileset_id(j["iconTilesetUid"].is_null() ? -1 : j["iconTilesetUid"].get<int>()),
-m_tileset(nullptr)
+m_tileset_id(j["iconTilesetUid"].is_null() ? -1 : j["iconTilesetUid"].get<int>())
 {
     int id = 0;
     for (const auto& value : j["values"]) {

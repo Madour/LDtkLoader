@@ -84,9 +84,10 @@ auto Level::getNeighbours(const Dir& direction) const -> const std::vector<const
 
 auto Level::getNeighbourDirection(const Level& level) const -> Dir {
     for (const auto& item : m_neighbours_id) {
-        for (auto id : item.second) {
-            if (id == level.iid)
-                return item.first;
+        const auto& neighbour_direction = item.first;
+        for (const auto& neighbour_iid : item.second) {
+            if (neighbour_iid == level.iid)
+                return neighbour_direction;
         }
     }
     return Dir::None;

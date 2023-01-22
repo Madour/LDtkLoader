@@ -34,7 +34,7 @@ namespace ldtk {
         Tile(const Layer* l, IntPoint pos, int tile_id, int flips);
     };
 
-    bool operator==(const Tile& l, const Tile& r);
-    bool operator!=(const Tile& l, const Tile& r);
+    auto operator==(const Tile& l, const Tile& r) -> bool;
+    auto operator!=(const Tile& l, const Tile& r) -> bool;
 
 }

@@ -26,14 +26,14 @@ namespace ldtk {
 
     private:
         friend Enum;
-        friend bool operator==(const EnumValue& l, const EnumValue& r);
+        friend auto operator==(const EnumValue& l, const EnumValue& r) -> bool;
         EnumValue(std::string name, int id, int tile_id, const Color& color, const Enum& enum_type);
         const int id;
         const int tile_id;
     };
 
-    bool operator==(const EnumValue& l, const EnumValue& r);
-    bool operator!=(const EnumValue& l, const EnumValue& r);
+    auto operator==(const EnumValue& l, const EnumValue& r) -> bool;
+    auto operator!=(const EnumValue& l, const EnumValue& r) -> bool;
 
     class Enum : public TagsContainer {
         friend class Project;
@@ -55,7 +55,7 @@ namespace ldtk {
 
     private:
         const int m_tileset_id;
-        const Tileset* m_tileset;
+        const Tileset* m_tileset = nullptr;
         std::unordered_map<std::string, EnumValue> m_values;
     };
 

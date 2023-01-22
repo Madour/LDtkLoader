@@ -52,24 +52,24 @@ namespace ldtk {
     ArrayField<T> Field<T>::m_dummy;
 
     template <class T>
-    bool operator==(const Field<T>& lhs, const T& rhs) {
+    auto operator==(const Field<T>& lhs, const T& rhs) -> bool {
         if (lhs.is_null()) return false;
         return (lhs.value() == rhs);
     }
 
     template <class T>
-    bool operator==(const T& lhs, const Field<T>& rhs) {
+    auto operator==(const T& lhs, const Field<T>& rhs) -> bool {
         if (rhs.is_null()) return false;
         return (rhs.value() == lhs);
     }
 
     template <class T>
-    bool operator!=(const Field<T>& lhs, const T& rhs) {
+    auto operator!=(const Field<T>& lhs, const T& rhs) -> bool {
         return !(lhs == rhs);
     }
 
     template <class T>
-    bool operator!=(const T& lhs, const Field<T>& rhs) {
+    auto operator!=(const T& lhs, const Field<T>& rhs) -> bool {
         return !(lhs == rhs);
     }
 

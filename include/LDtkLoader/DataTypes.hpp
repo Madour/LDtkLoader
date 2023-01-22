@@ -20,13 +20,13 @@ namespace ldtk {
     };
 
     template <typename T>
-    bool operator==(const Point<T>& lhs, const Point<T>& rhs) {
+    auto operator==(const Point<T>& lhs, const Point<T>& rhs) -> bool {
         return (lhs.x == rhs.x && lhs.y == rhs.y);
     }
 
-    typedef Point<float> FloatPoint;
-    typedef Point<int> IntPoint;
-    typedef Point<unsigned int> UIntPoint;
+    using FloatPoint = Point<float>;
+    using IntPoint = Point<int>;
+    using UIntPoint = Point<unsigned int>;
 
     template <typename T>
     struct Rect {
@@ -38,12 +38,12 @@ namespace ldtk {
     };
 
     template <typename T>
-    bool operator==(const Rect<T>& lhs, const Rect<T>& rhs) {
+    auto operator==(const Rect<T>& lhs, const Rect<T>& rhs) -> bool {
         return (lhs.x == rhs.x && lhs.y == rhs.y && lhs.width == rhs.width && lhs.height == rhs.height);
     }
 
-    typedef Rect<float> FloatRect;
-    typedef Rect<int> IntRect;
+    using FloatRect = Rect<float>;
+    using IntRect = Rect<int>;
 
     struct NineSliceBorders {
         int top;
@@ -64,7 +64,7 @@ namespace ldtk {
         std::uint8_t a = 0xffu;
     };
 
-    bool operator==(const Color& lhs, const Color& rhs);
+    auto operator==(const Color& lhs, const Color& rhs) -> bool;
 
     struct Vertex {
         FloatPoint pos = {0.f, 0.f};
@@ -112,7 +112,7 @@ namespace ldtk {
         auto extension() const -> std::string;
     };
 
-    typedef std::function<std::unique_ptr<std::streambuf>(const std::string&)> FileLoader;
+    using FileLoader = std::function<std::unique_ptr<std::streambuf> (const std::string &)>;
 
     struct IID {
         IID() = default;
@@ -122,7 +122,7 @@ namespace ldtk {
         std::string m_iid;
     };
 
-    bool operator==(const IID& lhs, const IID& rhs);
+    auto operator==(const IID& lhs, const IID& rhs) -> bool;
 
     class Entity;
     struct EntityRef {
@@ -139,8 +139,8 @@ namespace ldtk {
 }
 
 template <typename T>
-auto operator<<(std::ostream& os, const ldtk::Point<T>& pt) -> std::ostream& {
-    os << "(" << pt.x << ", " << pt.y << ")";
+auto operator<<(std::ostream& os, const ldtk::Point<T>& point) -> std::ostream& {
+    os << "(" << point.x << ", " << point.y << ")";
     return os;
 }
 template <typename T>
@@ -148,6 +148,6 @@ auto operator<<(std::ostream& os, const ldtk::Rect<T>& rect) -> std::ostream& {
     os << "(" << rect.x << ", " << rect.y << ", " << rect.width << ", " << rect.height << ")";
     return os;
 }
-auto operator<<(std::ostream& os, const ldtk::Color& col) -> std::ostream&;
-auto operator<<(std::ostream& os, const ldtk::FilePath& fp) -> std::ostream&;
-auto operator<<(std::ostream& os, const ldtk::IID& fp) -> std::ostream&;
+auto operator<<(std::ostream& os, const ldtk::Color& color) -> std::ostream&;
+auto operator<<(std::ostream& os, const ldtk::FilePath& path) -> std::ostream&;
+auto operator<<(std::ostream& os, const ldtk::IID& iid) -> std::ostream&;

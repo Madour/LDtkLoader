@@ -20,7 +20,7 @@ m_tags_enum(j["tagsSourceEnumUid"].is_null() ? nullptr : &p->getEnum(j["tagsSour
     // parse tiles custom data
     m_custom_data.reserve(j["customData"].size() + 1);
     m_custom_data.emplace(-1, "");
-    for (auto& data : j["customData"]) {
+    for (const auto& data : j["customData"]) {
         m_custom_data[data["tileId"].get<int>()] = data["data"].get<std::string>();
     }
 
@@ -28,9 +28,9 @@ m_tags_enum(j["tagsSourceEnumUid"].is_null() ? nullptr : &p->getEnum(j["tagsSour
     if (m_tags_enum != nullptr) {
         for (const auto& tag : j["enumTags"]) {
             auto enumval_name = tag["enumValueId"].get<std::string>();
-            auto& tiles = tag["tileIds"];
+            const auto& tiles = tag["tileIds"];
             m_tag_tiles_map[enumval_name].reserve(tiles.size());
-            for (auto& tile_id : tiles) {
+            for (const auto& tile_id : tiles) {
                 m_tag_tiles_map[enumval_name].push_back(tile_id.get<int>());
             }
         }

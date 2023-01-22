@@ -37,14 +37,14 @@ void Project::loadFromFile(const std::string& filepath, const FileLoader& file_l
 
 void Project::loadFromMemory(const std::vector<std::uint8_t>& bytes) {
     m_file_path = "<loaded_from_memory>";
-    nlohmann::json j = nlohmann::json::parse(bytes.data(), bytes.data() + bytes.size());
+    const nlohmann::json j = nlohmann::json::parse(bytes.data(), bytes.data() + bytes.size());
 
     load(j, nullptr, true);
 }
 
 void Project::loadFromMemory(unsigned char* data, unsigned int size) {
     m_file_path = "<loaded_from_memory>";
-    nlohmann::json j = nlohmann::json::parse(data, data + size);
+    const nlohmann::json j = nlohmann::json::parse(data, data + size);
 
     load(j, nullptr, true);
 }
@@ -229,7 +229,7 @@ void Project::load(const nlohmann::json& j, const FileLoader& file_loader, bool 
     }
 
     auto resolveEntityRef = [this](EntityRef& ref) {
-        auto& world = (m_worlds.size() == 1 ? getWorld() : getWorld(ref.world_iid));
+        const auto& world = (m_worlds.size() == 1 ? getWorld() : getWorld(ref.world_iid));
         ref.ref = &world.getLevel(ref.level_iid)
                         .getLayer(ref.layer_iid)
                         .getEntity(ref.entity_iid);

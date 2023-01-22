@@ -24,7 +24,7 @@ auto Tile::getPosition() const -> IntPoint {
 }
 
 auto Tile::getGridPosition() const -> IntPoint {
-    auto& grid_width = layer->getGridSize().x;
+    const auto& grid_width = layer->getGridSize().x;
     auto y = coordId / grid_width;
     auto x = coordId - y * grid_width;
     return {x, y};
@@ -36,7 +36,7 @@ auto Tile::getWorldPosition() const -> IntPoint {
 }
 
 auto Tile::getTextureRect() const -> IntRect {
-    auto& tile_size = layer->getTileset().tile_size;
+    const auto& tile_size = layer->getTileset().tile_size;
     auto tex_pos = layer->getTileset().getTileTexturePos(tileId);
     return {tex_pos.x, tex_pos.y, tile_size, tile_size};
 }
@@ -55,8 +55,8 @@ auto Tile::getVertices() const -> std::array<Vertex, 4> {
     verts[3].pos.y = static_cast<float>(pos.y+cell_size); verts[2].pos.y = static_cast<float>(pos.y+cell_size);
 
     // set vertices texture coordinates
-    IntPoint modif[4];
-    IntPoint tex_coo[4] = {{0, 0}, {cell_size, 0}, {cell_size, cell_size}, {0, cell_size}};
+    std::array<IntPoint, 4> modif;
+    std::array<IntPoint, 4> tex_coo = {{ {0, 0}, {cell_size, 0}, {cell_size, cell_size}, {0, cell_size} }};
 
     if (flipX) {
         modif[0].x =  cell_size; modif[1].x = -cell_size;
@@ -75,10 +75,10 @@ auto Tile::getVertices() const -> std::array<Vertex, 4> {
 }
 
 
-bool ldtk::operator==(const Tile& l, const Tile& r) {
+auto ldtk::operator==(const Tile& l, const Tile& r) -> bool {
     return (l.coordId == r.coordId) && (l.tileId == r.tileId);
 }
 
-bool ldtk::operator!=(const Tile& l, const Tile& r) {
+auto ldtk::operator!=(const Tile& l, const Tile& r) -> bool {
     return !(ldtk::operator==(l, r));
 }
