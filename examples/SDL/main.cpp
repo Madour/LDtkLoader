@@ -3,20 +3,23 @@
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
 
-#include <LDtkLoader/World.hpp>
+#include <LDtkLoader/Project.hpp>
 
 int main() {
-    // declare a LDtk World
-    ldtk::World world;
+    // declare a LDtk project
+    ldtk::Project ldtk_project;
 
-    // load the LDtk World from file
+    // load the project from file
     try {
-        world.loadFromFile("assets/level.ldtk");
+        ldtk_project.loadFromFile("assets/level.ldtk");
     }
     catch (std::exception& ex) {
         std::cerr << ex.what() << std::endl;
         return 1;
     }
+
+    // get the world
+    const auto& world = ldtk_project.getWorld();
 
     // get the level and the layer we want to render
     const auto& level = world.getLevel("Level");
@@ -46,15 +49,17 @@ int main() {
     // we start drawing on tilemap_texture
     SDL_SetRenderTarget(renderer, tilemap_texture);
     for (const auto& tile : tiles_vector) {
+        auto tile_position = tile.getPosition();
+        auto tile_texture_rect = tile.getTextureRect();
         // destination rect on the window
         SDL_Rect dest = {
-            tile.position.x, tile.position.y,
+            tile_position.x, tile_position.y,
             layer.getCellSize(), layer.getCellSize()
         };
-        // source rect from the tileset
+        // source texture rect from the tileset
         SDL_Rect src = {
-            tile.texture_position.x, tile.texture_position.y,
-            layer.getTileset().tile_size, layer.getTileset().tile_size
+            tile_texture_rect.x, tile_texture_rect.y,
+            tile_texture_rect.width, tile_texture_rect.height
         };
         // get tile flips
         int flip = (tile.flipX ? SDL_FLIP_HORIZONTAL : SDL_FLIP_NONE)
@@ -91,7 +96,7 @@ int main() {
         unsigned int end = SDL_GetPerformanceCounter();
         float elapsed_ms = float(end - start)*1000.f / (float)SDL_GetPerformanceFrequency();
         if (elapsed_ms < 16.666)
-            SDL_Delay(16.666 - elapsed_ms);
+            SDL_Delay(17u - (unsigned)elapsed_ms);
     }
 
     SDL_DestroyTexture(tileset_texture);
