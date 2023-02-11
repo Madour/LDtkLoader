@@ -179,6 +179,9 @@ void Project::load(const nlohmann::json& j, const FileLoader& file_loader, bool 
     m_tilesets.clear();
     m_layers_defs.clear();
     m_entities_defs.clear();
+    m_worlds.clear();
+    m_toc.clear();
+    m_toc_map.clear();
 
     const auto& defs = j["defs"];
 
