@@ -6,6 +6,7 @@
 #include <istream>
 
 #include "LDtkLoader/World.hpp"
+#include "LDtkLoader/generated/Version.hpp"
 #include "json.hpp"
 
 using namespace ldtk;
@@ -166,6 +167,22 @@ auto Project::getTocEntitiesByName(const std::string& name) const -> const std::
 void Project::load(const nlohmann::json& j, const FileLoader& file_loader, bool from_memory) {
     if (j.contains("iid")) {
         iid = IID(j["iid"]);
+    }
+
+    m_json_version = j["jsonVersion"].get<std::string>();
+
+    // compare loaded json version with the library API version and issue a warning if mismatching
+    {
+        auto api_version = std::string(API_VERSION);
+        auto json_major_minor = m_json_version.substr(0, m_json_version.find('.', 3));
+        auto api_major_minor = api_version.substr(0, api_version.find('.', 3));
+
+        if (json_major_minor != api_major_minor) {
+            std::cout << "LDtkLoader Warning: Version mismatch. LDtkLoader v" << api_major_minor
+                      << " may fail to load the project \"" << getFilePath().c_str()<< "\" created"
+                      << " with LDtk v" << json_major_minor << ". Please make sure your software is"
+                      << " up to date.";
+        }
     }
 
     m_default_pivot.x = j["defaultPivotX"].get<float>();

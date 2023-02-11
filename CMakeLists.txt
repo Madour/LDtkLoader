@@ -1,10 +1,12 @@
 cmake_minimum_required(VERSION 3.10)
 
-project(LDtkLoader VERSION 1.2.1)
+project(LDtkLoader VERSION 1.2.2)
 
 # get source files
 file(GLOB_RECURSE Src src/*.cpp)
 file(GLOB_RECURSE Inc include/LDtkLoader/*.hpp)
+
+configure_file(${PROJECT_SOURCE_DIR}/src/Version.hpp.in ${CMAKE_BINARY_DIR}/include/LDtkLoader/generated/Version.hpp)
 
 # create the static lib target
 add_library(LDtkLoader STATIC ${Src} ${Inc})
@@ -13,6 +15,7 @@ if (MSVC)
 endif()
 # set include directory for build and install
 target_include_directories(LDtkLoader PUBLIC $<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/include>)
+target_include_directories(LDtkLoader PUBLIC $<BUILD_INTERFACE:${CMAKE_BINARY_DIR}/include/>)
 target_include_directories(LDtkLoader INTERFACE $<INSTALL_INTERFACE:include>)
 # set lib target properties
 set_target_properties(LDtkLoader PROPERTIES

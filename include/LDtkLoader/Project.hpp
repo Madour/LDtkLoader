@@ -68,6 +68,7 @@ namespace ldtk {
         FloatPoint m_default_pivot;
         int m_default_cell_size = 0;
         Color m_background_color;
+        std::string m_json_version;
 
         std::vector<LayerDef> m_layers_defs;
         std::vector<EntityDef> m_entities_defs;
