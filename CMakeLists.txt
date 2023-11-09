@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.10)
 
-project(LDtkLoader VERSION 1.2.2)
+project(LDtkLoader VERSION 1.4.1)
 
 # get source files
 file(GLOB_RECURSE Src src/*.cpp)
