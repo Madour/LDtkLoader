@@ -14,9 +14,8 @@ size(j["width"].get<int>(), j["height"].get<int>()),
 color(j["color"].get<std::string>()),
 pivot(j["pivotX"].get<float>(), j["pivotY"].get<float>()),
 tileset(j["tileRect"].is_null() ? nullptr : &p->getTileset(j["tileRect"]["tilesetUid"].get<int>())),
-texture_rect(j["tileRect"].is_null() ?
-                IntRect{} :
-                IntRect{j["tileRect"]["x"], j["tileRect"]["y"], j["tileRect"]["w"], j["tileRect"]["h"]}),
+texture_rect(j["tileRect"].is_null() ? IntRect{}
+                                     : IntRect{j["tileRect"]["x"], j["tileRect"]["y"], j["tileRect"]["w"], j["tileRect"]["h"]}),
 nine_slice_borders({-1, -1, -1, -1})
 {
     if (j.contains("nineSliceBorders") && !j["nineSliceBorders"].empty()) {

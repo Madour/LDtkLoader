@@ -44,11 +44,11 @@ m_tileset_id(j["iconTilesetUid"].is_null() ? -1 : j["iconTilesetUid"].get<int>()
     for (const auto& value : j["values"]) {
         const auto& val_name = value["id"].get<std::string>();
         const auto& j_tile_rect = value["tileRect"];
-        const auto tile_rect = j_tile_rect.is_null() ? IntRect(-1, -1, -1, -1)
-                                                     : IntRect(j_tile_rect["x"].get<int>(),
+        const auto tile_rect = j_tile_rect.is_null() ? IntRect{-1, -1, -1, -1}
+                                                     : IntRect{j_tile_rect["x"].get<int>(),
                                                                j_tile_rect["y"].get<int>(),
                                                                j_tile_rect["w"].get<int>(),
-                                                               j_tile_rect["h"].get<int>());
+                                                               j_tile_rect["h"].get<int>()};
         const auto color = Color(value["color"].get<int>());
         m_values.insert({val_name, {val_name, id++, tile_rect, color, *this}});
     }
