@@ -28,10 +28,12 @@ namespace ldtk {
 
         auto getName() const -> const std::string&;
         auto getSize() const -> const IntPoint&;
+        auto getColor() const -> const Color&;
+
         auto getPosition() const -> const IntPoint&;
         auto getGridPosition() const -> const IntPoint&;
         auto getWorldPosition() const -> const IntPoint&;
-        auto getColor() const -> const Color&;
+
         auto getPivot() const -> const FloatPoint&;
 
         auto hasSprite() const -> bool;

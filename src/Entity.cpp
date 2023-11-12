@@ -28,6 +28,10 @@ auto Entity::getSize() const -> const IntPoint& {
     return m_size;
 }
 
+auto Entity::getColor() const -> const Color& {
+    return m_color;
+}
+
 auto Entity::getPosition() const -> const IntPoint& {
     return m_position;
 }
@@ -38,10 +42,6 @@ auto Entity::getGridPosition() const -> const IntPoint& {
 
 auto Entity::getWorldPosition() const -> const IntPoint& {
     return m_world_pos;
-}
-
-auto Entity::getColor() const -> const Color& {
-    return m_color;
 }
 
 auto Entity::getPivot() const -> const FloatPoint& {
