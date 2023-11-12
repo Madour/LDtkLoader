@@ -22,14 +22,14 @@ namespace ldtk {
 
         auto hasIcon() const -> bool;
         auto getIconTileset() const -> const Tileset&;
-        auto getIconTexturePos() const -> IntPoint;
+        auto getIconTextureRect() const -> const IntRect&;
 
     private:
         friend Enum;
         friend auto operator==(const EnumValue& l, const EnumValue& r) -> bool;
-        EnumValue(std::string name, int id, int tile_id, const Color& color, const Enum& enum_type);
+        EnumValue(std::string name, int id, const IntRect& tile_rect, const Color& color, const Enum& enum_type);
         const int id;
-        const int tile_id;
+        const IntRect tile_rect;
     };
 
     auto operator==(const EnumValue& l, const EnumValue& r) -> bool;
