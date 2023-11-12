@@ -32,7 +32,8 @@ m_grid_size({j["__cWid"].get<int>(), j["__cHei"].get<int>()})
                 this,
                 IntPoint{tile["px"][0].get<int>(), tile["px"][1].get<int>()},
                 tile["t"].get<int>(),
-                tile["f"].get<int>()
+                tile["f"].get<int>(),
+                tile["a"].get<float>()
         );
         auto& new_tile = m_tiles.back();
         m_tiles_map.emplace(new_tile.coordId, new_tile);

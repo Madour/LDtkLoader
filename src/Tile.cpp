@@ -6,14 +6,15 @@
 
 using namespace ldtk;
 
-const Tile Tile::None{nullptr, {-1, -1}, -1, 0};
+const Tile Tile::None{nullptr, {-1, -1}, -1, 0, 0};
 
-Tile::Tile(const Layer* l, IntPoint pos, int tile_id, int flips) :
+Tile::Tile(const Layer* l, IntPoint pos, int tile_id, int flips, float a) :
 layer(l),
 coordId(l == nullptr ? -1 : l->getCoordIdAt(pos.x, pos.y)),
 tileId(tile_id),
 flipX(flips & 1),
-flipY((flips>>1) & 1)
+flipY((flips>>1) & 1),
+alpha(a)
 {}
 
 auto Tile::getPosition() const -> IntPoint {
