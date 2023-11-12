@@ -30,6 +30,7 @@ namespace ldtk {
         auto getSize() const -> const IntPoint&;
         auto getPosition() const -> const IntPoint&;
         auto getGridPosition() const -> const IntPoint&;
+        auto getWorldPosition() const -> const IntPoint&;
         auto getColor() const -> const Color&;
         auto getPivot() const -> const FloatPoint&;
 
@@ -53,6 +54,7 @@ namespace ldtk {
         const IntPoint m_size;
         const IntPoint m_position;
         const IntPoint m_grid_pos;
+        const IntPoint m_world_pos;
         const Color m_color;
 
         const Tileset* m_tileset = nullptr;
