@@ -21,6 +21,8 @@ namespace ldtk {
         const bool flipX = false;
         const bool flipY = false;
 
+        const float alpha;
+
         auto getPosition() const -> IntPoint;
         auto getGridPosition() const -> IntPoint;
         auto getWorldPosition() const -> IntPoint;
@@ -31,7 +33,7 @@ namespace ldtk {
 
         static const Tile None;
 
-        Tile(const Layer* l, IntPoint pos, int tile_id, int flips);
+        Tile(const Layer* l, IntPoint pos, int tile_id, int flips, float a);
     };
 
     auto operator==(const Tile& l, const Tile& r) -> bool;
