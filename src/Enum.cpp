@@ -7,24 +7,24 @@
 
 using namespace ldtk;
 
-EnumValue::EnumValue(std::string val_name, int val_id, int val_tile_id, const Color& val_color, const Enum& val_enum_type) :
+EnumValue::EnumValue(std::string val_name, int val_id, const IntRect& val_tile_rect, const Color& val_color, const Enum& val_enum_type) :
 name(std::move(val_name)),
 color(val_color),
 type(val_enum_type),
 id(val_id),
-tile_id(val_tile_id)
+tile_rect(val_tile_rect)
 {}
 
 auto EnumValue::hasIcon() const -> bool {
-    return tile_id != -1;
+    return tile_rect != IntRect(-1, -1, -1, -1);
 }
 
 auto EnumValue::getIconTileset() const -> const Tileset& {
     return type.getIconsTileset();
 }
 
-auto EnumValue::getIconTexturePos() const -> IntPoint {
-    return getIconTileset().getTileTexturePos(tile_id);
+auto EnumValue::getIconTextureRect() const -> const IntRect& {
+    return tile_rect;
 }
 
 auto ldtk::operator==(const EnumValue& l, const EnumValue& r) -> bool {
@@ -43,8 +43,14 @@ m_tileset_id(j["iconTilesetUid"].is_null() ? -1 : j["iconTilesetUid"].get<int>()
     int id = 0;
     for (const auto& value : j["values"]) {
         const auto& val_name = value["id"].get<std::string>();
-        const auto& tile_id = !value.contains("tileId") || value["tileId"].is_null() ? -1 : value["tileId"].get<int>();
-        m_values.insert({val_name, {val_name, id++, tile_id, Color(value["color"].get<int>()), *this}});
+        const auto& j_tile_rect = value["tileRect"];
+        const auto tile_rect = j_tile_rect.is_null() ? IntRect(-1, -1, -1, -1)
+                                                     : IntRect(j_tile_rect["x"].get<int>(),
+                                                               j_tile_rect["y"].get<int>(),
+                                                               j_tile_rect["w"].get<int>(),
+                                                               j_tile_rect["h"].get<int>());
+        const auto color = Color(value["color"].get<int>());
+        m_values.insert({val_name, {val_name, id++, tile_rect, color, *this}});
     }
 }
 
