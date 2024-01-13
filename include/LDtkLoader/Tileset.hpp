@@ -35,7 +35,7 @@ namespace ldtk {
         Tileset(const nlohmann::json& j, Project* p);
 
     private:
-        const Enum* m_tags_enum;
+        const Enum* const m_tags_enum;
         std::unordered_map<int, std::string> m_custom_data;
         std::unordered_map<std::string, std::vector<int>> m_tag_tiles_map;
     };

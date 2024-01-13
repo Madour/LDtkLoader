@@ -30,7 +30,7 @@ namespace ldtk {
         Level(Level&&) = default;
         auto operator=(const Level&) -> Level& = delete;
 
-        const World* world;
+        const World* const world;
 
         const std::string name;
         const IID iid;

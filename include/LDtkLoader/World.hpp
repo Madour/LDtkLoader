@@ -56,7 +56,7 @@ namespace ldtk {
         World(const nlohmann::json& j, Project* p, const FileLoader& file_loader, bool external_levels);
 
     private:
-        Project* m_project;
+        const Project* const m_project;
         std::string m_name;
 
         WorldLayout m_layout = WorldLayout::Free;

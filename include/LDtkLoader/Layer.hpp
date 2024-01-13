@@ -22,7 +22,7 @@ namespace ldtk {
         Layer(Layer&&) = default;
         auto operator=(const Layer&) -> Layer& = delete;
 
-        const Level* level = nullptr;
+        const Level* const level;
         const IID iid;
 
         auto getType() const -> const LayerType&;
@@ -56,8 +56,8 @@ namespace ldtk {
         Layer(const nlohmann::json& j, const World* w, const Level* l);
 
     private:
-        const LayerDef* m_definition = nullptr;
-        const Tileset* m_override_tileset = nullptr;
+        const LayerDef* const m_definition;
+        const Tileset* const m_override_tileset;
 
         bool m_visible;
         IntPoint m_total_offset;

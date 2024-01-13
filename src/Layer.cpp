@@ -13,15 +13,12 @@ Layer::Layer(const nlohmann::json& j, const World* w, const Level* l) :
 level(l),
 iid(j.contains("iid") ? j["iid"].get<std::string>() : ""),
 m_definition(&w->getLayerDef(j["layerDefUid"].get<int>())),
+m_override_tileset(j["overrideTilesetUid"].is_null() ? nullptr : &w->getTileset(j["overrideTilesetUid"].get<int>())),
 m_visible(j["visible"].get<bool>()),
 m_total_offset(j["__pxTotalOffsetX"].get<int>(), j["__pxTotalOffsetY"].get<int>()),
 m_opacity(j["__opacity"].get<float>()),
 m_grid_size({j["__cWid"].get<int>(), j["__cHei"].get<int>()})
 {
-    if ( !j["overrideTilesetUid"].is_null() ) {
-        m_override_tileset = &w->getTileset(j["overrideTilesetUid"].get<int>());
-    }
-
     std::string key = "gridTiles";
     if (getType() == LayerType::IntGrid || getType() == LayerType::AutoLayer) {
         key = "autoLayerTiles";

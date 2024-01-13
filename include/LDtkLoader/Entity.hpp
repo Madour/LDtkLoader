@@ -25,7 +25,7 @@ namespace ldtk {
         Entity(Entity&&) = default;
         auto operator=(const Entity&) -> Entity& = delete;
 
-        const Layer* layer;
+        const Layer* const layer;
         const IID iid;
 
         auto getName() const -> const std::string&;
@@ -53,14 +53,14 @@ namespace ldtk {
         explicit Entity(const nlohmann::json& j, const World* w, const Layer* l);
 
     private:
-        const EntityDef* m_definition = nullptr;
+        const EntityDef* const m_definition;
 
         const IntPoint m_size;
         const IntPoint m_position;
         const IntPoint m_grid_pos;
         const Color m_color;
 
-        const Tileset* m_tileset = nullptr;
+        const Tileset* const m_tileset;
         const IntRect m_texture_rect;
     };
 

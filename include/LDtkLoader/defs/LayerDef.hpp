@@ -28,8 +28,8 @@ namespace ldtk {
         LayerDef(const nlohmann::json& j, Project* p);
 
     private:
-        const Tileset* m_tileset = nullptr;
-        const Tileset* m_auto_tileset = nullptr;        // tileset for Auto layers based on a grid layer
+        const Tileset* const m_tileset;
+        const Tileset* const m_auto_tileset;        // tileset for Auto layers based on a grid layer
         std::map<int, IntGridValue> m_intgrid_values;
     };
 

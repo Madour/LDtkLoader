@@ -13,7 +13,7 @@ namespace ldtk {
 
     class Tile {
     public:
-        const Layer* layer = nullptr;
+        const Layer* const layer;
 
         const int coordId = 0;
         const int tileId  = 0;
