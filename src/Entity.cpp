@@ -6,14 +6,14 @@
 
 using namespace ldtk;
 
-Entity::Entity(const nlohmann::json& j, const World* w) :
+Entity::Entity(const nlohmann::json& j, const World* w, const Layer* l) :
 FieldsContainer(j["fieldInstances"], w),
+layer(l),
 iid(j.contains("iid") ? j["iid"].get<std::string>() : ""),
 m_definition(&w->getEntityDef(j["defUid"].get<int>())),
 m_size(j["width"].get<int>(), j["height"].get<int>()),
 m_position(j["px"][0].get<int>(), j["px"][1].get<int>()),
 m_grid_pos(j["__grid"][0].get<int>(), j["__grid"][1].get<int>()),
-m_world_pos(j["__worldX"].get<int>(), j["__worldY"].get<int>()),
 m_color(j.contains("__smartColor") ? Color(j["__smartColor"].get<std::string>()) : m_definition->color),
 m_tileset(j["__tile"].is_null() ? nullptr : &w->getTileset(j["__tile"]["tilesetUid"].get<int>())),
 m_texture_rect(j["__tile"].is_null() ? IntRect{}
@@ -40,8 +40,11 @@ auto Entity::getGridPosition() const -> const IntPoint& {
     return m_grid_pos;
 }
 
-auto Entity::getWorldPosition() const -> const IntPoint& {
-    return m_world_pos;
+auto Entity::getWorldPosition() const -> IntPoint {
+    const auto& layer_offset = layer->getOffset();
+    const auto& level_position = layer->level->position;
+    return {m_position.x + layer_offset.x + level_position.x,
+            m_position.y + layer_offset.y + level_position.y};
 }
 
 auto Entity::getPivot() const -> const FloatPoint& {

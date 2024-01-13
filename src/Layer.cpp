@@ -49,7 +49,7 @@ m_grid_size({j["__cWid"].get<int>(), j["__cHei"].get<int>()})
 
     m_entities.reserve(j["entityInstances"].size());
     for (const auto& ent : j["entityInstances"]) {
-        m_entities.emplace_back(ent, w);
+        m_entities.emplace_back(ent, w, this);
         auto& new_ent = m_entities.back();
         m_entities_by_name[new_ent.getName()].emplace_back(new_ent);
         for (const auto& tag : new_ent.getTags()) {
