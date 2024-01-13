@@ -1,4 +1,4 @@
-<h1> LDtk Loader • <img src=https://img.shields.io/badge/LDtk_version-1.4.1-default> <img src=https://github.com/Madour/LDtkLoader/workflows/CI/badge.svg></h1>
+<h1> LDtk Loader • <img src=https://img.shields.io/badge/LDtk_version-1.5.2-default> <img src=https://github.com/Madour/LDtkLoader/workflows/CI/badge.svg></h1>
 
 
 **LDtkLoader** is a loader for **[LDtk](https://github.com/deepnight/ldtk)** levels and tile maps.
@@ -88,7 +88,7 @@ This will copy the libraries, the headers and the cmake config files to the inst
 After installation, to add LDtkLoader to a CMake project, use the `find_package` command:
 
 ```cmake
-find_package(LDtkLoader 1.4)
+find_package(LDtkLoader 1.5)
 ```
 
 The `find_package` command will automatically get the correct library (Release or Debug)
