@@ -35,7 +35,7 @@ option(LDTK_FIELD_PUBLIC_OPTIONAL "Set to ON to enable the full optional interfa
 mark_as_advanced(LDTK_FIELD_PUBLIC_OPTIONAL)
 
 if (LDTK_NO_THROW)
-    target_compile_definitions(LDtkLoader PUBLIC LDTK_NO_THROW)
+    target_compile_definitions(LDtkLoader PUBLIC LDTK_NO_THROW JSON_NOEXCEPTION)
 endif()
 
 if (LDTK_BUILD_SFML_EXAMPLE)
