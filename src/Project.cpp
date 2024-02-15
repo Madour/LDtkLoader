@@ -181,7 +181,7 @@ void Project::load(const nlohmann::json& j, const FileLoader& file_loader, bool 
             std::cout << "LDtkLoader Warning: Version mismatch. LDtkLoader v" << api_major_minor
                       << " may fail to load the project \"" << getFilePath().c_str()<< "\" created"
                       << " with LDtk v" << json_major_minor << ". Please make sure your software is"
-                      << " up to date.";
+                      << " up to date." << std::endl;
         }
     }
 
