@@ -25,19 +25,33 @@ depth(j.contains("worldDepth") ? j["worldDepth"].get<int>() : 0)
         m_layers.emplace_back(level, w, this);
     }
 
-    m_neighbours_id[Dir::North]; m_neighbours_id[Dir::East];
-    m_neighbours_id[Dir::South]; m_neighbours_id[Dir::West];
+    m_neighbours_id[Dir::North]; m_neighbours_id[Dir::NorthEast];
+    m_neighbours_id[Dir::East]; m_neighbours_id[Dir::SouthEast];
+    m_neighbours_id[Dir::South]; m_neighbours_id[Dir::SouthWest];
+    m_neighbours_id[Dir::West]; m_neighbours_id[Dir::NorthWest];
     for (const auto& neighbour : j["__neighbours"]) {
         const auto& dir = neighbour["dir"].get<std::string>();
         const auto& level_iid = IID(neighbour["levelIid"].get<std::string>());
+        Dir direction;
+
         if (dir == "n")
-            m_neighbours_id[Dir::North].push_back(level_iid);
+            direction = Dir::North;
+        else if (dir == "ne")
+            direction = Dir::NorthEast;
         else if (dir == "e")
-            m_neighbours_id[Dir::East].push_back(level_iid);
+            direction = Dir::East;
+        else if (dir == "se")
+            direction = Dir::SouthEast;
         else if (dir == "s")
-            m_neighbours_id[Dir::South].push_back(level_iid);
+            direction = Dir::South;
+        else if (dir == "sw")
+            direction = Dir::SouthWest;
+        else if (dir == "w")
+            direction = Dir::West;
         else
-            m_neighbours_id[Dir::West].push_back(level_iid);
+            direction = Dir::NorthWest;
+
+        m_neighbours_id[direction].push_back(level_iid);
     }
 
     if (j["bgRelPath"].is_null())

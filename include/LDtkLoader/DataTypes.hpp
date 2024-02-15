@@ -100,9 +100,13 @@ namespace ldtk {
     enum class Dir {
         None,
         North,
+        NorthEast,
         East,
+        SouthEast,
         South,
-        West
+        SouthWest,
+        West,
+        NorthWest
     };
 
     class FilePath : std::string {
