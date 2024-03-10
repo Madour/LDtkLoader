@@ -56,6 +56,9 @@ auto Entity::hasSprite() const -> bool {
 }
 
 auto Entity::getTexturePath() const -> const std::string& {
+    if (m_tileset == nullptr)
+        return "";
+
     return m_tileset->path;
 }
 
