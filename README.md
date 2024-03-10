@@ -105,9 +105,7 @@ to pass a `-DLDtkLoader_ROOT=/install/path/LDtkLoader` option to cmake.
 
 ### Documentation
 
-Documentation is under construction and can be found on the [**wiki**](https://github.com/Madour/LDtkLoader/wiki).
-
-Alternatively, you can build the API documentation with doxygen using the provided Doxyfile.
+API documentation can be found on the [**wiki**](https://github.com/Madour/LDtkLoader/wiki).
 
 ### Demo
 
