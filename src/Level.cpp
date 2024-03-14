@@ -29,11 +29,13 @@ depth(j.contains("worldDepth") ? j["worldDepth"].get<int>() : 0)
     m_neighbours_id[Dir::East]; m_neighbours_id[Dir::SouthEast];
     m_neighbours_id[Dir::South]; m_neighbours_id[Dir::SouthWest];
     m_neighbours_id[Dir::West]; m_neighbours_id[Dir::NorthWest];
+    m_neighbours_id[Dir::Over]; m_neighbours_id[Dir::Under];
+    m_neighbours_id[Dir::Overlap];
     for (const auto& neighbour : j["__neighbours"]) {
         const auto& dir = neighbour["dir"].get<std::string>();
         const auto& level_iid = IID(neighbour["levelIid"].get<std::string>());
-        Dir direction;
 
+        Dir direction = Dir::None;
         if (dir == "n")
             direction = Dir::North;
         else if (dir == "ne")
@@ -48,8 +50,14 @@ depth(j.contains("worldDepth") ? j["worldDepth"].get<int>() : 0)
             direction = Dir::SouthWest;
         else if (dir == "w")
             direction = Dir::West;
-        else
+        else if (dir == "nw")
             direction = Dir::NorthWest;
+        else if (dir == "o")
+            direction = Dir::Overlap;
+        else if (dir == ">")
+            direction = Dir::Over;
+        else if (dir == "<")
+            direction = Dir::Under;
 
         m_neighbours_id[direction].push_back(level_iid);
     }

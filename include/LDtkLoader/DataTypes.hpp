@@ -106,7 +106,10 @@ namespace ldtk {
         South,
         SouthWest,
         West,
-        NorthWest
+        NorthWest,
+        Overlap,
+        Over,
+        Under,
     };
 
     class FilePath : std::string {
