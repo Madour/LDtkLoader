@@ -88,9 +88,8 @@ auto Layer::hasTileset() const -> bool {
 }
 
 auto Layer::getTileset() const -> const Tileset& {
-    return m_override_tileset == nullptr ? (m_definition->m_tileset == nullptr ? *m_definition->m_auto_tileset
-                                                                               : *m_definition->m_tileset)
-                                         : *m_override_tileset;
+    return m_override_tileset != nullptr ? *m_override_tileset
+                                         : *m_definition->m_tileset;
 }
 
 auto Layer::allTiles() const -> const std::vector<Tile>& {
