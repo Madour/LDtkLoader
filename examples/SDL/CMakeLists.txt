@@ -12,9 +12,10 @@ find_package(SDL2 REQUIRED)
 find_package(SDL2_image REQUIRED)
 
 add_executable(LDtkSDL main.cpp)
-target_include_directories(LDtkSDL PRIVATE ../../include)
 target_link_libraries(LDtkSDL PRIVATE LDtkLoader SDL2::SDL2 ${SDL2_IMAGE_LIBRARIES})
 set_target_properties(LDtkSDL PROPERTIES RUNTIME_OUTPUT_DIRECTORY bin)
 
-get_target_property(BIN_DIR LDtkSDL RUNTIME_OUTPUT_DIRECTORY)
-file(COPY assets DESTINATION ${BIN_DIR})
+add_custom_command(
+    TARGET LDtkSDL
+    POST_BUILD COMMAND ${CMAKE_COMMAND} -E copy_directory ${CMAKE_CURRENT_LIST_DIR}/assets/ $<TARGET_FILE_DIR:LDtkSDL>/assets/
+)

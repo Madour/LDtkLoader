@@ -59,36 +59,36 @@ int main() {
         // load from file
         {
             ldtk::Project ldtk_project;
-            ldtk_project.loadFromFile("all_features.ldtk");
+            ldtk_project.loadFromFile("assets/all_features.ldtk");
         }
 
         // load from multiple files
         {
             ldtk::Project ldtk_project;
-            ldtk_project.loadFromFile("all_features_external.ldtk");
+            ldtk_project.loadFromFile("assets/all_features_external.ldtk");
         }
 
         // load from file using custom stream buffer
         {
             ldtk::Project ldtk_project;
-            ldtk_project.loadFromFile("all_features.ldtk", createCustomStreamBuffer);
+            ldtk_project.loadFromFile("assets/all_features.ldtk", createCustomStreamBuffer);
         }
 
         // load from multiple files using custom stream buffer
         {
             ldtk::Project ldtk_project;
-            ldtk_project.loadFromFile("all_features_external.ldtk", createCustomStreamBuffer);
+            ldtk_project.loadFromFile("assets/all_features_external.ldtk", createCustomStreamBuffer);
         }
 
         // load from memory (vector)
         {
             ldtk::Project ldtk_project;
-            ldtk_project.loadFromMemory(getFileBytes("all_features.ldtk"));
+            ldtk_project.loadFromMemory(getFileBytes("assets/all_features.ldtk"));
         }
 
         // load from memory (pointer and size)
         {
-            auto file_bytes = getFileBytes("all_features.ldtk");
+            auto file_bytes = getFileBytes("assets/all_features.ldtk");
             ldtk::Project ldtk_project;
             ldtk_project.loadFromMemory(file_bytes.data(), static_cast<unsigned int>(file_bytes.size()));
         }

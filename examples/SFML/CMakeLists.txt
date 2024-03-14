@@ -9,9 +9,10 @@ project(LDtkLoader-SFML)
 find_package(SFML REQUIRED COMPONENTS graphics)
 
 add_executable(LDtkSFML main.cpp)
-target_include_directories(LDtkSFML PRIVATE ../../include)
 target_link_libraries(LDtkSFML PRIVATE LDtkLoader sfml-graphics)
 set_target_properties(LDtkSFML PROPERTIES RUNTIME_OUTPUT_DIRECTORY bin)
 
-get_target_property(BIN_DIR LDtkSFML RUNTIME_OUTPUT_DIRECTORY)
-file(COPY assets DESTINATION ${BIN_DIR})
+add_custom_command(
+    TARGET LDtkSFML
+    POST_BUILD COMMAND ${CMAKE_COMMAND} -E copy_directory ${CMAKE_CURRENT_LIST_DIR}/assets/ $<TARGET_FILE_DIR:LDtkSFML>/assets/
+)

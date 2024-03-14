@@ -18,9 +18,10 @@ if (MSVC)
 endif()
 
 add_executable(LDtkRaylib main.cpp)
-target_include_directories(LDtkRaylib PRIVATE ../../include)
 target_link_libraries(LDtkRaylib PRIVATE LDtkLoader raylib)
 set_target_properties(LDtkRaylib PROPERTIES RUNTIME_OUTPUT_DIRECTORY bin)
 
-get_target_property(BIN_DIR LDtkRaylib RUNTIME_OUTPUT_DIRECTORY)
-file(COPY assets DESTINATION ${BIN_DIR})
+add_custom_command(
+    TARGET LDtkRaylib
+    POST_BUILD COMMAND ${CMAKE_COMMAND} -E copy_directory ${CMAKE_CURRENT_LIST_DIR}/assets/ $<TARGET_FILE_DIR:LDtkRaylib>/assets/
+)
