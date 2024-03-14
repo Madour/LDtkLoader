@@ -80,18 +80,12 @@ int main() {
             ldtk_project.loadFromFile("assets/all_features_external.ldtk", createCustomStreamBuffer);
         }
 
-        // load from memory (vector)
+        // load from memory
         {
             ldtk::Project ldtk_project;
             ldtk_project.loadFromMemory(getFileBytes("assets/all_features.ldtk"));
         }
 
-        // load from memory (pointer and size)
-        {
-            auto file_bytes = getFileBytes("assets/all_features.ldtk");
-            ldtk::Project ldtk_project;
-            ldtk_project.loadFromMemory(file_bytes.data(), static_cast<unsigned int>(file_bytes.size()));
-        }
     }
     catch (std::exception& ex) {
         std::cerr << ex.what() << std::endl;
