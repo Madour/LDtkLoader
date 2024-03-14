@@ -16,7 +16,7 @@ tile_rect(val_tile_rect)
 {}
 
 auto EnumValue::hasIcon() const -> bool {
-    return tile_rect != IntRect(-1, -1, -1, -1);
+    return type.hasIcons() && tile_rect != IntRect(-1, -1, -1, -1);
 }
 
 auto EnumValue::getIconTileset() const -> const Tileset& {
