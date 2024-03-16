@@ -174,12 +174,12 @@ void Project::load(const nlohmann::json& j, const FileLoader& file_loader, bool 
 
     // compare loaded json version with the library API version and issue a warning if mismatching
     {
-        auto api_version = std::string(API_VERSION);
+        auto api_version = std::string(API_VERSION_STRING);
         auto json_major_minor = m_json_version.substr(0, m_json_version.find('.', 3));
         auto api_major_minor = api_version.substr(0, api_version.find('.', 3));
 
         if (json_major_minor != api_major_minor) {
-            std::cout << "LDtkLoader Warning: Version mismatch. LDtkLoader v" << api_major_minor
+            std::cout << "LDtkLoader Warning: Version mismatch. LDtkLoader v" << API_VERSION_STRING
                       << " may fail to load the project \"" << getFilePath().c_str()<< "\" created"
                       << " with LDtk v" << json_major_minor << ". Please make sure your software is"
                       << " up to date." << std::endl;

@@ -3,5 +3,12 @@
 #pragma once
 
 namespace ldtk {
-    constexpr const char* const API_VERSION = "@PROJECT_VERSION@";
+    struct ApiVersion {
+        static constexpr unsigned Major = @PROJECT_VERSION_MAJOR@;
+        static constexpr unsigned Minor = @PROJECT_VERSION_MINOR@;
+        static constexpr unsigned Patch = @PROJECT_VERSION_PATCH@;
+        static constexpr unsigned Tweak = @PROJECT_VERSION_TWEAK@;
+    };
+
+    constexpr const char* const API_VERSION_STRING = "@PROJECT_VERSION@";
 }

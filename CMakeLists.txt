@@ -1,6 +1,9 @@
 cmake_minimum_required(VERSION 3.10)
 
 project(LDtkLoader VERSION 1.5.3)
+if (NOT PROJECT_VERSION_TWEAK)
+    set(PROJECT_VERSION_TWEAK 0)
+endif()
 
 # build options
 option(LDTK_NO_THROW             "Replace all throws by an error print and exit" OFF)
