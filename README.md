@@ -1,5 +1,8 @@
-<h1> LDtk Loader • <img src=https://img.shields.io/badge/LDtk_version-1.5.3-default> <img src=https://github.com/Madour/LDtkLoader/workflows/CI/badge.svg></h1>
+# LDtk Loader
 
+[![LDtk Version](https://img.shields.io/badge/LDtk_version-1.5.3-default)](https://ldtk.io/json/)
+[![Build](https://github.com/Madour/LDtkLoader/actions/workflows/cmake.yml/badge.svg)](https://github.com/Madour/LDtkLoader/actions/workflows/cmake.yml)
+[![CodeQL](https://github.com/Madour/LDtkLoader/actions/workflows/codeql.yml/badge.svg)](https://github.com/Madour/LDtkLoader/actions/workflows/codeql.yml)
 
 **LDtkLoader** is a loader for **[LDtk](https://github.com/deepnight/ldtk)** levels and tile maps.
 
