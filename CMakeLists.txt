@@ -2,30 +2,8 @@ cmake_minimum_required(VERSION 3.10)
 
 project(LDtkLoader VERSION 1.5.3)
 
-# get source files
-file(GLOB_RECURSE Src src/*.cpp)
-file(GLOB_RECURSE Inc include/LDtkLoader/*.hpp)
-
-configure_file(${PROJECT_SOURCE_DIR}/src/Version.hpp.in ${CMAKE_BINARY_DIR}/include/LDtkLoader/generated/Version.hpp)
-
-# create the static lib target
-add_library(LDtkLoader STATIC ${Src} ${Inc})
-if (MSVC)
-    target_compile_definitions(LDtkLoader PRIVATE _CRT_SECURE_NO_WARNINGS)
-endif()
-# set include directory for build and install
-target_include_directories(LDtkLoader PUBLIC $<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/include>)
-target_include_directories(LDtkLoader PUBLIC $<BUILD_INTERFACE:${CMAKE_BINARY_DIR}/include/>)
-target_include_directories(LDtkLoader INTERFACE $<INSTALL_INTERFACE:include>)
-# set lib target properties
-set_target_properties(LDtkLoader PROPERTIES
-    CXX_STANDARD 11
-    ARCHIVE_OUTPUT_DIRECTORY lib
-    DEBUG_POSTFIX -d
-)
-
 # build options
-option(LDTK_NO_THROW "Replace all throws by an error print and exit" OFF)
+option(LDTK_NO_THROW             "Replace all throws by an error print and exit" OFF)
 option(LDTK_BUILD_SFML_EXAMPLE   "Build an example using LDtkLoader with SFML." OFF)
 option(LDTK_BUILD_SDL_EXAMPLE    "Build an example using LDtkLoader with SDL."  OFF)
 option(LDTK_BUILD_RAYLIB_EXAMPLE "Build an example using LDtkLoader with raylib." OFF)
@@ -34,10 +12,39 @@ option(LDTK_BUILD_API_TEST       "Build an example that loads a file showcasing 
 option(LDTK_FIELD_PUBLIC_OPTIONAL "Set to ON to enable the full optional interface on Field structures" OFF)
 mark_as_advanced(LDTK_FIELD_PUBLIC_OPTIONAL)
 
+# get source files
+file(GLOB_RECURSE Src src/*.cpp)
+file(GLOB_RECURSE Inc include/LDtkLoader/*.hpp)
+
+configure_file(${PROJECT_SOURCE_DIR}/src/Version.hpp.in ${CMAKE_BINARY_DIR}/include/LDtkLoader/generated/Version.hpp)
+
+# create the static library target
+add_library(LDtkLoader STATIC ${Src} ${Inc})
+
+# set compile options
+if (MSVC)
+    target_compile_definitions(LDtkLoader PRIVATE _CRT_SECURE_NO_WARNINGS)
+endif()
 if (LDTK_NO_THROW)
     target_compile_definitions(LDtkLoader PUBLIC LDTK_NO_THROW JSON_NOEXCEPTION)
 endif()
+if (LDTK_FIELD_PUBLIC_OPTIONAL)
+    target_compile_definitions(LDtkLoader PUBLIC LDTK_FIELD_PUBLIC_OPTIONAL)
+endif()
 
+# set include directory for build and install
+target_include_directories(LDtkLoader PUBLIC $<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/include>)
+target_include_directories(LDtkLoader PUBLIC $<BUILD_INTERFACE:${CMAKE_BINARY_DIR}/include/>)
+target_include_directories(LDtkLoader INTERFACE $<INSTALL_INTERFACE:include>)
+
+# set library target properties
+set_target_properties(LDtkLoader PROPERTIES
+    CXX_STANDARD 11
+    ARCHIVE_OUTPUT_DIRECTORY lib
+    DEBUG_POSTFIX -d
+)
+
+# add examples subdirectories whn requested
 if (LDTK_BUILD_SFML_EXAMPLE)
     message(STATUS "LDtkSFML target available.")
     add_subdirectory(examples/SFML)
@@ -56,10 +63,6 @@ endif()
 if (LDTK_BUILD_API_TEST)
     message(STATUS "LDtkAPI_test target available.")
     add_subdirectory(examples/API_test)
-endif()
-
-if (LDTK_FIELD_PUBLIC_OPTIONAL)
-    target_compile_definitions(LDtkLoader PUBLIC LDTK_FIELD_PUBLIC_OPTIONAL)
 endif()
 
 # cmake install rules
