@@ -125,7 +125,6 @@ https://user-images.githubusercontent.com/242570/129111903-88727f39-9e21-45cb-bc
 
 ### To Do
  - [ ] Helper classes/methods for SFML or SDL rendering
- - [ ] API documentation
 
 ### License
 
