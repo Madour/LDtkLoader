@@ -22,9 +22,8 @@ void Project::loadFromFile(const std::string& filepath) {
     if (in.fail()) {
         ldtk_error("Failed to open file \"" + filepath + "\" : " + strerror(errno));
     }
-    nlohmann::json j;
-    in >> j;
 
+    const nlohmann::json j = nlohmann::json::parse(in);
     load(j, nullptr, false);
 }
 
