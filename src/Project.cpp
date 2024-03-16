@@ -128,12 +128,11 @@ auto Project::allWorlds() const -> const std::vector<World>& {
 }
 
 auto Project::getWorld() const -> const World& {
-    if (m_worlds.size() == 1) {
+    if (m_worlds.size() == 1)
         return m_worlds[0];
-    } else {
-        ldtk_error("Your LDtk project has Multi-Worlds option enabled. "
-                   "Please specify the name of the world you want to get.");
-    }
+
+    ldtk_error("Your LDtk project has Multi-Worlds option enabled. "
+               "Please specify the name of the world you want to get.");
 }
 
 auto Project::getWorld(const std::string& name) const -> const World& {
