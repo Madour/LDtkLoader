@@ -30,9 +30,14 @@ void Project::loadFromFile(const std::string& filepath) {
 
 void Project::loadFromFile(const std::string& filepath, const FileLoader& file_loader) {
     m_file_path = filepath;
-    nlohmann::json j;
-    std::istream(file_loader(filepath).get()) >> j;
 
+    auto streambuf = file_loader(filepath);
+    std::istream in(streambuf.get());
+    if (in.fail()) {
+        ldtk_error("Failed to open file \"" + filepath + "\" using custom file loader : " + strerror(errno));
+    }
+
+    const nlohmann::json j = nlohmann::json::parse(in);
     load(j, file_loader, false);
 }
 
