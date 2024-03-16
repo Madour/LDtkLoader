@@ -65,7 +65,9 @@ cmake -DCMAKE_BUILD_TYPE={Debug|Release} ..
 cmake --build . --config {Debug|Release}
 ```
 
-This will generate the static library. Debug library has the suffix '-d'.
+This will compile the static library named LDtkLoader in build/lib.
+
+When built in Debug configuration, the library name has the suffix '-d'.
 
 Additional CMake options :
 
@@ -74,6 +76,10 @@ Additional CMake options :
  - `-DLDTK_BUILD_SFML_EXAMPLE=ON`: to build the SFML example (requires SFML installed)
  - `-DLDTK_BUILD_SDL_EXAMPLE=ON`: to build the SDL example (requires SDL2 and SDL2_image installed)
  - `-DLDTK_BUILD_RAYLIB_EXAMPLE=ON`: to build the raylib example (requires raylib installed)
+
+Advanced CMake options (use if you know what you are doing):
+
+ - `LDTK_FIELD_PUBLIC_OPTIONAL=ON`: to enable the full optional interface for the `ldtk::Field` structure.
 
 ### Install
 
@@ -88,7 +94,7 @@ This will copy the libraries, the headers and the cmake config files to the inst
 
 ### How to use LDtkLoader in your project
 
-After installation, to add LDtkLoader to a CMake project, use the `find_package` command:
+After installation, to use LDtkLoader in a CMake project, use the `find_package` command:
 
 ```cmake
 find_package(LDtkLoader 1.5)
@@ -97,20 +103,25 @@ find_package(LDtkLoader 1.5)
 The `find_package` command will automatically get the correct library (Release or Debug)
 depending on your current CMake configuration.
 
+> [!NOTE]
+> If LDtkLoader was installed at a custom path and CMake is unable to find the package, pass the `LDtkLoader_ROOT`
+> option to CMake, like this: `cmake -DLDtkLoader_ROOT=/install/path/LDtkLoader ..`.
+
+
 Then, the library should be linked to the target:
 
 ```cmake
-target_link_libraries(YourTarget PRIVATE LDtkLoader)
+target_link_libraries(YourTarget PRIVATE LDtkLoader::LDtkLoader)
 ```
-
-Note : if LDtkLoader is installed at a custom path, you might need
-to pass a `-DLDtkLoader_ROOT=/install/path/LDtkLoader` option to cmake.
 
 ### Documentation
 
 API documentation can be found on the [**wiki**](https://github.com/Madour/LDtkLoader/wiki).
 
 ### Demo
+
+> [!WARNING]
+> The demos below are probably using an older version of the library.
 
 A demo using LDtkLoader with SFML can be found [**here**](https://github.com/Madour/LDtk-SFML-Game).
 
