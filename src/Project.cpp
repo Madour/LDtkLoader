@@ -5,6 +5,7 @@
 #include <fstream>
 #include <istream>
 
+#include "LDtkLoader/Utils.hpp"
 #include "LDtkLoader/World.hpp"
 #include "LDtkLoader/generated/Version.hpp"
 #include "json.hpp"
