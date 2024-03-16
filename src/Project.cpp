@@ -64,30 +64,30 @@ auto Project::getBgColor() const -> const Color& {
 }
 
 auto Project::getLayerDef(int id) const -> const LayerDef& {
-    for (const auto& layer_def : m_layers_defs)
-        if (layer_def.uid == id)
-            return layer_def;
+    if (m_layers_defs_by_uid.find(id) != m_layers_defs_by_uid.end())
+        return m_layers_defs_by_uid.at(id);
+
     ldtk_error("LayerDef ID \""+std::to_string(id)+"\" not found in Project \""+m_file_path.filename()+"\".");
 }
 
 auto Project::getLayerDef(const std::string& name) const -> const LayerDef& {
-    for (const auto& layer_def : m_layers_defs)
-        if (layer_def.name == name)
-            return layer_def;
+    if (m_layers_defs_by_name.find(name) != m_layers_defs_by_name.end())
+        return m_layers_defs_by_name.at(name);
+
     ldtk_error("LayerDef name \""+name+"\" not found in Project \""+m_file_path.filename()+"\".");
 }
 
 auto Project::getEntityDef(int id) const -> const EntityDef& {
-    for (const auto& entity_def : m_entities_defs)
-        if (entity_def.uid == id)
-            return entity_def;
+    if (m_entities_defs_by_uid.find(id) != m_entities_defs_by_uid.end())
+        return m_entities_defs_by_uid.at(id);
+
     ldtk_error("EntityDef ID \""+std::to_string(id)+"\" not found in Project \""+m_file_path.filename()+"\".");
 }
 
 auto Project::getEntityDef(const std::string& name) const -> const EntityDef& {
-    for (const auto& entity_def : m_entities_defs)
-        if (entity_def.name == name)
-            return entity_def;
+    if (m_entities_defs_by_name.find(name) != m_entities_defs_by_name.end())
+        return m_entities_defs_by_name.at(name);
+
     ldtk_error("EntityDef name \""+name+"\" not found in Project \""+m_file_path.filename()+"\".");
 }
 
@@ -96,30 +96,30 @@ auto Project::allTilesets() const -> const std::vector<Tileset>& {
 }
 
 auto Project::getTileset(int id) const -> const Tileset& {
-    for (const auto& tileset : m_tilesets)
-        if (tileset.uid == id)
-            return tileset;
+    if (m_tilesets_by_uid.find(id) != m_tilesets_by_uid.end())
+        return m_tilesets_by_uid.at(id);
+
     ldtk_error("Tileset ID \""+std::to_string(id)+"\" not found in Project \""+m_file_path.filename()+"\".");
 }
 
 auto Project::getTileset(const std::string& name) const -> const Tileset& {
-    for (const auto& tileset : m_tilesets)
-        if (tileset.name == name)
-            return tileset;
+    if (m_tilesets_by_name.find(name) != m_tilesets_by_name.end())
+        return m_tilesets_by_name.at(name);
+
     ldtk_error("Tileset name \""+name+"\" not found in Project \""+m_file_path.filename()+"\".");
 }
 
 auto Project::getEnum(int id) const -> const Enum& {
-    for (const auto& en : m_enums)
-        if (en.uid == id)
-            return en;
+    if (m_enums_by_uid.find(id) != m_enums_by_uid.end())
+        return m_enums_by_uid.at(id);
+
     ldtk_error("Enum ID \""+std::to_string(id)+"\" not found in Project \""+m_file_path.filename()+"\".");
 }
 
 auto Project::getEnum(const std::string& name) const -> const Enum& {
-    for (const auto& en : m_enums)
-        if (en.name == name)
-            return en;
+    if (m_enums_by_name.find(name) != m_enums_by_name.end())
+        return m_enums_by_name.at(name);
+
     ldtk_error("Enum \""+name+"\" not found in Project \""+m_file_path.filename()+"\".");
 }
 
@@ -189,10 +189,18 @@ void Project::load(const nlohmann::json& j, const FileLoader& file_loader, bool 
     m_background_color = Color(j["bgColor"].get<std::string>());
 
     // reset all containers
-    m_enums.clear();
-    m_tilesets.clear();
     m_layers_defs.clear();
+    m_layers_defs_by_uid.clear();
+    m_layers_defs_by_name.clear();
     m_entities_defs.clear();
+    m_entities_defs_by_uid.clear();
+    m_entities_defs_by_name.clear();
+    m_tilesets.clear();
+    m_tilesets_by_uid.clear();
+    m_tilesets_by_name.clear();
+    m_enums.clear();
+    m_enums_by_uid.clear();
+    m_enums_by_name.clear();
     m_worlds.clear();
     m_toc.clear();
     m_toc_map.clear();
@@ -203,12 +211,18 @@ void Project::load(const nlohmann::json& j, const FileLoader& file_loader, bool 
     m_enums.reserve(defs["enums"].size());
     for (const auto& en : defs["enums"]) {
         m_enums.emplace_back(en);
+        auto& new_enum = m_enums.back();
+        m_enums_by_uid.emplace(new_enum.uid, new_enum);
+        m_enums_by_name.emplace(new_enum.name, new_enum);
     }
 
     // parse tilesets
     m_tilesets.reserve(defs["tilesets"].size());
     for (const auto& tileset : defs["tilesets"]) {
         m_tilesets.emplace_back(tileset, this);
+        auto& new_tileset = m_tilesets.back();
+        m_tilesets_by_uid.emplace(new_tileset.uid, new_tileset);
+        m_tilesets_by_name.emplace(new_tileset.name, new_tileset);
     }
 
     // set enums tileset pointer
@@ -222,12 +236,18 @@ void Project::load(const nlohmann::json& j, const FileLoader& file_loader, bool 
     m_layers_defs.reserve(defs["layers"].size());
     for (const auto& layer_def : defs["layers"]) {
         m_layers_defs.emplace_back(layer_def, this);
+        auto& new_def = m_layers_defs.back();
+        m_layers_defs_by_uid.emplace(new_def.uid, new_def);
+        m_layers_defs_by_name.emplace(new_def.name, new_def);
     }
 
     //parse entities def
     m_entities_defs.reserve(defs["entities"].size());
     for (const auto& ent_def : defs["entities"]) {
         m_entities_defs.emplace_back(ent_def, this);
+        auto& new_def = m_entities_defs.back();
+        m_entities_defs_by_uid.emplace(new_def.uid, new_def);
+        m_entities_defs_by_name.emplace(new_def.name, new_def);
     }
 
     // parse worlds

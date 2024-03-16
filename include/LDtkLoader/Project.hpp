@@ -71,9 +71,20 @@ namespace ldtk {
         std::string m_json_version;
 
         std::vector<LayerDef> m_layers_defs;
+        std::unordered_map<int, std::reference_wrapper<LayerDef>> m_layers_defs_by_uid;
+        std::unordered_map<std::string, std::reference_wrapper<LayerDef>> m_layers_defs_by_name;
+
         std::vector<EntityDef> m_entities_defs;
+        std::unordered_map<int, std::reference_wrapper<EntityDef>> m_entities_defs_by_uid;
+        std::unordered_map<std::string, std::reference_wrapper<EntityDef>> m_entities_defs_by_name;
+
         std::vector<Tileset> m_tilesets;
+        std::unordered_map<int, std::reference_wrapper<Tileset>> m_tilesets_by_uid;
+        std::unordered_map<std::string, std::reference_wrapper<Tileset>> m_tilesets_by_name;
+
         std::vector<Enum> m_enums;
+        std::unordered_map<int, std::reference_wrapper<Enum>> m_enums_by_uid;
+        std::unordered_map<std::string, std::reference_wrapper<Enum>> m_enums_by_name;
 
         std::vector<World> m_worlds;
 
