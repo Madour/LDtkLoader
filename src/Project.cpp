@@ -46,8 +46,8 @@ void Project::loadFromMemory(const std::vector<std::uint8_t>& bytes) {
 
 void Project::loadFromMemory(const unsigned char* data, size_t size) {
     m_file_path = "<loaded_from_memory>";
-    const nlohmann::json j = nlohmann::json::parse(data, data + size);
 
+    const nlohmann::json j = nlohmann::json::parse(data, data + size);
     load(j, nullptr, true);
 }
 
