@@ -23,6 +23,7 @@ configure_file(${PROJECT_SOURCE_DIR}/src/Version.hpp.in ${PROJECT_BINARY_DIR}/in
 
 # create the static library target
 add_library(LDtkLoader STATIC ${LDtkLoader_SRC} ${LDtkLoader_INC})
+add_library(LDtkLoader::LDtkLoader ALIAS LDtkLoader)
 
 # set compile options
 if (MSVC)
