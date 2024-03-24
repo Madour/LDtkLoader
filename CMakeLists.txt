@@ -26,11 +26,11 @@ add_library(LDtkLoader STATIC ${LDtkLoader_SRC} ${LDtkLoader_INC})
 add_library(LDtkLoader::LDtkLoader ALIAS LDtkLoader)
 
 # set compile options
-if (MSVC)
-    target_compile_definitions(LDtkLoader PRIVATE _CRT_SECURE_NO_WARNINGS)
-endif()
 if (LDTK_NO_THROW)
     target_compile_definitions(LDtkLoader PUBLIC LDTK_NO_THROW JSON_NOEXCEPTION)
+endif()
+if (MSVC)
+    target_compile_definitions(LDtkLoader PRIVATE _CRT_SECURE_NO_WARNINGS)
 endif()
 if (LDTK_FIELD_PUBLIC_OPTIONAL)
     target_compile_definitions(LDtkLoader PRIVATE LDTK_FIELD_PUBLIC_OPTIONAL)
@@ -92,6 +92,8 @@ install(FILES LICENSE.md README.md DESTINATION ${CMAKE_INSTALL_DOCDIR})
 # install headers to ${CMAKE_INSTALL_PREFIX}/include
 install(DIRECTORY include/LDtkLoader DESTINATION ${CMAKE_INSTALL_INCLUDEDIR})
 install(DIRECTORY ${PROJECT_BINARY_DIR}/include/LDtkLoader DESTINATION ${CMAKE_INSTALL_INCLUDEDIR})
+# install pdb files to ${CMAKE_INSTALL_PREFIX}/lib, if they exist
+install(FILES $<TARGET_FILE_DIR:LDtkLoader>/$<TARGET_FILE_BASE_NAME:LDtkLoader>.pdb DESTINATION ${CMAKE_INSTALL_LIBDIR} OPTIONAL)
 # install the static library target to ${CMAKE_INSTALL_PREFIX}/lib
 install(TARGETS LDtkLoader EXPORT LDtkLoaderTargets ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR})
 install(EXPORT LDtkLoaderTargets DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/LDtkLoader NAMESPACE LDtkLoader::)
