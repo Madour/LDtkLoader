@@ -47,7 +47,7 @@ namespace ldtk {
 
         auto hasEntity(const std::string& entity_name) const -> bool;
         auto allEntities() const -> const std::vector<Entity>&;
-        auto getEntitiesByName(const std::string& entity_name) const -> const std::vector<std::reference_wrapper<Entity>>&;
+        auto getEntitiesByName(const std::string& name) const -> const std::vector<std::reference_wrapper<Entity>>&;
         auto getEntitiesByTag(const std::string& tag) const -> const std::vector<std::reference_wrapper<Entity>>&;
         auto getEntity(const IID& entity_iid) const -> const Entity&;
 

@@ -12,12 +12,12 @@
 #include "LDtkLoader/defs/FieldDef.hpp"
 #include "LDtkLoader/DataTypes.hpp"
 #include "LDtkLoader/Enum.hpp"
-#include "LDtkLoader/Layer.hpp"
 #include "LDtkLoader/Utils.hpp"
 
 namespace ldtk {
 
     class World;
+    class Layer;
 
     class Entity : public FieldsContainer {
     public:
