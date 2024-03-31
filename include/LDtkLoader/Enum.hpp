@@ -6,9 +6,10 @@
 #include <unordered_map>
 #include <vector>
 
-#include "LDtkLoader/DataTypes.hpp"
 #include "LDtkLoader/containers/TagsContainer.hpp"
 #include "LDtkLoader/thirdparty/json_fwd.hpp"
+
+#include "LDtkLoader/DataTypes.hpp"
 
 namespace ldtk {
 

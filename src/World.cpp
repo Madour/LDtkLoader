@@ -1,6 +1,5 @@
 // Created by Modar Nasser on 11/11/2020.
 
-
 #include "LDtkLoader/World.hpp"
 
 #include <fstream>
@@ -8,6 +7,7 @@
 
 #include "LDtkLoader/Project.hpp"
 #include "LDtkLoader/Utils.hpp"
+
 #include "json.hpp"
 
 using namespace ldtk;

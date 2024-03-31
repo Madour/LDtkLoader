@@ -4,8 +4,9 @@
 
 #include <array>
 
-#include "LDtkLoader/DataTypes.hpp"
 #include "LDtkLoader/thirdparty/json_fwd.hpp"
+
+#include "LDtkLoader/DataTypes.hpp"
 
 namespace ldtk {
 

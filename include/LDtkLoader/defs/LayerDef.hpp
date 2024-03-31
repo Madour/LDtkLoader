@@ -5,9 +5,10 @@
 #include <map>
 #include <string>
 
+#include "LDtkLoader/thirdparty/json_fwd.hpp"
+
 #include "LDtkLoader/DataTypes.hpp"
 #include "LDtkLoader/Tileset.hpp"
-#include "LDtkLoader/thirdparty/json_fwd.hpp"
 
 namespace ldtk {
 

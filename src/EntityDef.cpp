@@ -1,7 +1,9 @@
 // Created by Modar Nasser on 16/11/2020.
 
 #include "LDtkLoader/defs/EntityDef.hpp"
+
 #include "LDtkLoader/Project.hpp"
+
 #include "json.hpp"
 
 using namespace ldtk;

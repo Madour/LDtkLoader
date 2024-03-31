@@ -7,13 +7,14 @@
 #include <string>
 #include <unordered_map>
 
-#include "LDtkLoader/DataTypes.hpp"
-#include "LDtkLoader/Enum.hpp"
-#include "LDtkLoader/Utils.hpp"
 #include "LDtkLoader/containers/FieldsContainer.hpp"
 #include "LDtkLoader/defs/EntityDef.hpp"
 #include "LDtkLoader/defs/FieldDef.hpp"
 #include "LDtkLoader/thirdparty/json_fwd.hpp"
+
+#include "LDtkLoader/DataTypes.hpp"
+#include "LDtkLoader/Enum.hpp"
+#include "LDtkLoader/Utils.hpp"
 
 namespace ldtk {
 

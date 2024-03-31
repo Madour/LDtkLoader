@@ -6,12 +6,13 @@
 #include <unordered_map>
 #include <vector>
 
-#include "LDtkLoader/DataTypes.hpp"
-#include "LDtkLoader/Field.hpp"
-#include "LDtkLoader/Utils.hpp"
 #include "LDtkLoader/defs/FieldDef.hpp"
 #include "LDtkLoader/thirdparty/json_fwd.hpp"
 #include "LDtkLoader/thirdparty/optional.hpp"
+
+#include "LDtkLoader/DataTypes.hpp"
+#include "LDtkLoader/Field.hpp"
+#include "LDtkLoader/Utils.hpp"
 
 namespace ldtk {
 

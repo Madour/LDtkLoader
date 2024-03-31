@@ -4,12 +4,13 @@
 
 #include <string>
 
+#include "LDtkLoader/defs/LayerDef.hpp"
+#include "LDtkLoader/thirdparty/json_fwd.hpp"
+
 #include "LDtkLoader/DataTypes.hpp"
 #include "LDtkLoader/Entity.hpp"
 #include "LDtkLoader/Tile.hpp"
 #include "LDtkLoader/Tileset.hpp"
-#include "LDtkLoader/defs/LayerDef.hpp"
-#include "LDtkLoader/thirdparty/json_fwd.hpp"
 
 namespace ldtk {
 

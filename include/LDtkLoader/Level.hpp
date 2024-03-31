@@ -6,10 +6,11 @@
 #include <string>
 #include <vector>
 
-#include "LDtkLoader/DataTypes.hpp"
-#include "LDtkLoader/Layer.hpp"
 #include "LDtkLoader/containers/FieldsContainer.hpp"
 #include "LDtkLoader/thirdparty/json_fwd.hpp"
+
+#include "LDtkLoader/DataTypes.hpp"
+#include "LDtkLoader/Layer.hpp"
 
 namespace ldtk {
 

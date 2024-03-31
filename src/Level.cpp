@@ -1,10 +1,12 @@
 // Created by Modar Nasser on 12/11/2020.
 
+#include "LDtkLoader/Level.hpp"
+
 #include <fstream>
 #include <memory>
 
-#include "LDtkLoader/Level.hpp"
 #include "LDtkLoader/World.hpp"
+
 #include "json.hpp"
 
 using namespace ldtk;

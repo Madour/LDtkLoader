@@ -2,7 +2,6 @@
 
 #include "LDtkLoader/Utils.hpp"
 
-
 auto ldtk::getLayerTypeFromString(const std::string& type_name) -> ldtk::LayerType
 {
     if (type_name == "IntGrid")

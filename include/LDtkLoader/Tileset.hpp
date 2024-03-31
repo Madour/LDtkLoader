@@ -5,11 +5,12 @@
 #include <string>
 #include <unordered_map>
 
-#include "LDtkLoader/DataTypes.hpp"
-#include "LDtkLoader/Enum.hpp"
 #include "LDtkLoader/containers/TagsContainer.hpp"
 #include "LDtkLoader/thirdparty/json_fwd.hpp"
 #include "LDtkLoader/thirdparty/optional.hpp"
+
+#include "LDtkLoader/DataTypes.hpp"
+#include "LDtkLoader/Enum.hpp"
 
 namespace ldtk {
 

@@ -6,6 +6,8 @@
 #include <string>
 #include <vector>
 
+#include "LDtkLoader/defs/EntityDef.hpp"
+#include "LDtkLoader/defs/LayerDef.hpp"
 #include "LDtkLoader/thirdparty/json_fwd.hpp"
 
 #include "LDtkLoader/DataTypes.hpp"
@@ -13,8 +15,6 @@
 #include "LDtkLoader/Level.hpp"
 #include "LDtkLoader/Tileset.hpp"
 #include "LDtkLoader/World.hpp"
-#include "LDtkLoader/defs/EntityDef.hpp"
-#include "LDtkLoader/defs/LayerDef.hpp"
 
 namespace ldtk {
 
