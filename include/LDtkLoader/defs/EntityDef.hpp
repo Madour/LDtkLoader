@@ -6,17 +6,18 @@
 #include <string>
 #include <vector>
 
-#include "LDtkLoader/thirdparty/json_fwd.hpp"
-#include "LDtkLoader/containers/TagsContainer.hpp"
-#include "LDtkLoader/defs/FieldDef.hpp"
 #include "LDtkLoader/DataTypes.hpp"
 #include "LDtkLoader/Tileset.hpp"
+#include "LDtkLoader/containers/TagsContainer.hpp"
+#include "LDtkLoader/defs/FieldDef.hpp"
+#include "LDtkLoader/thirdparty/json_fwd.hpp"
 
 namespace ldtk {
 
     class Project;
 
-    class EntityDef : public TagsContainer {
+    class EntityDef : public TagsContainer
+    {
     public:
         const std::string name;
         const int uid;
@@ -31,4 +32,4 @@ namespace ldtk {
         EntityDef(const nlohmann::json& j, Project* p);
     };
 
-}
+} // namespace ldtk

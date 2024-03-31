@@ -4,19 +4,21 @@
 
 #include <string>
 
-#include "LDtkLoader/thirdparty/json_fwd.hpp"
-#include "LDtkLoader/defs/LayerDef.hpp"
 #include "LDtkLoader/DataTypes.hpp"
+#include "LDtkLoader/Entity.hpp"
 #include "LDtkLoader/Tile.hpp"
 #include "LDtkLoader/Tileset.hpp"
-#include "LDtkLoader/Entity.hpp"
+#include "LDtkLoader/defs/LayerDef.hpp"
+#include "LDtkLoader/thirdparty/json_fwd.hpp"
 
 namespace ldtk {
 
     class World;
+
     class Level;
 
-    class Layer {
+    class Layer
+    {
     public:
         Layer(const Layer&) = delete;
         Layer(Layer&&) = default;
@@ -47,8 +49,8 @@ namespace ldtk {
 
         auto hasEntity(const std::string& entity_name) const -> bool;
         auto allEntities() const -> const std::vector<Entity>&;
-        auto getEntitiesByName(const std::string& name) const -> const std::vector<std::reference_wrapper<Entity>>&;
-        auto getEntitiesByTag(const std::string& tag) const -> const std::vector<std::reference_wrapper<Entity>>&;
+        auto getEntitiesByName(const std::string& name) const -> const std::vector<ref_wrapper<Entity>>&;
+        auto getEntitiesByTag(const std::string& tag) const -> const std::vector<ref_wrapper<Entity>>&;
         auto getEntity(const IID& entity_iid) const -> const Entity&;
 
         auto getCoordIdAt(int x, int y) const -> int;
@@ -65,13 +67,13 @@ namespace ldtk {
         const IntPoint m_grid_size;
 
         std::vector<Tile> m_tiles;
-        std::map<int, std::reference_wrapper<const Tile>> m_tiles_map;
+        std::map<int, ref_wrapper<const Tile>> m_tiles_map;
 
-        std::map<int, std::reference_wrapper<const IntGridValue>> m_intgrid;
+        std::map<int, ref_wrapper<const IntGridValue>> m_intgrid;
 
         std::vector<Entity> m_entities;
-        mutable std::unordered_map<std::string, std::vector<std::reference_wrapper<Entity>>> m_entities_by_name;
-        mutable std::unordered_map<std::string, std::vector<std::reference_wrapper<Entity>>> m_entities_by_tag;
+        mutable std::unordered_map<std::string, std::vector<ref_wrapper<Entity>>> m_entities_by_name;
+        mutable std::unordered_map<std::string, std::vector<ref_wrapper<Entity>>> m_entities_by_tag;
     };
 
-}
+} // namespace ldtk

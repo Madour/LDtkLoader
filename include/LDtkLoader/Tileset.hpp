@@ -5,17 +5,18 @@
 #include <string>
 #include <unordered_map>
 
-#include "LDtkLoader/thirdparty/optional.hpp"
-#include "LDtkLoader/thirdparty/json_fwd.hpp"
 #include "LDtkLoader/DataTypes.hpp"
 #include "LDtkLoader/Enum.hpp"
 #include "LDtkLoader/containers/TagsContainer.hpp"
+#include "LDtkLoader/thirdparty/json_fwd.hpp"
+#include "LDtkLoader/thirdparty/optional.hpp"
 
 namespace ldtk {
 
     class Project;
 
-    class Tileset : public TagsContainer {
+    class Tileset : public TagsContainer
+    {
     public:
         const std::string name;
         const int uid;
@@ -40,4 +41,4 @@ namespace ldtk {
         std::unordered_map<std::string, std::vector<int>> m_tag_tiles_map;
     };
 
-}
+} // namespace ldtk

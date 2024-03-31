@@ -6,12 +6,14 @@
 #include <string>
 #include <vector>
 
-#include "LDtkLoader/thirdparty/json_fwd.hpp"
 #include "LDtkLoader/DataTypes.hpp"
 #include "LDtkLoader/Tileset.hpp"
+#include "LDtkLoader/thirdparty/json_fwd.hpp"
 
 namespace ldtk {
-    enum class FieldType {
+
+    enum class FieldType
+    {
         Int,
         Float,
         Bool,
@@ -32,8 +34,10 @@ namespace ldtk {
         ArrayEntityRef
     };
 
-    class FieldDef {
+    class FieldDef
+    {
         friend class EntityDef;
+
     public:
         FieldType type;
         std::string name;
@@ -41,10 +45,13 @@ namespace ldtk {
 
     template <typename T>
     struct Field;
+
     template <typename T>
     struct ArrayField;
 
-    namespace {
+    namespace detail {
+
+        // clang-format off
         template<FieldType> struct field_type_from_enum_;
         template<> struct field_type_from_enum_<FieldType::Int>       { using type = Field<int>; };
         template<> struct field_type_from_enum_<FieldType::Float>     { using type = Field<float>; };
@@ -65,8 +72,11 @@ namespace ldtk {
         template<> struct field_type_from_enum_<FieldType::ArrayEnum>     { using type = ArrayField<EnumValue>; };
         template<> struct field_type_from_enum_<FieldType::ArrayFilePath> { using type = ArrayField<FilePath>; };
         template<> struct field_type_from_enum_<FieldType::ArrayEntityRef> { using type = ArrayField<EntityRef>; };
-    }
+        // clang-format on
 
-    template<FieldType T>
-    using getFieldType = typename field_type_from_enum_<T>::type;
-}
+    } // namespace detail
+
+    template <FieldType T>
+    using getFieldType = typename detail::field_type_from_enum_<T>::type;
+
+} // namespace ldtk

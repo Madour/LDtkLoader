@@ -3,19 +3,22 @@
 #pragma once
 
 #include <memory>
-#include <vector>
 #include <unordered_map>
-#include "LDtkLoader/thirdparty/optional.hpp"
-#include "LDtkLoader/thirdparty/json_fwd.hpp"
-#include "LDtkLoader/defs/FieldDef.hpp"
+#include <vector>
+
 #include "LDtkLoader/DataTypes.hpp"
 #include "LDtkLoader/Field.hpp"
 #include "LDtkLoader/Utils.hpp"
+#include "LDtkLoader/defs/FieldDef.hpp"
+#include "LDtkLoader/thirdparty/json_fwd.hpp"
+#include "LDtkLoader/thirdparty/optional.hpp"
 
 namespace ldtk {
+
     class World;
 
-    class FieldsContainer {
+    class FieldsContainer
+    {
     public:
         FieldsContainer() = default;
 
@@ -53,18 +56,21 @@ namespace ldtk {
     };
 
     template <FieldType T>
-    auto FieldsContainer::getField(const std::string& name) const -> const getFieldType<T>& {
+    auto FieldsContainer::getField(const std::string& name) const -> const getFieldType<T>&
+    {
         using FieldT = getFieldType<T>;
         const auto is_array = std::is_base_of<FieldT, ArrayField<typename FieldT::value_type>>::value;
         if (is_array) {
             return getArrayField<typename FieldT::value_type>(name);
-        } else {
+        }
+        else {
             return getField<typename FieldT::value_type>(name);
         }
     }
 
     template <typename T>
-    auto FieldsContainer::getField(const std::string& name) const -> const Field<T>& {
+    auto FieldsContainer::getField(const std::string& name) const -> const Field<T>&
+    {
         if (m_fields.count(name) > 0) {
             const auto* field = m_fields.at(name);
             const auto* ret = dynamic_cast<const Field<T>*>(field);
@@ -76,7 +82,8 @@ namespace ldtk {
     }
 
     template <typename T>
-    auto FieldsContainer::getArrayField(const std::string& name) const -> const ArrayField<T>& {
+    auto FieldsContainer::getArrayField(const std::string& name) const -> const ArrayField<T>&
+    {
         if (m_array_fields.count(name) > 0) {
             const auto* field = m_array_fields.at(name);
             const auto* ret = dynamic_cast<const ArrayField<T>*>(field);
@@ -88,30 +95,35 @@ namespace ldtk {
     }
 
     template <typename T>
-    void FieldsContainer::addField(const std::string& name, const T& field) {
+    void FieldsContainer::addField(const std::string& name, const T& field)
+    {
         auto* new_field = new Field<T>(field);
         m_fields[name] = new_field;
         m_gc.emplace_back(new_field);
     }
 
     template <typename T>
-    void FieldsContainer::addField(const std::string& name, const Field<T>& field) {
+    void FieldsContainer::addField(const std::string& name, const Field<T>& field)
+    {
         auto* new_field = new Field<T>(field);
         m_fields[name] = new_field;
         m_gc.emplace_back(new_field);
     }
 
     template <typename T>
-    void FieldsContainer::addArrayField(const std::string& name, const std::vector<Field<T>>& field) {
+    void FieldsContainer::addArrayField(const std::string& name, const std::vector<Field<T>>& field)
+    {
         auto* new_field = new ArrayField<T>(field);
         m_array_fields[name] = new_field;
         m_gc.emplace_back(new_field);
     }
 
     template <typename T>
-    void FieldsContainer::addArrayField(const std::string& name, const ArrayField<T>& field) {
+    void FieldsContainer::addArrayField(const std::string& name, const ArrayField<T>& field)
+    {
         auto* new_field = new ArrayField<T>(field);
         m_array_fields[name] = new_field;
         m_gc.emplace_back(new_field);
     }
-}
+
+} // namespace ldtk

@@ -6,18 +6,19 @@
 
 #include "LDtkLoader/thirdparty/json_fwd.hpp"
 
-#include "LDtkLoader/defs/LayerDef.hpp"
-#include "LDtkLoader/defs/EntityDef.hpp"
 #include "LDtkLoader/DataTypes.hpp"
-#include "LDtkLoader/Tileset.hpp"
-#include "LDtkLoader/Level.hpp"
 #include "LDtkLoader/Enum.hpp"
+#include "LDtkLoader/Level.hpp"
+#include "LDtkLoader/Tileset.hpp"
+#include "LDtkLoader/defs/EntityDef.hpp"
+#include "LDtkLoader/defs/LayerDef.hpp"
 
 namespace ldtk {
 
     class Project;
 
-    class World {
+    class World
+    {
     public:
         World(const World&) = delete;
         World(World&&) = default;
@@ -63,4 +64,4 @@ namespace ldtk {
         std::vector<Level> m_levels;
     };
 
-}
+} // namespace ldtk

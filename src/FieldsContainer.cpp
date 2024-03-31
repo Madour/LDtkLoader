@@ -10,11 +10,13 @@ namespace ldtk {
     extern std::vector<EntityRef*> temporary_entity_refs_array;
 }
 
-FieldsContainer::FieldsContainer(const nlohmann::json& j, const World* w) {
+FieldsContainer::FieldsContainer(const nlohmann::json& j, const World* w)
+{
     parseFields(j, w);
 }
 
-void FieldsContainer::parseFields(const nlohmann::json& j, const World* w) {
+void FieldsContainer::parseFields(const nlohmann::json& j, const World* w)
+{
     for (const auto& field : j) {
         auto field_type = field["__type"].get<std::string>();
         auto field_name = field["__identifier"].get<std::string>();
@@ -83,7 +85,8 @@ void FieldsContainer::parseFields(const nlohmann::json& j, const World* w) {
                 addArrayField(field_name, values);
             }
             else if (field_type.find("LocalEnum") != std::string::npos) {
-                auto enum_type = field_type.substr(field_type.find('.')+1, field_type.size()-field_type.find('.')-2);
+                auto enum_type =
+                    field_type.substr(field_type.find('.') + 1, field_type.size() - field_type.find('.') - 2);
                 std::vector<Field<EnumValue>> values;
                 for (const auto& v : field_value) {
                     if (v.is_null())
@@ -112,8 +115,10 @@ void FieldsContainer::parseFields(const nlohmann::json& j, const World* w) {
                     }
                     else {
                         values.emplace_back(EntityRef{
-                            IID(v["entityIid"].get<std::string>()), IID(v["layerIid"].get<std::string>()),
-                            IID(v["levelIid"].get<std::string>()), IID(v["worldIid"].get<std::string>())
+                            IID(v["entityIid"].get<std::string>()),
+                            IID(v["layerIid"].get<std::string>()),
+                            IID(v["levelIid"].get<std::string>()),
+                            IID(v["worldIid"].get<std::string>())
                         });
                     }
                 }
@@ -122,7 +127,6 @@ void FieldsContainer::parseFields(const nlohmann::json& j, const World* w) {
                 for (auto& ent_ref : this_field) {
                     temporary_entity_refs_array.emplace_back(&ent_ref.value());
                 }
-
             }
         }
         // simple fields
@@ -163,7 +167,7 @@ void FieldsContainer::parseFields(const nlohmann::json& j, const World* w) {
                 addField<IntPoint>(field_name, {field_value["cx"].get<int>(), field_value["cy"].get<int>()});
         }
         else if (field_type.find("LocalEnum") != std::string::npos) {
-            auto enum_type = field_type.substr(field_type.find('.')+1, field_type.size());
+            auto enum_type = field_type.substr(field_type.find('.') + 1, field_type.size());
             if (field_value.is_null())
                 addField<EnumValue>(field_name, null);
             else
@@ -180,10 +184,13 @@ void FieldsContainer::parseFields(const nlohmann::json& j, const World* w) {
                 addField<EntityRef>(field_name, null);
             }
             else {
-                addField<EntityRef>(field_name, {IID(field_value["entityIid"].get<std::string>()),
-                                                 IID(field_value["layerIid"].get<std::string>()),
-                                                 IID(field_value["levelIid"].get<std::string>()),
-                                                 IID(field_value["worldIid"].get<std::string>())});
+                addField<EntityRef>(
+                    field_name,
+                    {IID(field_value["entityIid"].get<std::string>()),
+                     IID(field_value["layerIid"].get<std::string>()),
+                     IID(field_value["levelIid"].get<std::string>()),
+                     IID(field_value["worldIid"].get<std::string>())}
+                );
                 auto& this_field = *dynamic_cast<Field<EntityRef>*>(m_fields.at(field_name));
                 temporary_entity_refs_array.emplace_back(&this_field.value());
             }

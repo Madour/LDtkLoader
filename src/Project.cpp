@@ -16,7 +16,8 @@ namespace ldtk {
     std::vector<EntityRef*> temporary_entity_refs_array;
 }
 
-void Project::loadFromFile(const std::string& filepath) {
+void Project::loadFromFile(const std::string& filepath)
+{
     m_file_path = filepath;
 
     std::ifstream in(filepath);
@@ -28,7 +29,8 @@ void Project::loadFromFile(const std::string& filepath) {
     load(j, nullptr, false);
 }
 
-void Project::loadFromFile(const std::string& filepath, const FileLoader& file_loader) {
+void Project::loadFromFile(const std::string& filepath, const FileLoader& file_loader)
+{
     m_file_path = filepath;
 
     auto streambuf = file_loader(filepath);
@@ -41,131 +43,160 @@ void Project::loadFromFile(const std::string& filepath, const FileLoader& file_l
     load(j, file_loader, false);
 }
 
-void Project::loadFromMemory(const std::vector<std::uint8_t>& bytes) {
+void Project::loadFromMemory(const std::vector<std::uint8_t>& bytes)
+{
     loadFromMemory(bytes.data(), bytes.size());
 }
 
-void Project::loadFromMemory(const unsigned char* data, size_t size) {
+void Project::loadFromMemory(const unsigned char* data, size_t size)
+{
     m_file_path = "<loaded_from_memory>";
 
     const nlohmann::json j = nlohmann::json::parse(data, data + size);
     load(j, nullptr, true);
 }
 
-auto Project::getFilePath() const -> const FilePath& {
+auto Project::getFilePath() const -> const FilePath&
+{
     return m_file_path;
 }
 
-auto Project::getDefaultPivot() const -> const FloatPoint& {
+auto Project::getDefaultPivot() const -> const FloatPoint&
+{
     return m_default_pivot;
 }
 
-auto Project::getDefaultCellSize() const -> int {
+auto Project::getDefaultCellSize() const -> int
+{
     return m_default_cell_size;
 }
 
-auto Project::getBgColor() const -> const Color& {
+auto Project::getBgColor() const -> const Color&
+{
     return m_background_color;
 }
 
-auto Project::getLayerDef(int id) const -> const LayerDef& {
+auto Project::getLayerDef(int id) const -> const LayerDef&
+{
     if (m_layers_defs_by_uid.find(id) != m_layers_defs_by_uid.end())
         return m_layers_defs_by_uid.at(id);
 
-    ldtk_error("LayerDef ID \""+std::to_string(id)+"\" not found in Project \""+m_file_path.filename()+"\".");
+    ldtk_error("LayerDef ID \"" + std::to_string(id) + "\" not found in Project \"" + m_file_path.filename()
+               + "\".");
 }
 
-auto Project::getLayerDef(const std::string& name) const -> const LayerDef& {
+auto Project::getLayerDef(const std::string& name) const -> const LayerDef&
+{
     if (m_layers_defs_by_name.find(name) != m_layers_defs_by_name.end())
         return m_layers_defs_by_name.at(name);
 
-    ldtk_error("LayerDef name \""+name+"\" not found in Project \""+m_file_path.filename()+"\".");
+    ldtk_error("LayerDef name \"" + name + "\" not found in Project \"" + m_file_path.filename() + "\".");
 }
 
-auto Project::getEntityDef(int id) const -> const EntityDef& {
+auto Project::getEntityDef(int id) const -> const EntityDef&
+{
     if (m_entities_defs_by_uid.find(id) != m_entities_defs_by_uid.end())
         return m_entities_defs_by_uid.at(id);
 
-    ldtk_error("EntityDef ID \""+std::to_string(id)+"\" not found in Project \""+m_file_path.filename()+"\".");
+    ldtk_error("EntityDef ID \"" + std::to_string(id) + "\" not found in Project \"" + m_file_path.filename()
+               + "\".");
 }
 
-auto Project::getEntityDef(const std::string& name) const -> const EntityDef& {
+auto Project::getEntityDef(const std::string& name) const -> const EntityDef&
+{
     if (m_entities_defs_by_name.find(name) != m_entities_defs_by_name.end())
         return m_entities_defs_by_name.at(name);
 
-    ldtk_error("EntityDef name \""+name+"\" not found in Project \""+m_file_path.filename()+"\".");
+    ldtk_error("EntityDef name \"" + name + "\" not found in Project \"" + m_file_path.filename() + "\".");
 }
 
-auto Project::allTilesets() const -> const std::vector<Tileset>& {
+auto Project::allTilesets() const -> const std::vector<Tileset>&
+{
     return m_tilesets;
 }
 
-auto Project::getTileset(int id) const -> const Tileset& {
+auto Project::getTileset(int id) const -> const Tileset&
+{
     if (m_tilesets_by_uid.find(id) != m_tilesets_by_uid.end())
         return m_tilesets_by_uid.at(id);
 
-    ldtk_error("Tileset ID \""+std::to_string(id)+"\" not found in Project \""+m_file_path.filename()+"\".");
+    ldtk_error("Tileset ID \"" + std::to_string(id) + "\" not found in Project \"" + m_file_path.filename()
+               + "\".");
 }
 
-auto Project::getTileset(const std::string& name) const -> const Tileset& {
+auto Project::getTileset(const std::string& name) const -> const Tileset&
+{
     if (m_tilesets_by_name.find(name) != m_tilesets_by_name.end())
         return m_tilesets_by_name.at(name);
 
-    ldtk_error("Tileset name \""+name+"\" not found in Project \""+m_file_path.filename()+"\".");
+    ldtk_error("Tileset name \"" + name + "\" not found in Project \"" + m_file_path.filename() + "\".");
 }
 
-auto Project::getEnum(int id) const -> const Enum& {
+auto Project::getEnum(int id) const -> const Enum&
+{
     if (m_enums_by_uid.find(id) != m_enums_by_uid.end())
         return m_enums_by_uid.at(id);
 
-    ldtk_error("Enum ID \""+std::to_string(id)+"\" not found in Project \""+m_file_path.filename()+"\".");
+    ldtk_error("Enum ID \"" + std::to_string(id) + "\" not found in Project \"" + m_file_path.filename()
+               + "\".");
 }
 
-auto Project::getEnum(const std::string& name) const -> const Enum& {
+auto Project::getEnum(const std::string& name) const -> const Enum&
+{
     if (m_enums_by_name.find(name) != m_enums_by_name.end())
         return m_enums_by_name.at(name);
 
-    ldtk_error("Enum \""+name+"\" not found in Project \""+m_file_path.filename()+"\".");
+    ldtk_error("Enum \"" + name + "\" not found in Project \"" + m_file_path.filename() + "\".");
 }
 
-auto Project::allWorlds() const -> const std::vector<World>& {
+auto Project::allWorlds() const -> const std::vector<World>&
+{
     return m_worlds;
 }
 
-auto Project::getWorld() const -> const World& {
+auto Project::getWorld() const -> const World&
+{
     if (m_worlds.size() == 1)
         return m_worlds[0];
 
-    ldtk_error("Your LDtk project has Multi-Worlds option enabled. "
-               "Please specify the name of the world you want to get.");
+    ldtk_error(
+        "Your LDtk project has Multi-Worlds option enabled. "
+        "Please specify the name of the world you want to get."
+    );
 }
 
-auto Project::getWorld(const std::string& name) const -> const World& {
+auto Project::getWorld(const std::string& name) const -> const World&
+{
     for (const auto& world : m_worlds)
         if (world.getName() == name)
             return world;
-    ldtk_error("World name \""+name+"\" not found in Project \""+getFilePath().c_str()+"\".");
+    ldtk_error("World name \"" + name + "\" not found in Project \"" + getFilePath().c_str() + "\".");
 }
 
-auto Project::getWorld(const IID& iid) const -> const World& {
+auto Project::getWorld(const IID& iid) const -> const World&
+{
     for (const auto& world : m_worlds)
         if (world.iid == iid)
             return world;
-    ldtk_error("World with IID \""+iid.str()+"\" not found in Project \""+getFilePath().c_str()+"\".");
+    ldtk_error("World with IID \"" + iid.str() + "\" not found in Project \"" + getFilePath().c_str()
+               + "\".");
 }
 
-auto Project::allTocEntities() const -> const std::vector<EntityRef>& {
+auto Project::allTocEntities() const -> const std::vector<EntityRef>&
+{
     return m_toc;
 }
 
-auto Project::getTocEntitiesByName(const std::string& name) const -> const std::vector<EntityRef>& {
+auto Project::getTocEntitiesByName(const std::string& name) const -> const std::vector<EntityRef>&
+{
     if (m_toc_map.count(name) > 0)
         return m_toc_map.at(name);
     else
         return m_toc_map[name];
 }
 
-void Project::load(const nlohmann::json& j, const FileLoader& file_loader, bool from_memory) {
+void Project::load(const nlohmann::json& j, const FileLoader& file_loader, bool from_memory)
+{
     if (j.contains("iid")) {
         iid = IID(j["iid"]);
     }
@@ -180,7 +211,7 @@ void Project::load(const nlohmann::json& j, const FileLoader& file_loader, bool 
 
         if (json_major_minor != api_major_minor) {
             std::cout << "LDtkLoader Warning: Version mismatch. LDtkLoader v" << API_VERSION_STRING
-                      << " may fail to load the project \"" << getFilePath().c_str()<< "\" created"
+                      << " may fail to load the project \"" << getFilePath().c_str() << "\" created"
                       << " with LDtk v" << json_major_minor << ". Please make sure your software is"
                       << " up to date." << std::endl;
         }
@@ -263,7 +294,8 @@ void Project::load(const nlohmann::json& j, const FileLoader& file_loader, bool 
 
     if (j["worlds"].empty()) {
         m_worlds.emplace_back(j, this, file_loader, external_levels);
-    } else {
+    }
+    else {
         for (const auto& world : j["worlds"]) {
             m_worlds.emplace_back(world, this, file_loader, external_levels);
         }
@@ -271,18 +303,24 @@ void Project::load(const nlohmann::json& j, const FileLoader& file_loader, bool 
 
     auto resolveEntityRef = [this](EntityRef& ref) {
         const auto& world = (m_worlds.size() == 1 ? getWorld() : getWorld(ref.world_iid));
+        // clang-format off
         ref.ref = &world.getLevel(ref.level_iid)
                         .getLayer(ref.layer_iid)
                         .getEntity(ref.entity_iid);
+        // clang-format on
     };
 
     // parse the table of content (v1.2.4)
     if (j.contains("toc")) {
-        for (const auto& toc_entry: j["toc"]) {
+        for (const auto& toc_entry : j["toc"]) {
             auto entity_name = toc_entry["identifier"].get<std::string>();
-            for (const auto& ref: toc_entry["instances"]) {
-                auto entity_ref = EntityRef(IID(ref["entityIid"]), IID(ref["layerIid"]),
-                                            IID(ref["levelIid"]), IID(ref["worldIid"]));
+            for (const auto& ref : toc_entry["instances"]) {
+                auto entity_ref = EntityRef(
+                    IID(ref["entityIid"]),
+                    IID(ref["layerIid"]),
+                    IID(ref["levelIid"]),
+                    IID(ref["worldIid"])
+                );
                 resolveEntityRef(entity_ref);
 
                 m_toc.push_back(entity_ref);
