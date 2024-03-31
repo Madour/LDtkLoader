@@ -179,7 +179,7 @@ readability-duplicate-include
 readability-else-after-return
 readability-function-cognitive-complexity
 readability-function-size
-readability-identifier-length
+-readability-identifier-length
 readability-identifier-naming
 readability-implicit-bool-conversion
 readability-inconsistent-declaration-parameter-name
