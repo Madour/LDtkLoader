@@ -23,8 +23,9 @@ LayerDef::LayerDef(const nlohmann::json& j, Project* p)
     if (type == LayerType::IntGrid) {
         for (const auto& int_grid_val : j["intGridValues"]) {
             auto val = int_grid_val["value"].get<int>();
-            auto identifier =
-                int_grid_val["identifier"].is_null() ? "" : int_grid_val["identifier"].get<std::string>();
+            auto identifier = int_grid_val["identifier"].is_null()
+                                ? ""
+                                : int_grid_val["identifier"].get<std::string>();
             auto color = Color(int_grid_val["color"].get<std::string>());
             m_intgrid_values.emplace(val, IntGridValue{val, identifier, color});
         }

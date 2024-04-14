@@ -39,8 +39,12 @@ void FieldsContainer::parseFields(const nlohmann::json& j, const World* w)
     }
 }
 
-void FieldsContainer::parseArrayField(const nlohmann::json& field, const std::string& type,
-                                      const std::string& name, const World* w)
+void FieldsContainer::parseArrayField(
+    const nlohmann::json& field,
+    const std::string& type,
+    const std::string& name,
+    const World* w
+)
 {
     if (type == "Array<Int>") {
         std::vector<Field<int>> values;
@@ -73,8 +77,7 @@ void FieldsContainer::parseArrayField(const nlohmann::json& field, const std::st
     else if (type == "Array<Color>") {
         std::vector<Field<Color>> values;
         for (const auto& v : field) {
-            v.is_null() ? values.emplace_back(null)
-                        : values.emplace_back(Color(v.get<std::string>()));
+            v.is_null() ? values.emplace_back(null) : values.emplace_back(Color(v.get<std::string>()));
         }
         addArrayField(name, values);
     }
@@ -88,10 +91,7 @@ void FieldsContainer::parseArrayField(const nlohmann::json& field, const std::st
     }
     else if (type.find("LocalEnum") != std::string::npos) {
         // Extract EnumName from "Array<LocalEnum.EnumName>"
-        auto enum_type = type.substr(
-            type.find('.') + 1,
-            type.size() - type.find('.') - 2
-        );
+        auto enum_type = type.substr(type.find('.') + 1, type.size() - type.find('.') - 2);
         std::vector<Field<EnumValue>> values;
         for (const auto& v : field) {
             v.is_null() ? values.emplace_back(null)
@@ -126,44 +126,41 @@ void FieldsContainer::parseArrayField(const nlohmann::json& field, const std::st
     }
 }
 
-void FieldsContainer::parseValueField(const nlohmann::json& field, const std::string& type,
-                                      const std::string& name, const World* w)
+void FieldsContainer::parseValueField(
+    const nlohmann::json& field,
+    const std::string& type,
+    const std::string& name,
+    const World* w
+)
 {
     if (type == "Int") {
         field.is_null() ? addField<int>(name, null) : addField<int>(name, field);
     }
     else if (type == "Float") {
-        field.is_null() ? addField<float>(name, null)
-                                : addField<float>(name, field);
+        field.is_null() ? addField<float>(name, null) : addField<float>(name, field);
     }
     else if (type == "Bool") {
-        field.is_null() ? addField<bool>(name, null)
-                                : addField<bool>(name, field);
+        field.is_null() ? addField<bool>(name, null) : addField<bool>(name, field);
     }
     else if (type == "String" || type == "Multilines") {
-        field.is_null() ? addField<std::string>(name, null)
-                                : addField<std::string>(name, field);
+        field.is_null() ? addField<std::string>(name, null) : addField<std::string>(name, field);
     }
     else if (type == "Color") {
         field.is_null() ? addField<Color>(name, null)
-                                : addField<Color>(name, Color(field.get<std::string>()));
+                        : addField<Color>(name, Color(field.get<std::string>()));
     }
     else if (type == "Point") {
         field.is_null() ? addField<IntPoint>(name, null)
-                                : addField<IntPoint>(
-                                    name,
-                                    {field["cx"].get<int>(), field["cy"].get<int>()}
-                                );
+                        : addField<IntPoint>(name, {field["cx"].get<int>(), field["cy"].get<int>()});
     }
     else if (type.find("LocalEnum") != std::string::npos) {
         // Extract EnumName from "LocalEnum.EnumName"
         auto enum_type = type.substr(type.find('.') + 1, type.size());
         field.is_null() ? addField<EnumValue>(name, null)
-                                : addField<EnumValue>(name, w->getEnum(enum_type)[field]);
+                        : addField<EnumValue>(name, w->getEnum(enum_type)[field]);
     }
     else if (type == "FilePath") {
-        field.is_null() ? addField<FilePath>(name, null)
-                                : addField<FilePath>(name, field.get<std::string>());
+        field.is_null() ? addField<FilePath>(name, null) : addField<FilePath>(name, field.get<std::string>());
     }
     else if (type == "EntityRef") {
         if (field.is_null()) {
@@ -173,9 +170,9 @@ void FieldsContainer::parseValueField(const nlohmann::json& field, const std::st
             addField<EntityRef>(
                 name,
                 {IID(field["entityIid"].get<std::string>()),
-                    IID(field["layerIid"].get<std::string>()),
-                    IID(field["levelIid"].get<std::string>()),
-                    IID(field["worldIid"].get<std::string>())}
+                 IID(field["layerIid"].get<std::string>()),
+                 IID(field["levelIid"].get<std::string>()),
+                 IID(field["worldIid"].get<std::string>())}
             );
             auto& this_field = *dynamic_cast<Field<EntityRef>*>(m_fields.at(name));
             temporary_entity_refs_array.emplace_back(&this_field.value());

@@ -23,7 +23,7 @@ auto ldtk::getLayerTypeFromString(const std::string& type_name) -> ldtk::LayerTy
 auto ldtk::getWorldLayoutFromString(const std::string& layout_name) -> ldtk::WorldLayout
 {
     auto ret = WorldLayout::Free;
-    if (layout_name ==  "Free") {
+    if (layout_name == "Free") {
         ret = WorldLayout::Free;
     }
     else if (layout_name == "GridVania") {

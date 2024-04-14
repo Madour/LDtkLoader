@@ -14,7 +14,7 @@
 using namespace ldtk;
 
 namespace ldtk {
-    std::vector<EntityRef*> temporary_entity_refs_array;    // NOLINT
+    std::vector<EntityRef*> temporary_entity_refs_array; // NOLINT
 }
 
 void Project::loadFromFile(const std::string& filepath)
@@ -53,7 +53,7 @@ void Project::loadFromMemory(const unsigned char* data, size_t size)
 {
     m_file_path = "<loaded_from_memory>";
 
-    const nlohmann::json j = nlohmann::json::parse(data, data + size);  // NOLINT(cppcoreguidelines-pro-bounds-pointer-arithmetic)
+    const nlohmann::json j = nlohmann::json::parse(data, data + size);
     load(j, nullptr, true);
 }
 
@@ -185,14 +185,14 @@ auto Project::getWorld(const std::string& name) const -> const World&
     ldtk_error("World name \"" + name + "\" not found in Project \"" + getFilePath().c_str() + "\".");
 }
 
-auto Project::getWorld(const IID& iid) const -> const World&
+auto Project::getWorld(const IID& iid_) const -> const World&
 {
     for (const auto& world : m_worlds) {
-        if (world.iid == iid) {
+        if (world.iid == iid_) {
             return world;
         }
     }
-    ldtk_error("World with IID \"" + iid.str() + "\" not found in Project \"" + getFilePath().c_str()
+    ldtk_error("World with IID \"" + iid_.str() + "\" not found in Project \"" + getFilePath().c_str()
                + "\".");
 }
 

@@ -49,10 +49,18 @@ namespace ldtk {
 
     private:
         void parseFields(const nlohmann::json& j, const World* w);
-        void parseArrayField(const nlohmann::json& field, const std::string& type, const std::string& name,
-                             const World* w);
-        void parseValueField(const nlohmann::json& field, const std::string& type, const std::string& name,
-                             const World* w);
+        void parseArrayField(
+            const nlohmann::json& field,
+            const std::string& type,
+            const std::string& name,
+            const World* w
+        );
+        void parseValueField(
+            const nlohmann::json& field,
+            const std::string& type,
+            const std::string& name,
+            const World* w
+        );
 
         std::vector<std::unique_ptr<IField>> m_gc;
         std::unordered_map<std::string, IField*> m_fields;
@@ -119,7 +127,8 @@ namespace ldtk {
     }
 
     template <typename T>
-    auto FieldsContainer::addArrayField(const std::string& name, const std::vector<Field<T>>& field) -> ArrayField<T>&
+    auto FieldsContainer::addArrayField(const std::string& name, const std::vector<Field<T>>& field)
+        -> ArrayField<T>&
     {
         auto* new_field = new ArrayField<T>(field);
         m_array_fields.emplace(name, new_field);

@@ -100,9 +100,13 @@ Macros:
 MaxEmptyLinesToKeep: 2
 NamespaceIndentation: All
 NamespaceMacros: []
-ObjCSpaceAfterProperty: false
-ObjCSpaceBeforeProtocolList: true
 PackConstructorInitializers: CurrentLine
+PenaltyBreakAssignment: 900
+PenaltyBreakBeforeFirstCallParameter: 10
+PenaltyBreakOpenParenthesis: 900
+PenaltyBreakTemplateDeclaration: 900
+PenaltyIndentedWhitespace: 0
+PenaltyReturnTypeOnItsOwnLine: 100
 PointerAlignment: Left
 ReferenceAlignment: Left
 ReflowComments: false
