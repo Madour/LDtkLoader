@@ -16,7 +16,12 @@ namespace ldtk {
 
     struct IField
     {
+        IField() = default;
         virtual ~IField() = default;
+        IField(const IField&) = default;
+        IField(IField&&) noexcept = default;
+        auto operator=(const IField&) -> IField& = default;
+        auto operator=(IField&&) -> IField& = default;
     };
 
     template <typename T>

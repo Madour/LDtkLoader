@@ -5,6 +5,8 @@
 #include <iostream>
 #include <string>
 
+#include "LDtkLoader/defs/FieldDef.hpp"
+
 #include "LDtkLoader/DataTypes.hpp"
 
 #ifdef LDTK_NO_THROW
@@ -33,6 +35,8 @@ namespace ldtk {
     using ref_wrapper = std::reference_wrapper<T>;
 
     auto getLayerTypeFromString(const std::string& type_name) -> LayerType;
+    auto getWorldLayoutFromString(const std::string& layout_name) -> WorldLayout;
+    auto getFieldTypeFromString(const std::string& fieldtype_name) -> FieldType;
 
     void print_error(const std::string& fn, const std::string& msg);
     void print_json_error(const std::string& msg);

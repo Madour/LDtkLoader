@@ -22,9 +22,11 @@ namespace ldtk {
     {
     public:
         Project() = default;
+        ~Project() = default;
         Project(const Project&) = delete;
-        Project(Project&&) = default;
+        Project(Project&&) noexcept = default;
         auto operator=(const Project&) -> Project& = delete;
+        auto operator=(Project&&) -> Project& = delete;
 
         IID iid;
 

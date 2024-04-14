@@ -13,8 +13,8 @@ Tile::Tile(const Layer* l, IntPoint pos, int tile_id, int flips, float a)
 : layer(l)
 , coordId(l == nullptr ? -1 : l->getCoordIdAt(pos.x, pos.y))
 , tileId(tile_id)
-, flipX(flips & 1)
-, flipY((flips >> 1) & 1)
+, flipX((flips & 1) != 0)
+, flipY(((flips >> 1) & 1) != 0)
 , alpha(a)
 {}
 
@@ -86,7 +86,7 @@ auto Tile::getVertices() const -> std::array<Vertex, 4>
     }
 
     // set vertices texture coordinates
-    for (int i = 0; i < 4; ++i) {
+    for (size_t i = 0; i < verts.size(); ++i) {
         verts[i].tex.x = tex_rect.x + tex_coo[i].x + modif[i].x;
         verts[i].tex.y = tex_rect.y + tex_coo[i].y + modif[i].y;
     }

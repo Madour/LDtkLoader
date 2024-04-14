@@ -21,9 +21,11 @@ namespace ldtk {
     class Layer
     {
     public:
+        ~Layer() = default;
         Layer(const Layer&) = delete;
-        Layer(Layer&&) = default;
+        Layer(Layer&&) noexcept = default;
         auto operator=(const Layer&) -> Layer& = delete;
+        auto operator=(Layer&&) -> Layer& = default;
 
         const Level* const level;
         const IID iid;

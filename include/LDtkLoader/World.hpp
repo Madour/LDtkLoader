@@ -20,9 +20,11 @@ namespace ldtk {
     class World
     {
     public:
+        ~World() = default;
         World(const World&) = delete;
-        World(World&&) = default;
+        World(World&&) noexcept = default;
         auto operator=(const World&) -> World& = delete;
+        auto operator=(World&&) -> World& = default;
 
         const IID iid;
 

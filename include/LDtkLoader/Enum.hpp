@@ -49,9 +49,11 @@ namespace ldtk {
         friend class Project;
 
     public:
+        ~Enum() = default;
         Enum(const Enum&) = delete;
-        Enum(Enum&&) = default;
+        Enum(Enum&&) noexcept = default;
         auto operator=(const Enum&) -> Enum& = delete;
+        auto operator=(Enum&&) -> Enum& = default;
 
         const std::string name;
         const int uid;

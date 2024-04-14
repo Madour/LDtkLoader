@@ -16,18 +16,8 @@ World::World(const nlohmann::json& j, Project* p, const FileLoader& file_loader,
 : iid(j.contains("iid") ? j["iid"].get<std::string>() : "")
 , m_project(p)
 , m_name(j.contains("identifier") ? j["identifier"].get<std::string>() : "")
+, m_layout(getWorldLayoutFromString(j["worldLayout"].get<std::string>()))
 {
-    // parse layout
-    auto layout = j["worldLayout"].get<std::string>();
-    if (layout == "Free")
-        m_layout = WorldLayout::Free;
-    else if (layout == "GridVania")
-        m_layout = WorldLayout::GridVania;
-    else if (layout == "LinearHorizontal")
-        m_layout = WorldLayout::LinearHorizontal;
-    else if (layout == "LinearVertical")
-        m_layout = WorldLayout::LinearVertical;
-
     // parse levels
     m_levels.reserve(j["levels"].size());
     if (!external_levels) {
@@ -57,11 +47,12 @@ World::World(const nlohmann::json& j, Project* p, const FileLoader& file_loader,
 
     // fill levels neighbours
     for (auto& level : m_levels) {
+        level.m_neighbours.emplace(Dir::None, 0);
         for (const auto& item : level.m_neighbours_id) {
-            for (const auto& id : item.second)
+            for (const auto& id : item.second) {
                 level.m_neighbours[item.first].push_back(&getLevel(id));
+            }
         }
-        level.m_neighbours[Dir::None];
     }
 }
 
@@ -142,24 +133,30 @@ auto World::allLevels() const -> const std::vector<Level>&
 
 auto World::getLevel(int id) const -> const Level&
 {
-    for (const auto& level : m_levels)
-        if (level.uid == id)
+    for (const auto& level : m_levels) {
+        if (level.uid == id) {
             return level;
+        }
+    }
     ldtk_error("Level ID \"" + std::to_string(id) + "\" not found in World \"" + m_name + "\".");
 }
 
 auto World::getLevel(const std::string& name) const -> const Level&
 {
-    for (const auto& level : m_levels)
-        if (level.name == name)
+    for (const auto& level : m_levels) {
+        if (level.name == name) {
             return level;
+        }
+    }
     ldtk_error("Level name \"" + name + "\" not found in World \"" + m_name + "\".");
 }
 
 auto World::getLevel(const IID& level_iid) const -> const Level&
 {
-    for (const auto& level : m_levels)
-        if (level.iid == level_iid)
+    for (const auto& level : m_levels) {
+        if (level.iid == level_iid) {
             return level;
+        }
+    }
     ldtk_error("Level with IID \"" + level_iid.str() + "\" not found in World \"" + m_name + "\".");
 }

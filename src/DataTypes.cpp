@@ -39,16 +39,18 @@ ldtk::FilePath::FilePath(const std::string& str)
 auto ldtk::FilePath::directory() const -> std::string
 {
     auto i = find_last_of("/\\");
-    if (i == npos)
+    if (i == npos) {
         return "";
+    }
     return substr(0, i + 1);
 }
 
 auto ldtk::FilePath::filename() const -> std::string
 {
     auto i = find_last_of("/\\");
-    if (i == npos)
+    if (i == npos) {
         return *this;
+    }
     return substr(i + 1);
 }
 
@@ -56,8 +58,9 @@ auto ldtk::FilePath::extension() const -> std::string
 {
     auto f = filename();
     auto i = f.find_last_of('.');
-    if (i == npos)
+    if (i == npos) {
         return "";
+    }
     return f.substr(i + 1);
 }
 

@@ -23,7 +23,7 @@ Tileset::Tileset(const nlohmann::json& j, Project* p)
     m_custom_data.reserve(j["customData"].size() + 1);
     m_custom_data.emplace(-1, "");
     for (const auto& data : j["customData"]) {
-        m_custom_data[data["tileId"].get<int>()] = data["data"].get<std::string>();
+        m_custom_data.emplace(data["tileId"].get<int>(), data["data"].get<std::string>());
     }
 
     // parse tiles enum tags
@@ -50,8 +50,9 @@ auto Tileset::getTileTexturePos(int tile_id) const -> IntPoint
 
 auto Tileset::getTileCustomData(int tile_id) const -> const std::string&
 {
-    if (m_custom_data.count(tile_id) > 0)
+    if (m_custom_data.find(tile_id) != m_custom_data.end()) {
         return m_custom_data.at(tile_id);
+    }
     return m_custom_data.at(-1);
 }
 
@@ -67,9 +68,10 @@ auto Tileset::getTagsEnum() const -> const Enum&
 
 auto Tileset::getTilesWithTagEnum(const EnumValue& enumvalue) const -> const std::vector<int>&
 {
-    if (enumvalue.type.uid != m_tags_enum->uid)
+    if (enumvalue.type.uid != m_tags_enum->uid) {
         ldtk_error("Enum value \"" + enumvalue.name + "\" is not a value of Enum \"" + m_tags_enum->name
                    + "\".");
+    }
 
     return m_tag_tiles_map.at(enumvalue.name);
 }

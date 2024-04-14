@@ -25,9 +25,11 @@ namespace ldtk {
     class Entity : public FieldsContainer
     {
     public:
+        ~Entity() = default;
         Entity(const Entity&) = delete;
-        Entity(Entity&&) = default;
+        Entity(Entity&&) noexcept = default;
         auto operator=(const Entity&) -> Entity& = delete;
+        auto operator=(Entity&&) -> Entity& = default;
 
         const Layer* const layer;
         const IID iid;

@@ -111,16 +111,18 @@ auto Layer::allTiles() const -> const std::vector<Tile>&
 auto Layer::getTile(int grid_x, int grid_y) const -> const Tile&
 {
     auto id = grid_x + m_grid_size.x * grid_y;
-    if (m_tiles_map.count(id) > 0)
+    if (m_tiles_map.count(id) > 0) {
         return m_tiles_map.at(id);
+    }
     return Tile::None;
 }
 
 auto Layer::getIntGridVal(int grid_x, int grid_y) const -> const IntGridValue&
 {
     auto id = grid_x + m_grid_size.x * grid_y;
-    if (m_intgrid.count(id) > 0)
+    if (m_intgrid.count(id) > 0) {
         return m_intgrid.at(id);
+    }
     return IntGridValue::None;
 }
 
@@ -131,30 +133,33 @@ auto Layer::allEntities() const -> const std::vector<Entity>&
 
 auto Layer::hasEntity(const std::string& entity_name) const -> bool
 {
-    return m_entities_by_name.count(entity_name) > 0 && !m_entities_by_name.at(entity_name).empty();
+    return m_entities_by_name.find(entity_name) != m_entities_by_name.end()
+        && !m_entities_by_name.at(entity_name).empty();
 }
 
 auto Layer::getEntitiesByName(const std::string& name) const -> const std::vector<ref_wrapper<Entity>>&
 {
-    if (m_entities_by_name.count(name) > 0)
+    if (m_entities_by_name.find(name) != m_entities_by_name.end()) {
         return m_entities_by_name.at(name);
-    else
-        return m_entities_by_name[name];
+    }
+    return m_entities_by_name[name];
 }
 
 auto Layer::getEntitiesByTag(const std::string& tag) const -> const std::vector<ref_wrapper<Entity>>&
 {
-    if (m_entities_by_tag.count(tag) > 0)
+    if (m_entities_by_tag.find(tag) != m_entities_by_tag.end()) {
         return m_entities_by_tag.at(tag);
-    else
-        return m_entities_by_tag[tag];
+    }
+    return m_entities_by_tag[tag];
 }
 
 auto Layer::getEntity(const IID& entity_iid) const -> const Entity&
 {
-    for (const auto& entity : m_entities)
-        if (entity.iid == entity_iid)
+    for (const auto& entity : m_entities) {
+        if (entity.iid == entity_iid) {
             return entity;
+        }
+    }
     ldtk_error("Entity with IID \"" + entity_iid.str() + "\" not found in Layer \"" + getName() + "\".");
 }
 

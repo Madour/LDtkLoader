@@ -4,15 +4,100 @@
 
 auto ldtk::getLayerTypeFromString(const std::string& type_name) -> ldtk::LayerType
 {
-    if (type_name == "IntGrid")
-        return LayerType::IntGrid;
-    if (type_name == "Entities")
-        return LayerType::Entities;
-    if (type_name == "Tiles")
-        return LayerType::Tiles;
-    if (type_name == "AutoLayer")
-        return LayerType::AutoLayer;
-    return LayerType::Tiles;
+    auto ret = LayerType::Tiles;
+    if (type_name == "IntGrid") {
+        ret = LayerType::IntGrid;
+    }
+    else if (type_name == "Entities") {
+        ret = LayerType::Entities;
+    }
+    else if (type_name == "Tiles") {
+        ret = LayerType::Tiles;
+    }
+    else if (type_name == "AutoLayer") {
+        ret = LayerType::AutoLayer;
+    }
+    return ret;
+}
+
+auto ldtk::getWorldLayoutFromString(const std::string& layout_name) -> ldtk::WorldLayout
+{
+    auto ret = WorldLayout::Free;
+    if (layout_name ==  "Free") {
+        ret = WorldLayout::Free;
+    }
+    else if (layout_name == "GridVania") {
+        ret = WorldLayout::GridVania;
+    }
+    else if (layout_name == "LinearHorizontal") {
+        ret = WorldLayout::LinearHorizontal;
+    }
+    else if (layout_name == "LinearVertical") {
+        ret = WorldLayout::LinearVertical;
+    }
+    return ret;
+}
+
+auto ldtk::getFieldTypeFromString(const std::string& fieldtype_name) -> ldtk::FieldType
+{
+    auto ret = FieldType::Int;
+    if (fieldtype_name.find("Array") != std::string::npos) {
+        if (fieldtype_name == "Array<Int>") {
+            ret = FieldType::ArrayInt;
+        }
+        else if (fieldtype_name == "Array<Float>") {
+            ret = FieldType::ArrayFloat;
+        }
+        else if (fieldtype_name == "Array<Bool>") {
+            ret = FieldType::ArrayBool;
+        }
+        else if (fieldtype_name == "Array<String>" || fieldtype_name == "Array<Multilines>") {
+            ret = FieldType::ArrayString;
+        }
+        else if (fieldtype_name == "Array<Color>") {
+            ret = FieldType::ArrayColor;
+        }
+        else if (fieldtype_name == "Array<Point>") {
+            ret = FieldType::ArrayPoint;
+        }
+        else if (fieldtype_name.find("LocalEnum") != std::string::npos) {
+            ret = FieldType::ArrayEnum;
+        }
+        else if (fieldtype_name == "Array<FilePath>") {
+            ret = FieldType::ArrayFilePath;
+        }
+        else if (fieldtype_name == "Array<EntityRef>") {
+            ret = FieldType::ArrayEntityRef;
+        }
+    }
+    else if (fieldtype_name == "Int") {
+        ret = FieldType::Int;
+    }
+    else if (fieldtype_name == "Float") {
+        ret = FieldType::Float;
+    }
+    else if (fieldtype_name == "Bool") {
+        ret = FieldType::Bool;
+    }
+    else if (fieldtype_name == "String" || fieldtype_name == "Multilines") {
+        ret = FieldType::String;
+    }
+    else if (fieldtype_name == "Color") {
+        ret = FieldType::Color;
+    }
+    else if (fieldtype_name == "Point") {
+        ret = FieldType::Point;
+    }
+    else if (fieldtype_name.find("LocalEnum") != std::string::npos) {
+        ret = FieldType::Enum;
+    }
+    else if (fieldtype_name == "FilePath") {
+        ret = FieldType::FilePath;
+    }
+    else if (fieldtype_name == "EntityRef") {
+        ret = FieldType::EntityRef;
+    }
+    return ret;
 }
 
 void ldtk::print_error(const std::string& fn, const std::string& msg)

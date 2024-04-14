@@ -29,9 +29,11 @@ namespace ldtk {
             IntRect crop;
         };
 
+        ~Level() = default;
         Level(const Level&) = delete;
-        Level(Level&&) = default;
+        Level(Level&&) noexcept = default;
         auto operator=(const Level&) -> Level& = delete;
+        auto operator=(Level&&) -> Level& = delete;
 
         const World* const world;
 

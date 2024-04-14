@@ -71,8 +71,9 @@ Enum::Enum(const nlohmann::json& j)
 
 auto Enum::operator[](const std::string& val_name) const -> const EnumValue&
 {
-    if (m_values.count(val_name) > 0)
+    if (m_values.count(val_name) > 0) {
         return m_values.at(val_name);
+    }
     ldtk_error("Enum \"" + name + "\" does not have value \"" + val_name + "\".");
 }
 
@@ -83,8 +84,9 @@ auto Enum::hasIcons() const -> bool
 
 auto Enum::getIconsTileset() const -> const Tileset&
 {
-    if (m_tileset != nullptr)
+    if (m_tileset != nullptr) {
         return *m_tileset;
+    }
     ldtk_error("Enum \"" + name + "\" values don't have icons.");
 }
 

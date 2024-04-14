@@ -27,50 +27,63 @@ Level::Level(const nlohmann::json& j, World* w)
         m_layers.emplace_back(level, w, this);
     }
 
-    m_neighbours_id[Dir::North];
-    m_neighbours_id[Dir::NorthEast];
-    m_neighbours_id[Dir::East];
-    m_neighbours_id[Dir::SouthEast];
-    m_neighbours_id[Dir::South];
-    m_neighbours_id[Dir::SouthWest];
-    m_neighbours_id[Dir::West];
-    m_neighbours_id[Dir::NorthWest];
-    m_neighbours_id[Dir::Over];
-    m_neighbours_id[Dir::Under];
-    m_neighbours_id[Dir::Overlap];
+    m_neighbours_id.emplace(Dir::None, 0);
+    m_neighbours_id.emplace(Dir::North, 0);
+    m_neighbours_id.emplace(Dir::NorthEast, 0);
+    m_neighbours_id.emplace(Dir::East, 0);
+    m_neighbours_id.emplace(Dir::SouthEast, 0);
+    m_neighbours_id.emplace(Dir::South, 0);
+    m_neighbours_id.emplace(Dir::SouthWest, 0);
+    m_neighbours_id.emplace(Dir::West, 0);
+    m_neighbours_id.emplace(Dir::NorthWest, 0);
+    m_neighbours_id.emplace(Dir::Over, 0);
+    m_neighbours_id.emplace(Dir::Under, 0);
+    m_neighbours_id.emplace(Dir::Overlap, 0);
     for (const auto& neighbour : j["__neighbours"]) {
         const auto& dir = neighbour["dir"].get<std::string>();
         const auto& level_iid = IID(neighbour["levelIid"].get<std::string>());
 
         Dir direction = Dir::None;
-        if (dir == "n")
+        if (dir == "n") {
             direction = Dir::North;
-        else if (dir == "ne")
+        }
+        else if (dir == "ne") {
             direction = Dir::NorthEast;
-        else if (dir == "e")
+        }
+        else if (dir == "e") {
             direction = Dir::East;
-        else if (dir == "se")
+        }
+        else if (dir == "se") {
             direction = Dir::SouthEast;
-        else if (dir == "s")
+        }
+        else if (dir == "s") {
             direction = Dir::South;
-        else if (dir == "sw")
+        }
+        else if (dir == "sw") {
             direction = Dir::SouthWest;
-        else if (dir == "w")
+        }
+        else if (dir == "w") {
             direction = Dir::West;
-        else if (dir == "nw")
+        }
+        else if (dir == "nw") {
             direction = Dir::NorthWest;
-        else if (dir == "o")
+        }
+        else if (dir == "o") {
             direction = Dir::Overlap;
-        else if (dir == ">")
+        }
+        else if (dir == ">") {
             direction = Dir::Over;
-        else if (dir == "<")
+        }
+        else if (dir == "<") {
             direction = Dir::Under;
+        }
 
         m_neighbours_id[direction].push_back(level_iid);
     }
 
-    if (j["bgRelPath"].is_null())
+    if (j["bgRelPath"].is_null()) {
         m_bg_image = null;
+    }
     else {
         m_bg_image = BgImage();
         m_bg_image->path = FilePath(j["bgRelPath"].get<std::string>());
@@ -92,17 +105,21 @@ auto Level::allLayers() const -> const std::vector<Layer>&
 
 auto Level::getLayer(const std::string& layer_name) const -> const Layer&
 {
-    for (const auto& layer : m_layers)
-        if (layer.getName() == layer_name)
+    for (const auto& layer : m_layers) {
+        if (layer.getName() == layer_name) {
             return layer;
+        }
+    }
     ldtk_error("Layer name \"" + layer_name + "\" not found in Level \"" + name + "\".");
 }
 
 auto Level::getLayer(const IID& layer_iid) const -> const Layer&
 {
-    for (const auto& layer : m_layers)
-        if (layer.iid == layer_iid)
+    for (const auto& layer : m_layers) {
+        if (layer.iid == layer_iid) {
             return layer;
+        }
+    }
     ldtk_error("Layer with IID \"" + layer_iid.str() + "\" not found in Level \"" + name + "\".");
 }
 
@@ -126,8 +143,9 @@ auto Level::getNeighbourDirection(const Level& level) const -> Dir
     for (const auto& item : m_neighbours_id) {
         const auto& neighbour_direction = item.first;
         for (const auto& neighbour_iid : item.second) {
-            if (neighbour_iid == level.iid)
+            if (neighbour_iid == level.iid) {
                 return neighbour_direction;
+            }
         }
     }
     return Dir::None;

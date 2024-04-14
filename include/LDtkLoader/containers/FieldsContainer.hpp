@@ -35,22 +35,25 @@ namespace ldtk {
     protected:
         FieldsContainer(const nlohmann::json& j, const World* w);
 
-        void parseFields(const nlohmann::json& j, const World* w);
+        template <typename T>
+        auto addField(const std::string& name, const T& field) -> Field<T>&;
 
         template <typename T>
-        void addField(const std::string& name, const T& field);
+        auto addField(const std::string& name, const Field<T>& field) -> Field<T>&;
 
         template <typename T>
-        void addField(const std::string& name, const Field<T>& field);
+        auto addArrayField(const std::string& name, const std::vector<Field<T>>& field) -> ArrayField<T>&;
 
         template <typename T>
-        void addArrayField(const std::string& name, const std::vector<Field<T>>& field);
-
-        template <typename T>
-        void addArrayField(const std::string& name, const ArrayField<T>& field);
+        auto addArrayField(const std::string& name, const ArrayField<T>& field) -> ArrayField<T>&;
 
     private:
-        friend class Project;
+        void parseFields(const nlohmann::json& j, const World* w);
+        void parseArrayField(const nlohmann::json& field, const std::string& type, const std::string& name,
+                             const World* w);
+        void parseValueField(const nlohmann::json& field, const std::string& type, const std::string& name,
+                             const World* w);
+
         std::vector<std::unique_ptr<IField>> m_gc;
         std::unordered_map<std::string, IField*> m_fields;
         std::unordered_map<std::string, IField*> m_array_fields;
@@ -75,8 +78,9 @@ namespace ldtk {
         if (m_fields.count(name) > 0) {
             const auto* field = m_fields.at(name);
             const auto* ret = dynamic_cast<const Field<T>*>(field);
-            if (ret)
+            if (ret) {
                 return *ret;
+            }
             ldtk_error("Field \"" + name + "\" is not of type " + typeid(T).name() + ".");
         }
         ldtk_error("Field \"" + name + "\" does not exist.");
@@ -88,43 +92,48 @@ namespace ldtk {
         if (m_array_fields.count(name) > 0) {
             const auto* field = m_array_fields.at(name);
             const auto* ret = dynamic_cast<const ArrayField<T>*>(field);
-            if (ret)
+            if (ret) {
                 return *ret;
+            }
             ldtk_error("ArrayField \"" + name + "\" is not of type " + typeid(T).name() + ".");
         }
         ldtk_error("ArrayField \"" + name + "\" does not exist.");
     }
 
     template <typename T>
-    void FieldsContainer::addField(const std::string& name, const T& field)
+    auto FieldsContainer::addField(const std::string& name, const T& field) -> Field<T>&
     {
         auto* new_field = new Field<T>(field);
-        m_fields[name] = new_field;
+        m_fields.emplace(name, new_field);
         m_gc.emplace_back(new_field);
+        return *new_field;
     }
 
     template <typename T>
-    void FieldsContainer::addField(const std::string& name, const Field<T>& field)
+    auto FieldsContainer::addField(const std::string& name, const Field<T>& field) -> Field<T>&
     {
         auto* new_field = new Field<T>(field);
-        m_fields[name] = new_field;
+        m_fields.emplace(name, new_field);
         m_gc.emplace_back(new_field);
+        return *new_field;
     }
 
     template <typename T>
-    void FieldsContainer::addArrayField(const std::string& name, const std::vector<Field<T>>& field)
+    auto FieldsContainer::addArrayField(const std::string& name, const std::vector<Field<T>>& field) -> ArrayField<T>&
     {
         auto* new_field = new ArrayField<T>(field);
-        m_array_fields[name] = new_field;
+        m_array_fields.emplace(name, new_field);
         m_gc.emplace_back(new_field);
+        return *new_field;
     }
 
     template <typename T>
-    void FieldsContainer::addArrayField(const std::string& name, const ArrayField<T>& field)
+    auto FieldsContainer::addArrayField(const std::string& name, const ArrayField<T>& field) -> ArrayField<T>&
     {
         auto* new_field = new ArrayField<T>(field);
-        m_array_fields[name] = new_field;
+        m_array_fields.emplace(name, new_field);
         m_gc.emplace_back(new_field);
+        return *new_field;
     }
 
 } // namespace ldtk
