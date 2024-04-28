@@ -140,6 +140,6 @@ auto Layer::getEntity(const IID& entity_iid) const -> const Entity& {
 }
 
 auto Layer::getCoordIdAt(int x, int y) const -> int {
-    return (x + y * m_grid_size.x) / getCellSize() ;
+    return (x / getCellSize()) + (y / getCellSize()) * m_grid_size.x;
 }
 

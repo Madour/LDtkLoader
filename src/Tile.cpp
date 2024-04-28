@@ -14,14 +14,15 @@ coordId(l == nullptr ? -1 : l->getCoordIdAt(pos.x, pos.y)),
 tileId(tile_id),
 flipX(flips & 1),
 flipY((flips>>1) & 1),
-alpha(a)
+alpha(a),
+offset(l == nullptr ? -1 : pos.x - (pos.x / l->getCellSize()) * l->getCellSize(), l == nullptr ? -1 : pos.y - (pos.y / l->getCellSize()) * l->getCellSize())
 {}
 
 auto Tile::getPosition() const -> IntPoint {
     auto cell_size = layer->getCellSize();
     auto grid_pos = getGridPosition();
-    auto offset = layer->getOffset();
-    return {grid_pos.x * cell_size + offset.x, grid_pos.y * cell_size + offset.y};
+    auto layer_offset = layer->getOffset();
+    return {grid_pos.x * cell_size + layer_offset.x + offset.x, grid_pos.y * cell_size + layer_offset.y + offset.y};
 }
 
 auto Tile::getGridPosition() const -> IntPoint {

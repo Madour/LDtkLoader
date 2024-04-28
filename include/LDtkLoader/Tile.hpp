@@ -23,6 +23,8 @@ namespace ldtk {
 
         const float alpha;
 
+        const IntPoint offset;
+
         auto getPosition() const -> IntPoint;
         auto getGridPosition() const -> IntPoint;
         auto getWorldPosition() const -> IntPoint;
