@@ -119,7 +119,6 @@ void FieldsContainer::parseArrayField(
                         });
         }
         auto& this_field = addArrayField(name, values);
-        // auto& this_field = *dynamic_cast<ArrayField<EntityRef>*>(m_array_fields.at(name));
         for (auto& ent_ref : this_field) {
             temporary_entity_refs_array.emplace_back(&ent_ref.value());
         }
@@ -167,14 +166,13 @@ void FieldsContainer::parseValueField(
             addField<EntityRef>(name, null);
         }
         else {
-            addField<EntityRef>(
+            auto& this_field = addField<EntityRef>(
                 name,
                 {IID(field["entityIid"].get<std::string>()),
                  IID(field["layerIid"].get<std::string>()),
                  IID(field["levelIid"].get<std::string>()),
                  IID(field["worldIid"].get<std::string>())}
             );
-            auto& this_field = *dynamic_cast<Field<EntityRef>*>(m_fields.at(name));
             temporary_entity_refs_array.emplace_back(&this_field.value());
         }
     }

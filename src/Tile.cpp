@@ -87,8 +87,8 @@ auto Tile::getVertices() const -> std::array<Vertex, 4>
 
     // set vertices texture coordinates
     for (size_t i = 0; i < verts.size(); ++i) {
-        verts[i].tex.x = tex_rect.x + tex_coo[i].x + modif[i].x;
-        verts[i].tex.y = tex_rect.y + tex_coo[i].y + modif[i].y;
+        verts[i].tex.x = tex_rect.x + tex_coo.at(i).x + modif.at(i).x;
+        verts[i].tex.y = tex_rect.y + tex_coo.at(i).y + modif.at(i).y;
     }
     // clang-format on
 

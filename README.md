@@ -121,7 +121,7 @@ API documentation can be found on the [**wiki**](https://github.com/Madour/LDtkL
 ### Demo
 
 > [!WARNING]
-> The demos below are probably using an older version of the library.
+> The demos below might be using an older version of the library.
 
 A demo using LDtkLoader with SFML can be found [**here**](https://github.com/Madour/LDtk-SFML-Game).
 
@@ -129,16 +129,36 @@ Here is a preview :
 
 https://user-images.githubusercontent.com/11854124/122610077-57f48a00-d07f-11eb-98ac-278a3d3dbd01.mp4
 
---- 
+---
 
 A demo using LDtkLoader with Direct X11 can be found [**here**](https://github.com/dontpanic5/LDtk-D11/) (by @dontpanic5)
 
-Here is a preview : 
+Here is a preview :
 
 https://user-images.githubusercontent.com/242570/129111903-88727f39-9e21-45cb-bc76-a5d7975a4a9c.mp4
 
 ### To Do
  - [ ] Helper classes/methods for SFML or SDL rendering
+
+### Contributing
+
+Contributions are welcome.
+
+If you have LLVM tools installed, run clang-format to make sure your code respects the project's code style:
+```
+python tools/run_clang_format.py -r src include
+```
+
+To apply the format changes, run:
+```
+python tools/run_clang_format.py -i -r src include
+```
+
+Optionaly, you can also run clang-tidy to make sure there are no coding mistakes or code smells
+(although, some warnings can be ignored):
+```
+clang-tidy --config-file=.clang-tidy src/*.cpp -- -I include -I build/include
+```
 
 ### License
 
