@@ -2,12 +2,13 @@
 
 #pragma once
 
+#include <map>
 #include <string>
 #include <vector>
-#include <map>
 
-#include "LDtkLoader/thirdparty/json_fwd.hpp"
 #include "LDtkLoader/containers/FieldsContainer.hpp"
+#include "LDtkLoader/thirdparty/json_fwd.hpp"
+
 #include "LDtkLoader/DataTypes.hpp"
 #include "LDtkLoader/Layer.hpp"
 
@@ -15,20 +16,24 @@ namespace ldtk {
 
     class World;
 
-    class Level : public FieldsContainer {
+    class Level : public FieldsContainer
+    {
         friend World;
 
     public:
-        struct BgImage {
+        struct BgImage
+        {
             FilePath path;
             IntPoint pos;
             FloatPoint scale;
             IntRect crop;
         };
 
+        ~Level() = default;
         Level(const Level&) = delete;
-        Level(Level&&) = default;
+        Level(Level&&) noexcept = default;
         auto operator=(const Level&) -> Level& = delete;
+        auto operator=(Level&&) -> Level& = delete;
 
         const World* const world;
 
@@ -59,4 +64,4 @@ namespace ldtk {
         std::map<Dir, std::vector<const Level*>> m_neighbours;
     };
 
-}
+} // namespace ldtk

@@ -6,16 +6,19 @@
 #include <unordered_map>
 #include <vector>
 
-#include "LDtkLoader/thirdparty/json_fwd.hpp"
 #include "LDtkLoader/containers/TagsContainer.hpp"
+#include "LDtkLoader/thirdparty/json_fwd.hpp"
+
 #include "LDtkLoader/DataTypes.hpp"
 
 namespace ldtk {
 
     class Enum;
+
     class Tileset;
 
-    struct EnumValue {
+    struct EnumValue
+    {
         const std::string name;
         const Color color;
         const Enum& type;
@@ -27,7 +30,13 @@ namespace ldtk {
     private:
         friend Enum;
         friend auto operator==(const EnumValue& l, const EnumValue& r) -> bool;
-        EnumValue(std::string name, int id, const IntRect& tile_rect, const Color& color, const Enum& enum_type);
+        EnumValue(
+            std::string name,
+            int id,
+            const IntRect& tile_rect,
+            const Color& color,
+            const Enum& enum_type
+        );
         const int id;
         const IntRect tile_rect;
     };
@@ -35,13 +44,16 @@ namespace ldtk {
     auto operator==(const EnumValue& l, const EnumValue& r) -> bool;
     auto operator!=(const EnumValue& l, const EnumValue& r) -> bool;
 
-    class Enum : public TagsContainer {
+    class Enum : public TagsContainer
+    {
         friend class Project;
 
     public:
+        ~Enum() = default;
         Enum(const Enum&) = delete;
-        Enum(Enum&&) = default;
+        Enum(Enum&&) noexcept = default;
         auto operator=(const Enum&) -> Enum& = delete;
+        auto operator=(Enum&&) -> Enum& = default;
 
         const std::string name;
         const int uid;
@@ -59,6 +71,6 @@ namespace ldtk {
         std::unordered_map<std::string, EnumValue> m_values;
     };
 
-}
+} // namespace ldtk
 
 auto operator<<(std::ostream& os, const ldtk::EnumValue& enum_value) -> std::ostream&;

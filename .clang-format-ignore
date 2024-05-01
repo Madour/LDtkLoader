@@ -1,0 +1,3 @@
+include/LDtkLoader/thirdparty/json_fwd.hpp
+include/LDtkLoader/thirdparty/optional.hpp
+src/json.hpp

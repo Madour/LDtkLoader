@@ -2,19 +2,26 @@
 
 #pragma once
 
-#include <vector>
 #include <iostream>
+#include <vector>
 
 #include "LDtkLoader/thirdparty/optional.hpp"
 
 namespace ldtk {
-    template<typename T>
+
+    template <typename T>
     using optional = std::experimental::optional<T>;
 
     constexpr auto null = std::experimental::nullopt;
 
-    struct IField {
+    struct IField
+    {
+        IField() = default;
         virtual ~IField() = default;
+        IField(const IField&) = default;
+        IField(IField&&) noexcept = default;
+        auto operator=(const IField&) -> IField& = default;
+        auto operator=(IField&&) -> IField& = default;
     };
 
     template <typename T>
@@ -25,12 +32,15 @@ namespace ldtk {
 
     template <typename T>
 #if defined LDTK_FIELD_PUBLIC_OPTIONAL
-    struct Field : IField, public optional<T> {
+    struct Field : IField, public optional<T>
+    {
 #else
-    struct Field : IField, private optional<T> {
+    struct Field : IField, private optional<T>
+    {
 #endif
     private:
-        static ArrayField<T> m_dummy;
+        static const ArrayField<T> m_dummy;
+
     public:
         using value_type = T;
 
@@ -38,56 +48,65 @@ namespace ldtk {
         using optional<T>::value;
         using optional<T>::value_or;
 
-        constexpr auto is_null() const -> bool {
-            return !optional<T>::has_value();
-        }
+        constexpr auto is_null() const -> bool { return !optional<T>::has_value(); }
 
-        operator const ArrayField<T>&() const {
+        operator const ArrayField<T>&() const
+        {
             throw std::runtime_error("Cannot convert ldtk::Field<T> to ldtk::ArrayField<T>");
             return m_dummy;
         }
     };
 
     template <typename T>
-    ArrayField<T> Field<T>::m_dummy;
+    const ArrayField<T> Field<T>::m_dummy;
 
     template <class T>
-    auto operator==(const Field<T>& lhs, const T& rhs) -> bool {
-        if (lhs.is_null()) return false;
+    auto operator==(const Field<T>& lhs, const T& rhs) -> bool
+    {
+        if (lhs.is_null())
+            return false;
         return (lhs.value() == rhs);
     }
 
     template <class T>
-    auto operator==(const T& lhs, const Field<T>& rhs) -> bool {
-        if (rhs.is_null()) return false;
+    auto operator==(const T& lhs, const Field<T>& rhs) -> bool
+    {
+        if (rhs.is_null())
+            return false;
         return (rhs.value() == lhs);
     }
 
     template <class T>
-    auto operator!=(const Field<T>& lhs, const T& rhs) -> bool {
+    auto operator!=(const Field<T>& lhs, const T& rhs) -> bool
+    {
         return !(lhs == rhs);
     }
 
     template <class T>
-    auto operator!=(const T& lhs, const Field<T>& rhs) -> bool {
+    auto operator!=(const T& lhs, const Field<T>& rhs) -> bool
+    {
         return !(lhs == rhs);
     }
 
     template <typename T>
-    struct ArrayField : IField, std::vector<Field<T>> {
+    struct ArrayField : IField, std::vector<Field<T>>
+    {
         using value_type = T;
         ArrayField() = default;
         explicit ArrayField(const std::vector<Field<T>>& vals) : std::vector<Field<T>>(vals) {}
 
-        operator const Field<T>&() const {
+        operator const Field<T>&() const
+        {
             throw std::runtime_error("Cannot convert ldtk::ArrayField<T> to ldtk::Field<T>");
             return this->at(0);
         }
     };
-}
+
+} // namespace ldtk
 
 template <typename T>
-auto operator<<(std::ostream& os, ldtk::Field<T> field) -> std::ostream& {
+auto operator<<(std::ostream& os, ldtk::Field<T> field) -> std::ostream&
+{
     if (field.is_null())
         os << "null";
     else

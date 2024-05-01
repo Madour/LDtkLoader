@@ -6,10 +6,10 @@
 #include <string>
 #include <vector>
 
-#include "LDtkLoader/thirdparty/json_fwd.hpp"
-
 #include "LDtkLoader/defs/EntityDef.hpp"
 #include "LDtkLoader/defs/LayerDef.hpp"
+#include "LDtkLoader/thirdparty/json_fwd.hpp"
+
 #include "LDtkLoader/DataTypes.hpp"
 #include "LDtkLoader/Enum.hpp"
 #include "LDtkLoader/Level.hpp"
@@ -17,12 +17,16 @@
 #include "LDtkLoader/World.hpp"
 
 namespace ldtk {
-    class Project {
+
+    class Project
+    {
     public:
         Project() = default;
+        ~Project() = default;
         Project(const Project&) = delete;
-        Project(Project&&) = default;
+        Project(Project&&) noexcept = default;
         auto operator=(const Project&) -> Project& = delete;
+        auto operator=(Project&&) -> Project& = delete;
 
         IID iid;
 
@@ -71,24 +75,25 @@ namespace ldtk {
         std::string m_json_version;
 
         std::vector<LayerDef> m_layers_defs;
-        std::unordered_map<int, std::reference_wrapper<LayerDef>> m_layers_defs_by_uid;
-        std::unordered_map<std::string, std::reference_wrapper<LayerDef>> m_layers_defs_by_name;
+        std::unordered_map<int, ref_wrapper<LayerDef>> m_layers_defs_by_uid;
+        std::unordered_map<std::string, ref_wrapper<LayerDef>> m_layers_defs_by_name;
 
         std::vector<EntityDef> m_entities_defs;
-        std::unordered_map<int, std::reference_wrapper<EntityDef>> m_entities_defs_by_uid;
-        std::unordered_map<std::string, std::reference_wrapper<EntityDef>> m_entities_defs_by_name;
+        std::unordered_map<int, ref_wrapper<EntityDef>> m_entities_defs_by_uid;
+        std::unordered_map<std::string, ref_wrapper<EntityDef>> m_entities_defs_by_name;
 
         std::vector<Tileset> m_tilesets;
-        std::unordered_map<int, std::reference_wrapper<Tileset>> m_tilesets_by_uid;
-        std::unordered_map<std::string, std::reference_wrapper<Tileset>> m_tilesets_by_name;
+        std::unordered_map<int, ref_wrapper<Tileset>> m_tilesets_by_uid;
+        std::unordered_map<std::string, ref_wrapper<Tileset>> m_tilesets_by_name;
 
         std::vector<Enum> m_enums;
-        std::unordered_map<int, std::reference_wrapper<Enum>> m_enums_by_uid;
-        std::unordered_map<std::string, std::reference_wrapper<Enum>> m_enums_by_name;
+        std::unordered_map<int, ref_wrapper<Enum>> m_enums_by_uid;
+        std::unordered_map<std::string, ref_wrapper<Enum>> m_enums_by_name;
 
         std::vector<World> m_worlds;
 
         std::vector<EntityRef> m_toc;
         mutable std::map<std::string, std::vector<EntityRef>> m_toc_map;
     };
-}
+
+} // namespace ldtk

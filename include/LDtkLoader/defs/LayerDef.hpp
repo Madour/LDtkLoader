@@ -6,6 +6,7 @@
 #include <string>
 
 #include "LDtkLoader/thirdparty/json_fwd.hpp"
+
 #include "LDtkLoader/DataTypes.hpp"
 #include "LDtkLoader/Tileset.hpp"
 
@@ -13,7 +14,8 @@ namespace ldtk {
 
     class Project;
 
-    class LayerDef {
+    class LayerDef
+    {
         friend class Layer;
 
     public:
@@ -32,4 +34,4 @@ namespace ldtk {
         std::map<int, IntGridValue> m_intgrid_values;
     };
 
-}
+} // namespace ldtk

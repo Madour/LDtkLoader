@@ -8,7 +8,9 @@
 #include "LDtkLoader/thirdparty/json_fwd.hpp"
 
 namespace ldtk {
-    class TagsContainer {
+
+    class TagsContainer
+    {
     public:
         auto hasTag(const std::string& tag) const -> bool;
         auto getTags() const -> const std::vector<std::string>&;
@@ -20,4 +22,4 @@ namespace ldtk {
         const std::vector<std::string> m_tags;
     };
 
-}
+} // namespace ldtk

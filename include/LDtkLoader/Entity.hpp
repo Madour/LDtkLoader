@@ -2,28 +2,34 @@
 
 #pragma once
 
-#include <string>
-#include <memory>
 #include <iostream>
+#include <memory>
+#include <string>
 #include <unordered_map>
-#include "LDtkLoader/thirdparty/json_fwd.hpp"
+
 #include "LDtkLoader/containers/FieldsContainer.hpp"
 #include "LDtkLoader/defs/EntityDef.hpp"
 #include "LDtkLoader/defs/FieldDef.hpp"
+#include "LDtkLoader/thirdparty/json_fwd.hpp"
+
 #include "LDtkLoader/DataTypes.hpp"
 #include "LDtkLoader/Enum.hpp"
-#include "LDtkLoader/Layer.hpp"
 #include "LDtkLoader/Utils.hpp"
 
 namespace ldtk {
 
     class World;
 
-    class Entity : public FieldsContainer {
+    class Layer;
+
+    class Entity : public FieldsContainer
+    {
     public:
+        ~Entity() = default;
         Entity(const Entity&) = delete;
-        Entity(Entity&&) = default;
+        Entity(Entity&&) noexcept = default;
         auto operator=(const Entity&) -> Entity& = delete;
+        auto operator=(Entity&&) -> Entity& = default;
 
         const Layer* const layer;
         const IID iid;
@@ -64,4 +70,4 @@ namespace ldtk {
         const IntRect m_texture_rect;
     };
 
-}
+} // namespace ldtk
