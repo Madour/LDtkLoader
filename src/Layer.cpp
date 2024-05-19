@@ -31,6 +31,7 @@ Layer::Layer(const nlohmann::json& j, const World* w, const Level* l)
         m_tiles.emplace_back(
             this,
             IntPoint{tile["px"][0].get<int>(), tile["px"][1].get<int>()},
+            key == "gridTiles" ? tile["d"][0].get<int>() : tile["d"][1].get<int>(),
             tile["t"].get<int>(),
             tile["f"].get<int>(),
             tile["a"].get<float>()
@@ -163,7 +164,7 @@ auto Layer::getEntity(const IID& entity_iid) const -> const Entity&
     ldtk_error("Entity with IID \"" + entity_iid.str() + "\" not found in Layer \"" + getName() + "\".");
 }
 
-auto Layer::getCoordIdAt(int x, int y) const -> int
+auto Layer::getCoordIdAt(int grid_x, int grid_y) const -> int
 {
-    return (x + y * m_grid_size.x) / getCellSize();
+    return grid_x + grid_y * m_grid_size.x;
 }

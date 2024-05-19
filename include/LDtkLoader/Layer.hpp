@@ -56,7 +56,7 @@ namespace ldtk {
         auto getEntitiesByTag(const std::string& tag) const -> const std::vector<ref_wrapper<Entity>>&;
         auto getEntity(const IID& entity_iid) const -> const Entity&;
 
-        auto getCoordIdAt(int x, int y) const -> int;
+        auto getCoordIdAt(int grid_x, int grid_y) const -> int;
 
         Layer(const nlohmann::json& j, const World* w, const Level* l);
 

@@ -7,23 +7,22 @@
 
 using namespace ldtk;
 
-const Tile Tile::None{nullptr, {-1, -1}, -1, 0, 0};
+const Tile Tile::None{nullptr, {-1, -1}, -1, -1, 0, 0};
 
-Tile::Tile(const Layer* l, IntPoint pos, int tile_id, int flips, float a)
+Tile::Tile(const Layer* l, IntPoint pos, int coord_id, int tile_id, int flips, float a)
 : layer(l)
-, coordId(l == nullptr ? -1 : l->getCoordIdAt(pos.x, pos.y))
+, coordId(coord_id)
 , tileId(tile_id)
 , flipX((flips & 1) != 0)
 , flipY(((flips >> 1) & 1) != 0)
 , alpha(a)
+, m_position(pos)
 {}
 
 auto Tile::getPosition() const -> IntPoint
 {
-    auto cell_size = layer->getCellSize();
-    auto grid_pos = getGridPosition();
     auto offset = layer->getOffset();
-    return {grid_pos.x * cell_size + offset.x, grid_pos.y * cell_size + offset.y};
+    return {m_position.x + offset.x, m_position.y + offset.y};
 }
 
 auto Tile::getGridPosition() const -> IntPoint
