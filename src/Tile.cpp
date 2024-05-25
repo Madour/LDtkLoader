@@ -27,10 +27,7 @@ auto Tile::getPosition() const -> IntPoint
 
 auto Tile::getGridPosition() const -> IntPoint
 {
-    const auto& grid_width = layer->getGridSize().x;
-    auto y = coordId / grid_width;
-    auto x = coordId - y * grid_width;
-    return {x, y};
+    return layer->getGridPositionFromCoordId(coordId);
 }
 
 auto Tile::getWorldPosition() const -> IntPoint
