@@ -43,7 +43,10 @@ Layer::Layer(const nlohmann::json& j, const World* w, const Level* l)
     int coord_id = 0;
     for (const auto& val : j["intGridCsv"]) {
         if (val.get<int>() != 0) {
-            m_intgrid.emplace(coord_id, m_definition->m_intgrid_values.at(val.get<int>()));
+            auto& intgridval = m_definition->m_intgrid_values.at(val.get<int>());
+            m_intgrid.emplace(coord_id, intgridval);
+            m_intgridpos_by_value[intgridval.value].emplace_back(getGridPositionFromCoordId(coord_id));
+            m_intgridpos_by_name[intgridval.name].emplace_back(getGridPositionFromCoordId(coord_id));
         }
         coord_id++;
     }
@@ -127,6 +130,22 @@ auto Layer::getIntGridVal(int grid_x, int grid_y) const -> const IntGridValue&
     return IntGridValue::None;
 }
 
+auto Layer::getIntGridValPositions(int intgridval_value) const -> const std::vector<IntPoint>&
+{
+    if (m_intgridpos_by_value.find(intgridval_value) != m_intgridpos_by_value.end()) {
+        return m_intgridpos_by_value.at(intgridval_value);
+    }
+    return m_intgridpos_by_value[intgridval_value];
+}
+
+auto Layer::getIntGridValPositions(const std::string& intgridval_name) const -> const std::vector<IntPoint>&
+{
+    if (m_intgridpos_by_name.find(intgridval_name) != m_intgridpos_by_name.end()) {
+        return m_intgridpos_by_name.at(intgridval_name);
+    }
+    return m_intgridpos_by_name[intgridval_name];
+}
+
 auto Layer::allEntities() const -> const std::vector<Entity>&
 {
     return m_entities;
@@ -167,4 +186,12 @@ auto Layer::getEntity(const IID& entity_iid) const -> const Entity&
 auto Layer::getCoordIdAt(int grid_x, int grid_y) const -> int
 {
     return grid_x + grid_y * m_grid_size.x;
+}
+
+auto Layer::getGridPositionFromCoordId(int coord_id) const -> IntPoint
+{
+    const auto& grid_width = getGridSize().x;
+    auto y = coord_id / grid_width;
+    auto x = coord_id - y * grid_width;
+    return {x, y};
 }

@@ -49,6 +49,8 @@ namespace ldtk {
         auto getTile(int grid_x, int grid_y) const -> const Tile&;
 
         auto getIntGridVal(int grid_x, int grid_y) const -> const IntGridValue&;
+        auto getIntGridValPositions(int intgridval_value) const -> const std::vector<IntPoint>&;
+        auto getIntGridValPositions(const std::string& intgridval_name) const -> const std::vector<IntPoint>&;
 
         auto hasEntity(const std::string& entity_name) const -> bool;
         auto allEntities() const -> const std::vector<Entity>&;
@@ -57,6 +59,7 @@ namespace ldtk {
         auto getEntity(const IID& entity_iid) const -> const Entity&;
 
         auto getCoordIdAt(int grid_x, int grid_y) const -> int;
+        auto getGridPositionFromCoordId(int coord_id) const -> IntPoint;
 
         Layer(const nlohmann::json& j, const World* w, const Level* l);
 
@@ -73,6 +76,8 @@ namespace ldtk {
         std::map<int, ref_wrapper<const Tile>> m_tiles_map;
 
         std::map<int, ref_wrapper<const IntGridValue>> m_intgrid;
+        mutable std::map<int, std::vector<IntPoint>> m_intgridpos_by_value;
+        mutable std::map<std::string, std::vector<IntPoint>> m_intgridpos_by_name;
 
         std::vector<Entity> m_entities;
         mutable std::unordered_map<std::string, std::vector<ref_wrapper<Entity>>> m_entities_by_name;
