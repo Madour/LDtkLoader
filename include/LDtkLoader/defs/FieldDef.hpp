@@ -9,31 +9,9 @@
 #include "LDtkLoader/thirdparty/json_fwd.hpp"
 
 #include "LDtkLoader/DataTypes.hpp"
-#include "LDtkLoader/Tileset.hpp"
+#include "LDtkLoader/Enum.hpp"
 
 namespace ldtk {
-
-    enum class FieldType
-    {
-        Int,
-        Float,
-        Bool,
-        String,
-        Color,
-        Point,
-        Enum,
-        FilePath,
-        EntityRef,
-        ArrayInt,
-        ArrayFloat,
-        ArrayBool,
-        ArrayString,
-        ArrayColor,
-        ArrayPoint,
-        ArrayEnum,
-        ArrayFilePath,
-        ArrayEntityRef
-    };
 
     class FieldDef
     {

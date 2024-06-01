@@ -127,6 +127,28 @@ namespace ldtk {
         Under,
     };
 
+    enum class FieldType
+    {
+        Int,
+        Float,
+        Bool,
+        String,
+        Color,
+        Point,
+        Enum,
+        FilePath,
+        EntityRef,
+        ArrayInt,
+        ArrayFloat,
+        ArrayBool,
+        ArrayString,
+        ArrayColor,
+        ArrayPoint,
+        ArrayEnum,
+        ArrayFilePath,
+        ArrayEntityRef
+    };
+
     class FilePath : std::string
     {
     public:

@@ -5,8 +5,6 @@
 #include <iostream>
 #include <string>
 
-#include "LDtkLoader/defs/FieldDef.hpp"
-
 #include "LDtkLoader/DataTypes.hpp"
 
 #ifdef LDTK_NO_THROW
