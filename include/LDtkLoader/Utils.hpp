@@ -34,6 +34,7 @@ namespace ldtk {
 
     auto getLayerTypeFromString(const std::string& type_name) -> LayerType;
     auto getWorldLayoutFromString(const std::string& layout_name) -> WorldLayout;
+    auto getDirFromString(const std::string& dir_name) -> Dir;
     auto getFieldTypeFromString(const std::string& fieldtype_name) -> FieldType;
 
     void print_error(const std::string& fn, const std::string& msg);

@@ -43,43 +43,7 @@ Level::Level(const nlohmann::json& j, World* w)
         const auto& dir = neighbour["dir"].get<std::string>();
         const auto& level_iid = IID(neighbour["levelIid"].get<std::string>());
         m_neighbours_iid.emplace(level_iid);
-
-        Dir direction = Dir::None;
-        if (dir == "n") {
-            direction = Dir::North;
-        }
-        else if (dir == "ne") {
-            direction = Dir::NorthEast;
-        }
-        else if (dir == "e") {
-            direction = Dir::East;
-        }
-        else if (dir == "se") {
-            direction = Dir::SouthEast;
-        }
-        else if (dir == "s") {
-            direction = Dir::South;
-        }
-        else if (dir == "sw") {
-            direction = Dir::SouthWest;
-        }
-        else if (dir == "w") {
-            direction = Dir::West;
-        }
-        else if (dir == "nw") {
-            direction = Dir::NorthWest;
-        }
-        else if (dir == "o") {
-            direction = Dir::Overlap;
-        }
-        else if (dir == ">") {
-            direction = Dir::Over;
-        }
-        else if (dir == "<") {
-            direction = Dir::Under;
-        }
-
-        m_neighbours_iid_by_dir[direction].emplace(level_iid);
+        m_neighbours_iid_by_dir[getDirFromString(dir)].emplace(level_iid);
     }
 
     if (j["bgRelPath"].is_null()) {

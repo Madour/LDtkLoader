@@ -38,6 +38,46 @@ auto ldtk::getWorldLayoutFromString(const std::string& layout_name) -> ldtk::Wor
     return ret;
 }
 
+auto ldtk::getDirFromString(const std::string& dir_name) -> Dir
+{
+    Dir direction = Dir::None;
+    if (dir_name == "n") {
+        direction = Dir::North;
+    }
+    else if (dir_name == "ne") {
+        direction = Dir::NorthEast;
+    }
+    else if (dir_name == "e") {
+        direction = Dir::East;
+    }
+    else if (dir_name == "se") {
+        direction = Dir::SouthEast;
+    }
+    else if (dir_name == "s") {
+        direction = Dir::South;
+    }
+    else if (dir_name == "sw") {
+        direction = Dir::SouthWest;
+    }
+    else if (dir_name == "w") {
+        direction = Dir::West;
+    }
+    else if (dir_name == "nw") {
+        direction = Dir::NorthWest;
+    }
+    else if (dir_name == "o") {
+        direction = Dir::Overlap;
+    }
+    else if (dir_name == ">") {
+        direction = Dir::Over;
+    }
+    else if (dir_name == "<") {
+        direction = Dir::Under;
+    }
+
+    return direction;
+}
+
 auto ldtk::getFieldTypeFromString(const std::string& fieldtype_name) -> ldtk::FieldType
 {
     auto ret = FieldType::Int;
