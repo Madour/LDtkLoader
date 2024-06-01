@@ -47,6 +47,7 @@ namespace ldtk {
 
         auto allTiles() const -> const std::vector<Tile>&;
         auto getTile(int grid_x, int grid_y) const -> const Tile&;
+        auto getTilesByEnumTag(const EnumValue& enumvalue) const -> const std::vector<ref_wrapper<Tile>>&;
 
         auto getIntGridVal(int grid_x, int grid_y) const -> const IntGridValue&;
         auto getIntGridValPositions(int intgridval_value) const -> const std::vector<IntPoint>&;
@@ -73,7 +74,8 @@ namespace ldtk {
         const IntPoint m_grid_size;
 
         std::vector<Tile> m_tiles;
-        std::map<int, ref_wrapper<const Tile>> m_tiles_map;
+        std::map<int, ref_wrapper<Tile>> m_tiles_map;
+        std::map<std::string, std::vector<ref_wrapper<Tile>>> m_tiles_by_enumtag;
 
         std::map<int, ref_wrapper<const IntGridValue>> m_intgrid;
         mutable std::map<int, std::vector<IntPoint>> m_intgridpos_by_value;

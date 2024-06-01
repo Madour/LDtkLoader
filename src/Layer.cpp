@@ -28,16 +28,23 @@ Layer::Layer(const nlohmann::json& j, const World* w, const Level* l)
     }
     m_tiles.reserve(j[key].size());
     for (const auto& tile : j[key]) {
-        m_tiles.emplace_back(
-            this,
-            IntPoint{tile["px"][0].get<int>(), tile["px"][1].get<int>()},
-            key == "gridTiles" ? tile["d"][0].get<int>() : tile["d"][1].get<int>(),
-            tile["t"].get<int>(),
-            tile["f"].get<int>(),
-            tile["a"].get<float>()
-        );
+        const auto pos = IntPoint{tile["px"][0].get<int>(), tile["px"][1].get<int>()};
+        const auto coord_id = key == "gridTiles" ? tile["d"][0].get<int>() : tile["d"][1].get<int>();
+        const auto tile_id = tile["t"].get<int>();
+        const auto flips = tile["f"].get<int>();
+        const auto alpha = tile["a"].get<float>();
+        m_tiles.emplace_back(this, pos, coord_id, tile_id, flips, alpha);
+
         auto& new_tile = m_tiles.back();
         m_tiles_map.emplace(new_tile.coordId, new_tile);
+
+        if (getTileset().hasEnumTags())
+        {
+            for (const EnumValue& enumtag : getTileset().getTileEnumTags(tile_id))
+            {
+                m_tiles_by_enumtag[enumtag.name].emplace_back(new_tile);
+            }
+        }
     }
 
     int coord_id = 0;
@@ -119,6 +126,16 @@ auto Layer::getTile(int grid_x, int grid_y) const -> const Tile&
         return m_tiles_map.at(id);
     }
     return Tile::None;
+}
+
+auto Layer::getTilesByEnumTag(const EnumValue& enumvalue) const -> const std::vector<ref_wrapper<Tile>>&
+{
+    const auto& enumtags_enum = getTileset().getEnumTagsEnum();
+    if (enumvalue.type.uid != enumtags_enum.uid) {
+        ldtk_error("Enum value \"" + enumvalue.name + "\" is not a value of Enum \"" + enumtags_enum.name
+                   + "\".");
+    }
+    return m_tiles_by_enumtag.at(enumvalue.name);
 }
 
 auto Layer::getIntGridVal(int grid_x, int grid_y) const -> const IntGridValue&

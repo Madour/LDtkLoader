@@ -17,23 +17,27 @@ Tileset::Tileset(const nlohmann::json& j, Project* p)
 , tile_size(j["tileGridSize"].get<int>())
 , spacing(j["spacing"].get<int>())
 , padding(j["padding"].get<int>())
-, m_tags_enum(j["tagsSourceEnumUid"].is_null() ? nullptr : &p->getEnum(j["tagsSourceEnumUid"].get<int>()))
+, m_enumtags_enum(j["tagsSourceEnumUid"].is_null() ? nullptr : &p->getEnum(j["tagsSourceEnumUid"].get<int>()))
 {
     // parse tiles custom data
-    m_custom_data.reserve(j["customData"].size() + 1);
-    m_custom_data.emplace(-1, "");
+    m_custom_data_map.reserve(j["customData"].size() + 1);
+    m_custom_data_map.emplace(-1, "");
     for (const auto& data : j["customData"]) {
-        m_custom_data.emplace(data["tileId"].get<int>(), data["data"].get<std::string>());
+        m_custom_data_map.emplace(data["tileId"].get<int>(), data["data"].get<std::string>());
     }
 
     // parse tiles enum tags
-    if (m_tags_enum != nullptr) {
+    m_enumtags_by_tile.reserve(j["enumTags"].size() + 1);
+    m_enumtags_by_tile.insert({-1, {}});
+    if (m_enumtags_enum != nullptr) {
         for (const auto& tag : j["enumTags"]) {
             auto enumval_name = tag["enumValueId"].get<std::string>();
             const auto& tiles = tag["tileIds"];
-            m_tag_tiles_map[enumval_name].reserve(tiles.size());
+
+            m_tiles_by_enumtag[enumval_name].reserve(tiles.size());
             for (const auto& tile_id : tiles) {
-                m_tag_tiles_map[enumval_name].push_back(tile_id.get<int>());
+                m_tiles_by_enumtag[enumval_name].push_back(tile_id.get<int>());
+                m_enumtags_by_tile[tile_id].emplace_back(getEnumTagsEnum()[enumval_name]);
             }
         }
     }
@@ -50,28 +54,36 @@ auto Tileset::getTileTexturePos(int tile_id) const -> IntPoint
 
 auto Tileset::getTileCustomData(int tile_id) const -> const std::string&
 {
-    if (m_custom_data.find(tile_id) != m_custom_data.end()) {
-        return m_custom_data.at(tile_id);
+    if (m_custom_data_map.find(tile_id) != m_custom_data_map.end()) {
+        return m_custom_data_map.at(tile_id);
     }
-    return m_custom_data.at(-1);
+    return m_custom_data_map.at(-1);
 }
 
-auto Tileset::hasTagsEnum() const -> bool
+auto Tileset::getTileEnumTags(int tile_id) const -> const std::vector<ref_wrapper<const EnumValue>>&
 {
-    return m_tags_enum != nullptr;
+    if (m_enumtags_by_tile.find(tile_id) != m_enumtags_by_tile.end()) {
+        return m_enumtags_by_tile.at(tile_id);
+    }
+    return m_enumtags_by_tile.at(-1);
 }
 
-auto Tileset::getTagsEnum() const -> const Enum&
+auto Tileset::hasEnumTags() const -> bool
 {
-    return *m_tags_enum;
+    return m_enumtags_enum != nullptr;
 }
 
-auto Tileset::getTilesWithTagEnum(const EnumValue& enumvalue) const -> const std::vector<int>&
+auto Tileset::getEnumTagsEnum() const -> const Enum&
 {
-    if (enumvalue.type.uid != m_tags_enum->uid) {
-        ldtk_error("Enum value \"" + enumvalue.name + "\" is not a value of Enum \"" + m_tags_enum->name
+    return *m_enumtags_enum;
+}
+
+auto Tileset::getTilesByEnumTag(const EnumValue& enumvalue) const -> const std::vector<int>&
+{
+    if (enumvalue.type.uid != m_enumtags_enum->uid) {
+        ldtk_error("Enum value \"" + enumvalue.name + "\" is not a value of Enum \"" + m_enumtags_enum->name
                    + "\".");
     }
 
-    return m_tag_tiles_map.at(enumvalue.name);
+    return m_tiles_by_enumtag.at(enumvalue.name);
 }
