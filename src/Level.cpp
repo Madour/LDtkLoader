@@ -27,21 +27,22 @@ Level::Level(const nlohmann::json& j, World* w)
         m_layers.emplace_back(level, w, this);
     }
 
-    m_neighbours_id.emplace(Dir::None, 0);
-    m_neighbours_id.emplace(Dir::North, 0);
-    m_neighbours_id.emplace(Dir::NorthEast, 0);
-    m_neighbours_id.emplace(Dir::East, 0);
-    m_neighbours_id.emplace(Dir::SouthEast, 0);
-    m_neighbours_id.emplace(Dir::South, 0);
-    m_neighbours_id.emplace(Dir::SouthWest, 0);
-    m_neighbours_id.emplace(Dir::West, 0);
-    m_neighbours_id.emplace(Dir::NorthWest, 0);
-    m_neighbours_id.emplace(Dir::Over, 0);
-    m_neighbours_id.emplace(Dir::Under, 0);
-    m_neighbours_id.emplace(Dir::Overlap, 0);
+    m_neighbours_iid_by_dir.emplace(Dir::None, 0);
+    m_neighbours_iid_by_dir.emplace(Dir::North, 0);
+    m_neighbours_iid_by_dir.emplace(Dir::NorthEast, 0);
+    m_neighbours_iid_by_dir.emplace(Dir::East, 0);
+    m_neighbours_iid_by_dir.emplace(Dir::SouthEast, 0);
+    m_neighbours_iid_by_dir.emplace(Dir::South, 0);
+    m_neighbours_iid_by_dir.emplace(Dir::SouthWest, 0);
+    m_neighbours_iid_by_dir.emplace(Dir::West, 0);
+    m_neighbours_iid_by_dir.emplace(Dir::NorthWest, 0);
+    m_neighbours_iid_by_dir.emplace(Dir::Over, 0);
+    m_neighbours_iid_by_dir.emplace(Dir::Under, 0);
+    m_neighbours_iid_by_dir.emplace(Dir::Overlap, 0);
     for (const auto& neighbour : j["__neighbours"]) {
         const auto& dir = neighbour["dir"].get<std::string>();
         const auto& level_iid = IID(neighbour["levelIid"].get<std::string>());
+        m_neighbours_iid.emplace(level_iid);
 
         Dir direction = Dir::None;
         if (dir == "n") {
@@ -78,7 +79,7 @@ Level::Level(const nlohmann::json& j, World* w)
             direction = Dir::Under;
         }
 
-        m_neighbours_id[direction].push_back(level_iid);
+        m_neighbours_iid_by_dir[direction].emplace(level_iid);
     }
 
     if (j["bgRelPath"].is_null()) {
@@ -133,14 +134,19 @@ auto Level::getBgImage() const -> const BgImage&
     return m_bg_image.value();
 }
 
-auto Level::getNeighbours(const Dir& direction) const -> const std::vector<const Level*>&
+auto Level::allNeighbours() const -> const std::vector<ref_wrapper<const Level>>&
 {
-    return m_neighbours.at(direction);
+    return m_neighbours;
+}
+
+auto Level::getNeighbours(const Dir& direction) const -> const std::vector<ref_wrapper<const Level>>&
+{
+    return m_neighbours_by_dir.at(direction);
 }
 
 auto Level::getNeighbourDirection(const Level& level) const -> Dir
 {
-    for (const auto& item : m_neighbours_id) {
+    for (const auto& item : m_neighbours_iid_by_dir) {
         const auto& neighbour_direction = item.first;
         for (const auto& neighbour_iid : item.second) {
             if (neighbour_iid == level.iid) {

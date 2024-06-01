@@ -175,6 +175,7 @@ namespace ldtk {
     };
 
     auto operator==(const IID& lhs, const IID& rhs) -> bool;
+    auto operator!=(const IID& lhs, const IID& rhs) -> bool;
 
     class Entity; // forward declaration
 
@@ -215,3 +216,17 @@ auto operator<<(std::ostream& os, const ldtk::Color& color) -> std::ostream&;
 auto operator<<(std::ostream& os, const ldtk::FilePath& path) -> std::ostream&;
 
 auto operator<<(std::ostream& os, const ldtk::IID& iid) -> std::ostream&;
+
+namespace std {
+
+    // specialization for the IID structure, allows to create unordered_set<IID>
+    template<>
+    struct hash<ldtk::IID>
+    {
+        std::size_t operator()(const ldtk::IID& iid) const noexcept
+        {
+            return std::hash<std::string>{}(iid.str());
+        }
+    };
+
+}

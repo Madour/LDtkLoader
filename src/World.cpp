@@ -47,10 +47,13 @@ World::World(const nlohmann::json& j, Project* p, const FileLoader& file_loader,
 
     // fill levels neighbours
     for (auto& level : m_levels) {
-        level.m_neighbours.emplace(Dir::None, 0);
-        for (const auto& item : level.m_neighbours_id) {
-            for (const auto& id : item.second) {
-                level.m_neighbours[item.first].push_back(&getLevel(id));
+        level.m_neighbours_by_dir.insert({Dir::None, {}});
+        for (const auto& iid : level.m_neighbours_iid) {
+            level.m_neighbours.emplace_back(getLevel(iid));
+        }
+        for (const auto& item : level.m_neighbours_iid_by_dir) {
+            for (const auto& iid : item.second) {
+                level.m_neighbours_by_dir[item.first].emplace_back(getLevel(iid));
             }
         }
     }

@@ -77,6 +77,11 @@ auto ldtk::operator==(const IID& lhs, const IID& rhs) -> bool
     return lhs.str() == rhs.str();
 }
 
+auto ldtk::operator!=(const IID& lhs, const IID& rhs) -> bool
+{
+    return !(lhs == rhs);
+}
+
 EntityRef::EntityRef(IID ent, IID layer, IID level, IID world)
 : entity_iid(std::move(ent))
 , layer_iid(std::move(layer))
