@@ -220,7 +220,7 @@ auto operator<<(std::ostream& os, const ldtk::IID& iid) -> std::ostream&;
 namespace std {
 
     // specialization for the IID structure, allows to create unordered_set<IID>
-    template<>
+    template <>
     struct hash<ldtk::IID>
     {
         std::size_t operator()(const ldtk::IID& iid) const noexcept
@@ -229,4 +229,4 @@ namespace std {
         }
     };
 
-}
+} // namespace std

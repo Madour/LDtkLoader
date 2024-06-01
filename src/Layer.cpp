@@ -38,10 +38,8 @@ Layer::Layer(const nlohmann::json& j, const World* w, const Level* l)
         auto& new_tile = m_tiles.back();
         m_tiles_map.emplace(new_tile.coordId, new_tile);
 
-        if (getTileset().hasEnumTags())
-        {
-            for (const EnumValue& enumtag : getTileset().getTileEnumTags(tile_id))
-            {
+        if (getTileset().hasEnumTags()) {
+            for (const EnumValue& enumtag : getTileset().getTileEnumTags(tile_id)) {
                 m_tiles_by_enumtag[enumtag.name].emplace_back(new_tile);
             }
         }
