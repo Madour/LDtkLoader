@@ -61,7 +61,7 @@ Layer::Layer(const nlohmann::json& j, const World* w, const Level* l)
         m_entities.emplace_back(ent, w, this);
         auto& new_ent = m_entities.back();
         m_entities_by_name[new_ent.getName()].emplace_back(new_ent);
-        for (const auto& tag : new_ent.getTags()) {
+        for (const auto& tag : new_ent.allTags()) {
             m_entities_by_tag[tag].emplace_back(new_ent);
         }
     }

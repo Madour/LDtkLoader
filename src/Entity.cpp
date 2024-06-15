@@ -105,9 +105,9 @@ auto Entity::hasTag(const std::string& tag) const -> bool
     return m_definition->hasTag(tag);
 }
 
-auto Entity::getTags() const -> const std::vector<std::string>&
+auto Entity::allTags() const -> const std::vector<std::string>&
 {
-    return m_definition->getTags();
+    return m_definition->allTags();
 }
 
 auto Entity::allFields() const -> const std::vector<FieldDef>&

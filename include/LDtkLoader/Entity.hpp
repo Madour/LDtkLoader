@@ -52,7 +52,7 @@ namespace ldtk {
         auto getNineSliceBorders() const -> const NineSliceBorders&;
 
         auto hasTag(const std::string& tag) const -> bool;
-        auto getTags() const -> const std::vector<std::string>&;
+        auto allTags() const -> const std::vector<std::string>&;
 
         auto allFields() const -> const std::vector<FieldDef>&;
 

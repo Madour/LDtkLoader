@@ -16,7 +16,7 @@ auto TagsContainer::hasTag(const std::string& tag) const -> bool
     return pos != m_tags.end();
 }
 
-auto TagsContainer::getTags() const -> const std::vector<std::string>&
+auto TagsContainer::allTags() const -> const std::vector<std::string>&
 {
     return m_tags;
 }
