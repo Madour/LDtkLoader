@@ -1,0 +1,21 @@
+title: BgImage
+filename: LDtkLoader/Level.hpp
+structs:
+  - name: BgImage
+    desc: Contains information about the Level background image.
+    fields:
+      path:
+        decl: ldtk::FilePath ldtk::Level::BgImage::path
+        desc: The relative path to the background image file.
+
+      crop:
+        decl: ldtk::IntRect ldtk::Level::BgImage::crop
+        desc: The cropped sub rectangle of the displayed image.
+
+      pos:
+        decl: ldtk::IntPoint ldtk::Level::BgImage::pos
+        desc: The position of the top left corner of the background image in the level.
+
+      scale:
+        decl: ldtk::FloatPoint ldtk::Level::BgImage::scale
+        desc: The scale of the background image.

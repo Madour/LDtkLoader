@@ -1,0 +1,209 @@
+title: DataTypes
+filename: LDtkLoader/DataTypes.hpp
+classes:
+  - name: FilePath
+    desc: A string that contains file path information.
+    ctor:
+      - decl: ldtk::FilePath::FilePath()
+        desc: Default constructor. Constructs an empty FilePath.
+      - decl: ldtk::FilePath::FilePath(const std::string&)
+        desc: Construct a FilePath from a valid provided string.
+    methods:
+      directory:
+        - decl: ldtk::FilePath::directory() const -> std::string
+          desc: Returns the path to the directory containing the file.
+
+      filename:
+        - decl: ldtk::FilePath::filename() const -> std::string
+          desc: Returns the filename (including the extension) of the FilePath.
+
+      extension:
+        - decl: ldtk::FilePath::extension() const -> std::string
+          desc: Returns only the extension of the file (e.g. png, json, txt ...).
+
+structs:
+  - name: Point<T>
+    desc: |
+      Represents a two dimentional coordinate.
+
+      `T` can be one of the following types: `float`, `int` or `unsigned int`.
+
+      Aliases:
+      * `ldtk::FloatPoint` = `ldtk::Point<float>`
+      * `ldtk::IntPoint` = `ldtk::Point<int>`
+      * `ldtk::UIntPoint` = `ldtk::Point<unsigned int>`
+    fields:
+      x:
+        decl: T ldtk::Point<T>::x
+        desc: X coordinate of the Point.
+      y:
+        decl: T ldtk::Point<T>::y
+        desc: Y coordinate of the Point.
+
+  - name: Rect<T>
+    desc: |
+      Represents an axis aligned rectangle.
+
+      `T` can be one of the following types: `float` or `int`.
+
+      Aliases:
+      * `ldtk::FloatRect` = `ldtk::Rect<float>`
+      * `ldtk::IntRect` = `ldtk::Rect<int>`
+    fields:
+      x:
+        decl: T ldtk::Rect<T>::x
+        desc: X coordinate of the top left corner of the Rect.
+      y:
+        decl: T ldtk::Rect<T>::y
+        desc: Y coordinate of the top left corner of the Rect.
+      width:
+        decl: T ldtk::Rect<T>::width
+        desc: Width of the Rect.
+      height:
+        decl: T ldtk::Rect<T>::height
+        desc: Height of the Rect.
+
+  - name: Color
+    desc: Represents a color value in the 32 bits RGBA format.
+    fields:
+      r:
+        decl: std::uint8_t ldtk::Color::r
+        desc: Red component of the Color.
+      g:
+        decl: std::uint8_t ldtk::Color::g
+        desc: Green component of the Color.
+      b:
+        decl: std::uint8_t ldtk::Color::n
+        desc: Blue component of the Color.
+      a:
+        decl: std::uint8_t ldtk::Color::a
+        desc: Alpha component of the Color (opacity).
+
+  - name: EntityRef
+    desc: Represents a reference to an Entity.
+    methods:
+      operator->:
+        - decl: ldtk::EntityRef::operator->() const -> const ldtk::Entity*
+          desc: |
+            Returns a **pointer** to the Entity referenced by the EntityRef.
+
+            This operator allows to access the Entity reference like this:
+
+            ```c++
+            entity_ref->getName(); // returns the name of the referenced Entity
+            ```
+
+  - name: NineSliceBorders
+    desc: Represents the dimensions of the 9-slice tile render.
+    fields:
+      top:
+        decl: int ldtk::NineSliceBorders::top
+        desc: ""
+      right:
+        decl: int ldtk::NineSliceBorders::right
+        desc: ""
+      bottom:
+        decl: int ldtk::NineSliceBorders::bottom
+        desc: ""
+      left:
+        decl: int ldtk::NineSliceBorders::left
+        desc: ""
+
+  - name: IntGridValue
+    desc: Represents the grid values that can be painted on an IntGrid layer.
+    fields:
+      value:
+        decl: const int ldtk::IntGridValue::value
+        desc: ""
+      name:
+        decl: const std::string ldtk::IntGridValue::name
+        desc: ""
+      color:
+        decl: const ldtk::Color ldtk::IntGridValue::color
+        desc: ""
+
+  - name: Vertex
+    desc: |
+      Represents a vertex composed of a position and a texture coordinate.
+
+      The graphic representation of a Tile is composed of 4 vertices.
+    fields:
+      pos:
+        decl: const ldtk::FloatPoint ldtk::Vertex::pos
+        desc: Coordinate of the vertex in pixels, relative to the Level.
+      tex:
+        decl: const ldtk::IntPoint ldtk::Vertex::tex
+        desc: Texture coordinate of the vertex, in pixels.
+
+enums:
+  - name: WorldLayout
+    desc: Contains enum values representing all the possible types of World layouts.
+    values:
+      Free: 0
+      GridVania: 1
+      LinearHorizontal: 2
+      LinearVertical: 3
+
+  - name: LayerType
+    desc: Contains enum values representing all the possible types of Layers.
+    values:
+      IntGrid: 0
+      Entities: 1
+      Tiles: 2
+      AutoLayer: 3
+
+  - name: FieldType
+    desc: |
+      Contains enum values representing all the possible types of a Field.
+
+      These enum values can be used to get a field from an Entity. For example:
+
+      ```c++
+      const auto& field_value = entity.getField<ldtk::FieldType::ArrayEntityRef>();
+      // The type of field_value is ldtk::ArrayField<ldtk::EntityRef>
+      ```
+    values:
+      Int: 0
+      Float: 1
+      Bool: 2
+      String: 3
+      Color: 4
+      Point: 5
+      Enum: 6
+      FilePath: 7
+      EntityRef: 8
+      ArrayInt: 9
+      ArrayFloat: 10
+      ArrayBool: 11
+      ArrayString: 12
+      ArrayColor: 13
+      ArrayPoint: 14
+      ArrayEnum: 15
+      ArrayFilePath: 16
+      ArrayEntityRef: 17
+
+  - name: Dir
+    desc: |
+      Contains enum values representing all the possible Directions of Level neighbours.
+
+      It is used by `ldtk::Level::getNeighbours(const ldtk::Dir&)` and returned by
+      `ldtk::getNeighbourDirection(const Level&)`.
+    values:
+      None: 0
+      North: 1
+      NorthEast: 2
+      East: 3
+      SouthEast: 4
+      South: 5
+      SouthWest: 6
+      West: 7
+      NorthWest: 8
+
+types:
+  - name: FileLoader
+    decl: using ldtk::FileLoader = std::function<std::unique_ptr<std::streambuf>(const std::string&)>
+    desc: |
+      FileLoader is the type of a function that takes the path of a file as parameter and returns a
+      unique pointer to a standard stream buffer for that file.
+
+      This allows to load a Project from a custom source stream (e.g. from a virtual filesystem).

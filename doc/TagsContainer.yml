@@ -1,0 +1,13 @@
+title: TagsContainer
+filename: LDtkLoader/containers/TagsContainer.hpp
+classes:
+  - name: TagsContainer
+    desc: Base class for objects that can be tagged. Tags are strings.
+    methods:
+      hasTag:
+        - decl: ldtk::TagsContainer::hasTag(const std::string&) const -> bool
+          desc: Returns `true` if the TagsContainer contains the given tag, returns `false` otherwise.
+
+      allTags:
+        - decl: ldtk::TagsContainer::allTags() const -> const std::vector<std::string>&
+          desc: Returns a vector containing all the tags in the TagsContainer.

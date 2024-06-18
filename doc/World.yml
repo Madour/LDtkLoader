@@ -1,0 +1,86 @@
+title: World
+filename: LDtkLoader/World.hpp
+classes:
+  - name: World
+    desc: A World represents one world in the LDtk project and can contain one or multiple levels.
+    fields:
+      iid:
+        decl: const std::string ldtk::World::iid
+        desc: Unique instance ID of the World.
+
+    methods:
+      getName:
+        - decl: ldtk::World::getName() const -> const std::string&
+          desc: Returns the name of the World.
+
+      getDefaultPivot:
+        - decl: ldtk::World::getDefaultPivot() const -> const ldtk::FloatPoint&
+          desc: Returns the default pivot, a point from (0.f, 0.f) to (1.f, 1.f).
+
+      getDefaultCellSize:
+        - decl: ldtk::World::getDefaultCellSize() const -> int
+          desc: Returns the default size of a cell in the World grid. Cell dimension is be `size`x`size`.
+
+      getBgColor:
+        - decl: ldtk::World::getBgColor() const -> const ldtk::Color&
+          desc: Returns the default background color of the World.
+
+      getLayout:
+        - decl: ldtk::World::getLayout() const -> const ldtk::WorldLayout&
+          desc: |
+            Returns the layout of the world (Free, GridVania, LinearHorizontal or LinearVertical).
+
+            See WorldLayout enum.
+
+      allTilesets:
+        - decl: ldtk::World::allTilesets() const -> const std::vector<ldtk::Tileset>&
+          desc: Returns a vector containing all the Tilesets of the World.
+
+      getTileset:
+        - decl: |
+            ldtk::World::getTileset(int id) const -> const ldtk::Tileset&
+            ldtk::World::getTileset(const std::string& name) const -> const ldtk::Tileset&
+          desc: |
+            Returns the Tileset matching the given `id` or `name`.
+
+            If no Tileset is found, an `invalid_argument` exception is thrown.
+
+      allLevels:
+        - decl: ldtk::World::allLevels() const -> const std::vector<ldtk::Level>&
+          desc: Returns a vector containing all the Levels of the World.
+
+      getLevel:
+        - decl: |
+            ldtk::World::getLevel(int id) const -> const ldtk::Level&
+            ldtk::World::getLevel(const std::string& name) const -> const ldtk::Level&
+          desc: |
+            Returns the Level matching the given `ìd` or `name`.
+
+            If no Level is found, an `invalid_argument` exception is thrown.
+
+      getEnum:
+        - decl: |
+            ldtk::World::getEnum(int id) const -> const ldtk::Enum&
+            ldtk::World::getEnum(const std::string& name) const -> const ldtk::Enum&
+          desc: |
+            Returns the Enum matching the given `id` or `name`.
+
+            If no Enum is found, an `invalid_argument` exception is thrown.
+
+      getLayerDef:
+        - decl: |
+            ldtk::World::getLayerDef(int id) const -> const ldtk::LayerDef&
+            ldtk::World::getLayerDef(const std::string& name) const -> const ldtk::LayerDef&
+          desc: |
+            Returns the LayerDef matching the given `id` or `name`.
+
+            If no LayerDef is found, an `invalid_argument` exception is thrown.
+
+      getEntityDef:
+        - decl: |
+            ldtk::World::getEntityDef(int id) const -> const ldtk::EntityDef&
+            ldtk::World::getEntityDef(const std::string& name) const -> const ldtk::EntityDef&
+          desc: |
+            Returns the EntityDef matching the given `id` or `name`.
+
+            If no EntityDef is found, an `invalid_argument` exception is thrown.

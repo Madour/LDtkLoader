@@ -1,0 +1,97 @@
+title: FieldsContainer
+filename: LDtkLoader/containers/FieldsContainer.hpp
+classes:
+  - name: FieldsContainer
+    desc: |
+      Base class for objects that can have fields.
+
+      Fields are pairs of (name, value) where the value can be of one of the following types: `int`,
+      `float`, `bool`, `std::string`, `ldtk::Color` , `ldtk::IntPoint`, `ldtk::Enum` or `ldtk::FilePath`.
+
+    methods:
+      getField<T>:
+        - decl: |
+            template <FieldType T>
+            ldtk::FieldsContainer::getField(const std::string& name) const -> const ldtk::getFieldType<T>&
+          desc: |
+            Returns the field matching the given name and type. Returned field can be null.
+
+            `T` must be one of the values of the FieldType enum.
+
+            This overload allows to get either single value fields or array fields:
+
+            ```c++
+            // get a single value field
+            const auto& field = entity.getField<ldtk::FieldType::Color>("hair_color");
+
+            if (!field.is_null()) {
+                // get the field value
+                const auto& hair_color = field.value();
+            }
+            ```
+
+            ```c++
+            // get an array field
+            const auto& array_field = level.getField<ldtk::FieldType::ArrayPoint>("spawns");
+
+            // iterate on the array field
+            for (const auto& field : array_field) {
+                if (!field.is_null()) {
+                    // get the field value
+                    const auto& point = field.value();
+                }
+            }
+            ```
+
+        - decl: |
+            template <typename T>
+            ldtk::FieldsContainer::getField(const std::string& name) const -> const ldtk::Field<T>&
+          desc: |
+            Returns the field matching the given name and type. Returned field can be null.
+
+            `T` must be one of the following types : `int`, `float`, `bool`, `std::string`, `ldtk::Color`,
+            `ldtk::IntPoint`, `ldtk::Enum`, `ldtk::FilePath`.
+
+            For example, if your FieldsContainer has a field of type Color named "color", you can write :
+
+            ```c++
+            const FieldsContainer& object = ...; // get the FieldsContainer
+
+            // get the field
+            const auto& field = object.getField<ldtk::Color>("color");
+
+            if (!field.is_null()) {
+                // get the field value
+                const auto& color = field.value();
+            }
+            ```
+
+      getArrayField<T>:
+        - decl: |
+            template <typename T>
+            ldtk::FieldsContainer::getArrayField(const std::string& name) const -> const ldtk::ArrayField<T>&
+          desc: |
+            Returns the array field matching the given name and type.
+
+            `ldtk::ArrayField<T>` is equivalent to `std::vector<ldtk::Field<T>>` and can be iterated over like
+            a normal vector. Fields can be null.
+
+            `T` must be one of the following types : `int`, `float`, `bool`, `std::string`, `ldtk::Color`,
+            `ldtk::IntPoint`, `ldtk::Enum`, `ldtk::FilePath`.
+
+            For example, if your FieldsContainer has a field of type ArrayPoint named "spawns", you can write :
+
+            ```c++
+            const FieldsContainer& object = ...; // get the FieldsContainer
+
+            // get the field
+            const auto& array_field = object.getArrayField<ldtk::IntPoint>("spawns");
+
+            // iterate on the array field
+            for (const auto& field : array_field) {
+                if (!field.is_null()) {
+                    // get the field value
+                    const auto& point = field.value();
+                }
+            }
+            ```

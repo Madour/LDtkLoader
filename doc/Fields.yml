@@ -1,0 +1,26 @@
+title: Fields
+filename: LDtkLoader/Field.hpp
+structs:
+  - name: Field<T>
+    desc: |
+      A Field holds a value of one of these types: `int`, `float`, `bool`, `std::string`,
+      `ldtk::Color`, `ldtk::IntPoint`, `ldtk::Enum` or `ldtk::FilePath`.
+
+      Fields that are optional can be null. They hold the value `ldtk::null` in that case.
+    methods:
+      is_null:
+        - decl: constexpr ldtk::Field::is_null() const -> bool
+          desc: Returns `true` if the Field is optional and does not hold a value, returns `false` otherwise.
+
+      value:
+        - decl: constexpr value() const -> const T&
+          desc: Returns the value of the field.
+
+      value_or:
+        - decl: constexpr value_or(T&& value) const -> const T&
+          desc: If the Field holds a value, returns it; if the Field is null, returns the value provided as parameter.
+
+  - name: ArrayField<T>
+    desc: |
+      `ldtk::ArrayField<T>` inherits from `std::vector<ldtk::Field<T>>`, which means it is a vector
+      that contains `ldtk::Field<T>` objects. Regular `std::vector` methods can be used.

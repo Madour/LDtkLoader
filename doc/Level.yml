@@ -1,0 +1,67 @@
+title: Level
+filename: LDtkLoader/Level.hpp
+classes:
+  - name: Level
+    desc: |
+      A Level represents a single tilemap in the World.
+      It contains one or multiple Layers.
+    parent: FieldsContainer
+    fields:
+      world:
+        decl: const ldtk::World* ldtk::Level::world
+        desc: Pointer to the World object that contains the Level.
+
+      name:
+        decl: const std::string ldtk::Level::name
+        desc: Name of the Level.
+
+      iid:
+        decl: const std::string ldtk::Level::iid
+        desc: Unique instance ID of the Level.
+
+      uid:
+        decl: const int ldtk::Level::uid
+        desc: Unique identifier of the Level.
+
+      size:
+        decl: const ldtk::IntPoint ldtk::Level::size
+        desc: Size of the Level in pixels.
+
+      position:
+        decl: const ldtk::IntPoint ldtk::Level::position
+        desc: Position in pixels of the Level in the World.
+
+      bg_color:
+        decl: const ldtk::Color ldtk::Level::bg_color
+        desc: Background color of the Level.
+
+    methods:
+      allLayers:
+        - decl: ldtk::Level::allLayers() const -> const std::vector<ldtk::Layer>&
+          desc: Returns the vector containing all Layers of the Level.
+
+      getLayer:
+        - decl: ldtk::Level::getLayer(const std::string& layer_name) const -> const ldtk::Layer&
+          desc: |
+            Returns the Layer matching the given name.
+
+            If no Layer is found, an `invalid_argument` exception is thrown.
+
+      hasBgImage:
+        - decl: ldtk::Level::hasBgImage() const -> bool
+          desc: Returns true if the Level has a background image, returns false otherwise.
+
+      getBgImage:
+        - decl: ldtk::Level::getBgImage() const -> const ldtk::BgImage&
+          desc: Returns the background image data of the Level. See BgImage.
+
+      getNeighbours:
+        - decl: ldtk::Level::getNeighbours(const Dir&) const -> const std::vector<ref_wrapper<const Level>>&
+          desc: Returns a vector containing all the neighbour Levels placed at the given direction.
+
+      getNeighbourDirection:
+        - decl: ldtk::Level::getNeighbourDirection(const ldtk::Level& level) const -> ldtk::Dir
+          desc: |
+            Get the direction of a neighbour Level. If the given Level is not a neighbour, returns `ldtk::Dir::None`.
+
+            See Dir.

@@ -1,0 +1,65 @@
+title: Tileset
+filename: LDtkLoader/Tileset.hpp
+classes:
+  - name: Tileset
+    desc: A Tileset contains information about a texture used to draw tiles.
+    parent: TagsContainer
+    fields:
+      name:
+        decl: const std::string ldtk::Tileset::name
+        desc: Name of the Tileset.
+      
+      uid:
+        decl: const int ldtk::Tileset::uid
+        desc: Unique identifier of the Tileset.
+
+      path:
+        decl: const std::string ldtk::Tileset::path
+        desc: Relative path to the image file.
+
+      texture_size:
+        decl: const ldtk::IntPoint ldtk::Tileset::texture_size
+        desc: Size in pixels of the Texture.
+
+      tile_size:
+        decl: const int ldtk::Tileset::tile_size
+        desc: Size in pixels of a tile in the Tileset. Tiles are always square shaped.
+
+      spacing:
+        decl: const int ldtk::Tileset::spacing
+        desc: Spacing in pixels between tiles in the Tileset.
+
+      padding:
+        decl: const int ldtk::Tileset::padding
+        desc: Padding in pixels to the first row and column of tiles in the Tileset.
+
+    methods:
+      getTileTexturePos:
+        - decl: ldtk::Tileset::getTileTexturePos(int tile_id) const -> ldtk::IntPoint
+          desc: Returns the texture coordinates of the tile ID.
+
+      getTileCustomData:
+        - decl: |
+            ldtk::Tileset::getTileCustomData(int tile_id) const -> const std::string&
+          desc: Returns the custom data of the tile ID.
+
+      getTileEnumTags:
+        - decl: |
+            ldtk::Tileset::getTileEnumTags(int tile_id) const -> const std::vector<std::reference_wrapper<const EnumValue>>&
+          desc: Returns a vector containing the EnumTags associated with the tile ID.
+
+      hasEnumTags:
+        - decl: ldtk::Tileset::hasEnumTags() const -> bool
+          desc: Returns true if the Tileset has enum tags associated to tiles, false otherwise.
+
+      getEnumTagsEnum:
+        - decl: ldtk::Tileset::getEnumTagsEnum() const -> const Enum&
+          desc: Returns the Enum type used by this Tileset's EnumTags.
+
+      getTilesByEnumTag:
+        - decl: |
+            ldtk::Tileset::getTilesByEnumTag(const ldtk::EnumValue& enumvalue) const -> const std::vector<int>&
+          desc: |
+            Get a vector of all tiles ID tagged with a given EnumValue.
+
+            Throws an `invalid_argument` exception if the EnumValue argument does not have the right Enum type.

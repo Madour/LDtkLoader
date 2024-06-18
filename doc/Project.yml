@@ -1,0 +1,122 @@
+title: Project
+filename: LDtkLoader/Project.hpp
+classes:
+  - name: Project
+    desc: |
+      A Project represents the whole LDtk project file and can contain one or multiple worlds.
+    ctor:
+      - decl: ldtk::Project::Project()
+        desc: Default constructor.
+    methods:
+      loadFromFile:
+        - decl: ldtk::Project::LoadFromFile(const std::string& filepath)
+          desc: |
+            Load a LDtk project from a given file path. 
+
+            After this method is executed, everything will be loaded in the Project object.
+
+            Throws an exception in case of failure.
+        - decl: |
+            ldtk::Project::loadFromFile(const std::string& filepath, const FileLoader& file_loader)
+          desc: |
+            This overload allows loading a LDtk project using a custom stream.
+
+            This allows for example, to load a file from a virtual filesystem.
+
+            See FileLoader.
+
+      loadFromMemory:
+        - decl: |
+            ldtk::Project::loadFromMemory(const std::vector<std::uint8_t>& bytes)
+            ldtk::Project::loadFromMemory(const unsigned char* data, size_t size)
+          desc: |
+            Load a LDtk project from a string in memory.
+
+      getFilePath:
+        - decl: ldtk::Project::getFilePath() const -> const ldtk::FilePath&
+          desc: |
+            Returns the path of the file from which the Project was loaded.
+
+      getDefaultPivot:
+        - decl: ldtk::Project::getDefaultPivot() const -> const ldtk::FloatPoint&
+          desc: |
+            Returns the default pivot, a point from (0.f, 0.f) to (1.f, 1.f).
+
+      getDefaultCellSize:
+        - decl: ldtk::Project::getDefaultCellSize() const -> int
+          desc: |
+            Returns the default size of a cell in the Project's world grid.
+
+            Cell dimension is `(size, size)`.
+
+      getBgColor:
+        - decl: ldtk::Project::getBgColor() const -> const ldtk::Color&
+          desc: Returns the default background color of the Project.
+
+      allTilesets:
+        - decl: ldtk::Project::allTilesets() const -> const std::vector<ldtk::Tileset>&
+          desc: Returns a vector containing all the Tilesets of the Project.
+
+      getTileset:
+        - decl: |
+            ldtk::Project::getTileset(int id) const -> const ldtk::Tileset&
+            ldtk::Project::getTileset(const std::string& name) const -> const ldtk::Tileset&
+          desc: |
+            Returns the Tileset matching the given `id` or `name`.
+
+            If no Tileset is found, an `invalid_argument` exception is thrown.
+
+      allWorlds:
+        - decl: ldtk::Project::allWorlds() const -> const std::vector<ldtk::Project>&
+          desc: Returns a vector containing all the Worlds of the Project.
+
+      getWorld:
+        - decl: ldtk::Project::getWorld() const -> const ldtk::Project&
+          desc: |
+            For Projects with only one world, returns the World.
+
+            If the project has multiple worlds, an `invalid_argument` exception is thrown.
+
+        - decl: ldtk::Project::getWorld(const std::string& name) const -> const ldtk::Project&
+          desc: |
+            For projects with multi-worlds enabled, returns the World matching the given `name`.
+
+            If no World is found, an `invalid_argument` exception is thrown.
+
+      getEnum:
+        - decl: |
+            ldtk::Project::getEnum(int id) const -> const ldtk::Enum&
+            ldtk::Project::getEnum(const std::string& name) const -> const ldtk::Enum&
+          desc: |
+            Returns the Enum matching the given `id` or `name`.
+
+            If no Enum is found, an `invalid_argument` exception is thrown.
+
+      getLayerDef:
+        - decl: |
+            ldtk::Project::getLayerDef(int id) const -> const ldtk::LayerDef&
+            ldtk::Project::getLayerDef(const std::string& name) const -> const ldtk::LayerDef&
+          desc: |
+            Returns the LayerDef matching the given `id` or `name`.
+
+            If no LayerDef is found, an `invalid_argument` exception is thrown.
+
+      getEntityDef:
+        - decl: |
+            ldtk::Project::getEntityDef(int id) const -> const ldtk::EntityDef&
+            ldtk::Project::getEntityDef(const std::string& name) const -> const ldtk::EntityDef&
+          desc: |
+            Returns the EntityDef matching the given `id` or `name`.
+
+            If no EntityDef is found, an `invalid_argument` exception is thrown.
+
+      allTocEntities:
+        - decl: ldtk::Project::allTocEntities() const -> const std::vector<EntityRef>&
+          desc: |
+            Returns a vector containing the EntityRefs that are located in the ToC.
+
+      getTocEntitiesByName:
+        - decl: |
+            ldtk::Project::getTocEntitiesByName(const std::string& name) const -> const std::vector<EntityRef>&
+          desc: |
+            Returns a vector containing the EntityRefs with the given name, that are located in the ToC.
