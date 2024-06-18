@@ -33,11 +33,10 @@ namespace ldtk {
     template <typename T>
 #if defined LDTK_FIELD_PUBLIC_OPTIONAL
     struct Field : IField, public optional<T>
-    {
 #else
     struct Field : IField, private optional<T>
-    {
 #endif
+    {
     private:
         static const ArrayField<T> m_dummy;
 
@@ -63,16 +62,18 @@ namespace ldtk {
     template <class T>
     auto operator==(const Field<T>& lhs, const T& rhs) -> bool
     {
-        if (lhs.is_null())
+        if (lhs.is_null()) {
             return false;
+        }
         return (lhs.value() == rhs);
     }
 
     template <class T>
     auto operator==(const T& lhs, const Field<T>& rhs) -> bool
     {
-        if (rhs.is_null())
+        if (rhs.is_null()) {
             return false;
+        }
         return (rhs.value() == lhs);
     }
 
@@ -92,6 +93,7 @@ namespace ldtk {
     struct ArrayField : IField, std::vector<Field<T>>
     {
         using value_type = T;
+
         ArrayField() = default;
         explicit ArrayField(const std::vector<Field<T>>& vals) : std::vector<Field<T>>(vals) {}
 
