@@ -202,6 +202,10 @@ class Ref:
             prefix = 'struct : ldtk::'
         elif isinstance(self.obj, Class):
             prefix = 'class : ldtk::'
+        elif isinstance(self.obj, Enum):
+            prefix = 'enum : ldtk::'
+        elif isinstance(self.obj, Type):
+            prefix = 'type : ldtk::'
         return prefix
 
     @property
