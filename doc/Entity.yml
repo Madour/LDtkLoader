@@ -9,6 +9,7 @@ classes:
       > To get the correct sprite data of the Entity as it is shown in the editor,
       > you should use `hasSprite` to check if the Entity has a sprite,
       > and then `getTexturePath` and `getTextureRect` to get the texture data.
+    parent: FieldsContainer
 
     fields:
       layer:
@@ -48,8 +49,8 @@ classes:
         - decl: ldtk::Entity::getGridPosition() const -> const ldtk::IntPoint&
           desc: Returns the position in grid coordinates of the Entity.
 
-      getGridPosition:
-        - decl: ldtk::Entity::getGridPosition() const -> const ldtk::IntPoint&
+      getWorldPosition:
+        - decl: ldtk::Entity::getWorldPosition() const -> const ldtk::IntPoint&
           desc: Returns the computed position in pixels of the Entity relative to the World.
 
       getPivot:
@@ -84,30 +85,3 @@ classes:
         - decl: ldtk::Entity::allTags() const -> const std::vector<std::string>&
           desc: Returns a vector containing all tags of the Entity.
 
-      getField<T>:
-        - decl: |
-            template <typename T>
-            ldtk::Entity::getField<T>(const std::string& name) const -> const ldtk::Field<T>&
-          desc: |
-            Returns the field matching the given name and type. Returned field can be null.
-
-            `T` can either be a `ldtk::FieldType` value, or one of the following types: `int`, `float`,
-            `bool`, `std::string`, `ldtk::Color` , `ldtk::Point`, `ldtk::Enum`, `ldtk::FilePath`.
-
-            For example, if your entity has a field of type color named "hair_color", you can either do :
-
-            ```c++
-            const auto& field = my_entity.getField<ldtk::Color>("hair_color")
-            if (!field.is_null()) {
-                // do something with field.value()
-            }
-            ```
-
-            or
-
-            ```c++
-            const auto& field = my_entity.getField<ldtk::FieldType::Color>("hair_color")
-            if (!field.is_null()) {
-                // do something with field.value()
-            }
-            ```

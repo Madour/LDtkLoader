@@ -29,11 +29,15 @@ classes:
 
       position:
         decl: const ldtk::IntPoint ldtk::Level::position
-        desc: Position in pixels of the Level in the World.
+        desc: Position in pixels of the Level relatively to the World.
 
       bg_color:
         decl: const ldtk::Color ldtk::Level::bg_color
         desc: Background color of the Level.
+
+      depth:
+        decl: const int ldtk::Level::depth
+        desc: Depth of the Level. 0 by default.
 
     methods:
       allLayers:

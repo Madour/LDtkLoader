@@ -2,7 +2,7 @@ title: Layer
 filename: LDtkLoader/Layer.hpp
 classes:
   - name: Layer
-    desc: A Layer is a part of a Level and can contain Tiles or Entities
+    desc: A Layer is a part of a Level and can contain Tiles or Entities.
     fields:
       level:
         decl: const ldtk::Level* ldtk::Layer::level
@@ -23,7 +23,7 @@ classes:
 
       isVisible:
         - decl: ldtk::Layer::isVisible() const -> bool
-          desc: Returns `true` if the Layer is visible in the editor, `false` otherwise.
+          desc: Returns `true` if the Layer is visible in the editor, returns `false` otherwise.
 
       getCellSize:
         - decl: ldtk::Layer::getCellSize() const -> int
@@ -43,7 +43,7 @@ classes:
 
       hasTileset:
         - decl: ldtk::Layer::hasTileset() const -> bool
-          desc: Returns `true` if the Layer has a Tileset, `false` otherwise.
+          desc: Returns `true` if the Layer has a Tileset, returns `false` otherwise.
 
       getTileset:
         - decl: ldtk::Layer::getTileset() const -> const ldtk::Tileset&
@@ -61,14 +61,39 @@ classes:
           desc: |
             Returns the Tile located at (x, y) grid position.
 
-            Returns `ldtk::Tile::None` if there is none.
+            Returns `ldtk::Tile::None` if there is no tile at the position.
 
-      getIntGridValue:
-        - decl: ldtk::Layer::getIntGridValue(int x, int y) const -> const IntGridValue&
+      getTilesByEnumTag:
+        - decl: |
+            ldtk::Layer::getTilesByEnumTag(const EnumValue&) const -> const std::vector<std::reference_wrapper<Tile>>&;
           desc: |
-            Returns the IntGrid value located at (x, y) grid position.
+            Returns a vector containing reference wrappers of Tiles tagged with the given EnumValue.
 
-            Returns `ldtk::IntGridValue::None` if there is none.
+            Because the returned vector contains reference wrappers, using `auto` won't work as expected,
+            you have to explicitly specify the type when iterating :
+
+            ```c++
+            const auto& chest_enumval = world.getEnum("Items")["Chest"];
+            for (const ldtk::Tile& chest_tiles : layer.getTilesByEnumTag(chest_enumval)) {
+                // ...
+            }
+            ```
+
+      getIntGridVal:
+        - decl: ldtk::Layer::getIntGridVal(int x, int y) const -> const IntGridValue&
+          desc: |
+            Returns the IntGridValue value located at (x, y) grid position.
+
+            Returns `ldtk::IntGridValue::None` if there is no IntGridValue at the position.
+
+      getIntGridValPositions:
+        - decl: ldtk::Layer::getIntGridValPositions(int value) const -> const std::vector<IntPoint>&
+          desc: |
+            Returns a vector containing the grid positions of all tiles of the given IntGridValue value.
+
+        - decl: ldtk::Layer::getIntGridValPositions(const std::string& name) const -> const std::vector<IntPoint>&
+          desc: |
+            Returns a vector containing the grid positions of all tiles of the given IntGridValue name.
 
       hasEntity:
         - decl: ldtk::Layer::hasEntity(const std::string& name) const -> bool
@@ -82,12 +107,13 @@ classes:
         - decl: |
             ldtk::Layer::getEntitiesByName(const std::string& name) const -> const std::vector<std::reference_wrapper<Entity>>&
           desc: |
-            Returns a vector containing reference wrappers of Entities named `<name>`.
+            Returns a vector containing reference wrappers of Entities named as the provided name.
 
-            Because the returned vector contains reference wrappers, using `auto` won't work like expected, you have to explicitly specify the type when iterating :
+            Because the returned vector contains reference wrappers, using `auto` won't work as expected,
+            you have to explicitly specify the type when iterating :
 
             ```c++
-            for (const ldtk::Entity& door : layer.getEntitiesByName("Door")) {
+            for (const ldtk::Entity& slime : layer.getEntitiesByName("Slime")) {
                 // ...
             }
             ```
@@ -98,7 +124,8 @@ classes:
           desc: |
             Returns a vector containing reference wrappers of Entities tagged with the provided tag name.
 
-            Because the returned vector contains reference wrappers, using `auto` won't work like expected, you have to explicitly specify the type when iterating :
+            Because the returned vector contains reference wrappers, using `auto` won't work as expected,
+            you have to explicitly specify the type when iterating :
 
             ```c++
             for (const ldtk::Entity& actionable : layer.getEntitiesByTag("actionable")) {

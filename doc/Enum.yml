@@ -24,7 +24,7 @@ structs:
 
       hasIcons:
         - decl: ldtk::Enum::hasIcons() const -> bool
-          desc: Returns true if the Enum has icons, returns false otherwise.
+          desc: Returns `true` if the Enum has icons, returns `false` otherwise.
 
       getIconsTileset:
         - decl: ldtk::Enum::getIconsTileset() const -> const ldtk::Tileset&
@@ -59,7 +59,7 @@ structs:
       hasIcon:
         - decl: ldtk::EnumValue::hasIcon() const -> bool
           desc: |
-            Returns true if the EnumValue has an icon, returns false otherwise.
+            Returns `true` if the EnumValue has an icon, returns `false` otherwise.
 
       getIconTileset:
         - decl: ldtk::EnumValue::getIconTileset() const -> const ldtk::Tileset&

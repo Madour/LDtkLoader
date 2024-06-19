@@ -1,0 +1,56 @@
+title: Tile
+filename: LDtkLoader/Tile.hpp
+classes:
+  - name: Tile
+    desc: Represents a tile on a Layer
+    fields:
+      layer:
+        decl: const ldtk::Layer* const ldtk::Tile::layer
+        desc: Pointer to the Layer object that contains the Tile.
+      
+      coordId:
+        decl: const int ldtk::Tile::coordId
+        desc: Coordinate ID of the Tile. Used to retrieve grid position of the Tile.
+      
+      tileId:
+        decl: const int ldtk::Tile::tileId
+        desc: Unique ID that identifies the Tile on its Tileset.
+      
+      flipX:
+        decl: const bool ldtk::Tile::flipX
+        desc: Equals `true` if the Tile is flipped alongside the X axis. Equals `false` otherwise.
+      
+      flipY:
+        decl: const bool ldtk::Tile::flipY
+        desc: Equals `true` if the Tile is flipped alongside the Y axis. Equals `false` otherwise.
+      
+      alpha:
+        decl: const float ldtk::Tile::alpha
+        desc: A value between 0.0 and 1.0 that represnets the opacity of the Tile.
+
+    methods:
+      getPosition:
+        - decl: ldtk::Tile::getPosition() const -> ldtk::IntPoint
+          desc: Returns the position of the Tile in pixels, relatively to the Level (i.e. after applying Layer offset).
+
+      getGridPosition:
+        - decl: ldtk::Tile::getGridPosition() const -> ldtk::IntPoint
+          desc: Returns the grid position of the Tile.
+
+
+      getWorldPosition:
+        - decl: ldtk::Tile::getWorldPosition() const -> ldtk::IntPoint
+          desc: |
+            Returns the position of the Tile in pixels, relatively to the World
+            (i.e. after applying Layer and Level offsets).
+
+      getTextureRect:
+        - decl: ldtk::Tile::getTextureRect() const -> ldtk::IntRect
+          desc: Returns the IntRect corresponding to the Tile area on the Tileset texture.
+
+      getVertices:
+        - decl: ldtk::Tile::getVertices() const -> std::array<ldtk::Vertex, 4>
+          desc: |
+            Returns an array containing 4 vertices, corresponding the graphical representation of a Tile quad.
+
+            See Vertex.

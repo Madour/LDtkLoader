@@ -15,11 +15,11 @@ classes:
 
       path:
         decl: const std::string ldtk::Tileset::path
-        desc: Relative path to the image file.
+        desc: Relative path to the Tileset's texture image file.
 
       texture_size:
         decl: const ldtk::IntPoint ldtk::Tileset::texture_size
-        desc: Size in pixels of the Texture.
+        desc: Size in pixels of the Tileset's texture.
 
       tile_size:
         decl: const int ldtk::Tileset::tile_size
@@ -36,21 +36,21 @@ classes:
     methods:
       getTileTexturePos:
         - decl: ldtk::Tileset::getTileTexturePos(int tile_id) const -> ldtk::IntPoint
-          desc: Returns the texture coordinates of the tile ID.
+          desc: Returns the texture coordinates of the Tile ID.
 
       getTileCustomData:
         - decl: |
             ldtk::Tileset::getTileCustomData(int tile_id) const -> const std::string&
-          desc: Returns the custom data of the tile ID.
+          desc: Returns the custom data associated with the Tile ID.
 
       getTileEnumTags:
         - decl: |
             ldtk::Tileset::getTileEnumTags(int tile_id) const -> const std::vector<std::reference_wrapper<const EnumValue>>&
-          desc: Returns a vector containing the EnumTags associated with the tile ID.
+          desc: Returns a vector containing the EnumTags associated with the Tile ID.
 
       hasEnumTags:
         - decl: ldtk::Tileset::hasEnumTags() const -> bool
-          desc: Returns true if the Tileset has enum tags associated to tiles, false otherwise.
+          desc: Returns `true` if the Tileset has enum tags associated to tiles, `false` otherwise.
 
       getEnumTagsEnum:
         - decl: ldtk::Tileset::getEnumTagsEnum() const -> const Enum&
