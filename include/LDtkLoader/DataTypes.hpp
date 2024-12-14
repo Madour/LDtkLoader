@@ -137,6 +137,7 @@ namespace ldtk {
         Point,
         Enum,
         FilePath,
+        Tile,
         EntityRef,
         ArrayInt,
         ArrayFloat,
@@ -146,7 +147,8 @@ namespace ldtk {
         ArrayPoint,
         ArrayEnum,
         ArrayFilePath,
-        ArrayEntityRef
+        ArrayTile,
+        ArrayEntityRef,
     };
 
     class FilePath : std::string
@@ -163,6 +165,20 @@ namespace ldtk {
     };
 
     using FileLoader = std::function<std::unique_ptr<std::streambuf>(const std::string&)>;
+
+    class Tileset; // forward declaration
+
+    struct TileRect
+    {
+        TileRect(const Tileset& tileset, IntRect bounds);
+
+        const IntRect bounds;
+
+        auto getTileset() const -> const Tileset&;
+
+    private:
+        const Tileset* m_tileset;
+    };
 
     struct IID
     {

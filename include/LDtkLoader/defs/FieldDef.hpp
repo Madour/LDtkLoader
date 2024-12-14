@@ -40,6 +40,7 @@ namespace ldtk {
         template<> struct field_type_from_enum_<FieldType::Point>     { using type = Field<IntPoint>; };
         template<> struct field_type_from_enum_<FieldType::Enum>      { using type = Field<EnumValue>; };
         template<> struct field_type_from_enum_<FieldType::FilePath>  { using type = Field<FilePath>;  };
+        template<> struct field_type_from_enum_<FieldType::Tile>      { using type = Field<TileRect>; };
         template<> struct field_type_from_enum_<FieldType::EntityRef> { using type = Field<EntityRef>; };
 
         template<> struct field_type_from_enum_<FieldType::ArrayInt>      { using type = ArrayField<int>; };
@@ -50,6 +51,7 @@ namespace ldtk {
         template<> struct field_type_from_enum_<FieldType::ArrayPoint>    { using type = ArrayField<IntPoint>; };
         template<> struct field_type_from_enum_<FieldType::ArrayEnum>     { using type = ArrayField<EnumValue>; };
         template<> struct field_type_from_enum_<FieldType::ArrayFilePath> { using type = ArrayField<FilePath>; };
+        template<> struct field_type_from_enum_<FieldType::ArrayTile>     { using type = ArrayField<TileRect>; };
         template<> struct field_type_from_enum_<FieldType::ArrayEntityRef> { using type = ArrayField<EntityRef>; };
         // clang-format on
 

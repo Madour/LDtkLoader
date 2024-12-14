@@ -65,7 +65,7 @@ classes:
 
       getTilesByEnumTag:
         - decl: |
-            ldtk::Layer::getTilesByEnumTag(const EnumValue&) const -> const std::vector<std::reference_wrapper<Tile>>&;
+            ldtk::Layer::getTilesByEnumTag(const EnumValue&) const -> const std::vector<std::reference_wrapper<Tile>>&
           desc: |
             Returns a vector containing reference wrappers of Tiles tagged with the given EnumValue.
 

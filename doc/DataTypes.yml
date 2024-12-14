@@ -93,6 +93,17 @@ structs:
             entity_ref->getName(); // returns the name of the referenced Entity
             ```
 
+  - name: TileRect
+    desc: Represents a rectangle of one or multiple tiles. Used in TileField.
+    fields:
+      bounds:
+        decl: const IntRect ldtk::TileRect::bounds
+        desc: ""
+    methods:
+      getTileset:
+        - decl: ldtk::TileRect::getTileset() const -> const Tileset&
+          desc: Returns the Tileset to which the tile belongs.
+
   - name: NineSliceBorders
     desc: Represents the dimensions of the 9-slice tile render.
     fields:
@@ -171,16 +182,18 @@ enums:
       Point: 5
       Enum: 6
       FilePath: 7
-      EntityRef: 8
-      ArrayInt: 9
-      ArrayFloat: 10
-      ArrayBool: 11
-      ArrayString: 12
-      ArrayColor: 13
-      ArrayPoint: 14
-      ArrayEnum: 15
-      ArrayFilePath: 16
-      ArrayEntityRef: 17
+      Tile: 8
+      EntityRef: 9
+      ArrayInt: 10
+      ArrayFloat: 11
+      ArrayBool: 12
+      ArrayString: 13
+      ArrayColor: 14
+      ArrayPoint: 15
+      ArrayEnum: 16
+      ArrayFilePath: 17
+      ArrayTile: 18
+      ArrayEntityRef: 19
 
   - name: Dir
     desc: |

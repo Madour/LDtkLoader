@@ -1,6 +1,7 @@
 // Created by Modar Nasser on 11/11/2020.
 
 #include "LDtkLoader/DataTypes.hpp"
+#include "LDtkLoader/Tileset.hpp"
 
 #include <utility>
 
@@ -62,6 +63,16 @@ auto ldtk::FilePath::extension() const -> std::string
         return "";
     }
     return f.substr(i + 1);
+}
+
+TileRect::TileRect(const Tileset& tileset, IntRect bounds_)
+: bounds(bounds_)
+, m_tileset(&tileset)
+{}
+
+auto TileRect::getTileset() const -> const Tileset&
+{
+    return *m_tileset;
 }
 
 IID::IID(std::string iid) : m_iid(std::move(iid))

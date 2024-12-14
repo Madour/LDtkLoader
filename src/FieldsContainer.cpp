@@ -106,6 +106,19 @@ void FieldsContainer::parseArrayField(
         }
         addArrayField(name, values);
     }
+    else if (type == "Array<Tile>") {
+        std::vector<Field<TileRect>> values;
+        for (const auto& v : field) {
+            const auto& tileset = w->getTileset(v["tilesetUid"].get<int>());
+            const auto bounds_x = v["x"].get<int>();
+            const auto bounds_y = v["y"].get<int>();
+            const auto bounds_w = v["w"].get<int>();
+            const auto bounds_h = v["h"].get<int>();
+            auto bounds = IntRect{bounds_x, bounds_y, bounds_w, bounds_h};
+            v.is_null() ? values.emplace_back(null) : values.emplace_back(TileRect{tileset, bounds});
+        }
+        addArrayField(name, values);
+    }
     else if (type == "Array<EntityRef>") {
         std::vector<Field<EntityRef>> values;
         values.reserve(field.size());
@@ -160,6 +173,15 @@ void FieldsContainer::parseValueField(
     }
     else if (type == "FilePath") {
         field.is_null() ? addField<FilePath>(name, null) : addField<FilePath>(name, field.get<std::string>());
+    }
+    else if (type == "Tile") {
+        const auto& tileset = w->getTileset(field["tilesetUid"].get<int>());
+        const auto bounds_x = field["x"].get<int>();
+        const auto bounds_y = field["y"].get<int>();
+        const auto bounds_w = field["w"].get<int>();
+        const auto bounds_h = field["h"].get<int>();
+        auto bounds = IntRect{bounds_x, bounds_y, bounds_w, bounds_h};
+        field.is_null() ? addField<TileRect>(name, null) : addField<TileRect>(name, {tileset, bounds});
     }
     else if (type == "EntityRef") {
         if (field.is_null()) {
