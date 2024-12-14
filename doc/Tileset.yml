@@ -34,6 +34,10 @@ classes:
         desc: Padding in pixels to the first row and column of tiles in the Tileset.
 
     methods:
+      getTileIdAt:
+        - decl: ldtk::Tileset::getTileIdAt(int pos_x, int pos_y) const -> int
+          desc: Returns the tile id at the given position in pixels.
+
       getTileTexturePos:
         - decl: ldtk::Tileset::getTileTexturePos(int tile_id) const -> ldtk::IntPoint
           desc: Returns the texture coordinates of the Tile ID.

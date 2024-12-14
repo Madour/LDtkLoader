@@ -29,6 +29,8 @@ namespace ldtk {
         const int spacing;
         const int padding;
 
+        auto getTileIdAt(int pos_x, int pos_y) const -> int;
+
         auto getTileTexturePos(int tile_id) const -> IntPoint;
         auto getTileCustomData(int tile_id) const -> const std::string&;
         auto getTileEnumTags(int tile_id) const -> const std::vector<ref_wrapper<const EnumValue>>&;
