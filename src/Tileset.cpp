@@ -45,8 +45,11 @@ Tileset::Tileset(const nlohmann::json& j, Project* p)
 
 auto Tileset::getTileIdAt(int pos_x, int pos_y) const -> int
 {
-    auto grid_width = texture_size.x / tile_size;
-    grid_width += (texture_size.x % tile_size) > 0 ? 1 : 0;
+    const auto effective_tex_width = texture_size.x - padding * 2 + spacing;
+    const auto effective_tile_size = tile_size + spacing;
+
+    auto grid_width = effective_tex_width / effective_tile_size;
+    grid_width += (effective_tex_width % effective_tile_size) > 0 ? 1 : 0;
 
     auto col = (pos_x - padding) / (tile_size + spacing);
     auto row = (pos_y - padding) / (tile_size + spacing);
@@ -56,8 +59,11 @@ auto Tileset::getTileIdAt(int pos_x, int pos_y) const -> int
 
 auto Tileset::getTileTexturePos(int tile_id) const -> IntPoint
 {
-    auto grid_width = texture_size.x / tile_size;
-    grid_width += (texture_size.x % tile_size) > 0 ? 1 : 0;
+    const auto effective_tex_width = texture_size.x - padding * 2 + spacing;
+    const auto effective_tile_size = tile_size + spacing;
+
+    auto grid_width = effective_tex_width / effective_tile_size;
+    grid_width += (effective_tex_width % effective_tile_size) > 0 ? 1 : 0;
 
     return {
         padding + (tile_id % grid_width) * (tile_size + spacing),
