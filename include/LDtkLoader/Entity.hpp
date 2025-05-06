@@ -29,7 +29,7 @@ namespace ldtk {
         Entity(const Entity&) = delete;
         Entity(Entity&&) noexcept = default;
         auto operator=(const Entity&) -> Entity& = delete;
-        auto operator=(Entity&&) -> Entity& = default;
+        auto operator=(Entity&&) -> Entity& = delete;
 
         const Layer* const layer;
         const IID iid;

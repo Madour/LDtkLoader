@@ -24,7 +24,7 @@ namespace ldtk {
         World(const World&) = delete;
         World(World&&) noexcept = default;
         auto operator=(const World&) -> World& = delete;
-        auto operator=(World&&) -> World& = default;
+        auto operator=(World&&) -> World& = delete;
 
         const IID iid;
 

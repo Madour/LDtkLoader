@@ -53,7 +53,7 @@ namespace ldtk {
         Enum(const Enum&) = delete;
         Enum(Enum&&) noexcept = default;
         auto operator=(const Enum&) -> Enum& = delete;
-        auto operator=(Enum&&) -> Enum& = default;
+        auto operator=(Enum&&) -> Enum& = delete;
 
         const std::string name;
         const int uid;
