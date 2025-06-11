@@ -47,7 +47,6 @@ World::World(const nlohmann::json& j, Project* p, const FileLoader& file_loader,
 
     // fill levels neighbours
     for (auto& level : m_levels) {
-        level.m_neighbours_by_dir.insert({Dir::None, {}});
         for (const auto& iid : level.m_neighbours_iid) {
             level.m_neighbours.emplace_back(getLevel(iid));
         }

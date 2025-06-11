@@ -27,6 +27,19 @@ Level::Level(const nlohmann::json& j, World* w)
         m_layers.emplace_back(level, w, this);
     }
 
+    m_neighbours_by_dir.insert({Dir::None, {}});
+    m_neighbours_by_dir.insert({Dir::North, {}});
+    m_neighbours_by_dir.insert({Dir::NorthEast, {}});
+    m_neighbours_by_dir.insert({Dir::East, {}});
+    m_neighbours_by_dir.insert({Dir::SouthEast, {}});
+    m_neighbours_by_dir.insert({Dir::South, {}});
+    m_neighbours_by_dir.insert({Dir::SouthWest, {}});
+    m_neighbours_by_dir.insert({Dir::West, {}});
+    m_neighbours_by_dir.insert({Dir::NorthWest, {}});
+    m_neighbours_by_dir.insert({Dir::Over, {}});
+    m_neighbours_by_dir.insert({Dir::Under, {}});
+    m_neighbours_by_dir.insert({Dir::Overlap, {}});
+
     m_neighbours_iid_by_dir.emplace(Dir::None, 0);
     m_neighbours_iid_by_dir.emplace(Dir::North, 0);
     m_neighbours_iid_by_dir.emplace(Dir::NorthEast, 0);
@@ -105,6 +118,8 @@ auto Level::allNeighbours() const -> const std::vector<ref_wrapper<const Level>>
 
 auto Level::getNeighbours(const Dir& direction) const -> const std::vector<ref_wrapper<const Level>>&
 {
+    if (direction == Dir::None)
+        return {};
     return m_neighbours_by_dir.at(direction);
 }
 
