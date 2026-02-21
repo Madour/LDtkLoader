@@ -325,17 +325,26 @@ void Project::load(const nlohmann::json& j, const FileLoader& file_loader, bool 
     if (j.contains("toc")) {
         for (const auto& toc_entry : j["toc"]) {
             auto entity_name = toc_entry["identifier"].get<std::string>();
-            for (const auto& ref : toc_entry["instances"]) {
+            auto createAndAddEntityRef = [&](const nlohmann::json& jsonEntry) {
                 auto entity_ref = EntityRef(
-                    IID(ref["entityIid"]),
-                    IID(ref["layerIid"]),
-                    IID(ref["levelIid"]),
-                    IID(ref["worldIid"])
+                    IID(jsonEntry["entityIid"]),
+                    IID(jsonEntry["layerIid"]),
+                    IID(jsonEntry["levelIid"]),
+                    IID(jsonEntry["worldIid"])
                 );
                 resolveEntityRef(entity_ref);
 
                 m_toc.push_back(entity_ref);
                 m_toc_map[entity_name].push_back(entity_ref);
+            };
+
+            for (const auto& ref : toc_entry["instances"]) {
+                createAndAddEntityRef(ref);
+            }
+
+            for (const auto& ref: toc_entry["instancesData"]) {
+                const auto& iids = ref["iids"];
+                createAndAddEntityRef(iids);
             }
         }
     }
