@@ -40,6 +40,9 @@ namespace ldtk {
 
         auto getOffset() const -> const IntPoint&;
 
+        auto getParallaxFactor() const -> const FloatPoint&;
+        auto isParallaxScaling() const -> bool;
+
         auto getOpacity() const -> float;
 
         auto hasTileset() const -> bool;

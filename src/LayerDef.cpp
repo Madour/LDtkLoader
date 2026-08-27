@@ -18,6 +18,8 @@ LayerDef::LayerDef(const nlohmann::json& j, Project* p)
 , opacity(j["displayOpacity"].get<float>())
 , offset(j["pxOffsetX"].get<int>(), j["pxOffsetY"].get<int>())
 , tile_pivot(j["tilePivotX"].get<float>(), j["tilePivotY"].get<float>())
+, parallax_factor(j["parallaxFactorX"].get<float>(), j["parallaxFactorY"].get<float>())
+, parallax_scaling(j["parallaxScaling"].get<bool>())
 , m_tileset(j["tilesetDefUid"].is_null() ? nullptr : &p->getTileset(j["tilesetDefUid"].get<int>()))
 {
     if (type == LayerType::IntGrid) {

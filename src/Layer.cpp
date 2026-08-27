@@ -97,6 +97,16 @@ auto Layer::getOffset() const -> const IntPoint&
     return m_total_offset;
 }
 
+auto Layer::getParallaxFactor() const -> const FloatPoint&
+{
+    return m_definition->parallax_factor;
+}
+
+auto Layer::isParallaxScaling() const -> bool
+{
+    return m_definition->parallax_scaling;
+}
+
 auto Layer::getOpacity() const -> float
 {
     return m_opacity;

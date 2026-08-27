@@ -37,6 +37,14 @@ classes:
         - decl: ldtk::Layer::getOffset() const -> const ldtk::IntPoint&
           desc: Returns Layer total offset in pixels.
 
+      getParallaxFactor:
+        - decl: ldtk::Layer::getParallaxFactor() const -> const ldtk::FloatPoint&
+          desc: Returns parallax factor of the Layer, between -1 and 1. Affects the scrolling speed of the Layer.
+
+      isParallaxScaling:
+        - decl: ldtk::Layer::isParallaxScaling() const -> bool
+          desc: Returns `true` if the Layer should be scaled up/down accordingly with the parallax factor.
+
       getOpacity:
         - decl: ldtk::Layer::getOpacity() const -> float
           desc: Returns Layer opacity.
